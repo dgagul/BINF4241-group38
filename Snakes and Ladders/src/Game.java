@@ -1,87 +1,122 @@
 import java.util.Scanner;
+import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.Random;
 
 
 // Initialize Game, keep track of game status and player queue
 public class Game {
-    String winner;
+    Player winner;
     boolean isfinished;
     int boardsize;
+    Square[] squares;
     ArrayBlockingQueue<String> playerqueue = new ArrayBlockingQueue<String>(4);
-
+    ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<Player>(4);
 
 
     Game(int boardsize, String name1, String name2, String name3, String name4) {
         // set isfinished to false and winner to null
-        isfinished = false;
-        winner = null;
+        this.isfinished = false;
+        this.winner = null;
         this.boardsize = boardsize;
+        this.squares = new Square[boardsize];
 
-        //initialize Players called player1,player2,player3,player4
+        // initialize Players called player1,player2,player3,player4
         // and playerqueue
         // and sets position of all players to 1
-        // Player class needs to have attrubtes: name and position
-        if (!name1.equals("None")){
-            playerqueue.add(name1);
-            Player player1 = new Player();
-            player1.name = name1;
-            player1.position = 1;}
-
-        if (!name2.equals("None")){
-            playerqueue.add(name2);
-            Player player2 = new Player();
-            player2.name = name2;
-            player2.position = 1;
-
-            if(!name3.equals("None")){
-                playerqueue.add(name3);
-                Player player3 = new Player();
-                player3.name = name3;
-                player3.position = 1;}
-
-            if (!name4.equals("None")){
-                playerqueue.add(name4);
-                Player player4 = new Player();
-                player4.name = name2;
-                player4.position = 1;}
-
-            // Initializes Squares
-            // sets isoccupied of firstsquare to true
-            // sets isstart of firstsquare to true
-            // sets isend of lastsquare to true
-            // this means that the constructor of the Square class has to set all
-            // attributes to false initially
-
-            for (int i = 1; i<= boardsize; i++) {
-                Square square = new Squares();
-                square.number = i;
-                if (i == 1) {
-                    square.isoccupied = true;
-                    square.isstart = true;
-                }
-
-                if (i == boardsize) {
-                    square.isend = true; }
-            }
-
-            // Set random Snadders (random if its a ladder or a snadder)
-            // all 5 Squares starting by  4and ending by -4
-            // Snadder class needs to have an attribute start and end
-            // Snadder.start is declared in this construcotr
-            // .end needs to be calculated in Snadder class
-            // when it is a ladder make square.number + 2
-            // when it is a snake make square.number - 2
-            for (int j=4; j < boardsize -4; j+= 5){
-                Snadder snadder = new Snadder();
-                snadder.start = j;
-                Random random = new Random();
-                ladderorsnadder = random.nextBoolean();
-                snadder.isladder = ladderorsnadder;
-                snadder.issnake = !ladderorsnadder;}
-
+        // Player class needs to have attributes: name and position
+        if (!name1.equals("None")) {
+            Player player1 = new Player(name1, 1);
+            playerQueue.add(player1);
         }
 
+        if (!name2.equals("None")) {
+            Player player2 = new Player(name2, 1);
+            playerQueue.add(player2);
+        }
+
+        if (!name3.equals("None")) {
+            Player player3 = new Player(name3, 1);
+            playerQueue.add(player3);
+        }
+
+        if (!name4.equals("None")) {
+            Player player4 = new Player(name4, 1);
+            playerQueue.add(player4);
+        }
+
+        // Initializes Squares
+        // sets isoccupied of firstsquare to true
+        // sets isstart of firstsquare to true
+        // sets isend of lastsquare to true
+        // this means that the constructor of the Square class has to set all
+        // attributes to false initially
+
+        //Square[] squares = new Square[boardsize];
+
+        for (int i = 0; i < boardsize; i++) {
+            squares[i].number = i + 1;
+            if (i + 1 == 1) {
+                squares[i].isoccupied = true;
+                squares[i].isstart = true;
+            }
+
+            if (i + 1 == boardsize - 1) {
+                squares[i].isend = true;
+            }
+        }
+
+        // Set random Snadders (random if its a ladder or a snadder)
+        // all 5 Squares starting by  4and ending by -4
+        // Snadder class needs to have an attribute start and end
+        // Snadder.start is declared in this construcotr
+        // .end needs to be calculated in Snadder class
+        // when it is a ladder make square.number + 2
+        // when it is a snake make square.number - 2
+        for (int j = 4; j < boardsize - 4; j += 5) {
+            Random random = new Random();
+            boolean ladderorsnadder = random.nextBoolean();
+            Snadder snadder = new Snadder(j, ladderorsnadder);
+            squares[j] = snadder;
+        }
+
+        String line = "Initial state: [1 <" + name1 + "><" + name2 + ">";
+        switch (playerQueue.size()){
+            case 3:
+                line += "<" + name3 + ">";
+                break;
+            case 4:
+                line += "<" + name4 + ">";
+                break;
+            default:
+                break;
+        }
+        line += "]";
+        for (int k = 1; k < boardsize; k++){
+            line += "[";
+            if (squares[k].isSnadder){
+                line += k + "->" + squares[k].end;
+            }
+            line += "]";
+        }
+    }
+
+    public void play() {
+        // Todo: Console output of state after every round
+        Die die = new Die();
+        while (!isfinished) {
+            Player currentPlayer = playerQueue.poll();
+            int rolled = die.roll();
+            assert currentPlayer != null;
+            currentPlayer.move(rolled, squares);
+            if (squares[currentPlayer.position].isend == true) {
+                winner = currentPlayer;
+                isfinished = true;
+            } else {
+                playerQueue.add(currentPlayer);
+            }
+        }
+    }
 
 
     /*public static void main(String args[]){
@@ -107,7 +142,6 @@ public class Game {
             // call Game constructer by creating an object actualgame
             Game actualgame = new Game(boardsize, name1, name2, name3, name4);*/
 
-    }
-
+    // }
 
 }
