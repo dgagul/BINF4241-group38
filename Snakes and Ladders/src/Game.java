@@ -6,12 +6,11 @@ import java.util.Random;
 
 // Initialize Game, keep track of game status and player queue
 public class Game {
-    Player winner;
-    boolean isfinished;
-    int boardsize;
-    Square[] squares;
-    ArrayBlockingQueue<String> playerqueue = new ArrayBlockingQueue<String>(4);
-    ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<Player>(4);
+    private Player winner;
+    private boolean isfinished;
+    private int boardsize;
+    private Square[] squares;
+    private ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<Player>(4);
 
 
     Game(int boardsize, String name1, String name2, String name3, String name4) {
@@ -102,14 +101,14 @@ public class Game {
     }
 
     public void play() {
-        // Todo: Console output of state after every round
         Die die = new Die();
+        // Todo: output state
         while (!isfinished) {
             Player currentPlayer = playerQueue.poll();
             int rolled = die.roll();
             assert currentPlayer != null;
             currentPlayer.move(rolled, squares);
-            if (squares[boardsize].isOccupied == true) {
+            if (squares[boardsize].isOccupied) {
                 winner = currentPlayer;
                 isfinished = true;
             } else {

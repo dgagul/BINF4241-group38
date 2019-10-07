@@ -6,9 +6,9 @@ public class Square {
 
     public Square(int i)
     {
-        isSnadder = false;
-        isOccupied = false;
-        number = i;
+        this.isSnadder = false;
+        this.isOccupied = false;
+        this.number = i;
     };
 
 };

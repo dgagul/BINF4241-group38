@@ -6,9 +6,9 @@ public class Snadder extends Square {
         super(i);
         isSnadder = true;
         if (ladderorsnadder) {
-            end = i + 2;
+            this.end = i + 2;
         } else {
-            end = i - 2;
+            this.end = i - 2;
         }
 
     }
