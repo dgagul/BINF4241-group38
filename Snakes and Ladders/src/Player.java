@@ -1,5 +1,4 @@
 public class Player {
-    public int id;
     public String name;
     public int position;
     boolean isWinner;
@@ -15,13 +14,13 @@ public class Player {
         if (position != 0){                                              // if new position was not occupied
             if (squares[position].isSnadder){                            // if new position is bottom of Ladder?
                 squares[position].isOccupied = false;                    // position is being left
-                position = landHereOrGoHome(Snadder.end, squares);       // is new position (after ladder) occupied?
+                position = landHereOrGoHome(squares[position].end, squares);       // is new position (after ladder) occupied?
             }
         }
     }
 
     // Helper method that checks whether player can land at newpos or has to go to square 1
-    public int landHereOrGoHome(int newpos, Square[] squares){
+    private int landHereOrGoHome(int newpos, Square[] squares){
         squares[position].occupant = null;
         if (squares[newpos].isOccupied){
             squares[0].occupant = name;

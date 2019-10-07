@@ -55,15 +55,8 @@ public class Game {
         //Square[] squares = new Square[boardsize];
 
         for (int i = 0; i < boardsize; i++) {
-            squares[i].number = i + 1;
-            if (i + 1 == 1) {
-                squares[i].isoccupied = true;
-                squares[i].isstart = true;
-            }
-
-            if (i + 1 == boardsize - 1) {
-                squares[i].isend = true;
-            }
+            Square square = new Square(i + 1);
+            squares[i + 1] = square;
         }
 
         // Set random Snadders (random if its a ladder or a snadder)
@@ -73,15 +66,22 @@ public class Game {
         // .end needs to be calculated in Snadder class
         // when it is a ladder make square.number + 2
         // when it is a snake make square.number - 2
-        for (int j = 4; j < boardsize - 4; j += 5) {
-            Random random = new Random();
-            boolean ladderorsnadder = random.nextBoolean();
-            Snadder snadder = new Snadder(j, ladderorsnadder);
-            squares[j] = snadder;
+        if (boardsize > 9) {
+            for (int j = 4; j < boardsize - 4; j += 5) {
+                Random random = new Random();
+                boolean isladder = random.nextBoolean();
+                Snadder snadder = new Snadder(j, isladder);
+                squares[j] = snadder;
+            }
         }
 
+        else if (boardsize>4){
+            Snadder snadder = new Snadder(2, true);
+            }
+
+
         String line = "Initial state: [1 <" + name1 + "><" + name2 + ">";
-        switch (playerQueue.size()){
+        switch (playerQueue.size()) {
             case 3:
                 line += "<" + name3 + ">";
                 break;
@@ -92,9 +92,9 @@ public class Game {
                 break;
         }
         line += "]";
-        for (int k = 1; k < boardsize; k++){
+        for (int k = 1; k < boardsize; k++) {
             line += "[";
-            if (squares[k].isSnadder){
+            if (squares[k].isSnadder) {
                 line += k + "->" + squares[k].end;
             }
             line += "]";
@@ -109,7 +109,7 @@ public class Game {
             int rolled = die.roll();
             assert currentPlayer != null;
             currentPlayer.move(rolled, squares);
-            if (squares[currentPlayer.position].isend == true) {
+            if (squares[boardsize].isOccupied == true) {
                 winner = currentPlayer;
                 isfinished = true;
             } else {
