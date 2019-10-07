@@ -80,22 +80,22 @@ public class Game {
     }
 
     public StringBuilder calculateBoard() {
-        for (int i = 0; i < boardsize; i++) {
-            boardview.append("[" + squares[i].number);
-            if (squares[i].isOccupied){
-                // problem with StartSquare multiple occupants
-                boardview.append("<" + squares[i].occupant + ">" + "] ");
+        for (int i = 0; i < boardsize; i++) {                                   // iterating through the squares array
+            boardview.append("[" + squares[i].number);                          // add  [1
+            if (squares[i].isOccupied){                                         // if Square is occupied
+                // problem with StartSquare multiple occupants                  //
+                boardview.append("<" + squares[i].occupant + ">" + "] ");       // add  <Jack>]    -> [1<Jack>]
             }
             // problem with arrow up or down
-            else if (squares[i].isLadder) {
-                // squares.end not reachable, even if it is a Snadder
-                boardview.append("->" + squares[i].end + "] ");
+            else if (squares[i].isLadder) {                                     // else if Square is a Ladder
+                // squares.end not reachable, even if it is a Snadder           //
+                boardview.append("->" + squares[i].end + "] ");                 // add  ->6]       -> [4->6]
             }
-            else if (squares[i].isSnake) {
-                boardview.append("<-" + squares[i].end + "] ");
+            else if (squares[i].isSnake) {                                      // else if Square is a Snake
+                boardview.append(squares[i].end + "<-" + "] ");                 // add  6<-]       -> [6<-8]
             }
-            else {
-                boardview.append("] ");
+            else {                                                              //
+                boardview.append("] ");                                         // add  ]          -> [1]
             }
         }
         return boardview;
@@ -104,17 +104,19 @@ public class Game {
 
     public void play() {
         Die die = new Die();
-        // output state
+        // output state at initial state
         System.out.println("Initial state:\t" + calculateBoard());
         while (!isfinished) {
             Player currentPlayer = playerQueue.poll();
             int rolled = die.roll();
             assert currentPlayer != null;
+            // output state before every move
             System.out.println(currentPlayer.name + " rolls " + rolled + ":\t" + calculateBoard());
             currentPlayer.move(rolled, squares);
             if (squares[boardsize].isOccupied) {
                 winner = currentPlayer;
                 isfinished = true;
+                // output state when game is finished
                 System.out.println("Final State:\t" + calculateBoard());
                 System.out.println(currentPlayer.name + " wins!");
             } else {
