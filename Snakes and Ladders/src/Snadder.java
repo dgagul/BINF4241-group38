@@ -2,10 +2,10 @@ public class Snadder extends Square {
     boolean isSnadder;
     int end;
 
-    Snadder(int i, boolean ladderorsnadder) {
+    Snadder(int i, boolean isLadder) {
         super(i);
         isSnadder = true;
-        if (ladderorsnadder) {
+        if (isLadder) {
             this.end = i + 2;
         } else {
             this.end = i - 2;
