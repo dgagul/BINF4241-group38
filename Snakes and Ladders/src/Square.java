@@ -9,6 +9,6 @@ public class Square {
         this.isSnadder = false;
         this.isOccupied = false;
         this.number = i;
-    };
+    }
 
-};
+}
