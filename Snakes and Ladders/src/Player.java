@@ -29,7 +29,7 @@ public class Player {
     // Helper method that checks whether player can land at newpos or has to go to square 1
     private int landHereOrGoHome(int newPos, Square[] squares) {
         squares[position].isOccupied = false;
-        if(!squares[position].occupants.isEmpty() && (squares[position].occupants.contains(name))){
+        if(!squares[position].occupants.isEmpty()){
             squares[position].occupants.remove(0);
         }
         if (squares[newPos].isOccupied) {
