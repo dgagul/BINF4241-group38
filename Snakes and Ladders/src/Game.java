@@ -1,3 +1,4 @@
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.Random;
@@ -37,27 +38,41 @@ public class Game {
             int rolled = die.roll();
             assert currentPlayer != null;
             currentPlayer.move(rolled, squares);
-            if (squares[boardsize-1].isOccupied) {
+            if (squares[boardsize - 1].isOccupied) {
                 winner = currentPlayer;
                 isfinished = true;
             } else {
                 playerQueue.add(currentPlayer);
             }
             String line = currentPlayer.name + " rolls " + rolled;
-            for (int k = 0; k<boardsize; k++){
-                int i = k+1;
-                line += "  [" + i + "";
+            line += " [1";
+            for (String name : squares[0].occupants){
+                line += "<" + name + ">";
+            }
+            line += "]";
+            for (int k = 1; k < boardsize; k++) {
+                int i = k + 1;
+                line += " [";
                 if (squares[k].isSnadder) {
                     int j = squares[k].end + 1;
-                    line += "->" + j;
-                }
-                else if(squares[k].isOccupied){
-                    line += "<" + squares[k].occupant + ">";
+                    if (squares[k].end < k) {
+                        line += j + "<-" + i;
+                    } else {
+                        line += i + "->" + j;
+                    }
+                } else if (squares[k].isOccupied) {
+                    line += i;
+                    for (String name : squares[k].occupants) {
+                        line += "<" + name + ">";
+                    }
+                    }else {
+                    line += i;
                 }
                 line += "]";
             }
             System.out.println(line);
         }
+        System.out.println(winner.name + " wins!");
         // Todo: output final state
     }
 
@@ -83,14 +98,14 @@ public class Game {
         }
     }
 
-    private void initializeBoard(){
+    private void initializeBoard() {
         for (int i = 0; i < boardsize; i++) {
             Square square = new Square(i);
             squares[i] = square;
         }
     }
 
-    private void setSnadders(){
+    private void setSnadders() {
         if (boardsize > 9) {
             for (int j = 3; j < boardsize - 4; j += 5) {
                 Random random = new Random();
@@ -102,7 +117,7 @@ public class Game {
         }
     }
 
-    private void printInitialState(String name1, String name2, String name3, String name4){
+    private void printInitialState(String name1, String name2, String name3, String name4) {
         String line = "Initial state: [1 <" + name1 + "><" + name2 + ">";
         switch (playerQueue.size()) {
             case 3:
@@ -119,9 +134,10 @@ public class Game {
             line += "[";
             if (squares[k].isSnadder) {
                 int i = squares[k].end + 1;
-                line += k+1 + "->" + i;
+                line += k + 1 + "->" + i;
+            } else {
+                line += k + 1;
             }
-            else{line += k+1;}
             line += "]";
         }
         System.out.println(line);
@@ -143,11 +159,12 @@ public class Game {
         System.out.print("Please enter the name of player 3. If you don't want more players please type None. ");
         name3 = name.nextLine();
 
-        if (!name3.equals("None")){
+        if (!name3.equals("None")) {
             System.out.print("Please enter the name of player 4. If you don't want more players please type None. ");
             name4 = name.nextLine();
+        } else {
+            name4 = "None";
         }
-        else{name4 = "None"; }
 
         System.out.print("Please enter the board size");
         int boardsize = name.nextInt();
