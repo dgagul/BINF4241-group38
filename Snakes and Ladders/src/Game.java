@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.Random;
 
@@ -9,31 +8,23 @@ public class Game {
     private Player winner;
     private boolean isfinished;
     private int boardsize;
-    private Square[] squares;
-    private ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<Player>(4);
+    private Object[] squares;
+    private ArrayBlockingQueue<Player> playerQueue;
     private StringBuilder boardview;
 
 
-    Game(int boardsize, String name1, String name2, String name3, String name4) {
+    public Game(Board board, String name1, String name2, String name3, String name4) {
         // set isfinished to false and winner to null
-        this.isfinished = false;
         this.winner = null;
-        this.boardsize = boardsize;
-        this.squares = new Square[boardsize];
+        this.isfinished = false;
+        this.playerQueue = new ArrayBlockingQueue<Player>(4);
 
-        // initialize Players called player1,player2,player3,player4
-        // and playerqueue
-        // and sets position of all players to 1
-        // Player class needs to have attributes: name and position
-        if (!name1.equals("None")) {
-            Player player1 = new Player(name1, 1);
-            playerQueue.add(player1);
-        }
+        // Create Players
+        Player player1 = new Player(name1, 1);
+        playerQueue.add(player1);
 
-        if (!name2.equals("None")) {
-            Player player2 = new Player(name2, 1);
-            playerQueue.add(player2);
-        }
+        Player player2 = new Player(name2, 1);
+        playerQueue.add(player2);
 
         if (!name3.equals("None")) {
             Player player3 = new Player(name3, 1);
@@ -45,89 +36,33 @@ public class Game {
             playerQueue.add(player4);
         }
 
-        // Initializes Squares
-        // sets isoccupied of firstsquare to true
-        // sets isstart of firstsquare to true
-        // sets isend of lastsquare to true
-        // this means that the constructor of the Square class has to set all
-        // attributes to false initially
-
-        //Square[] squares = new Square[boardsize];
-
-        for (int i = 0; i < boardsize; i++) {
-            Square square = new Square(i + 1);
-            squares[i] = square;
-        }
-
-        // Set random Snadders (random if its a ladder or a snadder)
-        // all 5 Squares starting by  4and ending by -4
-        // Snadder class needs to have an attribute start and end
-        // Snadder.start is declared in this construcotr
-        // .end needs to be calculated in Snadder class
-        // when it is a ladder make square.number + 2
-        // when it is a snake make square.number - 2
-        if (boardsize > 9) {
-            for (int j = 4; j < boardsize - 4; j += 5) {
-                Random random = new Random();
-                boolean isladder = random.nextBoolean();
-                Snadder snadder = new Snadder(j, isladder);
-                squares[j] = snadder;
-            }
-        } else if (boardsize > 4) {
-            Snadder snadder = new Snadder(2, true);
-        }
+        squares = board.initializeSquares();
+        board.setSnakesAndLadders();
 
     }
 
-    public StringBuilder calculateBoard() {
-
-        for (int i = 0; i < boardsize; i++) {
-            StringBuilder boardview = new StringBuilder();
-            boardview.append("[");
-            if (squares[i].isOccupied){
-                // problem with StartSquare multiple occupants
-                for (int k = ; ; k--)
-                boardview.append(squares[i].number + "<" + squares[i].occupant + ">" + "] ");
-            }
-            // problem with arrow up or down
-            else if (squares[i].isLadder) {
-                // squares.end not reachable, even if it is a Snadder
-                boardview.append(squares[i].number + "->" + squares[i].end + "] ");
-            }
-            else if (squares[i].isSnake) {
-                boardview.append(squares[i].end + "<-" + squares[i].number + "] ");
-            }
-            else {
-                boardview.append("] ");
-            }
-        }
-        return boardview;
-    }
-
-
-    public void play() {
+    public void play(Board board) {
         Die die = new Die();
         // output state at initial state
-        System.out.println("Initial state:\t" + calculateBoard());
+        System.out.println("Initial state:\t" + board.calculateBoard());
         while (!isfinished) {
             Player currentPlayer = playerQueue.poll();
             int rolled = die.roll();
             assert currentPlayer != null;
             // output state before every move
-            System.out.println(currentPlayer.name + " rolls " + rolled + ":\t" + calculateBoard());
+            System.out.println(currentPlayer.name + " rolls " + rolled + ":\t" + board.calculateBoard());
             currentPlayer.move(rolled, squares);
-            if (squares[boardsize].isOccupied) {
+            if (LastSquare.isOccupied) {
                 winner = currentPlayer;
                 isfinished = true;
                 // output state when game is finished
-                System.out.println("Final State:\t" + calculateBoard());
+                System.out.println("Final State:\t" + board.calculateBoard());
                 System.out.println(currentPlayer.name + " wins!");
             } else {
                 playerQueue.add(currentPlayer);
             }
         }
     }
-
 
     public static void main(String args[]){
 
@@ -148,13 +83,13 @@ public class Game {
 
             System.out.print("Please enter the board size");
             int boardsize = name.nextInt();
+            Board board = new Board(boardsize);
 
             // call Game constructer by creating an object actualgame
-            Game actualgame = new Game(boardsize, name1, name2, name3, name4);
+            Game actualgame = new Game(board, name1, name2, name3, name4);
 
             // start the game with the play() method
-            actualgame.play();
-
+            actualgame.play(board);
     }
 
 }

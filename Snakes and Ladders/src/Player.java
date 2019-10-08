@@ -1,14 +1,13 @@
 public class Player {
-    public String name;
-    public int position;
-    boolean isWinner;
+    String name;
+    int position;
 
     public Player(String newName, int pos){
         name = newName;
         position = pos;
     }
 
-    public void move(int delta, Square[] squares){
+    public void move(int delta, Object[] squares){
         int newpos = position + delta;                                   // newpos is where the player lands
         position = landHereOrGoHome(newpos, squares);                    // is new position occupied?
         if (position != 0){                                              // if new position was not occupied
@@ -20,7 +19,7 @@ public class Player {
     }
 
     // Helper method that checks whether player can land at newpos or has to go to square 1
-    private int landHereOrGoHome(int newpos, Square[] squares){
+    private int landHereOrGoHome(int newpos, Object[] squares){
         squares[position].occupant = null;
         if (squares[newpos].isOccupied){
             squares[0].occupant = name;

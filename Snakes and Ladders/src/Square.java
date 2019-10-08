@@ -1,14 +1,21 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Square {
-    boolean isOccupied;
     boolean isSnadder;
+    boolean isOccupied;
     int number;
-    List occupants = new ArrayList();
+    List<String> occupants;
 
     public Square(int i)
     {
         this.isSnadder = false;
         this.isOccupied = false;
         this.number = i;
+        this.occupants = new ArrayList(4);
     }
-
 }
+
+
+
+
