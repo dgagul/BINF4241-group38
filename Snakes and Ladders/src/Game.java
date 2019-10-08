@@ -80,22 +80,25 @@ public class Game {
     }
 
     public StringBuilder calculateBoard() {
-        for (int i = 0; i < boardsize; i++) {                                   // iterating through the squares array
-            boardview.append("[" + squares[i].number);                          // add  [1
-            if (squares[i].isOccupied){                                         // if Square is occupied
-                // problem with StartSquare multiple occupants                  //
-                boardview.append("<" + squares[i].occupant + ">" + "] ");       // add  <Jack>]    -> [1<Jack>]
+
+        for (int i = 0; i < boardsize; i++) {
+            StringBuilder boardview = new StringBuilder();
+            boardview.append("[");
+            if (squares[i].isOccupied){
+                // problem with StartSquare multiple occupants
+                for (int k = ; ; k--)
+                boardview.append(squares[i].number + "<" + squares[i].occupant + ">" + "] ");
             }
             // problem with arrow up or down
-            else if (squares[i].isLadder) {                                     // else if Square is a Ladder
-                // squares.end not reachable, even if it is a Snadder           //
-                boardview.append("->" + squares[i].end + "] ");                 // add  ->6]       -> [4->6]
+            else if (squares[i].isLadder) {
+                // squares.end not reachable, even if it is a Snadder
+                boardview.append(squares[i].number + "->" + squares[i].end + "] ");
             }
-            else if (squares[i].isSnake) {                                      // else if Square is a Snake
-                boardview.append(squares[i].end + "<-" + "] ");                 // add  6<-]       -> [6<-8]
+            else if (squares[i].isSnake) {
+                boardview.append(squares[i].end + "<-" + squares[i].number + "] ");
             }
-            else {                                                              //
-                boardview.append("] ");                                         // add  ]          -> [1]
+            else {
+                boardview.append("] ");
             }
         }
         return boardview;

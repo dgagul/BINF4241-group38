@@ -2,7 +2,7 @@ public class Square {
     boolean isOccupied;
     boolean isSnadder;
     int number;
-    String occupant;
+    List occupants = new ArrayList();
 
     public Square(int i)
     {
