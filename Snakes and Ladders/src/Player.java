@@ -20,13 +20,20 @@ public class Player {
 
     // Helper method that checks whether player can land at newpos or has to go to square 1
     private int landHereOrGoHome(int newpos, Object[] squares){
-        squares[position].occupant = null;
+        // Todo: check this method
+        for (i = 0; i < squares[position].occupant.size(); i++) {
+            if (squares[position].occupant[i] = Game.currentPlayer) {
+                squares[position].occupant = null;
+            }
+        }
         if (squares[newpos].isOccupied){
+            // Todo: add Playername to !Array! occupant
             squares[0].occupant = name;
             return 0;
         }
         else{
             squares[newpos].isOccupied = true;
+            // Todo: add Playername to !Array! occupant
             squares[newpos].occupant = name;
             return newpos;
         }

@@ -5,14 +5,14 @@ public class Square {
     boolean isSnadder;
     boolean isOccupied;
     int number;
-    List<String> occupants;
+    List[] occupants;
 
     public Square(int i)
     {
         this.isSnadder = false;
         this.isOccupied = false;
         this.number = i;
-        this.occupants = new ArrayList(4);
+        this.occupants = new ArrayList[4];
     }
 }
 
