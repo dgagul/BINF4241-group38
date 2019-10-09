@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.Random;
 
 
 // Initialize Game, keep track of game status and player queue
@@ -12,7 +11,7 @@ public class Game {
     private ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<Player>(4);
 
 
-    public Game(int boardsize, String name1, String name2, String name3, String name4) {
+    private Game(int boardsize, String name1, String name2, String name3, String name4) {
         this.isFinished = false;
         this.winner = null;
         this.boardsize = boardsize;
@@ -21,10 +20,11 @@ public class Game {
         initializeBoard();
         initializePlayers(name1, name2, name3, name4);
         setSnadders();
-        printInitialState(name1, name2, name3, name4);
+        printInitialAndFinalState(true);
     }
 
-    public void play() {
+    // Method to play the game
+    private void play() {
         Die die = new Die();
         while (!isFinished) {
             Player currentPlayer = playerQueue.poll();
@@ -39,6 +39,7 @@ public class Game {
             }
             printState(currentPlayer, rolled);
         }
+        printInitialAndFinalState(false);
         System.out.println(winner.name + " wins!");
     }
 
@@ -78,79 +79,86 @@ public class Game {
     private void setSnadders() {
         if (boardsize > 9) {
             for (int j = 3; j < boardsize - 4; j += 5) {
-                squares[j].setSnadder();
+                Snadder snadder = new Snadder(j);
+                squares[j] = snadder;
             }
         } else if (boardsize > 4) {
-            squares[2].setSnadder();
+            Snadder snadder = new Snadder(2);
+            squares[2] = snadder;
         }
-    }
-
-    private void printInitialState(String name1, String name2, String name3, String name4) {
-        String line = "Initial state: [1 <" + name1 + "><" + name2 + ">";
-        switch (playerQueue.size()) {
-            case 3:
-                line += "<" + name3 + ">";
-                break;
-            case 4:
-                line += "<" + name3 + "><" + name4 + ">";
-                break;
-            default:
-                break;
-        }
-        line += "]";
-        for (int k = 1; k < boardsize; k++) {
-            line += "[";
-            if (squares[k].isSnadder) {
-                int i = squares[k].end + 1;
-                int j = k+1;
-                if(squares[k].end > k){
-                    line += j + "->" + i;
-                }
-                else{
-                    line += i + "<-" + j;
-                }
-
-            } else {
-                line += k + 1;
-            }
-            line += "]";
-        }
-        System.out.println(line);
     }
 
     private void printState(Player currentPlayer, int rolled){
-        String line = currentPlayer.name + " rolls " + rolled;
-        line += ": [1";
+        StringBuilder line = new StringBuilder(currentPlayer.name + " rolls " + rolled);
+        line.append(": [1");
         for (String name : squares[0].occupants){
-            line += "<" + name + ">";
+            line.append("<").append(name).append(">");
         }
-        line += "]";
+        line.append("]");
         for (int k = 1; k < boardsize; k++) {
             int i = k + 1;
-            line += " [";
-            if (squares[k].isSnadder) {
-                int j = squares[k].end + 1;
-                if (squares[k].end < k) {
-                    line += j + "<-" + i;
+            line.append(" [");
+            if (squares[k].getClass() == Snadder.class) {
+                Snadder snadder = (Snadder)squares[k];
+                int j = snadder.end + 1;
+                if (snadder.end < k) {
+                    line.append(j).append("<-").append(i);
                 } else {
-                    line += i + "->" + j;
+                    line.append(i).append("->").append(j);
                 }
             } else if (squares[k].isOccupied) {
-                line += i;
+                line.append(i);
                 for (String name : squares[k].occupants) {
-                    line += "<" + name + ">";
+                    line.append("<").append(name).append(">");
                 }
             } else {
-                line += i;
+                line.append(i);
             }
-            line += "]";
+            line.append("]");
+        }
+
+        System.out.println(line);
+    }
+
+    private void printInitialAndFinalState(boolean isInitial) {
+        StringBuilder line;
+        if(isInitial){
+            line = new StringBuilder("Initial state: ");
+        }
+        else{
+            line = new StringBuilder("Final state: ");}
+        line.append("[1");
+        for (String name : squares[0].occupants) {
+            line.append("<").append(name).append(">");
+        }
+        line.append("]");
+        for (int k = 1; k < boardsize; k++) {
+            int i = k + 1;
+            line.append(" [");
+            if (squares[k].getClass()==Snadder.class) {
+                Snadder snadder = (Snadder)squares[k];
+                int j = snadder.end + 1;
+                if (snadder.end < k) {
+                    line.append(j).append("<-").append(i);
+                } else {
+                    line.append(i).append("->").append(j);
+                }
+            } else if (squares[k].isOccupied) {
+                line.append(i);
+                for (String name : squares[k].occupants) {
+                    line.append("<").append(name).append(">");
+                }
+            } else {
+                line.append(i);
+            }
+            line.append("]");
         }
 
         System.out.println(line);
     }
 
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         String name1, name2, name3, name4;
 
         // get user input names and board size
@@ -162,11 +170,11 @@ public class Game {
         System.out.print("Please enter the name of player 2: ");
         name2 = name.nextLine();
 
-        System.out.print("Please enter the name of player 3. If you don't want more players please type None. ");
+        System.out.print("Please enter the name of player 3. If you don't want any more players please type None. ");
         name3 = name.nextLine();
 
         if (!name3.equals("None")) {
-            System.out.print("Please enter the name of player 4. If you don't want more players please type None. ");
+            System.out.print("Please enter the name of player 4. If you don't want any more players please type None. ");
             name4 = name.nextLine();
         } else {
             name4 = "None";

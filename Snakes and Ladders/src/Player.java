@@ -1,14 +1,13 @@
-public class Player {
-    public String name;
-    public int position;
-    boolean isWinner;
+class Player {
+    String name;
+    private int position;
 
-    public Player(String newName, int pos) {
+    Player(String newName, int pos) {
         name = newName;
         position = pos;
     }
 
-    public void move(int delta, Square[] squares) {
+    void move(int delta, Square[] squares) {
         int newPos = position + delta;
         if (newPos >= squares.length) {
             squares[position].occupants.remove(0);
@@ -18,9 +17,10 @@ public class Player {
         } else {
             position = landHereOrGoHome(newPos, squares);
             if (position != 0) {
-                if (squares[position].isSnadder) {
+                if (squares[position].getClass() == Snadder.class) {
                     squares[position].isOccupied = false;
-                    position = landHereOrGoHome(squares[position].end, squares);
+                    Snadder snadder = (Snadder)squares[position];
+                    position = landHereOrGoHome(snadder.end, squares);
                 }
             }
         }
