@@ -3,111 +3,365 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.Random;
 
 
+
+
+
 // Initialize Game, keep track of game status and player queue
 public class Game {
-    String winner;
-    boolean isfinished;
-    int boardsize;
-    ArrayBlockingQueue<String> playerqueue = new ArrayBlockingQueue<String>(4);
+    private Player winner;
+    private boolean isFinished;
+    private int boardsize;
+    private Square[] squares;
+    private ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<Player>(4);
 
 
 
-    Game(int boardsize, String name1, String name2, String name3, String name4) {
-        // set isfinished to false and winner to null
-        isfinished = false;
-        winner = null;
+
+
+    public Game(int boardsize, String name1, String name2, String name3, String name4) {
+        this.isFinished = false;
+        this.winner = null;
         this.boardsize = boardsize;
+        this.squares = new Square[boardsize];
 
-        //initialize Players called player1,player2,player3,player4
-        // and playerqueue
-        // and sets position of all players to 1
-        // Player class needs to have attrubtes: name and position
-        if (!name1.equals("None")){
-            playerqueue.add(name1);
-            Player player1 = new Player();
-            player1.name = name1;
-            player1.position = 1;}
+        initializeBoard();
+        initializePlayers(name1, name2, name3, name4);
+        setSnadders();
+        printInitialState(name1, name2, name3, name4);
+    }
 
-        if (!name2.equals("None")){
-            playerqueue.add(name2);
-            Player player2 = new Player();
-            player2.name = name2;
-            player2.position = 1;
 
-        if (name3.equals("None")){
-            playerqueue.add(name3);
-            Player player3 = new Player();
-            player3.name = name3;
-            player3.position = 1;}
-
-        if (!name4.equals("None")){
-            playerqueue.add(name4);
-            Player player4 = new Player();
-            player4.name = name2;
-            player4.position = 1;}
-
-            // Initializes Squares
-            // sets isoccupied of firstsquare to true
-            // sets isstart of firstsquare to true
-            // sets isend of lastsquare to true
-            // this means that the constructor of the Square class has to set all
-            // attributes to false initially
-
-        for (int i = 1; i<= boardsize; i++) {
-            Square square = new Squares();
-            square.number = i;
-            if (i == 1) {
-                square.isoccupied = true;
-                square.isstart = true;
+    public void play() {
+            Die die = new Die();
+            while (!isFinished) {
+                Player currentPlayer = playerQueue.poll();
+                int rolled = die.roll();
+                assert currentPlayer != null;
+                currentPlayer.move(rolled, squares);
+                if (squares[boardsize - 1].isOccupied) {
+                    winner = currentPlayer;
+                    isFinished = true;
+                } else {
+                    playerQueue.add(currentPlayer);
+                }
+                printState(currentPlayer, rolled);
+                if (isFinished) {
+                    printFinalState(currentPlayer, rolled);
+                }
             }
 
-            if (i == boardsize) {
-                square.isend = true; }
-            }
+            System.out.println(winner.name + " wins!");
+        }
 
-            // Set random Snadders (random if its a ladder or a snadder)
-            // all 5 Squares starting by  4and ending by -4
-            // Snadder class needs to have an attribute start and end
-            // Snadder.start is declared in this construcotr
-            // .end needs to be calculated in Snadder class
-            // when it is a ladder make square.number + 2
-            // when it is a snake make square.number - 2
-        for (int j=4; j < boardsize -4; j+= 5){
-            Snadder snadder = new Snadder();
-            snadder.start = j;
-            Random random = new Random();
-            ladderorsnadder = random.nextBoolean();
-            snadder.isladder = ladderorsnadder;
-            snadder.issnake = !ladderorsnadder;}
+
+
+    private void initializePlayers(String name1, String name2, String name3, String name4) {
+
+        if (!name1.equals("None")) {
+
+            Player player1 = new Player(name1, 0);
+
+            playerQueue.add(player1);
+
+            squares[0].occupants.add(name1);
 
         }
 
 
 
-    /*public static void main(String args[]){
+        if (!name2.equals("None")) {
 
-            // get user input names and board size
-            // will be placed in the main method
-            Scanner name = new Scanner(System.in);
-            System.out.print("Please enter the name of player 1.");
-            name1 = name.nextLine();
+            Player player2 = new Player(name2, 0);
 
-            System.out.print("Please enter the name of player 2.");
-            name2 = name.nextLine();
+            playerQueue.add(player2);
 
-            System.out.print("Please enter the name of player 3. If you don't want more players please type None");
-            name3 = name.nextLine();
+            squares[0].occupants.add(name2);
 
-            System.out.print("Please enter the name of player 4. If you don't want more players please type None\" ");
-            name4 = name.nextLine();
+        }
 
-            System.out.print("Please enter the board size");
-            boardsize = name.nextInt();
 
-            // call Game constructer by creating an object actualgame
-            Game actualgame = new Game(boardsize, name1, name2, name3, name4);*/
+
+        if (!name3.equals("None")) {
+
+            Player player3 = new Player(name3, 0);
+
+            playerQueue.add(player3);
+
+            squares[0].occupants.add(name3);
+
+        }
+
+
+
+        if (!name4.equals("None")) {
+
+            Player player4 = new Player(name4, 0);
+
+            playerQueue.add(player4);
+
+            squares[0].occupants.add(name4);
+
+        }
 
     }
+
+
+
+    private void initializeBoard() {
+
+        for (int i = 0; i < boardsize; i++) {
+
+            Square square = new Square(i);
+
+            squares[i] = square;
+
+        }
+
+    }
+
+
+
+    private void setSnadders() {
+
+        if (boardsize > 9) {
+
+            for (int j = 3; j < boardsize - 4; j += 5) {
+
+                squares[j].setSnadder();
+
+            }
+
+        } else if (boardsize > 4) {
+
+            squares[2].setSnadder();
+
+        }
+
+    }
+
+
+
+    private void printInitialState(String name1, String name2, String name3, String name4) {
+
+        String line = "Initial state: [1 <" + name1 + "><" + name2 + ">";
+
+        switch (playerQueue.size()) {
+
+            case 3:
+
+                line += "<" + name3 + ">";
+
+                break;
+
+            case 4:
+
+                line += "<" + name3 + "><" + name4 + ">";
+
+                break;
+
+            default:
+
+                break;
+
+        }
+
+        line += "]";
+
+        for (int k = 1; k < boardsize; k++) {
+
+            line += "[";
+
+            if (squares[k].isSnadder) {
+
+                int i = squares[k].end + 1;
+
+                int j = k+1;
+
+                if(squares[k].end > k){
+
+                    line += j + "->" + i;
+
+                }
+
+                else{
+
+                    line += i + "<-" + j;
+
+                }
+
+
+
+            } else {
+
+                line += k + 1;
+
+            }
+
+            line += "]";
+
+        }
+
+        System.out.println(line);
+
+    }
+    private void printFinalState(Player currentPlayer, int rolled) {
+        String line = "Final state ";
+        line += ": [1";
+        for (String name : squares[0].occupants) {
+            line += "<" + name + ">";
+        }
+        line += "]";
+        for (int k = 1; k < boardsize; k++) {
+            int i = k + 1;
+            line += " [";
+            if (squares[k].isSnadder) {
+                int j = squares[k].end + 1;
+                if (squares[k].end < k) {
+                    line += j + "<-" + i;
+                } else {
+                    line += i + "->" + j;
+                }
+            } else if (squares[k].isOccupied) {
+                line += i;
+                for (String name : squares[k].occupants) {
+                    line += "<" + name + ">";
+                }
+            } else {
+                line += i;
+            }
+            line += "]";
+        }
+
+        System.out.println(line);
+    }
+
+
+
+
+    private void printState(Player currentPlayer, int rolled){
+
+        String line = currentPlayer.name + " rolls " + rolled;
+
+        line += ": [1";
+
+        for (String name : squares[0].occupants){
+
+            line += "<" + name + ">";
+
+        }
+
+        line += "]";
+
+        for (int k = 1; k < boardsize; k++) {
+
+            int i = k + 1;
+
+            line += " [";
+
+            if (squares[k].isSnadder) {
+
+                int j = squares[k].end + 1;
+
+                if (squares[k].end < k) {
+
+                    line += j + "<-" + i;
+
+                } else {
+
+                    line += i + "->" + j;
+
+                }
+
+            } else if (squares[k].isOccupied) {
+
+                line += i;
+
+                for (String name : squares[k].occupants) {
+
+                    line += "<" + name + ">";
+
+                }
+
+            } else {
+
+                line += i;
+
+            }
+
+            line += "]";
+
+        }
+
+
+
+        System.out.println(line);
+
+    }
+
+
+
+
+
+    public static void main(String args[]) {
+
+        String name1, name2, name3, name4;
+
+
+
+        // get user input names and board size
+
+        // will be placed in the main method
+
+        Scanner name = new Scanner(System.in);
+
+        System.out.print("Please enter the name of player 1: ");
+
+        name1 = name.nextLine();
+
+
+
+        System.out.print("Please enter the name of player 2: ");
+
+        name2 = name.nextLine();
+
+
+
+        System.out.print("Please enter the name of player 3. If you don't want more players please type None. ");
+
+        name3 = name.nextLine();
+
+
+
+        if (!name3.equals("None")) {
+
+            System.out.print("Please enter the name of player 4. If you don't want more players please type None. ");
+
+            name4 = name.nextLine();
+
+        } else {
+
+            name4 = "None";
+
+        }
+
+
+
+        System.out.print("Please enter the board size: ");
+
+        int boardsize = name.nextInt();
+
+
+
+        // call Game constructor
+
+        Game game = new Game(boardsize, name1, name2, name3, name4);
+
+        game.play();
+
+
+
+    }
+
 
 
 }
