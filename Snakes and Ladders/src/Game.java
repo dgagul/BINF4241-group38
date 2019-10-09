@@ -90,7 +90,7 @@ public class Game {
 
     private void printState(Player currentPlayer, int rolled){
         StringBuilder line = new StringBuilder(currentPlayer.name + " rolls " + rolled);
-        line.append(": [1");
+        line.append(":" + "\t [1");
         for (String name : squares[0].occupants){
             line.append("<").append(name).append(">");
         }
@@ -127,7 +127,7 @@ public class Game {
         }
         else{
             line = new StringBuilder("Final state: ");}
-        line.append("[1");
+        line.append(" \t [1");
         for (String name : squares[0].occupants) {
             line.append("<").append(name).append(">");
         }
