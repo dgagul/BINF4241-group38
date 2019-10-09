@@ -78,12 +78,10 @@ public class Game {
     private void setSnadders() {
         if (boardsize > 9) {
             for (int j = 3; j < boardsize - 4; j += 5) {
-                Random random = new Random();
-                boolean isLadder = random.nextBoolean();
-                squares[j].setSnadder(isLadder);
+                squares[j].setSnadder();
             }
         } else if (boardsize > 4) {
-            squares[2].setSnadder(true);
+            squares[2].setSnadder();
         }
     }
 

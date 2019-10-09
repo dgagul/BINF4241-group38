@@ -16,11 +16,11 @@ public class Player {
             squares[squares.length -1].occupants.add(name);
             position = squares.length-1;
         } else {
-            position = landHereOrGoHome(newPos, squares);                    // is new position occupied?
-            if (position != 0) {                                              // if new position was not occupied
-                if (squares[position].isSnadder) {                            // if new position is bottom of Ladder?
-                    squares[position].isOccupied = false;                    // position is being left
-                    position = landHereOrGoHome(squares[position].end, squares);       // is new position (after ladder) occupied?
+            position = landHereOrGoHome(newPos, squares);
+            if (position != 0) {
+                if (squares[position].isSnadder) {
+                    squares[position].isOccupied = false;
+                    position = landHereOrGoHome(squares[position].end, squares);
                 }
             }
         }

@@ -14,8 +14,10 @@ public class Square {
         occupants = new ArrayList<String>();
     }
 
-    public void setSnadder(boolean isLadder){
+    public void setSnadder(){
         isSnadder = true;
+        Random random = new Random();
+        boolean isLadder = random.nextBoolean();
         if (isLadder) {
             end = number + 2;
         } else {
