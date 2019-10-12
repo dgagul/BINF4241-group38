@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class ChessBoard {
     private Box[][] boxes = new Box[8][8];
     //private List<Piece> removedPieces;
@@ -10,9 +12,10 @@ public class ChessBoard {
     private void colorBoard(Box[][] boxes1) {
         // ODD columns
         // Coloring boxes BROWN-white-brown-white...
+        List<char> AtoH = new List<char>();
         for (int i = 0; i < 8; i += 2) {
             for (int k = 0; k < 8; k += 2) {
-                Box box = new Box(Box.Color.WHITE);
+                Box box = new Box(Box.Color.WHITE, AtoH[i],k+1);
                 boxes1[i][k] = box;
             }
             for (int k = 1; k < 8; k += 2) {
@@ -45,6 +48,7 @@ public class ChessBoard {
     }
 
     /*public boolean movePiece(pieceColor, int sourceX,int sourceY, int destX,int destY) {
+        if (boxes[
     }*/
 
 
