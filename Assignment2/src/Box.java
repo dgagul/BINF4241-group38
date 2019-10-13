@@ -1,26 +1,30 @@
 public class Box {
     enum Color {WHITE, BROWN}
     private Color aColor;
-    private char X;
+    private String X;
     private int Y;
-    //public Piece aPiece;
+    // Todo: public Piece aPiece;
 
-    public Box(Color pColor, char pX, int pY) {
+    public Box(Color pColor, String pX, int pY) {
         // color Box
         if (pColor == Color.WHITE) {
             aColor = pColor;
-            X = pX;
-            Y = pY;
         }
         else if (pColor == Color.BROWN){
             aColor = pColor;
-            X = pX;
-            Y = pY;
         }
-
+        // add coordinates
+        X = pX;
+        Y = pY;
+        //aPiece = new Piece();
     }
 
     public Color getColor() {return aColor;}
+
+    public String getCoordinates() {
+        String y = Integer.toString(Y);
+        return (X + y);
+    }
 
     //public Piece getPiece() {return aPiece;}
 
