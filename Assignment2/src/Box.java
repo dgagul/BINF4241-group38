@@ -3,7 +3,7 @@ public class Box {
     private Color aColor;
     private String X;
     private int Y;
-    // Todo: public Piece aPiece;
+    //public Piece aPiece;
 
     public Box(Color pColor, String pX, int pY) {
         // color Box
@@ -16,10 +16,7 @@ public class Box {
         // add coordinates
         X = pX;
         Y = pY;
-        //aPiece = new Piece();
     }
-
-    public Color getColor() {return aColor;}
 
     public String getCoordinates() {
         String y = Integer.toString(Y);

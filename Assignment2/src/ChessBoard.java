@@ -6,19 +6,14 @@ public class ChessBoard {
 
     public ChessBoard() {
         colorBoard(boxes);
-        printBoard(boxes); //Note: just to display board
+        //setStartingPieces();
+
+        printBoard(boxes); //helping function
     }
 
     private void colorBoard(Box[][] boxes1) {
         ArrayList<String> aTOh = new ArrayList<String>();
-        aTOh.add("a");
-        aTOh.add("b");
-        aTOh.add("c");
-        aTOh.add("d");
-        aTOh.add("e");
-        aTOh.add("f");
-        aTOh.add("g");
-        aTOh.add("h");
+        aTOh.add("a");aTOh.add("b");aTOh.add("c");aTOh.add("d");aTOh.add("e");aTOh.add("f");aTOh.add("g");aTOh.add("h");
 
         // rows
         for (int i = 0; i < 8; i += 2) {
@@ -40,6 +35,62 @@ public class ChessBoard {
         }
     }
 
+    //private void setStartingPieces() {
+    /*    // look through boxes
+        for (int i = 0; i < 8; i++) {
+            for (int k = 0; k < 8; k++) {
+                // if corner place rock
+                // if second row place pawns
+                // ...
+            }
+        }
+    }*/
+
+    //public void movePiece(Piece piece, String fromLetter,int fromNumber, String toLetter,int toNumber) {
+    /*    // letter coordinate to int
+        int fromTrans = StrToInt(fromLetter);
+        int toTrans = StrToInt(toLetter);
+
+        if (boxes[fromNumber-1][fromTrans].aPiece == piece) {
+            // set FROM box/square to empty
+            boxes[fromNumber - 1][fromTrans].aPiece = null;
+            if (boxes[toNumber - 1][toTrans].aPiece == null) {
+                // place piece at TO box/square
+                boxes[toNumber - 1][toTrans].aPiece = piece;
+            }
+            // check for check
+            else if(boxes[toNumber - 1][toTrans].aPiece = piece instanceof King) {
+                // Todo: set check
+            }
+            else { // Todo: eat piece}
+        }
+    }*/
+
+    //private static Piece removePiece(Piece piece, String fromLetter, int fromNumber) {
+    /*    int fromTrans = StrToInt(fromLetter);
+
+        return piece;
+    }*/
+
+    //public List<Piece> getRemovedPieces() {
+    /*    return removedPieces;
+    }*/
+
+    public static int StrToInt(String s) {
+        if (s=="a") {return 1;}
+        else if (s=="b") {return 1;}
+        else if (s=="c") {return 2;}
+        else if (s=="d") {return 3;}
+        else if (s=="e") {return 4;}
+        else if (s=="f") {return 5;}
+        else if (s=="g") {return 6;}
+        else if (s=="h") {return 7;}
+        // wrong letter coordinate
+        return 100;
+    }
+
+
+    // helping function
     public void printBoard(Box[][] boxes1){
         for (int i = 0; i < 8; i++) {
             for (int k = 0; k < 8; k++) {
@@ -48,15 +99,5 @@ public class ChessBoard {
             System.out.println(" ");
         }
     }
-
-    /*public boolean movePiece(piece, int sourceX,int sourceY, int destX,int destY) {
-        if (boxes[     .getPiece() == piece)
-    }*/
-
-
-    /*public List<Piece> getRemovedPieces() {
-        return removedPieces;
-    }*/
-
 
 }
