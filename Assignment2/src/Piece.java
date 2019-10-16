@@ -3,15 +3,16 @@ import java.io.*;
 
 abstract class Piece {
     // Does a piece need to know its color? --> I don't think so
-    private String color;
+    enum Color {WHITE, BLACK};
+    private Color color;
     private boolean isAvailable;
     // Does piece need to know its position? --> not if we pass arguments fromX and fromY in isValid() method
     private Pair<Integer, Integer> position;
 
-    Piece(boolean available, Pair<Integer,Integer> pos, String col){
-        isAvailable = available;
+    Piece(Pair<Integer,Integer> pos, Color pCol){
+        isAvailable = true;
         position = pos;
-        color = col;
+        color = pCol;
     }
 
     public boolean isAvailable(){

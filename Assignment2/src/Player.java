@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,8 +5,6 @@ public class Player {
 
     private boolean iswhite;
     private String name;
-    boolean c_iswhite;
-    String c_name;
 
     private List<Piece> rest_pieces = new ArrayList<>();
     private List<Piece> eaten_pieces = new ArrayList<>();
@@ -16,14 +13,15 @@ public class Player {
     public Player(boolean whiteplayer, String playername) {
         iswhite = whiteplayer;
         name = playername;
-        c_iswhite = iswhite;
-        c_name = name; }
+ }
 
     // getter just returning copys
     public boolean getIswhite(){
+        boolean c_iswhite = iswhite;
         return c_iswhite; }
 
     public String getName(){
+        String c_name = name;
         return c_name; }
 
     public List<Piece> getRest_pieces() {
