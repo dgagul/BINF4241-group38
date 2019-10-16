@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
 
@@ -26,10 +27,10 @@ public class Player {
         return c_name; }
 
     public List<Piece> getRest_pieces() {
-        return new ArrayList<Pieces>(rest_pieces); }
+        return new ArrayList<Piece>(rest_pieces); }
 
     public List<Piece> getEaten_pieces_pieces() {
-        return new ArrayList<Pieces>(rest_pieces);}
+        return new ArrayList<Piece>(rest_pieces);}
     /*
     private final int PAWNS = 8;
     private final int BISHOPS = 2;
