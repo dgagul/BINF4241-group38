@@ -1,9 +1,10 @@
 import javafx.util.Pair;
 
 public class Knight extends Piece {
-    public Knight(boolean available, Pair<Integer,Integer> pos, String col){
-        super(available, pos, col);
+    public Knight(Color pColor, String pName){
+        super(pColor, pName);
     }
+
 
     @Override
     public boolean moveIsValid(int fromX, int fromY, int toX, int toY) {

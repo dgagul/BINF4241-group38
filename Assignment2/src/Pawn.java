@@ -1,8 +1,8 @@
 import javafx.util.Pair;
 
 public class Pawn extends Piece {
-    public Pawn(boolean available, Pair<Integer,Integer> pos, String col){
-        super(available, pos, col);
+    public Pawn(Color pColor, String pName){
+        super(pColor, pName);
     }
 
     @Override

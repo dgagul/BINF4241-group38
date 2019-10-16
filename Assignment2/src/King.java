@@ -1,8 +1,8 @@
 import javafx.util.Pair;
 
 public class King extends Piece {
-    public King(boolean available, Pair<Integer,Integer> pos, String col){
-        super(available, pos, col);
+    public King(Color pColor, String pName){
+        super(pColor, pName);
     }
 
     @Override

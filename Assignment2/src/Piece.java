@@ -4,20 +4,22 @@ import java.io.*;
 abstract class Piece {
     // Does a piece need to know its color? --> I don't think so
     enum Color {WHITE, BLACK};
-    private Color color;
+    private Color aColor;
     private boolean isAvailable;
+    private String aName;
     // Does piece need to know its position? --> not if we pass arguments fromX and fromY in isValid() method
-    private Pair<Integer, Integer> position;
+    //private Pair<Integer, Integer> position;
 
-    Piece(Pair<Integer,Integer> pos, Color pCol){
+    Piece(Color pColor, String pName){
         isAvailable = true;
-        position = pos;
-        color = pCol;
+        aColor = pColor;
+        aName = pName;
     }
 
-    public boolean isAvailable(){
-        return isAvailable;
-    }
+    public boolean isAvailable(){ boolean pisAvailable = isAvailable; return pisAvailable; }
+
+    public String getaName(){ String pName = aName; return pName; }
+
 
     // ToDo: write string-to-int converter in Game.java
     // ToDo: check if piece is in the way of path?

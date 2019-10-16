@@ -16,7 +16,7 @@ public class ChessBoard {
         // rows
         for (int i = 0; i < 8; i += 2) {
             // columns
-            for (int k = 0; k < 8; k++) {
+            for (int k = 0; k < 8; k += 2) {
                 // First row First column
                 Box box11 = new Box(Box.Color.WHITE);
                 boxes1[i][k] = box11;
@@ -37,12 +37,71 @@ public class ChessBoard {
         // look through boxes
         for (int i = 0; i < 8; i++) {
             for (int k = 0; k < 8; k++) {
-                // if corner place rock
-                if (i==0 && k==0 || i==0 && k== 7 || i==7 && k==0 || i==7 && k==7) {
 
+                // WHITE PIECES
+                // place Rock
+                if (i==7 && k==0 || i==7 && k== 7) {
+                    Piece WT = new Tower(Piece.Color.WHITE, "WT");
+                    boxes[i][k].setPiece(WT);
                 }
-                // if second row place pawns
-                // ...
+                // place Knight
+                if (i==7 && k==1 || i==7 && k== 6) {
+                    Piece WN = new Knight(Piece.Color.WHITE, "WN");
+                    boxes[i][k].setPiece(WN);
+                }
+                // place Bishop
+                if (i==7 && k==2 || i==7 && k== 5) {
+                    Piece WB = new Bishop(Piece.Color.WHITE, "WB");
+                    boxes[i][k].setPiece(WB);
+                }
+                // place Queen
+                if (i==7 && k==3) {
+                    Piece WQ = new Queen(Piece.Color.WHITE, "WQ");
+                    boxes[i][k].setPiece(WQ);
+                }
+                // place King
+                if (i==7 && k==4) {
+                    Piece WK = new King(Piece.Color.WHITE, "WK");
+                    boxes[i][k].setPiece(WK);
+                }
+                // place Pawns
+                if (i==6) {
+                    Piece WP = new Pawn(Piece.Color.WHITE, "PA");
+                    boxes[i][k].setPiece(WP);
+                }
+
+
+                // BLACK PIECES
+                // place Rock
+                if (i==0 && k==0 || i==0 && k== 7) {
+                    Piece BR = new Tower(Piece.Color.BLACK, "BR");
+                    boxes[i][k].setPiece(BR);
+                }
+                // place Knight
+                if (i==0 && k==1 || i==0 && k== 6) {
+                    Piece BN = new Knight(Piece.Color.BLACK, "BN");
+                    boxes[i][k].setPiece(BN);
+                }
+                // place Bishop
+                if (i==0 && k==2 || i==0 && k== 5) {
+                    Piece BB = new Bishop(Piece.Color.BLACK, "BB");
+                    boxes[i][k].setPiece(BB);
+                }
+                // place Queen
+                if (i==0 && k==4) {
+                    Piece BQ = new Queen(Piece.Color.BLACK, "BQ");
+                    boxes[i][k].setPiece(BQ);
+                }
+                // place King
+                if (i==0 && k==3) {
+                    Piece BK = new King(Piece.Color.BLACK, "BK");
+                    boxes[i][k].setPiece(BK);
+                }
+                // place Pawns
+                if (i==1) {
+                    Piece WP = new Pawn(Piece.Color.WHITE, "WP");
+                    boxes[i][k].setPiece(WP);
+                }
             }
         }
     }
@@ -126,7 +185,10 @@ public class ChessBoard {
     public void printBoard(Box[][] boxes1){
         for (int i = 0; i < 8; i++) {
             for (int k = 0; k < 8; k++) {
-                System.out.print(boxes1[i][k].getaColor());   // Todo: change .getaColor() to getPiece()
+                if (boxes1[i][k].getPiece() == null) {
+                    System.out.print("[  ] ");
+                }
+                else {System.out.print("[" + boxes1[i][k].aPiece.getaName() + "] ");}
             }
             System.out.println(" ");
         }

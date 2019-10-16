@@ -2,8 +2,8 @@ import javafx.util.Pair;
 import java.lang.Math;
 
 public class Bishop extends Piece {
-    public Bishop(boolean available, Pair<Integer,Integer> pos, String col){
-        super(available, pos, col);
+    public Bishop(Color pColor, String pName){
+        super(pColor, pName);
     }
 
     @Override
