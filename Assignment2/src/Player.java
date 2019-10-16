@@ -4,24 +4,24 @@ import java.util.List;
 
 public class Player {
 
-    private boolean iswhite;
+    private String color;
     private String name;
-    boolean c_iswhite;
-    String c_name;
+    private String c_color;
+    private String c_name;
 
     private List<Piece> rest_pieces = new ArrayList<>();
     private List<Piece> eaten_pieces = new ArrayList<>();
 
 
-    public Player(boolean whiteplayer, String playername) {
-        iswhite = whiteplayer;
+    public Player(String playercolor, String playername) {
+        color = playercolor;
         name = playername;
-        c_iswhite = iswhite;
+        c_color = color;
         c_name = name; }
 
         // getter just returning copys
-    public boolean getIswhite(){
-        return c_iswhite; }
+    public String getIswhite(){
+        return c_color; }
 
     public String getName(){
         return c_name; }
