@@ -1,4 +1,7 @@
-package PACKAGE_NAME;
-
 public interface PlayerInt {
+    enum playercolor{
+        BLACK,
+        WHITE;
+    }
 }
+
