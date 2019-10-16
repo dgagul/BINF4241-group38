@@ -3,13 +3,19 @@ import java.util.Scanner;
 public class Game{
     private static boolean isFinished;
     private static Player currentPlayer;
+    private ChessBoard aChessBoard;
+    private Player aPlayer1;
+    private Player aPlayer2;
 
-    public Game(ChessBoard chessBoard, Player player1, Player player2) {
+    public Game(ChessBoard pChessBoard, Player pPlayer1, Player pPlayer2) {
         isFinished = false;
-        if (player1.getIswhite()) {
-            currentPlayer = player1;
+        aChessBoard = pChessBoard;
+        aPlayer1 = pPlayer1;
+        aPlayer2 = pPlayer2;
+        if (aPlayer1.getIswhite()) {
+            currentPlayer = aPlayer1;
         }
-        else {currentPlayer = player2;}
+        else {currentPlayer = aPlayer2;}
     }
 
 
@@ -45,13 +51,28 @@ public class Game{
 
         // start new game
         Game game = new Game(chessBoard,player1,player2);
-        //game.startgame();
+        //game.play();
     }
 
-
-    public static void startgame() {
+    // Todo: play, catch wrong input
+    public static void play() {
         while (!isFinished) {
-            // Todo: play
+            System.out.println(currentPlayer.getName() + ", what is your next move?");
+            System.out.println("e.g. Bishop to g6");
+            Scanner scanner = new Scanner(System.in);
+            String nextMove = scanner.nextLine();
+            // print ChessBoard
         }
+    }
+
+    // Todo: finish
+    // helping function
+    private void cutNextMove(String nextMove) {
+    }
+
+    // Todo: finish
+    public ChessBoard getChessBoard() {
+        ChessBoard pChessBoard = aChessBoard;
+        return pChessBoard;
     }
 }

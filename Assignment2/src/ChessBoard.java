@@ -21,10 +21,10 @@ public class ChessBoard {
                 Box box11 = new Box(Box.Color.WHITE);
                 boxes1[i][k] = box11;
                 // First row Second column
-                Box box12 = new Box(Box.Color.BROWN);
+                Box box12 = new Box(Box.Color.BLACK);
                 boxes1[i][k + 1] = box12;
                 // Second row First column
-                Box box21 = new Box(Box.Color.BROWN);
+                Box box21 = new Box(Box.Color.BLACK);
                 boxes1[i + 1][k] = box21;
                 // Second row Second column
                 Box box22 = new Box(Box.Color.WHITE);
@@ -106,35 +106,26 @@ public class ChessBoard {
         }
     }
 
-    //public void movePiece(Piece piece, String fromLetter,int fromNumber, String toLetter,int toNumber) {
-    /*    // letter coordinate to int
-        int fromTrans = StrToInt(fromLetter);
-        int toTrans = StrToInt(toLetter);
+    // Todo: check rules, public or private
+    public void movePiece(Piece piece, String from, String to) {
+        // letter coordinate to int
+        int[] fromTrans = stringToInt(from);
+        int[] toTrans = stringToInt(to);
 
-        if (boxes[fromNumber-1][fromTrans].aPiece == piece) {
-            // set FROM box/square to empty
-            boxes[fromNumber - 1][fromTrans].aPiece = null;
-            if (boxes[toNumber - 1][toTrans].aPiece == null) {
-                // place piece at TO box/square
-                boxes[toNumber - 1][toTrans].aPiece = piece;
-            }
-            // check for check
-            else if(boxes[toNumber - 1][toTrans].aPiece = piece instanceof King) {
-                // Todo: set check
-            }
-            else { // Todo: eat piece}
+        if (boxes[fromTrans[0]][fromTrans[1]].aPiece == piece) {
+            // Todo: is move is allowed for this piece
+            // Todo: is no other piece blocking the way
+            // Todo: is TO occupied
+            // Todo: is it check, if no
+            //      eatPiece(piece, boxes[toTrans[0]][toTrans[1]].aPiece, fromTrans, toTrans);
+            // Todo: is it checkmate
         }
-    }*/
+    }
 
-    //private static Piece removePiece(Piece piece, String fromLetter, int fromNumber) {
-    /*    int fromTrans = StrToInt(fromLetter);
-
-        return piece;
-    }*/
-
-    //public List<Piece> getRemovedPieces() {
-    /*    return removedPieces;
-    }*/
+    private void eatPiece(Piece predator, Piece prey, int[] from, int[] to) {
+            boxes[from[0]][from[1]].aPiece = null;
+            boxes[to[0]][to[1]].aPiece = predator;
+    }
 
     public static int[] stringToInt(String str) {
         int first;
@@ -182,7 +173,7 @@ public class ChessBoard {
 
 
     // helping function
-    public void printBoard(Box[][] boxes1){
+    public static void printBoard(Box[][] boxes1){
         for (int i = 0; i < 8; i++) {
             for (int k = 0; k < 8; k++) {
                 if (boxes1[i][k].getPiece() == null) {
