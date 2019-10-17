@@ -1,8 +1,8 @@
 import javafx.util.Pair;
 
 public class Pawn extends Piece {
-    public Pawn(boolean available, Pair<Integer,Integer> pos, String col){
-        super(available, pos, col);
+    public Pawn(boolean available, Color col){
+        super(available, col);
     }
 
     @Override
@@ -16,5 +16,10 @@ public class Pawn extends Piece {
         // In their first move, Pawns can go forward two squares
         else
             return ((fromX == toX) && (((fromY + 1) == toY) || fromY+2 == toY));
+    }
+
+    @Override
+    public String toString(){
+        return super.toString() + "P";
     }
 }
