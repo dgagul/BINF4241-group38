@@ -18,6 +18,4 @@ public class Box {
     public Piece getPiece() {Piece pPiece = aPiece; return pPiece;}
 
     public void setPiece(Piece pPiece) {aPiece = pPiece;}
-
-    public Color getaColor() {Color pColor = aColor; return pColor;}
 }

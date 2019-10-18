@@ -2,7 +2,6 @@ import javafx.util.Pair;
 import java.io.*;
 
 abstract class Piece {
-    // Does a piece need to know its color? --> I don't think so
     enum Color {WHITE, BLACK};
     enum Name {WT,WN,WB,WQ,WK,WP,BT,BN,BB,BQ,BK,BP}
     private Color aColor;
@@ -20,6 +19,8 @@ abstract class Piece {
     public boolean isAvailable(){ boolean pisAvailable = isAvailable; return pisAvailable; }
 
     public Name getaName(){ Name pName = aName; return pName; }
+
+    public Color getaColor(){ Color pColor = aColor; return pColor; }
 
 
     // ToDo: write string-to-int converter in Game.java

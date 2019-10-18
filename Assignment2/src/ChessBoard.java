@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 
 public class ChessBoard {
-    public Box[][] boxes = new Box[8][8];
+    private Box[][] boxes;
     // Do we need this?
     private ArrayList<Piece> removedPieces;
 
     public ChessBoard() {
+        boxes = new Box[8][8];
         colorBoard(boxes);
         setStartingPieces();
         printBoard(boxes);
@@ -105,7 +106,13 @@ public class ChessBoard {
         }
     }
 
+    public Box[][] getBoxes() {
+        Box[][] pBoxes = boxes;
+        return pBoxes;
+    }
+
     public static void printBoard(Box[][] boxes1){
+        System.out.println(" ");
         for (int i = 0; i < 8; i++) {
             for (int k = 0; k < 8; k++) {
                 if (boxes1[i][k].getPiece() == null) {
@@ -115,6 +122,7 @@ public class ChessBoard {
             }
             System.out.println(" ");
         }
+        System.out.println(" ");
     }
 
 
