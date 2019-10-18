@@ -7,6 +7,10 @@ public class Board {
         printBoard(); //helping function
     }
 
+    public Square[][] getBoard(){
+        return board;
+    }
+
     private void initializeBoard() {
         // rows
         for (int i = 0; i < 7; i+=2) {

@@ -5,4 +5,7 @@ public class Rules {
     // CheckCoordinates
     // CheckPiece
 
+    public static void promotion(int fileTo, int rankTo, String promoteTo){
+    }
+
 }
