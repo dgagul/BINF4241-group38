@@ -27,7 +27,7 @@ abstract class Piece {
     // ToDo: check if piece is in the way of path?
     public boolean moveIsValid(int fromX, int fromY, int toX, int toY){
         // Piece can't stay on the same square
-        if(toX == fromX || toY == fromY)
+        if(toX == fromX && toY == fromY)
             return false;
         // Piece must stay on the board
         return !(fromX<0 || toX<0 || fromY<0 || toY<0 || fromX>7 || toX>7 || fromY>7 || toY>7);

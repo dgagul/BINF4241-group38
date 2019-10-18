@@ -47,6 +47,7 @@ public class Game {
         } else {
             isWhite = false;
         }
+        System.out.println("White starts...");
 
         // initialize Players
         Player player1 = new Player(isWhite, player1Name);
@@ -152,7 +153,7 @@ public class Game {
                     // right color
                     if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
                         // move valid
-                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[0], from[1], to[0], to[1])) {
+                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
                             Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
                             aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
                             aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
@@ -168,7 +169,7 @@ public class Game {
                     // right color
                     if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
                         // move valid
-                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[0], from[1], to[0], to[1])) {
+                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
                             Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
                             aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
                             aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
@@ -184,7 +185,7 @@ public class Game {
                     // right color
                     if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
                         // move valid
-                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[0], from[1], to[0], to[1])) {
+                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
                             Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
                             aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
                             aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
@@ -200,7 +201,7 @@ public class Game {
                     // right color
                     if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
                         // move valid
-                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[0], from[1], to[0], to[1])) {
+                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
                             Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
                             aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
                             aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
@@ -216,7 +217,7 @@ public class Game {
                     // right color
                     if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
                         // move valid
-                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[0], from[1], to[0], to[1])) {
+                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
                             Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
                             aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
                             aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
@@ -232,7 +233,7 @@ public class Game {
                     // right color
                     if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
                         // move valid
-                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[0], from[1], to[0], to[1])) {
+                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
                             Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
                             aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
                             aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);

@@ -1,8 +1,10 @@
 import javafx.util.Pair;
 
 public class Pawn extends Piece {
+    private boolean hasMoved;
     public Pawn(Color pColor, Name pName){
         super(pColor, pName);
+        hasMoved = false;
     }
 
     @Override
@@ -11,10 +13,24 @@ public class Pawn extends Piece {
         if(!super.moveIsValid(fromX, fromY, toX, toY))
             return false;
         // If not first move
-        if(fromY>1)
-            return ((fromX == toX) && ((fromY + 1) == toY));
+        if(hasMoved) {
+            if (this.getaColor() == Color.WHITE) {
+                return ((fromX == toX) && ((fromY + 1) == toY));
+            }
+            else {
+                return ((fromX == toX) && ((fromY - 1) == toY));
+            }
+        }
+
         // In their first move, Pawns can go forward two squares
-        else
-            return ((fromX == toX) && (((fromY + 1) == toY) || fromY+2 == toY));
+        else {
+            hasMoved = true;
+            if (this.getaColor() == Color.WHITE) {
+                return ((fromX == toX) && (((fromY - 1) == toY) || ((fromY - 2) == toY)));
+            }
+            else {
+                return ((fromX == toX) && (((fromY + 1) == toY) || ((fromY + 2) == toY)));
+            }
+        }
     }
 }
