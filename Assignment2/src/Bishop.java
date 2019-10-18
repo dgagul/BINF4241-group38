@@ -2,7 +2,7 @@ import javafx.util.Pair;
 import java.lang.Math;
 
 public class Bishop extends Piece {
-    public Bishop(Color pColor, String pName){
+    public Bishop(Color pColor, Name pName){
         super(pColor, pName);
     }
 

@@ -1,7 +1,7 @@
 import javafx.util.Pair;
 
 public class Knight extends Piece {
-    public Knight(Color pColor, String pName){
+    public Knight(Color pColor, Name pName){
         super(pColor, pName);
     }
 

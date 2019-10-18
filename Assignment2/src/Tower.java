@@ -1,7 +1,7 @@
 import javafx.util.Pair;
 
 public class Tower extends Piece {
-    public Tower(Color pColor, String pName){
+    public Tower(Color pColor, Name pName){
         super(pColor, pName);
     }
 

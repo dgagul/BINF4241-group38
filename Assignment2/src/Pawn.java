@@ -1,7 +1,7 @@
 import javafx.util.Pair;
 
 public class Pawn extends Piece {
-    public Pawn(Color pColor, String pName){
+    public Pawn(Color pColor, Name pName){
         super(pColor, pName);
     }
 

@@ -1,7 +1,7 @@
 import javafx.util.Pair;
 
 public class Queen extends Piece {
-    public Queen(Color pColor, String pName){
+    public Queen(Color pColor, Name pName){
         super(pColor, pName);
     }
 
