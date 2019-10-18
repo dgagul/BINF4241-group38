@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Game{
@@ -19,6 +20,9 @@ public class Game{
 
     public static void readInput(){
         boolean validInput = false;
+        boolean isCapture = false;
+        boolean isPromotion = false;
+        boolean isCastling = false;
         Scanner inputScanner = new Scanner(System.in);
         while(!validInput){
             System.out.println("Enter your next move: ");
@@ -26,12 +30,59 @@ public class Game{
             if (userInput.length() == 1){
                 System.out.println("Invalid input! Please try again.");
             }
-            else if (userInput.length() == 2){
-                if(!userInput.matches("[a-h][1-8]")){
-                    System.out.println("Invalid input! Please try again.");
+            else if(userInput.length() == 2){
+                // Pawn move
+                if(userInput.matches("[a-h][1-8]")){
+                    String piece = "P";
+                    int fileTo = StrToInt(userInput.substring(0,1));
+                    int rankTo = Integer.parseInt(userInput.substring(1,1));
+                    validInput = true;
                 }
-                int file = StrToInt(userInput.substring(0,1));
-                int rank = Integer.parseInt(userInput.substring(1,1));
+            }
+            else if(userInput.length() == 3){
+                if(userInput.matches("^[B|K|N|Q|T][a-h][1-8]$")){
+                    String piece = userInput.substring(0,0);
+                    int fileTo = StrToInt(userInput.substring(1,1));
+                    int rankTo = Integer.parseInt(userInput.substring(2,2));
+                    validInput = true;
+                }
+                else if(userInput.matches("^[a-h]8[Q|N|T]$")){
+                    validInput = true;
+                    isPromotion = true;
+                    int fileTo = StrToInt(userInput.substring(0,0));
+                    int rankTo = Integer.parseInt(userInput.substring(1,1));
+                    String promoteTo = userInput.substring(2,2);
+                }
+                else if(userInput.matches("^0-0$")){
+                    // ToDo: Castling method with boolean kingsideCastling (=true)
+                    isCastling = true;
+                }
+            }
+            else if(userInput.length()==4){
+                if(userInput.matches("^[B|K|N|Q|T][a-h][a-h][1-8]$")){
+                    String piece = userInput.substring(0,0);
+                    int fileFrom = StrToInt(userInput.substring(1,1));
+                    int fileTo = StrToInt(userInput.substring(2,2));
+                    int rankTo = Integer.parseInt((userInput.substring(3,3)));
+                }
+                else if(userInput.contains("x")){
+                    isCapture = true;
+                    if(userInput.matches("^[B|K|N|Q|T]x[e-h][1-8]$")){
+                        validInput = true;
+                        String piece = userInput.substring(0,0);
+                        int fileTo = StrToInt(userInput.substring(2,2));
+                        int rankTo = Integer.parseInt(userInput.substring(3,3));
+                    }
+                    else if(userInput.matches("^[a-h]x[a-h][1-8]$")){
+                        validInput = true;
+                        String piece = "P";
+                        int fileTo = StrToInt(userInput.substring(2,2));
+                        int rankTo = Integer.parseInt(userInput.substring(3,3));
+                    }
+                }
+            }
+            if(!validInput){
+                System.out.println("Invalid input! Please try again.");
             }
         }
     }
