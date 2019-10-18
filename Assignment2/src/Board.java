@@ -82,20 +82,6 @@ public class Board {
     /*    return removedPieces;
     }*/
 
-    public static int StrToInt(String s) {
-        // ToDo: move to Game.java
-        if (s.equals("a")) {return 0;}
-        else if (s.equals("b")) {return 1;}
-        else if (s.equals("c")) {return 2;}
-        else if (s.equals("d")) {return 3;}
-        else if (s.equals("e")) {return 4;}
-        else if (s.equals("f")) {return 5;}
-        else if (s.equals("g")) {return 6;}
-        else if (s.equals("h")) {return 7;}
-        // wrong letter coordinate
-        return -1;
-    }
-
 
     // helping function
     public void printBoard(){
