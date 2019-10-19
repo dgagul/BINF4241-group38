@@ -56,6 +56,9 @@ public class Game {
         // start new game
         Game game = new Game(chessBoard, player1, player2);
         game.play();
+
+        System.out.println("Check mate:");
+        System.out.println(game.getCurrentPlayer() + "wins!");
     }
 
 
@@ -65,9 +68,8 @@ public class Game {
             System.out.println(currentPlayer.getName() + ", what is your next move?");
             Scanner scanner = new Scanner(System.in);
             String nextMove = scanner.nextLine();
-            boolean done = move(nextMove);
-            // switch currentPlayer
-            if (done) {
+            // play and switch currentPlayer
+            if (move(nextMove)) {
                 if (currentPlayer.equals(aPlayer1)) {
                     currentPlayer = aPlayer2;
                 } else currentPlayer = aPlayer1;
@@ -76,7 +78,7 @@ public class Game {
                 System.out.println("Invalid input, try again!");
             }
             /*
-            If the move results in a stalemate or checkmate, the game is over.
+            If the move results in checkmate, the game is over.
             if (Rules.checkForMate()) {
                 isFinished = true;
             }
@@ -100,14 +102,13 @@ public class Game {
         int[] to = xy[1];
 
         //Try
-        //Rules.isChecked();
+        //if  (currentPlayer.getIsChecked()) { }
         //If the player was previous under check and the move does not remove the check, it must be undone.
         //If the move exposes check, it must be undone / disallowed.
         //Catch
 
-        // castle
+        // castle {50,50}{50,50}    {100,100}{100,100}
         // If the move is a castling, set the new position of the rook accordingly. But a king and rook can only castle if they haven't moved, so you need to keep track of that. And if the king moves through a check to castle, that's disallowed, too.
-
 
         // promotion e8=Q
         // If the piece is a pawn reaching the back rank, promote it.
@@ -115,7 +116,6 @@ public class Game {
         // capture Ta1xa5
         // If player captures a piece, remove the piece (including en passant!)
 
-        // Todo: else {catch wrong input}
         // move Ta1a5
         if (move.length() == 5) {
             // pawn
@@ -220,39 +220,108 @@ public class Game {
     // 0-0-0
     // e8=Q
     public static int[][] stringToInt(String move) {
-        // regular move Be4b7
+        if (move.equals("0-0")){return new int[][] {{50,50}, {50,50}};}
+        if (move.equals("0-0-0")){return new int[][] {{100,100}, {100,100}};}
+        // promotion
+        if (move.charAt(2) == 61){
+            // FROM COORDINATES
+            int[] from = new int[2];
+            int[] to = new int[2];
+            // a or A
+            if ((int) move.charAt(0) == 97 || (int) move.charAt(0) == 65) {
+                from[1] = 0;
+                to[1] = 0;
+            }
+            // b or B
+            else if ((int) move.charAt(0) == 98 || (int) move.charAt(0) == 67) {
+                from[1] = 1;
+                to[1] = 1;
+            }
+            // c or C
+            else if ((int) move.charAt(0) == 99 || (int) move.charAt(0) == 66) {
+                from[1] = 2;
+                to[1] = 2;
+            }
+            // d or D
+            else if ((int) move.charAt(0) == 100 || (int) move.charAt(0) == 68) {
+                from[1] = 3;
+                to[1] = 3;
+            }
+            // e or E
+            else if ((int) move.charAt(0) == 101 || (int) move.charAt(0) == 69) {
+                from[1] = 4;
+                to[1] = 4;
+            }
+            // f or F
+            else if ((int) move.charAt(0) == 102 || (int) move.charAt(0) == 70) {
+                from[1] = 5;
+                to[1] = 5;
+            }
+            // g or G
+            else if ((int) move.charAt(0) == 103 || (int) move.charAt(0) == 71) {
+                from[1] = 6;
+                to[1] = 6;
+            }
+            // h or H
+            else if ((int) move.charAt(0) == 104 || (int) move.charAt(0) == 72) {
+                from[1] = 7;
+                to[1] = 7;
+            }
+            // wrong input
+            else {
+                from[1] = 100;
+                to[1] = 100;
+            }
+
+            // 1
+            if ((int) move.charAt(2) == 49) {
+                from[0] = 6;
+                to[0] = 7;
+            }
+            // 8
+            else if ((int) move.charAt(2) == 56) {
+                from[0] = 1;
+                to[0] = 0;
+            }
+            // wrong input
+            else {
+                from[0] = 100;
+            }
+            return new int[][] {from, to};
+        }
+        // regular move Bc1d2
         // FROM COORDINATES
         int[] from = new int[2];
         // a or A
-        if ((int) move.charAt(1) == 97 || (int) move.charAt(0) == 65) {
+        if ((int) move.charAt(1) == 97 || (int) move.charAt(1) == 65) {
             from[1] = 0;
         }
         // b or B
-        else if ((int) move.charAt(1) == 98 || (int) move.charAt(0) == 66) {
+        else if ((int) move.charAt(1) == 98 || (int) move.charAt(1) == 67) {
             from[1] = 1;
         }
         // c or C
-        else if ((int) move.charAt(1) == 99 || (int) move.charAt(0) == 67) {
+        else if ((int) move.charAt(1) == 99 || (int) move.charAt(1) == 66) {
             from[1] = 2;
         }
         // d or D
-        else if ((int) move.charAt(1) == 100 || (int) move.charAt(0) == 68) {
+        else if ((int) move.charAt(1) == 100 || (int) move.charAt(1) == 68) {
             from[1] = 3;
         }
         // e or E
-        else if ((int) move.charAt(1) == 101 || (int) move.charAt(0) == 69) {
+        else if ((int) move.charAt(1) == 101 || (int) move.charAt(1) == 69) {
             from[1] = 4;
         }
         // f or F
-        else if ((int) move.charAt(1) == 102 || (int) move.charAt(0) == 70) {
+        else if ((int) move.charAt(1) == 102 || (int) move.charAt(1) == 70) {
             from[1] = 5;
         }
         // g or G
-        else if ((int) move.charAt(1) == 103 || (int) move.charAt(0) == 71) {
+        else if ((int) move.charAt(1) == 103 || (int) move.charAt(1) == 71) {
             from[1] = 6;
         }
         // h or H
-        else if ((int) move.charAt(1) == 104 || (int) move.charAt(0) == 72) {
+        else if ((int) move.charAt(1) == 104 || (int) move.charAt(1) == 72) {
             from[1] = 7;
         }
         // wrong input
@@ -302,35 +371,35 @@ public class Game {
         if (move.charAt(3) == 120) {
             int[] to = new int[2];
             // a or A
-            if ((int) move.charAt(4) == 97 || (int) move.charAt(0) == 65) {
+            if ((int) move.charAt(4) == 97 || (int) move.charAt(4) == 65) {
                 to[1] = 0;
             }
             // b or B
-            else if ((int) move.charAt(4) == 98 || (int) move.charAt(0) == 66) {
+            else if ((int) move.charAt(4) == 98 || (int) move.charAt(4) == 66) {
                 to[1] = 1;
             }
             // c or C
-            else if ((int) move.charAt(4) == 99 || (int) move.charAt(0) == 67) {
+            else if ((int) move.charAt(4) == 99 || (int) move.charAt(4) == 67) {
                 to[1] = 2;
             }
             // d or D
-            else if ((int) move.charAt(4) == 100 || (int) move.charAt(0) == 68) {
+            else if ((int) move.charAt(4) == 100 || (int) move.charAt(4) == 68) {
                 to[1] = 3;
             }
             // e or E
-            else if ((int) move.charAt(4) == 101 || (int) move.charAt(0) == 69) {
+            else if ((int) move.charAt(4) == 101 || (int) move.charAt(4) == 69) {
                 to[1] = 4;
             }
             // f or F
-            else if ((int) move.charAt(4) == 102 || (int) move.charAt(0) == 70) {
+            else if ((int) move.charAt(4) == 102 || (int) move.charAt(4) == 70) {
                 to[1] = 5;
             }
             // g or G
-            else if ((int) move.charAt(4) == 103 || (int) move.charAt(0) == 71) {
+            else if ((int) move.charAt(4) == 103 || (int) move.charAt(4) == 71) {
                 to[1] = 6;
             }
             // h or H
-            else if ((int) move.charAt(4) == 104 || (int) move.charAt(0) == 72) {
+            else if ((int) move.charAt(4) == 104 || (int) move.charAt(4) == 72) {
                 to[1] = 7;
             }
             // wrong input
@@ -382,35 +451,35 @@ public class Game {
         else {
             int[] to = new int[2];
             // a or A
-            if ((int) move.charAt(3) == 97 || (int) move.charAt(0) == 65) {
+            if ((int) move.charAt(3) == 97 || (int) move.charAt(3) == 65) {
                 to[1] = 0;
             }
             // b or B
-            else if ((int) move.charAt(3) == 98 || (int) move.charAt(0) == 66) {
+            else if ((int) move.charAt(3) == 98 || (int) move.charAt(3) == 66) {
                 to[1] = 1;
             }
             // c or C
-            else if ((int) move.charAt(3) == 99 || (int) move.charAt(0) == 67) {
+            else if ((int) move.charAt(3) == 99 || (int) move.charAt(3) == 67) {
                 to[1] = 2;
             }
             // d or D
-            else if ((int) move.charAt(3) == 100 || (int) move.charAt(0) == 68) {
+            else if ((int) move.charAt(3) == 100 || (int) move.charAt(3) == 68) {
                 to[1] = 3;
             }
             // e or E
-            else if ((int) move.charAt(3) == 101 || (int) move.charAt(0) == 69) {
+            else if ((int) move.charAt(3) == 101 || (int) move.charAt(3) == 69) {
                 to[1] = 4;
             }
             // f or F
-            else if ((int) move.charAt(3) == 102 || (int) move.charAt(0) == 70) {
+            else if ((int) move.charAt(3) == 102 || (int) move.charAt(3) == 70) {
                 to[1] = 5;
             }
             // g or G
-            else if ((int) move.charAt(3) == 103 || (int) move.charAt(0) == 71) {
+            else if ((int) move.charAt(3) == 103 || (int) move.charAt(3) == 71) {
                 to[1] = 6;
             }
             // h or H
-            else if ((int) move.charAt(3) == 104 || (int) move.charAt(0) == 72) {
+            else if ((int) move.charAt(3) == 104 || (int) move.charAt(3) == 72) {
                 to[1] = 7;
             }
             // wrong input
@@ -456,5 +525,10 @@ public class Game {
             }
             return new int[][] {from, to};
         }
+    }
+
+    public String getCurrentPlayer() {
+        Player player = currentPlayer;
+        return player.getName();
     }
 }

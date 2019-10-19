@@ -21,12 +21,19 @@ public class Player {
         boolean c_iswhite = iswhite;
         return c_iswhite; }
 
-    public String getName(){
+    public String getName() {
         String c_name = name;
-        return c_name; }
+        return c_name;
+    }
+
+    public boolean getIsChecked() {
+        boolean pIsChecked = isChecked;
+        return pIsChecked;
+    }
 
     public List<Piece> getRest_pieces() {
-        return new ArrayList<Piece>(rest_pieces); }
+        return new ArrayList<Piece>(rest_pieces);
+    }
 
     public List<Piece> getEaten_pieces_pieces() {
         return new ArrayList<Piece>(rest_pieces);}
