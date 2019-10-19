@@ -22,16 +22,21 @@ public class Pawn extends Piece {
                 return ((fromX == toX) && ((fromY + 1) == toY));
             }
         }
-
         // In their first move, Pawns can go forward two squares
         else {
-            hasMoved = true;
             if (this.getaColor() == Color.WHITE) {
-                return ((fromX == toX) && (((fromY - 1) == toY) || ((fromY - 2) == toY)));
+                if ((fromX == toX) && (((fromY - 1) == toY) || ((fromY - 2) == toY))){
+                    hasMoved = true;
+                    return true;
+                }
             }
             else {
-                return ((fromX == toX) && (((fromY + 1) == toY) || ((fromY + 2) == toY)));
+                if ((fromX == toX) && (((fromY + 1) == toY) || ((fromY + 2) == toY))){
+                    hasMoved = true;
+                    return true;
+                }
             }
         }
+        return false;
     }
 }

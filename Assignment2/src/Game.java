@@ -89,17 +89,12 @@ public class Game {
 
     // Todo: else {catch wrong input}
     public boolean move(String move) {
-        boolean isWhite = currentPlayer.getIswhite();
-        Piece.Color color;
-        if (isWhite) {
-            color = Piece.Color.WHITE;
-        } else {
-            color = Piece.Color.BLACK;
-        }
 
         int[][] xy = stringToInt(move);
-        int[] from = xy[0];
-        int[] to = xy[1];
+        int fromX = xy[0][0];
+        int fromY = xy[0][1];
+        int toX = xy[1][0];
+        int toY = xy[1][1];
 
         //Try
         //if  (currentPlayer.getIsChecked()) { }
@@ -116,117 +111,32 @@ public class Game {
         // capture Ta1xa5
         // If player captures a piece, remove the piece (including en passant!)
 
-        // move Ta1a5
-        if (move.length() == 5) {
-            // pawn
-            if ((move.charAt(0) == 112 || move.charAt(0) == 80)) {
-                if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece() instanceof Pawn) {
-                    if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
-                        if (aChessBoard.getBoxes()[to[0]][to[1]].isOccupied()) {
-                            return false;
-                        }
-                        else {
-                            if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
-                                Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
-                                aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
-                                aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
-                                ChessBoard.printBoard(aChessBoard.getBoxes());
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            // tower
-            if ((move.charAt(0) == 116 || move.charAt(0) == 84)) {
-                if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece() instanceof Tower) {
-                    if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
-                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
-                            Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
-                            aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
-                            aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
-                            ChessBoard.printBoard(aChessBoard.getBoxes());
-                            return true;
-                        }
-                    }
-                }
-            }
-            // knight
-            if ((move.charAt(0) == 110 || move.charAt(0) == 78)) {
-                if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece() instanceof Knight) {
-                    if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
-                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
-                            Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
-                            aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
-                            aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
-                            ChessBoard.printBoard(aChessBoard.getBoxes());
-                            return true;
-                        }
-                    }
-                }
-            }
-            // bishop
-            if ((move.charAt(0) == 98 || move.charAt(0) == 66)) {
-                if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece() instanceof Bishop) {
-                    if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
-                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
-                            Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
-                            aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
-                            aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
-                            ChessBoard.printBoard(aChessBoard.getBoxes());
-                            return true;
-                        }
-                    }
-                }
-            }
-            // queen
-            if ((move.charAt(0) == 113 || move.charAt(0) == 81)) {
-                if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece() instanceof Queen) {
-                    if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
-                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
-                            Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
-                            aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
-                            aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
-                            ChessBoard.printBoard(aChessBoard.getBoxes());
-                            return true;
-                        }
-                    }
-                }
-            }
-            // king
-            if ((move.charAt(0) == 107 || move.charAt(0) == 75)) {
-                if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece() instanceof King) {
-                    if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
-                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
-                            Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
-                            aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
-                            aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
-                            ChessBoard.printBoard(aChessBoard.getBoxes());
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-        // Todo: exceptions (two towers in same row...)
+        Piece piece = aChessBoard.getBoxes()[fromX][fromY].getPiece();
+        aChessBoard.getBoxes()[fromX][fromY].setPiece(null);
+        aChessBoard.getBoxes()[toX][toY].setPiece(piece);
+        ChessBoard.printBoard(aChessBoard.getBoxes());
         return true;
     }
 
 
-    // Be4b7
-    // Qd1xh5
-    // 0-0
-    // 0-0-0
+    // Bb7
+    // Qxh5
     // e8=Q
-    public static int[][] stringToInt(String move) {
-        if (move.equals("0-0")){return new int[][] {{50,50}, {50,50}};}
-        if (move.equals("0-0-0")){return new int[][] {{100,100}, {100,100}};}
+    public int[][] stringToInt(String move) {
+        boolean isWhite = currentPlayer.getIswhite();
+        Piece.Color color;
+        if (isWhite) {
+            color = Piece.Color.WHITE;
+        } else {
+            color = Piece.Color.BLACK;
+        }
+
+        int[] to = new int[2];
+        int[] from = new int[2];
+
         // promotion
         if (move.charAt(2) == 61){
             // FROM COORDINATES
-            int[] from = new int[2];
-            int[] to = new int[2];
             // a or A
             if ((int) move.charAt(0) == 97 || (int) move.charAt(0) == 65) {
                 from[1] = 0;
@@ -289,242 +199,390 @@ public class Game {
             }
             return new int[][] {from, to};
         }
-        // regular move Bc1d2
-        // FROM COORDINATES
-        int[] from = new int[2];
-        // a or A
-        if ((int) move.charAt(1) == 97 || (int) move.charAt(1) == 65) {
-            from[1] = 0;
+
+
+
+        // Capture Qxh5
+        // TO COORDINATES
+        if (move.charAt(1) == 120) {
+            // TO COORDINATES
+            // a
+            if ((int) move.charAt(2) == 97) {
+                to[1] = 0;
+            }
+            // b
+            else if ((int) move.charAt(2) == 98) {
+                to[1] = 1;
+            }
+            // c
+            else if ((int) move.charAt(2) == 99) {
+                to[1] = 2;
+            }
+            // d
+            else if ((int) move.charAt(2) == 100) {
+                to[1] = 3;
+            }
+            // e
+            else if ((int) move.charAt(2) == 101) {
+                to[1] = 4;
+            }
+            // f
+            else if ((int) move.charAt(2) == 102) {
+                to[1] = 5;
+            }
+            // g
+            else if ((int) move.charAt(2) == 103) {
+                to[1] = 6;
+            }
+            // h
+            else if ((int) move.charAt(2) == 104) {
+                to[1] = 7;
+            }
+            // wrong input
+            else {
+                to[1] = 100;
+            }
+
+            // 1
+            if ((int) move.charAt(3) == 49) {
+                to[0] = 7;
+            }
+            // 2
+            else if ((int) move.charAt(3) == 50) {
+                to[0] = 6;
+            }
+            // 3
+            else if ((int) move.charAt(3) == 51) {
+                to[0] = 5;
+            }
+            // 4
+            else if ((int) move.charAt(3) == 52) {
+                to[0] = 4;
+            }
+            // 5
+            else if ((int) move.charAt(3) == 53) {
+                to[0] = 3;
+            }
+            // 6
+            else if ((int) move.charAt(3) == 54) {
+                to[0] = 2;
+            }
+            // 7
+            else if ((int) move.charAt(3) == 55) {
+                to[0] = 1;
+            }
+            // 8
+            else if ((int) move.charAt(3) == 56) {
+                to[0] = 0;
+            }
+            // wrong input
+            else {
+                to[0] = 100;
+            }
+
+            // B for Bishop
+            // Todo: exceptions (two Bishops in same row...)
+            if (move.charAt(0) == 66) {
+                for (int i=0; i<8; i++) {
+                    for (int k=0; k<8; k++) {
+                        if (aChessBoard.getBoxes()[i][k].isOccupied()) {
+                            if (aChessBoard.getBoxes()[i][k].getPiece() instanceof Bishop) {
+                                if (aChessBoard.getBoxes()[i][k].getPiece().getaColor() == color) {
+                                    if (aChessBoard.getBoxes()[i][k].getPiece().moveIsValid(k, i, to[1], to[0])) {
+                                        from[0] = i;
+                                        from[1] = k;
+                                        return new int[][] {from, to};
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // K for King
+            if (move.charAt(0) == 75) {
+                for (int i=0; i<8; i++) {
+                    for (int k=0; k<8; k++) {
+                        if (aChessBoard.getBoxes()[i][k].isOccupied()) {
+                            if (aChessBoard.getBoxes()[i][k].getPiece() instanceof King) {
+                                if (aChessBoard.getBoxes()[i][k].getPiece().getaColor() == color) {
+                                    if (aChessBoard.getBoxes()[i][k].getPiece().moveIsValid(k, i, to[1], to[0])) {
+                                        from[0] = i;
+                                        from[1] = k;
+                                        return new int[][]{from, to};
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // N for Knight
+            if (move.charAt(0) == 78) {
+                for (int i=0; i<8; i++) {
+                    for (int k=0; k<8; k++) {
+                        if (aChessBoard.getBoxes()[i][k].isOccupied()) {
+                            if (aChessBoard.getBoxes()[i][k].getPiece() instanceof Knight) {
+                                if (aChessBoard.getBoxes()[i][k].getPiece().getaColor() == color) {
+                                    if (aChessBoard.getBoxes()[i][k].getPiece().moveIsValid(k, i, to[1], to[0])) {
+                                        from[0] = i;
+                                        from[1] = k;
+                                        return new int[][] {from, to};
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // P for Pawn
+            if (move.charAt(0) == 80) {
+                for (int i=0; i<8; i++) {
+                    for (int k=0; k<8; k++) {
+                        if (aChessBoard.getBoxes()[i][k].isOccupied()) {
+                            if (aChessBoard.getBoxes()[i][k].getPiece() instanceof Pawn) {
+                                if (aChessBoard.getBoxes()[i][k].getPiece().getaColor() == color) {
+                                    if (aChessBoard.getBoxes()[i][k].getPiece().moveIsValid(k, i, to[1], to[0])) {
+                                        from[0] = i;
+                                        from[1] = k;
+                                        return new int[][] {from, to};
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // Q for Queen
+            if (move.charAt(0) == 81) {
+                for (int i=0; i<8; i++) {
+                    for (int k=0; k<8; k++) {
+                        if (aChessBoard.getBoxes()[i][k].isOccupied()) {
+                            if (aChessBoard.getBoxes()[i][k].getPiece() instanceof Queen) {
+                                if (aChessBoard.getBoxes()[i][k].getPiece().getaColor() == color) {
+                                    if (aChessBoard.getBoxes()[i][k].getPiece().moveIsValid(k, i, to[1], to[0])) {
+                                        from[0] = i;
+                                        from[1] = k;
+                                        return new int[][] {from, to};
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // T for Tower
+            if (move.charAt(0) == 84) {
+                for (int i=0; i<8; i++) {
+                    for (int k=0; k<8; k++) {
+                        if (aChessBoard.getBoxes()[i][k].isOccupied()) {
+                            if (aChessBoard.getBoxes()[i][k].getPiece() instanceof Tower) {
+                                if (aChessBoard.getBoxes()[i][k].getPiece().getaColor() == color) {
+                                    if (aChessBoard.getBoxes()[i][k].getPiece().moveIsValid(k, i, to[1], to[0])) {
+                                        from[0] = i;
+                                        from[1] = k;
+                                        return new int[][] {from, to};
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
         }
-        // b or B
-        else if ((int) move.charAt(1) == 98 || (int) move.charAt(1) == 67) {
-            from[1] = 1;
+
+
+
+        // regular move Bd2
+        // TO COORDINATES
+        // a
+        if ((int) move.charAt(1) == 97) {
+            to[1] = 0;
         }
-        // c or C
-        else if ((int) move.charAt(1) == 99 || (int) move.charAt(1) == 66) {
-            from[1] = 2;
+        // b
+        else if ((int) move.charAt(1) == 98) {
+            to[1] = 1;
         }
-        // d or D
-        else if ((int) move.charAt(1) == 100 || (int) move.charAt(1) == 68) {
-            from[1] = 3;
+        // c
+        else if ((int) move.charAt(1) == 99) {
+            to[1] = 2;
         }
-        // e or E
-        else if ((int) move.charAt(1) == 101 || (int) move.charAt(1) == 69) {
-            from[1] = 4;
+        // d
+        else if ((int) move.charAt(1) == 100) {
+            to[1] = 3;
         }
-        // f or F
-        else if ((int) move.charAt(1) == 102 || (int) move.charAt(1) == 70) {
-            from[1] = 5;
+        // e
+        else if ((int) move.charAt(1) == 101) {
+            to[1] = 4;
         }
-        // g or G
-        else if ((int) move.charAt(1) == 103 || (int) move.charAt(1) == 71) {
-            from[1] = 6;
+        // f
+        else if ((int) move.charAt(1) == 102) {
+            to[1] = 5;
         }
-        // h or H
-        else if ((int) move.charAt(1) == 104 || (int) move.charAt(1) == 72) {
-            from[1] = 7;
+        // g
+        else if ((int) move.charAt(1) == 103) {
+            to[1] = 6;
+        }
+        // h
+        else if ((int) move.charAt(1) == 104) {
+            to[1] = 7;
         }
         // wrong input
         else {
-            from[1] = 100;
+            to[1] = 100;
         }
 
         // 1
         if ((int) move.charAt(2) == 49) {
-            from[0] = 7;
+            to[0] = 7;
         }
         // 2
         else if ((int) move.charAt(2) == 50) {
-            from[0] = 6;
+            to[0] = 6;
         }
         // 3
         else if ((int) move.charAt(2) == 51) {
-            from[0] = 5;
+            to[0] = 5;
         }
         // 4
         else if ((int) move.charAt(2) == 52) {
-            from[0] = 4;
+            to[0] = 4;
         }
         // 5
         else if ((int) move.charAt(2) == 53) {
-            from[0] = 3;
+            to[0] = 3;
         }
         // 6
         else if ((int) move.charAt(2) == 54) {
-            from[0] = 2;
+            to[0] = 2;
         }
         // 7
         else if ((int) move.charAt(2) == 55) {
-            from[0] = 1;
+            to[0] = 1;
         }
         // 8
         else if ((int) move.charAt(2) == 56) {
-            from[0] = 0;
+            to[0] = 0;
         }
         // wrong input
         else {
-            from[0] = 100;
+            to[0] = 100;
         }
 
-        // Capture Qd1xh5
-        // TO COORDINATES
-        if (move.charAt(3) == 120) {
-            int[] to = new int[2];
-            // a or A
-            if ((int) move.charAt(4) == 97 || (int) move.charAt(4) == 65) {
-                to[1] = 0;
-            }
-            // b or B
-            else if ((int) move.charAt(4) == 98 || (int) move.charAt(4) == 66) {
-                to[1] = 1;
-            }
-            // c or C
-            else if ((int) move.charAt(4) == 99 || (int) move.charAt(4) == 67) {
-                to[1] = 2;
-            }
-            // d or D
-            else if ((int) move.charAt(4) == 100 || (int) move.charAt(4) == 68) {
-                to[1] = 3;
-            }
-            // e or E
-            else if ((int) move.charAt(4) == 101 || (int) move.charAt(4) == 69) {
-                to[1] = 4;
-            }
-            // f or F
-            else if ((int) move.charAt(4) == 102 || (int) move.charAt(4) == 70) {
-                to[1] = 5;
-            }
-            // g or G
-            else if ((int) move.charAt(4) == 103 || (int) move.charAt(4) == 71) {
-                to[1] = 6;
-            }
-            // h or H
-            else if ((int) move.charAt(4) == 104 || (int) move.charAt(4) == 72) {
-                to[1] = 7;
-            }
-            // wrong input
-            else {
-                to[1] = 100;
-            }
 
-            // 1
-            if ((int) move.charAt(5) == 49) {
-                to[0] = 7;
+
+        // B for Bishop
+        // Todo: exceptions (two Bishops in same row...)
+        if (move.charAt(0) == 66) {
+            for (int i=0; i<8; i++) {
+                for (int k=0; k<8; k++) {
+                    if (aChessBoard.getBoxes()[i][k].isOccupied()) {
+                        if (aChessBoard.getBoxes()[i][k].getPiece() instanceof Bishop) {
+                            if (aChessBoard.getBoxes()[i][k].getPiece().getaColor() == color) {
+                                if (aChessBoard.getBoxes()[i][k].getPiece().moveIsValid(k, i, to[1], to[0])) {
+                                    from[0] = i;
+                                    from[1] = k;
+                                    return new int[][] {from, to};
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            // 2
-            else if ((int) move.charAt(5) == 50) {
-                to[0] = 6;
+        }
+        // K for King
+        if (move.charAt(0) == 75) {
+            for (int i=0; i<8; i++) {
+                for (int k=0; k<8; k++) {
+                    if (aChessBoard.getBoxes()[i][k].isOccupied()) {
+                        if (aChessBoard.getBoxes()[i][k].getPiece() instanceof King) {
+                            if (aChessBoard.getBoxes()[i][k].getPiece().getaColor() == color) {
+                                if (aChessBoard.getBoxes()[i][k].getPiece().moveIsValid(k, i, to[1], to[0])) {
+                                    from[0] = i;
+                                    from[1] = k;
+                                    return new int[][]{from, to};
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            // 3
-            else if ((int) move.charAt(5) == 51) {
-                to[0] = 5;
+        }
+        // N for Knight
+        if (move.charAt(0) == 78) {
+            for (int i=0; i<8; i++) {
+                for (int k=0; k<8; k++) {
+                    if (aChessBoard.getBoxes()[i][k].isOccupied()) {
+                        if (aChessBoard.getBoxes()[i][k].getPiece() instanceof Knight) {
+                            if (aChessBoard.getBoxes()[i][k].getPiece().getaColor() == color) {
+                                if (aChessBoard.getBoxes()[i][k].getPiece().moveIsValid(k, i, to[1], to[0])) {
+                                    from[0] = i;
+                                    from[1] = k;
+                                    return new int[][] {from, to};
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            // 4
-            else if ((int) move.charAt(5) == 52) {
-                to[0] = 4;
+        }
+        // P for Pawn
+        if (move.charAt(0) == 80) {
+            for (int i=0; i<8; i++) {
+                for (int k=0; k<8; k++) {
+                    if (aChessBoard.getBoxes()[i][k].isOccupied()) {
+                        if (aChessBoard.getBoxes()[i][k].getPiece() instanceof Pawn) {
+                            if (aChessBoard.getBoxes()[i][k].getPiece().getaColor() == color) {
+                                if (aChessBoard.getBoxes()[i][k].getPiece().moveIsValid(k, i, to[1], to[0])) {
+                                    from[0] = i;
+                                    from[1] = k;
+                                    return new int[][] {from, to};
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            // 5
-            else if ((int) move.charAt(5) == 53) {
-                to[0] = 3;
+        }
+        // Q for Queen
+        if (move.charAt(0) == 81) {
+            for (int i=0; i<8; i++) {
+                for (int k=0; k<8; k++) {
+                    if (aChessBoard.getBoxes()[i][k].isOccupied()) {
+                        if (aChessBoard.getBoxes()[i][k].getPiece() instanceof Queen) {
+                            if (aChessBoard.getBoxes()[i][k].getPiece().getaColor() == color) {
+                                if (aChessBoard.getBoxes()[i][k].getPiece().moveIsValid(k, i, to[1], to[0])) {
+                                    from[0] = i;
+                                    from[1] = k;
+                                    return new int[][] {from, to};
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            // 6
-            else if ((int) move.charAt(5) == 54) {
-                to[0] = 2;
+        }
+        // T for Tower
+        if (move.charAt(0) == 84) {
+            for (int i=0; i<8; i++) {
+                for (int k=0; k<8; k++) {
+                    if (aChessBoard.getBoxes()[i][k].isOccupied()) {
+                        if (aChessBoard.getBoxes()[i][k].getPiece() instanceof Tower) {
+                            if (aChessBoard.getBoxes()[i][k].getPiece().getaColor() == color) {
+                                if (aChessBoard.getBoxes()[i][k].getPiece().moveIsValid(k, i, to[1], to[0])) {
+                                    from[0] = i;
+                                    from[1] = k;
+                                    return new int[][] {from, to};
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            // 7
-            else if ((int) move.charAt(5) == 55) {
-                to[0] = 1;
-            }
-            // 8
-            else if ((int) move.charAt(5) == 56) {
-                to[0] = 0;
-            }
-            // wrong input
-            else {
-                to[0] = 100;
-            }
-            return new int[][] {from, to};
         }
 
-        // regular move Be4b7
-        // TO COORDINATES
-        else {
-            int[] to = new int[2];
-            // a or A
-            if ((int) move.charAt(3) == 97 || (int) move.charAt(3) == 65) {
-                to[1] = 0;
-            }
-            // b or B
-            else if ((int) move.charAt(3) == 98 || (int) move.charAt(3) == 66) {
-                to[1] = 1;
-            }
-            // c or C
-            else if ((int) move.charAt(3) == 99 || (int) move.charAt(3) == 67) {
-                to[1] = 2;
-            }
-            // d or D
-            else if ((int) move.charAt(3) == 100 || (int) move.charAt(3) == 68) {
-                to[1] = 3;
-            }
-            // e or E
-            else if ((int) move.charAt(3) == 101 || (int) move.charAt(3) == 69) {
-                to[1] = 4;
-            }
-            // f or F
-            else if ((int) move.charAt(3) == 102 || (int) move.charAt(3) == 70) {
-                to[1] = 5;
-            }
-            // g or G
-            else if ((int) move.charAt(3) == 103 || (int) move.charAt(3) == 71) {
-                to[1] = 6;
-            }
-            // h or H
-            else if ((int) move.charAt(3) == 104 || (int) move.charAt(3) == 72) {
-                to[1] = 7;
-            }
-            // wrong input
-            else {
-                to[1] = 100;
-            }
-
-            // 1
-            if ((int) move.charAt(4) == 49) {
-                to[0] = 7;
-            }
-            // 2
-            else if ((int) move.charAt(4) == 50) {
-                to[0] = 6;
-            }
-            // 3
-            else if ((int) move.charAt(4) == 51) {
-                to[0] = 5;
-            }
-            // 4
-            else if ((int) move.charAt(4) == 52) {
-                to[0] = 4;
-            }
-            // 5
-            else if ((int) move.charAt(4) == 53) {
-                to[0] = 3;
-            }
-            // 6
-            else if ((int) move.charAt(4) == 54) {
-                to[0] = 2;
-            }
-            // 7
-            else if ((int) move.charAt(4) == 55) {
-                to[0] = 1;
-            }
-            // 8
-            else if ((int) move.charAt(4) == 56) {
-                to[0] = 0;
-            }
-            // wrong input
-            else {
-                to[0] = 100;
-            }
-            return new int[][] {from, to};
-        }
+        return new int[][] {from, to};
     }
 
     public String getCurrentPlayer() {
