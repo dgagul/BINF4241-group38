@@ -13,7 +13,7 @@ public class Box {
         }
     }
 
-
+    public boolean isOccupied() {return (getPiece() != null);}
 
     public Piece getPiece() {Piece pPiece = aPiece; return pPiece;}
 

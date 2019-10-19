@@ -99,7 +99,7 @@ public class ChessBoard {
                 }
                 // place Pawns
                 if (i==1) {
-                    Piece BP = new Pawn(Piece.Color.WHITE, Piece.Name.BP);
+                    Piece BP = new Pawn(Piece.Color.BLACK, Piece.Name.BP);
                     boxes[i][k].setPiece(BP);
                 }
             }

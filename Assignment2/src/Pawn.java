@@ -12,13 +12,14 @@ public class Pawn extends Piece {
         // ToDo: implement capture?
         if(!super.moveIsValid(fromX, fromY, toX, toY))
             return false;
+
         // If not first move
         if(hasMoved) {
             if (this.getaColor() == Color.WHITE) {
-                return ((fromX == toX) && ((fromY + 1) == toY));
+                return ((fromX == toX) && ((fromY - 1) == toY));
             }
             else {
-                return ((fromX == toX) && ((fromY - 1) == toY));
+                return ((fromX == toX) && ((fromY + 1) == toY));
             }
         }
 

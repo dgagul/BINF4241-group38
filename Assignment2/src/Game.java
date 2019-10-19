@@ -42,7 +42,7 @@ public class Game {
         String player1IsWhite = scanner.nextLine();
 
         boolean isWhite;
-        if (player1IsWhite.equals("yes") || player1IsWhite.equals("Yes") ||player1IsWhite.equals("YES")) {
+        if (player1IsWhite.equals("yes") || player1IsWhite.equals("Yes") || player1IsWhite.equals("YES")) {
             isWhite = true;
         } else {
             isWhite = false;
@@ -59,7 +59,7 @@ public class Game {
     }
 
 
-    // Todo: play, catch wrong input
+    // Todo: catch wrong input
     public void play() {
         while (!isFinished) {
             System.out.println(currentPlayer.getName() + ", what is your next move?");
@@ -70,207 +70,157 @@ public class Game {
             if (done) {
                 if (currentPlayer.equals(aPlayer1)) {
                     currentPlayer = aPlayer2;
-                }
-                else currentPlayer = aPlayer1;
+                } else currentPlayer = aPlayer1;
             }
-            //if (Rules.checkForMate()) {
-            //    isFinished = true;
-            //}
+            else {
+                System.out.println("Invalid input, try again!");
+            }
+            /*
+            If the move results in a stalemate or checkmate, the game is over.
+            if (Rules.checkForMate()) {
+                isFinished = true;
+            }
+            */
         }
     }
 
 
-    // Todo: else {catch wrong input}, perform move
+    // Todo: else {catch wrong input}
     public boolean move(String move) {
         boolean isWhite = currentPlayer.getIswhite();
         Piece.Color color;
-        if (isWhite) {color = Piece.Color.WHITE;}
-        else {color = Piece.Color.BLACK;}
+        if (isWhite) {
+            color = Piece.Color.WHITE;
+        } else {
+            color = Piece.Color.BLACK;
+        }
 
-        /*
+        int[][] xy = stringToInt(move);
+        int[] from = xy[0];
+        int[] to = xy[1];
+
+        //Try
+        //Rules.isChecked();
+        //If the player was previous under check and the move does not remove the check, it must be undone.
+        //If the move exposes check, it must be undone / disallowed.
+        //Catch
+
         // castle
-        else if (move.charAt(1) == 45 || move.charAt(0) == 48) {
-            // 0-0
-            if (move.length() == 3) {
-                if (Rules.canKingsideCastle()) {
-                    castleKS();
-                }
-            }
-            // 0-0-0
-            else if (Rules.canQueensideCastle()) {
-                movePiece();
-            }
-        }
-        // promotion e8=Q
-        else if (move.charAt(2) == 61) {
-        }
-        // capture Ta1xa5
-        else if (move.charAt(3) == 120 && move.length() == 6) {
-            // pawn
-            if (move.charAt(0) == 112 || move.charAt(0) == 80) {
-                // en passant Pe5xd6e.p.
-                if (move.length() == 10) {
-                    return "en passant";
-                }
-                // Pc4xd5
-                else if (move.length() == 6) {
-                    return "pawn capture";
-                }
-            }
-            // tower
-            else if (move.charAt(0) == 116 || move.charAt(0) == 84) {
-                return "tower capture";
-            }
-            // knight
-            else if (move.charAt(0) == 110 || move.charAt(0) == 78) {
-                return "knight capture";
-            }
-            // bishop
-            else if (move.charAt(0) == 98 || move.charAt(0) == 66) {
-                return "bishop capture";
-            }
-            // queen
-            else if (move.charAt(0) == 113 || move.charAt(0) == 81) {
-                return "queen capture";
-            }
-            // king
-            else if (move.charAt(0) == 107 || move.charAt(0) == 75) {
-                return "king capture";
-            }
-            // Todo: else {catch wrong input}
-        }
-        */
+        // If the move is a castling, set the new position of the rook accordingly. But a king and rook can only castle if they haven't moved, so you need to keep track of that. And if the king moves through a check to castle, that's disallowed, too.
 
+
+        // promotion e8=Q
+        // If the piece is a pawn reaching the back rank, promote it.
+
+        // capture Ta1xa5
+        // If player captures a piece, remove the piece (including en passant!)
+
+        // Todo: else {catch wrong input}
         // move Ta1a5
         if (move.length() == 5) {
-            int[][] xy = stringToInt(move);
-            int[] from = xy[0];
-            int[] to = xy[1];
             // pawn
             if ((move.charAt(0) == 112 || move.charAt(0) == 80)) {
-                // is pawn
                 if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece() instanceof Pawn) {
-                    // right color
                     if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
-                        // move valid
-                        if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
-                            Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
-                            aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
-                            aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
+                        if (aChessBoard.getBoxes()[to[0]][to[1]].isOccupied()) {
+                            return false;
+                        }
+                        else {
+                            if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
+                                Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
+                                aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
+                                aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
+                                ChessBoard.printBoard(aChessBoard.getBoxes());
+                                return true;
+                            }
                         }
                     }
-
                 }
             }
             // tower
-            else if (move.charAt(0) == 116 || move.charAt(0) == 84) {
-                // is tower
+            if ((move.charAt(0) == 116 || move.charAt(0) == 84)) {
                 if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece() instanceof Tower) {
-                    // right color
                     if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
-                        // move valid
                         if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
                             Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
                             aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
                             aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
+                            ChessBoard.printBoard(aChessBoard.getBoxes());
+                            return true;
                         }
                     }
-
                 }
             }
             // knight
-            else if (move.charAt(0) == 110 || move.charAt(0) == 78) {
-                // is knight
+            if ((move.charAt(0) == 110 || move.charAt(0) == 78)) {
                 if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece() instanceof Knight) {
-                    // right color
                     if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
-                        // move valid
                         if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
                             Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
                             aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
                             aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
+                            ChessBoard.printBoard(aChessBoard.getBoxes());
+                            return true;
                         }
                     }
-
                 }
             }
             // bishop
-            else if (move.charAt(0) == 98 || move.charAt(0) == 66) {
-                // is bishop
+            if ((move.charAt(0) == 98 || move.charAt(0) == 66)) {
                 if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece() instanceof Bishop) {
-                    // right color
                     if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
-                        // move valid
                         if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
                             Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
                             aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
                             aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
+                            ChessBoard.printBoard(aChessBoard.getBoxes());
+                            return true;
                         }
                     }
-
                 }
             }
             // queen
-            else if (move.charAt(0) == 113 || move.charAt(0) == 81) {
-                // is queen
+            if ((move.charAt(0) == 113 || move.charAt(0) == 81)) {
                 if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece() instanceof Queen) {
-                    // right color
                     if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
-                        // move valid
                         if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
                             Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
                             aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
                             aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
+                            ChessBoard.printBoard(aChessBoard.getBoxes());
+                            return true;
                         }
                     }
-
                 }
             }
             // king
-            else if (move.charAt(0) == 107 || move.charAt(0) == 75) {
-                // is king
+            if ((move.charAt(0) == 107 || move.charAt(0) == 75)) {
                 if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece() instanceof King) {
-                    // right color
                     if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().getaColor() == color) {
-                        // move valid
                         if (aChessBoard.getBoxes()[from[0]][from[1]].getPiece().moveIsValid(from[1], from[0], to[1], to[0])) {
                             Piece piece = aChessBoard.getBoxes()[from[0]][from[1]].getPiece();
                             aChessBoard.getBoxes()[from[0]][from[1]].setPiece(null);
                             aChessBoard.getBoxes()[to[0]][to[1]].setPiece(piece);
+                            ChessBoard.printBoard(aChessBoard.getBoxes());
+                            return true;
                         }
                     }
-
                 }
             }
-            // Todo: else {catch wrong input}
+            return false;
         }
-        ChessBoard.printBoard(aChessBoard.getBoxes());
+        // Todo: exceptions (two towers in same row...)
         return true;
     }
 
-    /*
-    Player chooses piece to move.
-    Piece makes legal move according to its own move rules.
-    In addition to purely move-based rules, there's also capture logic, so a bishop cannot move from a1-h8 if there's a piece sitting on c3.
-    If the player was previous under check and the move does not remove the check, it must be undone.
-    If the move exposes check, it must be undone / disallowed.
-    If player captures a piece, remove the piece (including en passant!)
-    If the piece is a pawn reaching the back rank, promote it.
-    If the move is a castling, set the new position of the rook accordingly. But a king and rook can only castle if they haven't moved, so you need to keep track of that. And if the king moves through a check to castle, that's disallowed, too.
-    If the move results in a stalemate or checkmate, the game is over.
-     */
-
-
-    /*
-    private void eatPiece(Piece predator, Piece prey, int[] from, int[] to) {
-        boxes[from[0]][from[1]].aPiece = null;
-        boxes[to[0]][to[1]].aPiece = predator;
-    }*/
-
-
 
     // Be4b7
+    // Qd1xh5
+    // 0-0
+    // 0-0-0
+    // e8=Q
     public static int[][] stringToInt(String move) {
+        // regular move Be4b7
         // FROM COORDINATES
         int[] from = new int[2];
         // a or A
@@ -347,84 +297,164 @@ public class Game {
             from[0] = 100;
         }
 
-
-
+        // Capture Qd1xh5
         // TO COORDINATES
-        int[] to = new int[2];
-        // a or A
-        if ((int) move.charAt(3) == 97 || (int) move.charAt(0) == 65) {
-            to[1] = 0;
-        }
-        // b or B
-        else if ((int) move.charAt(3) == 98 || (int) move.charAt(0) == 66) {
-            to[1] = 1;
-        }
-        // c or C
-        else if ((int) move.charAt(3) == 99 || (int) move.charAt(0) == 67) {
-            to[1] = 2;
-        }
-        // d or D
-        else if ((int) move.charAt(3) == 100 || (int) move.charAt(0) == 68) {
-            to[1] = 3;
-        }
-        // e or E
-        else if ((int) move.charAt(3) == 101 || (int) move.charAt(0) == 69) {
-            to[1] = 4;
-        }
-        // f or F
-        else if ((int) move.charAt(3) == 102 || (int) move.charAt(0) == 70) {
-            to[1] = 5;
-        }
-        // g or G
-        else if ((int) move.charAt(3) == 103 || (int) move.charAt(0) == 71) {
-            to[1] = 6;
-        }
-        // h or H
-        else if ((int) move.charAt(3) == 104 || (int) move.charAt(0) == 72) {
-            to[1] = 7;
-        }
-        // wrong input
-        else {
-            to[1] = 100;
+        if (move.charAt(3) == 120) {
+            int[] to = new int[2];
+            // a or A
+            if ((int) move.charAt(4) == 97 || (int) move.charAt(0) == 65) {
+                to[1] = 0;
+            }
+            // b or B
+            else if ((int) move.charAt(4) == 98 || (int) move.charAt(0) == 66) {
+                to[1] = 1;
+            }
+            // c or C
+            else if ((int) move.charAt(4) == 99 || (int) move.charAt(0) == 67) {
+                to[1] = 2;
+            }
+            // d or D
+            else if ((int) move.charAt(4) == 100 || (int) move.charAt(0) == 68) {
+                to[1] = 3;
+            }
+            // e or E
+            else if ((int) move.charAt(4) == 101 || (int) move.charAt(0) == 69) {
+                to[1] = 4;
+            }
+            // f or F
+            else if ((int) move.charAt(4) == 102 || (int) move.charAt(0) == 70) {
+                to[1] = 5;
+            }
+            // g or G
+            else if ((int) move.charAt(4) == 103 || (int) move.charAt(0) == 71) {
+                to[1] = 6;
+            }
+            // h or H
+            else if ((int) move.charAt(4) == 104 || (int) move.charAt(0) == 72) {
+                to[1] = 7;
+            }
+            // wrong input
+            else {
+                to[1] = 100;
+            }
+
+            // 1
+            if ((int) move.charAt(5) == 49) {
+                to[0] = 7;
+            }
+            // 2
+            else if ((int) move.charAt(5) == 50) {
+                to[0] = 6;
+            }
+            // 3
+            else if ((int) move.charAt(5) == 51) {
+                to[0] = 5;
+            }
+            // 4
+            else if ((int) move.charAt(5) == 52) {
+                to[0] = 4;
+            }
+            // 5
+            else if ((int) move.charAt(5) == 53) {
+                to[0] = 3;
+            }
+            // 6
+            else if ((int) move.charAt(5) == 54) {
+                to[0] = 2;
+            }
+            // 7
+            else if ((int) move.charAt(5) == 55) {
+                to[0] = 1;
+            }
+            // 8
+            else if ((int) move.charAt(5) == 56) {
+                to[0] = 0;
+            }
+            // wrong input
+            else {
+                to[0] = 100;
+            }
+            return new int[][] {from, to};
         }
 
-        // 1
-        if ((int) move.charAt(4) == 49) {
-            to[0] = 7;
-        }
-        // 2
-        else if ((int) move.charAt(4) == 50) {
-            to[0] = 6;
-        }
-        // 3
-        else if ((int) move.charAt(4) == 51) {
-            to[0] = 5;
-        }
-        // 4
-        else if ((int) move.charAt(4) == 52) {
-            to[0] = 4;
-        }
-        // 5
-        else if ((int) move.charAt(4) == 53) {
-            to[0] = 3;
-        }
-        // 6
-        else if ((int) move.charAt(4) == 54) {
-            to[0] = 2;
-        }
-        // 7
-        else if ((int) move.charAt(4) == 55) {
-            to[0] = 1;
-        }
-        // 8
-        else if ((int) move.charAt(4) == 56) {
-            to[0] = 0;
-        }
-        // wrong input
+        // regular move Be4b7
+        // TO COORDINATES
         else {
-            to[0] = 100;
+            int[] to = new int[2];
+            // a or A
+            if ((int) move.charAt(3) == 97 || (int) move.charAt(0) == 65) {
+                to[1] = 0;
+            }
+            // b or B
+            else if ((int) move.charAt(3) == 98 || (int) move.charAt(0) == 66) {
+                to[1] = 1;
+            }
+            // c or C
+            else if ((int) move.charAt(3) == 99 || (int) move.charAt(0) == 67) {
+                to[1] = 2;
+            }
+            // d or D
+            else if ((int) move.charAt(3) == 100 || (int) move.charAt(0) == 68) {
+                to[1] = 3;
+            }
+            // e or E
+            else if ((int) move.charAt(3) == 101 || (int) move.charAt(0) == 69) {
+                to[1] = 4;
+            }
+            // f or F
+            else if ((int) move.charAt(3) == 102 || (int) move.charAt(0) == 70) {
+                to[1] = 5;
+            }
+            // g or G
+            else if ((int) move.charAt(3) == 103 || (int) move.charAt(0) == 71) {
+                to[1] = 6;
+            }
+            // h or H
+            else if ((int) move.charAt(3) == 104 || (int) move.charAt(0) == 72) {
+                to[1] = 7;
+            }
+            // wrong input
+            else {
+                to[1] = 100;
+            }
+
+            // 1
+            if ((int) move.charAt(4) == 49) {
+                to[0] = 7;
+            }
+            // 2
+            else if ((int) move.charAt(4) == 50) {
+                to[0] = 6;
+            }
+            // 3
+            else if ((int) move.charAt(4) == 51) {
+                to[0] = 5;
+            }
+            // 4
+            else if ((int) move.charAt(4) == 52) {
+                to[0] = 4;
+            }
+            // 5
+            else if ((int) move.charAt(4) == 53) {
+                to[0] = 3;
+            }
+            // 6
+            else if ((int) move.charAt(4) == 54) {
+                to[0] = 2;
+            }
+            // 7
+            else if ((int) move.charAt(4) == 55) {
+                to[0] = 1;
+            }
+            // 8
+            else if ((int) move.charAt(4) == 56) {
+                to[0] = 0;
+            }
+            // wrong input
+            else {
+                to[0] = 100;
+            }
+            return new int[][] {from, to};
         }
-        return new int[][]{from, to};
     }
 }
-

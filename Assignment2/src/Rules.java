@@ -1,6 +1,6 @@
 public class Rules {
     /*
-    public static boolean checkForCheck() {
+    public static boolean isChecked() {
         // Todo: checkforcheck
     }
 
@@ -22,6 +22,6 @@ public class Rules {
             return false;
         }
         else if // Todo: rock under attack, king moved before, boxes in between under attack
-    }
-    */
+    }*/
+
 }
