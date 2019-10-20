@@ -1,67 +1,47 @@
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Player {
+    public enum Color{
+        BLACK,
+        WHITE;
+    }
 
-    private String color;
+    private Color color;
     private String name;
-    private String c_color;
-    private String c_name;
 
     private List<Piece> rest_pieces = new ArrayList<>();
     private List<Piece> eaten_pieces = new ArrayList<>();
 
+    public Player(Color playerColor){
+        color = playerColor;
+        Scanner player = new Scanner(System.in);
+        boolean isValid = false;
+        while (!isValid){
+            System.out.printf("Please enter a name for the Player with Color %s.\n", playerColor);
+            name = player.nextLine();
+            if (name.matches("^[a-zA-Z1-9]*$")&& !name.equals("")){
+                isValid = true;
+            }
+            else System.out.println("Please enter a non-empty name only containing characters from a-Z and 1-9.");
+        }
+    }
 
-    public Player(String playercolor, String playername) {
-        color = playercolor;
-        name = playername;
-        c_color = color;
-        c_name = name; }
-
-        // getter just returning copys
-    public String getIswhite(){
-        return c_color; }
+    public Color getColor(){
+        return color;
+    }
 
     public String getName(){
-        return c_name; }
+        return name;
+    }
 
-    public List<Piece> getRest_pieces() {
-        return new ArrayList<Piece>(rest_pieces); }
+    // Lists are mutable
+    public List<Piece> getRest_pieces(){
+        return new ArrayList<Piece>(rest_pieces);
+    }
 
-    public List<Piece> getEaten_pieces_pieces() {
-        return new ArrayList<Piece>(rest_pieces);}
-    /*
-    private final int PAWNS = 8;
-    private final int BISHOPS = 2;
-    private final int ROOKS = 2;
-    public void initializePieces(){
-        if(this.white == true){
-            for(int i=0; i<PAWNS; i++){ // draw pawns
-                pieces.add(new Pawn(true,i,2));
-            }
-            pieces.add(new Rook(true, 0, 0));
-            pieces.add(new Rook(true, 7, 0));
-            pieces.add(new Bishop(true, 2, 0));
-            pieces.add(new Bishop(true, 5, 0));
-            pieces.add(new Knight(true, 1, 0));
-            pieces.add(new Knight(true, 6, 0));
-            pieces.add(new Queen(true, 3, 0));
-            pieces.add(new King(true, 4, 0));
-        }
-        else{
-            for(int i=0; i<PAWNS; i++){ // draw pawns
-                pieces.add(new Pawn(true,i,6));
-            }
-            pieces.add(new Rook(true, 0, 7));
-            pieces.add(new Rook(true, 7, 7));
-            pieces.add(new Bishop(true, 2, 7));
-            pieces.add(new Bishop(true, 5, 7));
-            pieces.add(new Knight(true, 1, 7));
-            pieces.add(new Knight(true, 6, 7));
-            pieces.add(new Queen(true, 3, 7));
-            pieces.add(new King(true, 4, 7));
-        }
-
-    }*/
+    public List<Piece> getEaten_pieces() {
+        return new ArrayList<Piece>(eaten_pieces);
+    }
 }
