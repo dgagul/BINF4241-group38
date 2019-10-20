@@ -40,6 +40,7 @@ public class Game{
         boolean isCapture = false;
         boolean isPromotion = false;
         boolean isCastling = false;
+        boolean isKingside = false;
         String piece = "";
         String promoteTo = "";
         int fileFrom = -1;
@@ -83,6 +84,7 @@ public class Game{
                 else if(userInput.matches("^0-0$")){
                     // ToDo: Castling method with boolean kingsideCastling (=true)
                     isCastling = true;
+                    isKingside = true;
                 }
             }
             else if(userInput.length()==4){
@@ -116,6 +118,12 @@ public class Game{
                     }
                 }
             }
+            else if(userInput.length() == 5){
+                if(userInput.matches("^0-0-0$")){
+                    isCastling = true;
+                    isKingside = false;
+                }
+            }
             if(!validInput){
                 System.out.println("Invalid input! Please try again.");
             }
@@ -125,12 +133,16 @@ public class Game{
             if(Logic.move(p, fileFrom, rankFrom-1, fileTo, rankTo-1)){
                 validMove = true;
             }
-        }else if (isPromotion){
+        }
+        else if (isPromotion){
             Piece p = StrToPiece("P", currentPlayer.getColor());
             Piece promotePiece = StrToPiece(promoteTo, currentPlayer.getColor());
             if(Logic.promotion(p, fileFrom, fileTo, promotePiece)){
                 validMove = true;
             }
+        }
+        else if(isCastling){
+            Logic.castling(isKingside, currentPlayer.getColor());
         }
         if(!validMove){
             System.out.println("Invalid input! Please try again.");

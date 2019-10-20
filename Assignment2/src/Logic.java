@@ -118,6 +118,87 @@ public class Logic {
         return true;
     }
 
+    public static boolean castling(boolean kingSide, Player.Color col){
+        Piece k;
+        Piece t;
+        if(kingSide){
+            if(col == Player.Color.WHITE){
+                k = board.getBoard()[4][0].getPiece();
+                t = board.getBoard()[7][0].getPiece();
+            }
+            else{
+                k = board.getBoard()[4][7].getPiece();
+                t = board.getBoard()[7][7].getPiece();
+            }
+            if(k.getClass() == King.class && t.getClass() == Tower.class){
+                King king = (King)k;
+                Tower tower = (Tower)t;
+                if(!king.isFirstMove() || !tower.isFirstMove()){
+                    return false;
+                }
+                for(int i=5; i<7; i++){
+                    if(col == Player.Color.WHITE){
+                        if(board.getBoard()[i][0].getPiece() != null || checkForCheck())
+                            return false;
+                        board.getBoard()[4][0].setPiece(null);
+                        board.getBoard()[7][0].setPiece(null);
+                        board.getBoard()[6][0].setPiece(k);
+                        board.getBoard()[5][0].setPiece(t);
+                    }
+                    else{
+                        if(board.getBoard()[i][7].getPiece() != null || checkForCheck())
+                            return false;
+                        board.getBoard()[4][7].setPiece(null);
+                        board.getBoard()[7][7].setPiece(null);
+                        board.getBoard()[6][7].setPiece(k);
+                        board.getBoard()[5][7].setPiece(t);
+                    }
+                }
+            }
+        }
+        if(!kingSide){
+            if(col == Player.Color.WHITE){
+                k = board.getBoard()[4][0].getPiece();
+                t = board.getBoard()[0][0].getPiece();
+            }
+            else{
+                k = board.getBoard()[4][7].getPiece();
+                t = board.getBoard()[0][7].getPiece();
+            }
+            if(k.getClass() == King.class && t.getClass() == Tower.class){
+                King king = (King)k;
+                Tower tower = (Tower)t;
+                if(!king.isFirstMove() || !tower.isFirstMove()){
+                    return false;
+                }
+                for(int i=3; i>0; i--){
+                    if(col == Player.Color.WHITE){
+                        if(board.getBoard()[i][0].getPiece() != null || checkForCheck())
+                            return false;
+                        board.getBoard()[4][0].setPiece(null);
+                        board.getBoard()[0][0].setPiece(null);
+                        board.getBoard()[2][0].setPiece(k);
+                        board.getBoard()[3][0].setPiece(t);
+                    }
+                    else{
+                        if(board.getBoard()[i][7].getPiece() != null || checkForCheck())
+                            return false;
+                        board.getBoard()[4][7].setPiece(null);
+                        board.getBoard()[0][7].setPiece(null);
+                        board.getBoard()[2][7].setPiece(k);
+                        board.getBoard()[3][7].setPiece(t);
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    // return true if king is in check
+    public static boolean checkForCheck(){
+        return false;
+    }
+
     public static boolean promotion(Piece p, int fileFrom, int fileTo, Piece promoteTo){
         if(p.getColor() == Piece.Color.WHITE){
             if (move(p, fileFrom, 6, fileTo, 7)){
