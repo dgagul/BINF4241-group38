@@ -1,8 +1,14 @@
 import javafx.util.Pair;
 
 public class King extends Piece {
+    private boolean firstMove;
+
     public King(boolean available, Color col){
         super(available, col);
+    }
+
+    public void setFirstMove(boolean firstMove) {
+        this.firstMove = firstMove;
     }
 
     @Override

@@ -1,20 +1,24 @@
 public class Square {
     enum Color {WHITE, BLACK;}
 
-    private Color aColor;
-    private Piece aPiece = null;
+    private Color color;
+    private Piece piece = null;
 
     public Square(Color pColor) {
         // color Box
-        aColor = pColor;
+        color = pColor;
     }
 
     public void setPiece(Piece piece) {
-        aPiece = piece;
+        this.piece = piece;
     }
 
     public Piece getPiece() {
-        return aPiece;
+        return piece;
+    }
+
+    public boolean isOccupied(){
+        return !(piece==null);
     }
 
     //public void setPiece(Piece pPiece) {aPiece = pPiece}

@@ -21,10 +21,10 @@ public class Player {
         while (!isValid){
             System.out.printf("Please enter a name for the Player with Color %s.\n", playerColor);
             name = player.nextLine();
-            if (name.matches("^[a-zA-Z1-9]*$")&& !name.equals("") && name.length() < 15){
+            if (name.matches("^[a-zA-Z1-9]*$")&& !name.equals("")){
                 isValid = true;
             }
-            else System.out.println("Please enter a non-empty name with a maximum length of 15 and only containing characters from a-Z and 1-9.");
+            else System.out.println("Please enter a non-empty name only containing characters from a-Z and 1-9.");
         }
     }
 

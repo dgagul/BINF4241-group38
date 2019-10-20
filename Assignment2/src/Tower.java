@@ -1,8 +1,14 @@
 import javafx.util.Pair;
 
 public class Tower extends Piece {
+    private boolean firstMove;
+
     public Tower(boolean available, Color col){
         super(available, col);
+    }
+
+    public void setFirstMove(boolean firstMove) {
+        this.firstMove = firstMove;
     }
 
     @Override
