@@ -35,11 +35,13 @@ public class Game{
 
     public static void readInput(Player currentPlayer){
         boolean validInput = false;
+        boolean validMove = false;
         boolean isMove = false;
         boolean isCapture = false;
         boolean isPromotion = false;
         boolean isCastling = false;
         String piece = "";
+        String promoteTo = "";
         int fileFrom = -1;
         int rankFrom = -1;
         int fileTo = -1;
@@ -70,12 +72,13 @@ public class Game{
                     rankTo = Integer.parseInt(userInput.substring(2,3));
                     validInput = true;
                 }
-                else if(userInput.matches("^[a-h]8[Q|N|T]$")){
+                else if(userInput.matches("^[a-h][0|8][Q|N|T]$")){
                     validInput = true;
                     isPromotion = true;
                     fileTo = StrToInt(userInput.substring(0,1));
+                    fileFrom = fileTo;
                     rankTo = Integer.parseInt(userInput.substring(1,2));
-                    String promoteTo = userInput.substring(2,3);
+                    promoteTo = userInput.substring(2,3);
                 }
                 else if(userInput.matches("^0-0$")){
                     // ToDo: Castling method with boolean kingsideCastling (=true)
@@ -119,10 +122,19 @@ public class Game{
         }
         if (isMove){
             Piece p = StrToPiece(piece, currentPlayer.getColor());
-            if(!Logic.move(p, fileFrom, rankFrom-1, fileTo, rankTo-1)){
-                System.out.println("Invalid input! Please try again.");
-                readInput(currentPlayer);
+            if(Logic.move(p, fileFrom, rankFrom-1, fileTo, rankTo-1)){
+                validMove = true;
             }
+        }else if (isPromotion){
+            Piece p = StrToPiece("P", currentPlayer.getColor());
+            Piece promotePiece = StrToPiece(promoteTo, currentPlayer.getColor());
+            if(Logic.promotion(p, fileFrom, fileTo, promotePiece)){
+                validMove = true;
+            }
+        }
+        if(!validMove){
+            System.out.println("Invalid input! Please try again.");
+            readInput(currentPlayer);
         }
     }
 

@@ -21,7 +21,7 @@ public class Pawn extends Piece {
         }
         else if (this.getColor() == Color.BLACK){
             if(fromY < 6){
-                return ((fromX == toX) && ((fromY + 1) == toY));
+                return ((fromX == toX) && ((fromY - 1) == toY));
             }
             else return ((fromX == toX) && (((fromY -1) == toY) || ((fromY -2) == toY)));
         }
