@@ -1,5 +1,7 @@
 import javafx.util.Pair;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -10,6 +12,12 @@ public class Game{
     private static Player playerBlack;
     private static Board board;
     private static Logic logic;
+
+    //LYNN
+    // lastMove = [fileFrom, fileTo, rankFrom, rankTo
+    private static int[] lastMove;
+    public static int[] getlastMove(){ return lastMove; }
+    //LYNN
 
     public Game(){
         playerWhite = new Player(Player.Color.WHITE);
@@ -116,7 +124,18 @@ public class Game{
             if(!validInput){
                 System.out.println("Invalid input! Please try again.");
             }
+
         }
+        // in main method? always at the end of a play
+        //LYNN : Created a List lastMove = [fileFrom, fileTo, rankFrom, rankTo, 1 if Pawn 0 otherwise]
+        lastMove[0] = fileFrom;
+        lastMove[1] = fileTo;
+        lastMove[2] = rankFrom;
+        lastMove[3] = rankTo;
+        if (piece.equals("P")){ lastMove[4] = 1; }
+        else {lastMove[4] = 0; }
+        //LYNN
+
         if (isMove){
             Piece p = StrToPiece(piece, currentPlayer.getColor());
             if(!Logic.move(p, fileFrom, rankFrom-1, fileTo, rankTo-1)){
