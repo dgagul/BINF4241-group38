@@ -48,6 +48,40 @@ public class Logic {
 
     }
 
-    public static void
+    //Lynn enPassant
+    //Problems: How to access isCaptured + how to access currentPlayer?
 
-}
+    public boolean enPassant(int fileFrom, int fileTo, int rankFrom, int rankTo) {
+        if (Game.isCaptured) { //how to access isCaptured from Game class readInput()??
+            //playerWhite
+            if (Game.currentPlayer.getColor() == Piece.Color.WHITE) {
+                        // if both on the rank 5
+                return rankFrom == 5 && (Game.getlastMove()[2] == rankFrom) &&
+                        // and next together
+                        (fileFrom == Game.getlastMove()[1] - 1 || fileFrom == Game.getlastMove()[1] + 1) &&
+                        // and last move was 2 forward
+                        (Game.getlastMove()[2] - Game.getlastMove()[3] == 2) &&
+                        // and last moved Piece was a Pawn
+                        (Game.getlastMove()[4] == 1) &&
+                        // and move is diagonal 1 field
+                        (fileTo == Game.getlastMove()[1] && rankTo == Game.getlastMove()[3] + 1);
+            }
+            //playerBlack
+            else {
+                //if both Rank 5 seen from Black, means Rank 4
+                // EnPassant Capture not possible
+                return rankFrom == 4 && Game.getlastMove()[3] == rankFrom &&
+                        // and next together
+                        (fileFrom == Game.getlastMove()[1] - 1 || fileFrom == Game.getlastMove()[1] + 1) &&
+                        // and last move was 2 forward
+                        Game.getlastMove()[2] - Game.getlastMove()[3] == -2 &&
+                        // and last moved piece was a pawn
+                        Game.getlastMove()[4] == 1 &&
+                        // and move is diagonal 1 field
+                        (fileTo == Game.getlastMove()[1] && rankTo == Game.getlastMove()[3] - 1);
+            }
+
+        }
+        else { return false;}
+
+    }}
