@@ -8,7 +8,6 @@ public class Pawn extends Piece {
 
     @Override
     public boolean moveIsValid(int fromX, int fromY, int toX, int toY) {
-        // ToDo: implement capture?
         if(!super.moveIsValid(fromX, fromY, toX, toY))
             return false;
         if (this.getColor() == Color.WHITE){

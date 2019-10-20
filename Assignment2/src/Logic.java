@@ -31,11 +31,13 @@ public class Logic {
                     if(aBoard[i][j].getPiece().getClass() == p.getClass()){
                         if(aBoard[i][j].getPiece().getColor() == p.getColor()){
                             if(aBoard[i][j].getPiece().moveIsValid(i,j,fileTo,rankTo)){
-                                //ToDo: Check if pieces are in the way
-                                Piece piece = board.getBoard()[i][j].getPiece();
-                                board.getBoard()[i][j].setPiece(null);
-                                board.getBoard()[fileTo][rankTo].setPiece(piece);
-                                return true;
+                                if(checkPath(i, j, fileTo, rankTo)){
+                                    Piece piece = board.getBoard()[i][j].getPiece();
+                                    piece = checkKingOrTowerMove(piece);
+                                    board.getBoard()[i][j].setPiece(null);
+                                    board.getBoard()[fileTo][rankTo].setPiece(piece);
+                                    return true;
+                                }
                             }
                         }
                     }
@@ -43,6 +45,77 @@ public class Logic {
             }
         }
         return false;
+    }
+
+    public static boolean checkPath(int fileFrom, int rankFrom, int fileTo, int rankTo){
+        // horizontal move
+        if(rankFrom == rankTo){
+            if(fileFrom < fileTo){
+                for(int i = fileFrom+1; i<=fileTo; i++){
+                    if (board.getBoard()[i][rankTo].getPiece() != null)
+                        return false;
+                }
+            }
+            else {
+                for(int i = fileFrom-1; i>=fileTo; i--){
+                    if (board.getBoard()[i][rankTo].getPiece() != null)
+                        return false;
+                }
+            }
+        }
+        // vertical move
+        else if(fileFrom == fileTo){
+            if(rankFrom < rankTo){
+                for(int i = rankFrom+1; i<=rankTo; i++){
+                    if (board.getBoard()[fileTo][i].getPiece() != null)
+                        return false;
+                }
+            }
+            else{
+                for(int i = fileFrom-1; i>=fileTo; i--){
+                    if (board.getBoard()[fileTo][i].getPiece() != null)
+                        return false;
+                }
+            }
+        }
+        // diagonal move
+        else if(rankFrom < rankTo && fileFrom > fileTo){
+            int j = rankFrom + 1;
+            for(int i = fileFrom-1; i>=fileTo; i--){
+                if(board.getBoard()[i][j].getPiece() != null){
+                    return false;
+                }
+                j++;
+            }
+        }
+        else if(rankFrom > rankTo && fileFrom < fileTo){
+            int j = rankFrom - 1;
+            for(int i = fileFrom+1; i<=fileTo; i++){
+                if(board.getBoard()[i][j].getPiece() != null){
+                    return false;
+                }
+                j--;
+            }
+        }
+        else {
+            if(rankFrom < rankTo){
+                int j = rankFrom +1;
+                for(int i = fileFrom+1; i<=fileTo; i++){
+                    if (board.getBoard()[i][j].getPiece() != null)
+                        return false;
+                    j++;
+                }
+            }
+            else{
+                int j = rankFrom-1;
+                for(int i = fileFrom-1; i>=fileTo; i--){
+                    if (board.getBoard()[i][j].getPiece() != null)
+                        return false;
+                    j--;
+                }
+            }
+        }
+        return true;
     }
 
     public static boolean promotion(Piece p, int fileFrom, int fileTo, Piece promoteTo){
@@ -61,6 +134,20 @@ public class Logic {
             return false;
         }
         return false;
+    }
+
+    public static Piece checkKingOrTowerMove(Piece piece){
+        if(piece.getClass() == King.class){
+            King king = (King)piece;
+            king.setFirstMove(false);
+            return king;
+        }
+        else if(piece.getClass() == Tower.class){
+            Tower tower = (Tower)piece;
+            tower.setFirstMove(false);
+            return tower;
+        }
+        return piece;
     }
 
 }

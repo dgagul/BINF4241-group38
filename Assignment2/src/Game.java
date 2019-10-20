@@ -11,14 +11,14 @@ public class Game{
     private static Board board;
     private static Logic logic;
 
-    public Game(){
+    private Game(){
         playerWhite = new Player(Player.Color.WHITE);
         playerBlack = new Player(Player.Color.BLACK);
         board = new Board();
         logic = new Logic(board);
     }
 
-    public static void play(){
+    private static void play(){
         ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<>(2);
         playerQueue.add(playerWhite);
         playerQueue.add(playerBlack);
@@ -33,7 +33,7 @@ public class Game{
         }
     }
 
-    public static void readInput(Player currentPlayer){
+    private static void readInput(Player currentPlayer){
         boolean validInput = false;
         boolean validMove = false;
         boolean isMove = false;
@@ -138,7 +138,7 @@ public class Game{
         }
     }
 
-    public static int StrToInt(String s) {
+    private static int StrToInt(String s) {
         // ToDo: move to Game.java
         if (s.equals("a")) {return 0;}
         else if (s.equals("b")) {return 1;}
@@ -152,7 +152,7 @@ public class Game{
         return -1;
     }
 
-    public static Piece StrToPiece(String p, Player.Color color){
+    private static Piece StrToPiece(String p, Player.Color color){
         Piece.Color color2;
         if(color == Player.Color.BLACK){ color2 = Piece.Color.BLACK;}
         else {color2 = Piece.Color.WHITE;}
