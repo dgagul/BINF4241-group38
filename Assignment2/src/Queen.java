@@ -1,7 +1,7 @@
 import javafx.util.Pair;
 
 public class Queen extends Piece {
-    public Queen(boolean available, Color col){
+    public Queen(boolean available, Color.color col){
         super(available, col);
     }
 

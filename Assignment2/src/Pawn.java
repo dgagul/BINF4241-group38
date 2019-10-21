@@ -2,7 +2,7 @@ import javafx.util.Pair;
 
 public class Pawn extends Piece {
 
-    public Pawn(boolean available, Color col){
+    public Pawn(boolean available, Color.color col){
         super(available, col);
     }
 
@@ -10,7 +10,7 @@ public class Pawn extends Piece {
     public boolean moveIsValid(int fromX, int fromY, int toX, int toY) {
         if(!super.moveIsValid(fromX, fromY, toX, toY))
             return false;
-        if (this.getColor() == Color.WHITE){
+        if (this.getColor() == Color.color.WHITE){
             // If not first move
             if(fromY>1)
                 return ((fromX == toX) && ((fromY + 1) == toY));
@@ -18,7 +18,7 @@ public class Pawn extends Piece {
             else
                 return ((fromX == toX) && (((fromY + 1) == toY) || fromY+2 == toY));
         }
-        else if (this.getColor() == Color.BLACK){
+        else if (this.getColor() == Color.color.BLACK){
             if(fromY < 6){
                 return ((fromX == toX) && ((fromY - 1) == toY));
             }

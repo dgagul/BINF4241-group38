@@ -4,7 +4,7 @@ public class King extends Piece {
 
     private boolean firstMove;
 
-    public King(boolean available, Color col){
+    public King(boolean available, Color.color col){
         super(available, col);
     }
 

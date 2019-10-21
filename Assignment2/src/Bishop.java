@@ -2,7 +2,7 @@ import javafx.util.Pair;
 import java.lang.Math;
 
 public class Bishop extends Piece {
-    public Bishop(boolean available, Color col){
+    public Bishop(boolean available, Color.color col){
         super(available, col);
     }
 

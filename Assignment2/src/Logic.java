@@ -60,7 +60,7 @@ public class Logic {
     public static boolean capture(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
         // ToDo: add piece to captured_pieces
         if (p.getClass() == Pawn.class) {
-            if (p.getColor() == Piece.Color.WHITE) {
+            if (p.getColor() == Color.color.WHITE) {
                 rankFrom = rankTo - 1;
             } else {
                 rankFrom = rankTo + 1;
@@ -156,11 +156,11 @@ public class Logic {
         return true;
     }
 
-    public static boolean castling(boolean kingSide, Player.Color col) {
+    public static boolean castling(boolean kingSide, Color.color col) {
         Piece k;
         Piece t;
         if (kingSide) {
-            if (col == Player.Color.WHITE) {
+            if (col == Color.color.WHITE) {
                 k = board.getBoard()[4][0].getPiece();
                 t = board.getBoard()[7][0].getPiece();
             } else {
@@ -174,15 +174,15 @@ public class Logic {
                     return false;
                 }
                 for (int i = 5; i < 7; i++) {
-                    if (col == Player.Color.WHITE) {
-                        if (board.getBoard()[i][0].getPiece() != null || checkForCheck())
+                    if (col == Color.color.WHITE) {
+                        if (board.getBoard()[i][0].getPiece() != null || checkForCheck(col))
                             return false;
                         board.getBoard()[4][0].setPiece(null);
                         board.getBoard()[7][0].setPiece(null);
                         board.getBoard()[6][0].setPiece(k);
                         board.getBoard()[5][0].setPiece(t);
                     } else {
-                        if (board.getBoard()[i][7].getPiece() != null || checkForCheck())
+                        if (board.getBoard()[i][7].getPiece() != null || checkForCheck(col))
                             return false;
                         board.getBoard()[4][7].setPiece(null);
                         board.getBoard()[7][7].setPiece(null);
@@ -193,7 +193,7 @@ public class Logic {
             }
         }
         if (!kingSide) {
-            if (col == Player.Color.WHITE) {
+            if (col == Color.color.WHITE) {
                 k = board.getBoard()[4][0].getPiece();
                 t = board.getBoard()[0][0].getPiece();
             } else {
@@ -207,15 +207,15 @@ public class Logic {
                     return false;
                 }
                 for (int i = 3; i > 0; i--) {
-                    if (col == Player.Color.WHITE) {
-                        if (board.getBoard()[i][0].getPiece() != null || checkForCheck())
+                    if (col == Color.color.WHITE) {
+                        if (board.getBoard()[i][0].getPiece() != null || checkForCheck(col))
                             return false;
                         board.getBoard()[4][0].setPiece(null);
                         board.getBoard()[0][0].setPiece(null);
                         board.getBoard()[2][0].setPiece(k);
                         board.getBoard()[3][0].setPiece(t);
                     } else {
-                        if (board.getBoard()[i][7].getPiece() != null || checkForCheck())
+                        if (board.getBoard()[i][7].getPiece() != null || checkForCheck(col))
                             return false;
                         board.getBoard()[4][7].setPiece(null);
                         board.getBoard()[0][7].setPiece(null);
@@ -229,18 +229,37 @@ public class Logic {
     }
 
     // return true if king is in check
-    public static boolean checkForCheck() {
+    public static boolean checkForCheck(Color.color color) {
+        // find King
+        int[] kingCoords = new int[2];
+        kingCoords = findKing(color);
+        int x = kingCoords[0];
+        int y = kingCoords[1];
+        Piece king = board.getBoard()[x][y].getPiece();
+        for(int i = 0; i<8; i++){
+            for(int j = 0; j<8; j++){
+                Piece p = board.getBoard()[i][j].getPiece();
+                if(board.getBoard()[i][j].isOccupied() && (p.getColor() != color))
+                    if(p.moveIsValid(i,j, x, y)){
+                        board.getBoard()[x][y].setPiece(null);
+                        if(checkPath(i,j,x,y)){
+                            board.getBoard()[x][y].setPiece(king);
+                            return true;
+                        }
+                    }
+            }
+        }
         return false;
     }
 
     public static boolean promotion(Piece p, int fileFrom, int fileTo, Piece promoteTo) {
-        if (p.getColor() == Piece.Color.WHITE) {
+        if (p.getColor() == Color.color.WHITE) {
             if (move(p, fileFrom, 6, fileTo, 7)) {
                 board.getBoard()[fileTo][7].setPiece(promoteTo);
                 return true;
             }
             return false;
-        } else if (p.getColor() == Piece.Color.BLACK) {
+        } else if (p.getColor() == Color.color.BLACK) {
             if (move(p, fileFrom, 1, fileTo, 0)) {
                 board.getBoard()[fileTo][8].setPiece(promoteTo);
                 return true;
@@ -261,6 +280,18 @@ public class Logic {
             return tower;
         }
         return piece;
+    }
+
+    public static int[] findKing(Color.color color) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board.getBoard()[i][j].isOccupied())
+                    if (board.getBoard()[i][j].getPiece().getClass() == King.class)
+                        if (board.getBoard()[i][j].getPiece().getColor() == color)
+                            return new int[]{i, j};
+            }
+        }
+        return new int[]{-1, -1};
     }
 
 }

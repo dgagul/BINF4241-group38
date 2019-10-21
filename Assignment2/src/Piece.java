@@ -3,28 +3,24 @@ import javafx.util.Pair;
 import java.io.*;
 
 abstract class Piece {
-    enum Color {
-        BLACK,
-        WHITE;
-    }
 
-    private Color color;
+    private Color.color color;
     private boolean isAvailable;
     // Does piece need to know its position? --> not if we pass arguments fromX and fromY in isValid() method
 
-    Piece(boolean available, Color col) {
+    Piece(boolean available, Color.color col) {
         // ToDo: Maybe initialize with true from the start?
         isAvailable = available;
         switch (col) {
             case BLACK:
-                color = Color.BLACK;
+                color = Color.color.BLACK;
                 break;
             case WHITE:
-                color = Color.WHITE;
+                color = Color.color.WHITE;
         }
     }
 
-    public Color getColor() {
+    public Color.color getColor() {
         return color;
     }
 
@@ -34,10 +30,10 @@ abstract class Piece {
 
     public String toString(){
         String line = "";
-        if (getColor() == Color.WHITE){
+        if (getColor() == Color.color.WHITE){
             line += "W";
         }
-        else if(getColor() == Color.BLACK){
+        else if(getColor() == Color.color.BLACK){
             line += "B";
         }
         return line;

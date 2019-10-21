@@ -11,12 +11,14 @@ public class Game{
     private static Player playerBlack;
     private static Board board;
     private static Logic logic;
+    private static Color.color black = Color.color.BLACK;
+    private static Color.color white = Color.color.WHITE;
 
     private static int[] lastMove;
 
     private Game(){
-        playerWhite = new Player(Player.Color.WHITE);
-        playerBlack = new Player(Player.Color.BLACK);
+        playerWhite = new Player(white);
+        playerBlack = new Player(black);
         board = new Board();
         logic = new Logic(board);
     }
@@ -37,7 +39,9 @@ public class Game{
             Player currentPlayer = playerQueue.poll();
             readInput(currentPlayer);
             board.printBoard();
-            Logic.checkForCheck();
+            if(Logic.checkForCheck(currentPlayer.getColor())){
+                System.out.println("Check!");
+            }
             playerQueue.add(currentPlayer);
         }
     }
@@ -178,16 +182,13 @@ public class Game{
         return -1;
     }
 
-    private static Piece StrToPiece(String p, Player.Color color){
-        Piece.Color color2;
-        if(color == Player.Color.BLACK){ color2 = Piece.Color.BLACK;}
-        else {color2 = Piece.Color.WHITE;}
-        if(p.equals("P")) {return new Pawn(true, color2);}
-        else if (p.equals("B")) {return new Bishop(true, color2);}
-        else if (p.equals("K")) {return new King(true, color2);}
-        else if (p.equals("N")) {return new Knight(true, color2);}
-        else if (p.equals("Q")) {return new Queen(true, color2);}
-        else return new Tower(true, color2);
+    private static Piece StrToPiece(String p, Color.color color){
+        if(p.equals("P")) {return new Pawn(true, color);}
+        else if (p.equals("B")) {return new Bishop(true, color);}
+        else if (p.equals("K")) {return new King(true, color);}
+        else if (p.equals("N")) {return new Knight(true, color);}
+        else if (p.equals("Q")) {return new Queen(true, color);}
+        else return new Tower(true, color);
     }
 
     public static void main(String[] args) {

@@ -1,7 +1,7 @@
 import javafx.util.Pair;
 
 public class Knight extends Piece {
-    public Knight(boolean available, Color col){
+    public Knight(boolean available, Color.color col){
         super(available, col);
     }
 

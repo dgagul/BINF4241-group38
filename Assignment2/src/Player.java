@@ -3,19 +3,15 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Player {
-    public enum Color{
-        BLACK,
-        WHITE;
-    }
 
-    private Color color;
+    private Color.color color;
     private String name;
 
     private List<Piece> rest_pieces = new ArrayList<>();
 
     private List<Piece> captured_pieces = new ArrayList<>();
 
-    public Player(Color playerColor){
+    public Player(Color.color playerColor){
         color = playerColor;
         Scanner player = new Scanner(System.in);
         boolean isValid = false;
@@ -29,7 +25,7 @@ public class Player {
         }
     }
 
-    public Color getColor(){
+    public Color.color getColor(){
         return color;
     }
 

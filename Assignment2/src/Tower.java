@@ -4,7 +4,7 @@ public class Tower extends Piece {
 
     private boolean firstMove;
 
-    public Tower(boolean available, Color col){
+    public Tower(boolean available, Color.color col){
         super(available, col);
     }
 
