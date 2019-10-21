@@ -23,14 +23,6 @@ public class Game{
         logic = new Logic(board);
     }
 
-    public static int[] getLastMove() {
-        return lastMove;
-    }
-
-    public static void setLastMove(int[] lastMove) {
-        Game.lastMove = lastMove;
-    }
-
     private static void play(){
         ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<>(2);
         playerQueue.add(playerWhite);

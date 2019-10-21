@@ -1,6 +1,7 @@
 public class Logic {
 
     private static Board board;
+    private static int[] lastMove;
 
     Logic(Board board) {
         this.board = board;
@@ -11,6 +12,19 @@ public class Logic {
     // CheckCoordinates
     // CheckPiece
 
+
+
+    public static int[] getLastMove() {
+        return lastMove;
+    }
+
+    public static void setLastMove(int[] move, Piece piece) {
+        lastMove = move;
+        if (piece instanceof Pawn){
+            lastMove[4] = 1;
+        }
+        else {lastMove[4] = 0;}
+    }
 
     public Board getBoard() {
         Board aBoard = this.board;
@@ -45,7 +59,7 @@ public class Logic {
                                     piece = checkKingOrTowerMove(piece);
                                     board.getBoard()[i][j].setPiece(null);
                                     board.getBoard()[fileTo][rankTo].setPiece(piece);
-                                    Game.setLastMove(new int[]{i, fileTo, j, rankTo});
+                                    setLastMove(new int[]{i, fileTo, j, rankTo, 3}, p);
                                     return true;
                                 }
                             }
@@ -68,8 +82,18 @@ public class Logic {
             Piece pawn = board.getBoard()[fileFrom][rankFrom].getPiece();
             if (pawn == null || pawn.getClass() != Pawn.class)
                 return false;
-            if (board.getBoard()[fileTo][rankTo].getPiece() == null || board.getBoard()[fileTo][rankTo].getPiece().getColor() == p.getColor())
+            if (board.getBoard()[fileTo][rankTo].getPiece() == null){
+                if (checkEnPassant(p,fileFrom,rankFrom,fileTo,rankTo)){
+                    board.getBoard()[fileFrom][rankFrom].setPiece(null);
+                    board.getBoard()[lastMove[1]][lastMove[3]].setPiece(null);
+                    board.getBoard()[fileTo][rankTo].setPiece(p);
+                    return true;
+                }
+                else {return false;}
+            }
+            if (board.getBoard()[fileTo][rankTo].getPiece().getColor() == p.getColor()){
                 return false;
+            }
             board.getBoard()[fileFrom][rankFrom].setPiece(null);
             board.getBoard()[fileTo][rankTo].setPiece(p);
             return true;
@@ -82,6 +106,36 @@ public class Logic {
                 return false;
             }
             return true;
+        }
+        return false;
+    }
+
+    public static boolean checkEnPassant(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo){
+        if (p.getColor() == Color.color.WHITE){
+            if (rankFrom==4 && (getLastMove()[3] == rankFrom)){
+                if (fileFrom == getLastMove()[1]-1 || fileFrom == getLastMove()[1]+1){
+                    if (getLastMove()[2] - getLastMove()[3] == 2){
+                        if (getLastMove()[4] == 1){
+                            if (fileTo == getLastMove()[1] && rankTo == getLastMove()[3] + 1){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else if (p.getColor() == Color.color.BLACK){
+            if (rankFrom==5 && (getLastMove()[3] == rankFrom)){
+                if (fileFrom == getLastMove()[1]-1 || fileFrom == getLastMove()[1]+1){
+                    if (getLastMove()[2] - getLastMove()[3] == -2){
+                        if (getLastMove()[4] == 1){
+                            if (fileTo == getLastMove()[1] && rankTo == getLastMove()[3] - 1){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
         }
         return false;
     }
