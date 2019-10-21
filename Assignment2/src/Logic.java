@@ -55,12 +55,35 @@ public class Logic {
                         if (aBoard[i][j].getPiece().getColor() == p.getColor()) {
                             if (aBoard[i][j].getPiece().moveIsValid(i, j, fileTo, rankTo)) {
                                 if (checkPath(i, j, fileTo, rankTo)) {
-                                    Piece piece = board.getBoard()[i][j].getPiece();
-                                    piece = checkKingOrTowerMove(piece);
-                                    board.getBoard()[i][j].setPiece(null);
-                                    board.getBoard()[fileTo][rankTo].setPiece(piece);
-                                    setLastMove(new int[]{i, fileTo, j, rankTo, 3}, p);
-                                    return true;
+                                    if (checkForCheck(p.getColor())) {
+                                        Piece piece = board.getBoard()[i][j].getPiece();
+                                        piece = checkKingOrTowerMove(piece);
+                                        board.getBoard()[i][j].setPiece(null);
+                                        board.getBoard()[fileTo][rankTo].setPiece(piece);
+                                        if (checkForCheck(p.getColor())) {
+                                            board.getBoard()[i][j].setPiece(piece);
+                                            board.getBoard()[fileTo][rankTo].setPiece(null);
+                                            return false;
+                                        } else {
+                                            setLastMove(new int[]{i, fileTo, j, rankTo, 3}, p);
+                                            return true;
+                                        }
+                                    }
+                                    else {
+                                        Piece piece = board.getBoard()[i][j].getPiece();
+                                        piece = checkKingOrTowerMove(piece);
+                                        board.getBoard()[i][j].setPiece(null);
+                                        board.getBoard()[fileTo][rankTo].setPiece(piece);
+                                        if (checkForCheck(p.getColor())){
+                                            board.getBoard()[i][j].setPiece(piece);
+                                            board.getBoard()[fileTo][rankTo].setPiece(null);
+                                            return false;
+                                        }
+                                        else {
+                                            setLastMove(new int[]{i, fileTo, j, rankTo, 3}, p);
+                                            return true;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -125,7 +148,7 @@ public class Logic {
             }
         }
         else if (p.getColor() == Color.color.BLACK){
-            if (rankFrom==5 && (getLastMove()[3] == rankFrom)){
+            if (rankFrom==3 && (getLastMove()[3] == rankFrom)){
                 if (fileFrom == getLastMove()[1]-1 || fileFrom == getLastMove()[1]+1){
                     if (getLastMove()[2] - getLastMove()[3] == -2){
                         if (getLastMove()[4] == 1){
@@ -148,12 +171,12 @@ public class Logic {
         }
         if (rankFrom == rankTo) {
             if (fileFrom < fileTo) {
-                for (int i = fileFrom + 1; i <= fileTo; i++) {
+                for (int i = fileFrom + 1; i < fileTo; i++) {
                     if (board.getBoard()[i][rankTo].getPiece() != null)
                         return false;
                 }
             } else {
-                for (int i = fileFrom - 1; i >= fileTo; i--) {
+                for (int i = fileFrom - 1; i > fileTo; i--) {
                     if (board.getBoard()[i][rankTo].getPiece() != null)
                         return false;
                 }
@@ -162,12 +185,12 @@ public class Logic {
         // vertical move
         else if (fileFrom == fileTo) {
             if (rankFrom < rankTo) {
-                for (int i = rankFrom + 1; i <= rankTo; i++) {
+                for (int i = rankFrom + 1; i < rankTo; i++) {
                     if (board.getBoard()[fileTo][i].getPiece() != null)
                         return false;
                 }
             } else {
-                for (int i = rankFrom - 1; i >= rankTo; i--) {
+                for (int i = rankFrom - 1; i > rankTo; i--) {
                     if (board.getBoard()[fileTo][i].getPiece() != null)
                         return false;
                 }
@@ -176,7 +199,7 @@ public class Logic {
         // diagonal move
         else if (rankFrom < rankTo && fileFrom > fileTo) {
             int j = rankFrom + 1;
-            for (int i = fileFrom - 1; i >= fileTo; i--) {
+            for (int i = fileFrom - 1; i > fileTo; i--) {
                 if (board.getBoard()[i][j].getPiece() != null) {
                     return false;
                 }
@@ -184,7 +207,7 @@ public class Logic {
             }
         } else if (rankFrom > rankTo && fileFrom < fileTo) {
             int j = rankFrom - 1;
-            for (int i = fileFrom + 1; i <= fileTo; i++) {
+            for (int i = fileFrom + 1; i < fileTo; i++) {
                 if (board.getBoard()[i][j].getPiece() != null) {
                     return false;
                 }
@@ -193,14 +216,14 @@ public class Logic {
         } else {
             if (rankFrom < rankTo) {
                 int j = rankFrom + 1;
-                for (int i = fileFrom + 1; i <= fileTo; i++) {
+                for (int i = fileFrom + 1; i < fileTo; i++) {
                     if (board.getBoard()[i][j].getPiece() != null)
                         return false;
                     j++;
                 }
             } else {
                 int j = rankFrom - 1;
-                for (int i = fileFrom - 1; i >= fileTo; i--) {
+                for (int i = fileFrom - 1; i > fileTo; i--) {
                     if (board.getBoard()[i][j].getPiece() != null)
                         return false;
                     j--;
@@ -295,9 +318,7 @@ public class Logic {
                 Piece p = board.getBoard()[i][j].getPiece();
                 if(board.getBoard()[i][j].isOccupied() && (p.getColor() != color))
                     if(p.moveIsValid(i,j, x, y)){
-                        board.getBoard()[x][y].setPiece(null);
                         if(checkPath(i,j,x,y)){
-                            board.getBoard()[x][y].setPiece(king);
                             return true;
                         }
                     }

@@ -31,8 +31,16 @@ public class Game{
             Player currentPlayer = playerQueue.poll();
             readInput(currentPlayer);
             board.printBoard();
-            if(Logic.checkForCheck(currentPlayer.getColor())){
-                System.out.println("Check!");
+
+            if (currentPlayer.getColor() == Color.color.WHITE){
+                if(Logic.checkForCheck(Color.color.BLACK)){
+                    System.out.println("Black is in Check!");
+                }
+            }
+            else {
+                if(Logic.checkForCheck(Color.color.WHITE)){
+                    System.out.println("White is in Check!");
+                }
             }
             playerQueue.add(currentPlayer);
         }
