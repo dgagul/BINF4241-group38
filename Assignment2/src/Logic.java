@@ -1,6 +1,7 @@
 public class Logic {
 
     private static Board board;
+    private static int[] lastMove;
 
     Logic(Board board) {
         this.board = board;
@@ -11,6 +12,17 @@ public class Logic {
     // CheckCoordinates
     // CheckPiece
 
+    public static int[] getLastMove() {
+        return lastMove;
+    }
+
+    public static void setLastMove(int[] move, Piece piece) {
+        lastMove = move;
+        if (piece instanceof Pawn){
+            lastMove[4] = 1;
+        }
+        else {lastMove[4] = 0;}
+    }
 
     public Board getBoard() {
         Board aBoard = this.board;
@@ -40,9 +52,12 @@ public class Logic {
                     if (aBoard[i][j].getPiece().getClass() == p.getClass()) {
                         if (aBoard[i][j].getPiece().getColor() == p.getColor()) {
                             if (aBoard[i][j].getPiece().moveIsValid(i, j, fileTo, rankTo)) {
+                                // check whether path is free
                                 if (checkPath(i, j, fileTo, rankTo)) {
                                     Piece piece = board.getBoard()[i][j].getPiece();
+                                    // if Tower or King, set hasMoved
                                     piece = checkKingOrTowerMove(piece);
+                                    // move piece
                                     board.getBoard()[i][j].setPiece(null);
                                     board.getBoard()[fileTo][rankTo].setPiece(piece);
                                     Game.setLastMove(new int[]{i, fileTo, j, rankTo});
@@ -59,6 +74,7 @@ public class Logic {
 
     public static boolean capture(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
         // ToDo: add piece to captured_pieces
+        // Pawn captures
         if (p.getClass() == Pawn.class) {
             if (p.getColor() == Color.color.WHITE) {
                 rankFrom = rankTo - 1;
@@ -82,6 +98,36 @@ public class Logic {
                 return false;
             }
             return true;
+        }
+        return false;
+    }
+
+    public static boolean checkEnPassant(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo){
+        if (p.getColor() == Color.color.WHITE){
+            if (rankFrom==4 && (getLastMove()[3] == rankFrom)){
+                if (fileFrom == getLastMove()[1]-1 || fileFrom == getLastMove()[1]+1){
+                    if (getLastMove()[2] - getLastMove()[3] == 2){
+                        if (getLastMove()[4] == 1){
+                            if (fileTo == getLastMove()[1] && rankTo == getLastMove()[3] + 1){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else if (p.getColor() == Color.color.BLACK){
+            if (rankFrom==3 && (getLastMove()[3] == rankFrom)){
+                if (fileFrom == getLastMove()[1]-1 || fileFrom == getLastMove()[1]+1){
+                    if (getLastMove()[2] - getLastMove()[3] == -2){
+                        if (getLastMove()[4] == 1){
+                            if (fileTo == getLastMove()[1] && rankTo == getLastMove()[3] - 1){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
         }
         return false;
     }
@@ -249,6 +295,12 @@ public class Logic {
                     }
             }
         }
+        return false;
+    }
+
+    public static boolean checkForCheckmate(Color.color color){
+        // Check if king can move out of check (and does not move into next check situation)
+        // Then check if piece can move in the way (and again check for check)
         return false;
     }
 

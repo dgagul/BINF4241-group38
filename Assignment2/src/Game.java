@@ -41,6 +41,10 @@ public class Game{
             board.printBoard();
             if(Logic.checkForCheck(currentPlayer.getColor())){
                 System.out.println("Check!");
+                // ToDo: Check for checkmate
+                if(Logic.checkForCheckmate(currentPlayer.getColor())){
+                    System.out.printf("%s wins!\n", currentPlayer.getName());
+                }
             }
             playerQueue.add(currentPlayer);
         }
