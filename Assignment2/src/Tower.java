@@ -1,15 +1,10 @@
 import javafx.util.Pair;
 
 public class Tower extends Piece {
-    private boolean firstMove;
-
-    public Tower(boolean available, Color col){
-        super(available, col);
+    public Tower(Color pColor, Name pName){
+        super(pColor, pName);
     }
 
-    public void setFirstMove(boolean firstMove) {
-        this.firstMove = firstMove;
-    }
 
     @Override
     public boolean moveIsValid(int fromX, int fromY, int toX, int toY) {
@@ -17,10 +12,5 @@ public class Tower extends Piece {
             return false;
         // Tower can move in horizontal or vertical straight lines
         return (fromX == toX) || (fromY == toY);
-    }
-
-    @Override
-    public String toString(){
-        return super.toString() + "T";
     }
 }
