@@ -1,35 +1,46 @@
 import javafx.util.Pair;
+
 import java.io.*;
 
 abstract class Piece {
-    enum Color {WHITE, BLACK};
-    enum Name {WT,WN,WB,WQ,WK,WP,BT,BN,BB,BQ,BK,BP}
-    private Color aColor;
-    private Name aName;
+
+    private Color.color color;
     private boolean isAvailable;
     // Does piece need to know its position? --> not if we pass arguments fromX and fromY in isValid() method
-    //private Pair<Integer, Integer> position;
 
-    Piece(Color pColor, Name pName){
-        isAvailable = true;
-        aColor = pColor;
-        aName = pName;
+    Piece(boolean available, Color.color col) {
+        // ToDo: Maybe initialize with true from the start?
+        isAvailable = available;
+        switch (col) {
+            case BLACK:
+                color = Color.color.BLACK;
+                break;
+            case WHITE:
+                color = Color.color.WHITE;
+        }
     }
 
-    public boolean isAvailable(){ boolean pisAvailable = isAvailable; return pisAvailable; }
+    public Color.color getColor() {
+        return color;
+    }
 
-    public Name getaName(){ Name pName = aName; return pName; }
+    public boolean isAvailable() {
+        return isAvailable;
+    }
 
-    public Color getaColor(){ Color pColor = aColor; return pColor; }
+    public String toString(){
+        String line = "";
+        if (getColor() == Color.color.WHITE){
+            line += "W";
+        }
+        else if(getColor() == Color.color.BLACK){
+            line += "B";
+        }
+        return line;
+    }
 
-
-    // ToDo: write string-to-int converter in Game.java
-    // ToDo: check if piece is in the way of path?
-    public boolean moveIsValid(int fromX, int fromY, int toX, int toY){
-        // Piece can't stay on the same square
-        if(toX == fromX && toY == fromY)
-            return false;
-        // Piece must stay on the board
-        return !(fromX<0 || toX<0 || fromY<0 || toY<0 || fromX>7 || toX>7 || fromY>7 || toY>7);
+    public boolean moveIsValid(int fromX, int fromY, int toX, int toY) {
+        // Piece must stay on the board and Piece can't stay on the same square
+        return !(fromX < 0 || toX < 0 || fromY < 0 || toY < 0 || fromX > 7 || toX > 7 || fromY > 7 || toY > 7) && !(toX == fromX && toY == fromY);
     }
 }

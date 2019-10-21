@@ -31,28 +31,28 @@ public class Board {
     private void setPieces(){
         int pawns = 8;
         for(int i=0; i<pawns; i++){
-            board[i][1].setPiece(new Pawn(true, Piece.Color.WHITE));
+            board[i][1].setPiece(new Pawn(true, Color.color.WHITE));
         }
-        board[0][0].setPiece(new Tower(true, Piece.Color.WHITE));
-        board[7][0].setPiece(new Tower(true, Piece.Color.WHITE));
-        board[1][0].setPiece(new Knight(true, Piece.Color.WHITE));
-        board[6][0].setPiece(new Knight(true, Piece.Color.WHITE));
-        board[2][0].setPiece(new Bishop(true, Piece.Color.WHITE));
-        board[5][0].setPiece(new Bishop(true, Piece.Color.WHITE));
-        board[3][0].setPiece(new Queen(true, Piece.Color.WHITE));
-        board[4][0].setPiece(new King(true, Piece.Color.WHITE));
+        board[0][0].setPiece(new Tower(true, Color.color.WHITE));
+        board[7][0].setPiece(new Tower(true, Color.color.WHITE));
+        board[1][0].setPiece(new Knight(true, Color.color.WHITE));
+        board[6][0].setPiece(new Knight(true, Color.color.WHITE));
+        board[2][0].setPiece(new Bishop(true, Color.color.WHITE));
+        board[5][0].setPiece(new Bishop(true, Color.color.WHITE));
+        board[3][0].setPiece(new Queen(true, Color.color.WHITE));
+        board[4][0].setPiece(new King(true, Color.color.WHITE));
 
         for(int i=0; i<pawns; i++){
-            board[i][6].setPiece(new Pawn(true, Piece.Color.BLACK));
+            board[i][6].setPiece(new Pawn(true, Color.color.BLACK));
         }
-        board[0][7].setPiece(new Tower(true, Piece.Color.BLACK));
-        board[7][7].setPiece(new Tower(true, Piece.Color.BLACK));
-        board[1][7].setPiece(new Knight(true, Piece.Color.BLACK));
-        board[6][7].setPiece(new Knight(true, Piece.Color.BLACK));
-        board[2][7].setPiece(new Bishop(true, Piece.Color.BLACK));
-        board[5][7].setPiece(new Bishop(true, Piece.Color.BLACK));
-        board[3][7].setPiece(new Queen(true, Piece.Color.BLACK));
-        board[4][7].setPiece(new King(true, Piece.Color.BLACK));
+        board[0][7].setPiece(new Tower(true, Color.color.BLACK));
+        board[7][7].setPiece(new Tower(true, Color.color.BLACK));
+        board[1][7].setPiece(new Knight(true, Color.color.BLACK));
+        board[6][7].setPiece(new Knight(true, Color.color.BLACK));
+        board[2][7].setPiece(new Bishop(true, Color.color.BLACK));
+        board[5][7].setPiece(new Bishop(true, Color.color.BLACK));
+        board[3][7].setPiece(new Queen(true, Color.color.BLACK));
+        board[4][7].setPiece(new King(true, Color.color.BLACK));
     }
 
 

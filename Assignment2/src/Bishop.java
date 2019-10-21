@@ -2,8 +2,8 @@ import javafx.util.Pair;
 import java.lang.Math;
 
 public class Bishop extends Piece {
-    public Bishop(Color pColor, Name pName){
-        super(pColor, pName);
+    public Bishop(boolean available, Color.color col){
+        super(available, col);
     }
 
     @Override
@@ -11,5 +11,10 @@ public class Bishop extends Piece {
         if(!super.moveIsValid(fromX, fromY, toX, toY))
             return false;
         return (Math.abs(toX - fromX) == Math.abs(toY - fromY));
+    }
+
+    @Override
+    public String toString(){
+        return super.toString() + "B";
     }
 }

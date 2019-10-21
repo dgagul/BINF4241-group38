@@ -1,8 +1,19 @@
 import javafx.util.Pair;
 
 public class King extends Piece {
-    public King(Color pColor, Name pName){
-        super(pColor, pName);
+
+    private boolean firstMove;
+
+    public King(boolean available, Color.color col){
+        super(available, col);
+    }
+
+    public boolean isFirstMove() {
+        return firstMove;
+    }
+
+    public void setFirstMove(boolean firstMove) {
+        this.firstMove = firstMove;
     }
 
     @Override
@@ -11,5 +22,10 @@ public class King extends Piece {
             return false;
         int dist = (int)(Math.pow(fromX-toX,2) + Math.pow(fromY-toY, 2));
         return (dist == 1) || (dist == 2);
+    }
+
+    @Override
+    public String toString(){
+        return super.toString() + "K";
     }
 }
