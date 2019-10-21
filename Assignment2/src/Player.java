@@ -12,7 +12,8 @@ public class Player {
     private String name;
 
     private List<Piece> rest_pieces = new ArrayList<>();
-    private List<Piece> eaten_pieces = new ArrayList<>();
+
+    private List<Piece> captured_pieces = new ArrayList<>();
 
     public Player(Color playerColor){
         color = playerColor;
@@ -41,7 +42,11 @@ public class Player {
         return new ArrayList<Piece>(rest_pieces);
     }
 
-    public List<Piece> getEaten_pieces() {
-        return new ArrayList<Piece>(eaten_pieces);
+    public List<Piece> getCaptured_pieces() {
+        return new ArrayList<Piece>(captured_pieces);
+    }
+
+    public void setCaptured_pieces(Piece captured) {
+        this.captured_pieces.add(captured);
     }
 }
