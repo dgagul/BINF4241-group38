@@ -326,6 +326,12 @@ public class Logic {
         return false;
     }
 
+    public static boolean checkForCheckmate(Color.color color){
+        // Check if king can move out of check (and does not move into next check situation)
+        // Then check if piece can move in the way (and again check for check)
+        return false;
+    }
+
     public static boolean promotion(Piece p, int fileFrom, int fileTo, Piece promoteTo) {
         if (p.getColor() == Color.color.WHITE) {
             if (move(p, fileFrom, 6, fileTo, 7)) {
