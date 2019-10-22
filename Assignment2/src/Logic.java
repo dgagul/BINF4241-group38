@@ -56,6 +56,7 @@ public class Logic {
                             if (aBoard[i][j].getPiece().moveIsValid(i, j, fileTo, rankTo)) {
                                 if (checkPath(i, j, fileTo, rankTo)) {
                                     if (checkForCheck(p.getColor())) {
+
                                         Piece piece = board.getBoard()[i][j].getPiece();
                                         piece = checkKingOrTowerMove(piece);
                                         board.getBoard()[i][j].setPiece(null);
@@ -252,20 +253,28 @@ public class Logic {
                 }
                 for (int i = 5; i < 7; i++) {
                     if (col == Color.color.WHITE) {
-                        if (board.getBoard()[i][0].getPiece() != null || checkForCheck(col))
+                        if (board.getBoard()[i][0].getPiece() != null || checkForCheck(col)) {
                             return false;
-                        board.getBoard()[4][0].setPiece(null);
-                        board.getBoard()[7][0].setPiece(null);
-                        board.getBoard()[6][0].setPiece(k);
-                        board.getBoard()[5][0].setPiece(t);
+                        }
                     } else {
-                        if (board.getBoard()[i][7].getPiece() != null || checkForCheck(col))
+                        if (board.getBoard()[i][7].getPiece() != null || checkForCheck(col)) {
                             return false;
-                        board.getBoard()[4][7].setPiece(null);
-                        board.getBoard()[7][7].setPiece(null);
-                        board.getBoard()[6][7].setPiece(k);
-                        board.getBoard()[5][7].setPiece(t);
+                        }
                     }
+                }
+                if (col == Color.color.WHITE){
+                    board.getBoard()[4][0].setPiece(null);
+                    board.getBoard()[7][0].setPiece(null);
+                    board.getBoard()[6][0].setPiece(k);
+                    board.getBoard()[5][0].setPiece(t);
+                    return true;
+                }
+                else {
+                    board.getBoard()[4][7].setPiece(null);
+                    board.getBoard()[7][7].setPiece(null);
+                    board.getBoard()[6][7].setPiece(k);
+                    board.getBoard()[5][7].setPiece(t);
+                    return true;
                 }
             }
         }
@@ -287,18 +296,24 @@ public class Logic {
                     if (col == Color.color.WHITE) {
                         if (board.getBoard()[i][0].getPiece() != null || checkForCheck(col))
                             return false;
-                        board.getBoard()[4][0].setPiece(null);
-                        board.getBoard()[0][0].setPiece(null);
-                        board.getBoard()[2][0].setPiece(k);
-                        board.getBoard()[3][0].setPiece(t);
                     } else {
                         if (board.getBoard()[i][7].getPiece() != null || checkForCheck(col))
                             return false;
-                        board.getBoard()[4][7].setPiece(null);
-                        board.getBoard()[0][7].setPiece(null);
-                        board.getBoard()[2][7].setPiece(k);
-                        board.getBoard()[3][7].setPiece(t);
                     }
+                }
+                if (col == Color.color.WHITE){
+                    board.getBoard()[4][0].setPiece(null);
+                    board.getBoard()[0][0].setPiece(null);
+                    board.getBoard()[2][0].setPiece(k);
+                    board.getBoard()[3][0].setPiece(t);
+                    return true;
+                }
+                else {
+                    board.getBoard()[4][7].setPiece(null);
+                    board.getBoard()[0][7].setPiece(null);
+                    board.getBoard()[2][7].setPiece(k);
+                    board.getBoard()[3][7].setPiece(t);
+                    return true;
                 }
             }
         }
@@ -330,7 +345,7 @@ public class Logic {
     public static boolean checkForCheckmate(Color.color color, Player currentPlayer){
         // Check if king can move out of check (and does not move into next check situation)
         // Then check if piece can move in the way (and again check for check)
-        if (true) {
+        if (false) {
             System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
             return true;
         }

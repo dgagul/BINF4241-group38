@@ -97,12 +97,14 @@ public class Game{
                     promoteTo = userInput.substring(2,3);
                 }
                 else if(userInput.matches("^0-0$")){
+                    validInput = true;
                     isCastling = true;
                     isKingside = true;
                 }
             }
             else if(userInput.length()==4){
                 if(userInput.matches("^[Q|T][a-h][a-h][1-8]$")){
+                    validInput = true;
                     isMove = true;
                     piece = userInput.substring(0,1);
                     fileFrom = StrToInt(userInput.substring(1,2));
@@ -110,6 +112,7 @@ public class Game{
                     rankTo = Integer.parseInt((userInput.substring(3,4)));
                 }
                 if(userInput.matches("^[B|K|N|Q|T][1-8][a-h][1-8]$")){
+                    validInput = true;
                     isMove = true;
                     piece = userInput.substring(0,1);
                     rankFrom = StrToInt(userInput.substring(1,2));
@@ -135,6 +138,7 @@ public class Game{
             }
             else if(userInput.length() == 5){
                 if(userInput.matches("^0-0-0$")){
+                    validInput = true;
                     isCastling = true;
                     isKingside = false;
                 }
