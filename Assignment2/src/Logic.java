@@ -66,14 +66,16 @@ public class Logic {
                                     // move piece
                                     board.getBoard()[i][j].setPiece(null);
                                     board.getBoard()[fileTo][rankTo].setPiece(piece);
-                                    setLastMove(new int[]{i, fileTo, j, rankTo}, p);
                                     if (checkForCheck(piece.getColor())) {
                                         board.getBoard()[i][j].setPiece(piece);
                                         board.getBoard()[fileTo][rankTo].setPiece(null);
                                         System.out.println("This is a suicide move! This is not allowed.");
                                         return false;
                                     }
-                                    return true;
+                                    else{
+                                        setLastMove(new int[]{i, fileTo, j, rankTo}, p);
+                                        return true;
+                                    }
                                 }
                             }
                         }
