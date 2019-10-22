@@ -13,17 +13,17 @@ public class Logic {
     // CheckPiece
 
 
-
     public static int[] getLastMove() {
         return lastMove;
     }
 
     public static void setLastMove(int[] move, Piece piece) {
         lastMove = move;
-        if (piece instanceof Pawn){
+        if (piece instanceof Pawn) {
             lastMove[4] = 1;
+        } else {
+            lastMove[4] = 0;
         }
-        else {lastMove[4] = 0;}
     }
 
     public Board getBoard() {
@@ -69,18 +69,16 @@ public class Logic {
                                             setLastMove(new int[]{i, fileTo, j, rankTo, 3}, p);
                                             return true;
                                         }
-                                    }
-                                    else {
+                                    } else {
                                         Piece piece = board.getBoard()[i][j].getPiece();
                                         piece = checkKingOrTowerMove(piece);
                                         board.getBoard()[i][j].setPiece(null);
                                         board.getBoard()[fileTo][rankTo].setPiece(piece);
-                                        if (checkForCheck(p.getColor())){
+                                        if (checkForCheck(p.getColor())) {
                                             board.getBoard()[i][j].setPiece(piece);
                                             board.getBoard()[fileTo][rankTo].setPiece(null);
                                             return false;
-                                        }
-                                        else {
+                                        } else {
                                             setLastMove(new int[]{i, fileTo, j, rankTo, 3}, p);
                                             return true;
                                         }
@@ -97,6 +95,7 @@ public class Logic {
 
     public static boolean capture(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
         // ToDo: add piece to captured_pieces
+        // GEHT NICHT!!! Pawn can not capture
         if (p.getClass() == Pawn.class) {
             if (p.getColor() == Color.color.WHITE) {
                 rankFrom = rankTo - 1;
@@ -106,16 +105,17 @@ public class Logic {
             Piece pawn = board.getBoard()[fileFrom][rankFrom].getPiece();
             if (pawn == null || pawn.getClass() != Pawn.class)
                 return false;
-            if (board.getBoard()[fileTo][rankTo].getPiece() == null){
-                if (checkEnPassant(p,fileFrom,rankFrom,fileTo,rankTo)){
+            if (board.getBoard()[fileTo][rankTo].getPiece() == null) {
+                if (checkEnPassant(p, fileFrom, rankFrom, fileTo, rankTo)) {
                     board.getBoard()[fileFrom][rankFrom].setPiece(null);
                     board.getBoard()[lastMove[1]][lastMove[3]].setPiece(null);
                     board.getBoard()[fileTo][rankTo].setPiece(p);
                     return true;
+                } else {
+                    return false;
                 }
-                else {return false;}
             }
-            if (board.getBoard()[fileTo][rankTo].getPiece().getColor() == p.getColor()){
+            if (board.getBoard()[fileTo][rankTo].getPiece().getColor() == p.getColor()) {
                 return false;
             }
             board.getBoard()[fileFrom][rankFrom].setPiece(null);
@@ -134,26 +134,25 @@ public class Logic {
         return false;
     }
 
-    public static boolean checkEnPassant(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo){
-        if (p.getColor() == Color.color.WHITE){
-            if (rankFrom==4 && (getLastMove()[3] == rankFrom)){
-                if (fileFrom == getLastMove()[1]-1 || fileFrom == getLastMove()[1]+1){
-                    if (getLastMove()[2] - getLastMove()[3] == 2){
-                        if (getLastMove()[4] == 1){
-                            if (fileTo == getLastMove()[1] && rankTo == getLastMove()[3] + 1){
+    public static boolean checkEnPassant(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
+        if (p.getColor() == Color.color.WHITE) {
+            if (rankFrom == 4 && (getLastMove()[3] == rankFrom)) {
+                if (fileFrom == getLastMove()[1] - 1 || fileFrom == getLastMove()[1] + 1) {
+                    if (getLastMove()[2] - getLastMove()[3] == 2) {
+                        if (getLastMove()[4] == 1) {
+                            if (fileTo == getLastMove()[1] && rankTo == getLastMove()[3] + 1) {
                                 return true;
                             }
                         }
                     }
                 }
             }
-        }
-        else if (p.getColor() == Color.color.BLACK){
-            if (rankFrom==3 && (getLastMove()[3] == rankFrom)){
-                if (fileFrom == getLastMove()[1]-1 || fileFrom == getLastMove()[1]+1){
-                    if (getLastMove()[2] - getLastMove()[3] == -2){
-                        if (getLastMove()[4] == 1){
-                            if (fileTo == getLastMove()[1] && rankTo == getLastMove()[3] - 1){
+        } else if (p.getColor() == Color.color.BLACK) {
+            if (rankFrom == 3 && (getLastMove()[3] == rankFrom)) {
+                if (fileFrom == getLastMove()[1] - 1 || fileFrom == getLastMove()[1] + 1) {
+                    if (getLastMove()[2] - getLastMove()[3] == -2) {
+                        if (getLastMove()[4] == 1) {
+                            if (fileTo == getLastMove()[1] && rankTo == getLastMove()[3] - 1) {
                                 return true;
                             }
                         }
@@ -328,12 +327,12 @@ public class Logic {
         int x = kingCoords[0];
         int y = kingCoords[1];
         Piece king = board.getBoard()[x][y].getPiece();
-        for(int i = 0; i<8; i++){
-            for(int j = 0; j<8; j++){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
                 Piece p = board.getBoard()[i][j].getPiece();
-                if(board.getBoard()[i][j].isOccupied() && (p.getColor() != color))
-                    if(p.moveIsValid(i,j, x, y)){
-                        if(checkPath(i,j,x,y)){
+                if (board.getBoard()[i][j].isOccupied() && (p.getColor() != color))
+                    if (p.moveIsValid(i, j, x, y)) {
+                        if (checkPath(i, j, x, y)) {
                             return true;
                         }
                     }
@@ -393,5 +392,6 @@ public class Logic {
         }
         return new int[]{-1, -1};
     }
+
 
 }
