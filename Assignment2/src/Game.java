@@ -115,7 +115,7 @@ public class Game{
                     validInput = true;
                     isMove = true;
                     piece = userInput.substring(0,1);
-                    rankFrom = StrToInt(userInput.substring(1,2));
+                    rankFrom = Integer.parseInt(userInput.substring(1,2));
                     fileTo = StrToInt(userInput.substring(2,3));
                     rankTo = Integer.parseInt((userInput.substring(3,4)));
                 }
@@ -172,7 +172,7 @@ public class Game{
             }
             else if(userInput.length() == 6 && userInput.contains("x")) {
                 isCapture = true;
-                if (userInput.matches("^[B|N|Q|T][a-h][1-8]x[a-h][1-8]$")) {
+                if (userInput.matches("^[Q][a-h][1-8]x[a-h][1-8]$")) {
                     validInput = true;
                     piece = userInput.substring(0, 1);
                     fileFrom = StrToInt(userInput.substring(1, 2));
@@ -180,9 +180,6 @@ public class Game{
                     fileTo = StrToInt(userInput.substring(4, 5));
                     rankTo = Integer.parseInt(userInput.substring(5, 6));
                 }
-
-
-
             }
             if(!validInput){
                 System.out.println("Invalid input! Please try again.");

@@ -42,7 +42,7 @@ public class Logic {
             for (int j = 0; j < 8; j++) {
                 iter++;
                 // abortion criteria if userInput is invalid
-                if (iter == 64)
+                if (iter == 65)
                     return false;
                 if (fileFrom >= 0) {
                     i = fileFrom;
