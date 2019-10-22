@@ -1,3 +1,8 @@
+import javafx.util.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Logic {
 
     private static Board board;
@@ -18,10 +23,11 @@ public class Logic {
 
     public static void setLastMove(int[] move, Piece piece) {
         lastMove = move;
-        if (piece instanceof Pawn){
+        if (piece instanceof Pawn) {
             lastMove[4] = 1;
+        } else {
+            lastMove[4] = 0;
         }
-        else {lastMove[4] = 0;}
     }
 
     public Board getBoard() {
@@ -60,7 +66,13 @@ public class Logic {
                                     // move piece
                                     board.getBoard()[i][j].setPiece(null);
                                     board.getBoard()[fileTo][rankTo].setPiece(piece);
-                                    Game.setLastMove(new int[]{i, fileTo, j, rankTo});
+                                    setLastMove(new int[]{i, fileTo, j, rankTo}, p);
+                                    if (checkForCheck(piece.getColor())) {
+                                        board.getBoard()[i][j].setPiece(piece);
+                                        board.getBoard()[fileTo][rankTo].setPiece(null);
+                                        System.out.println("This is a suicide move! This is not allowed.");
+                                        return false;
+                                    }
                                     return true;
                                 }
                             }
@@ -84,8 +96,12 @@ public class Logic {
             Piece pawn = board.getBoard()[fileFrom][rankFrom].getPiece();
             if (pawn == null || pawn.getClass() != Pawn.class)
                 return false;
-            if (board.getBoard()[fileTo][rankTo].getPiece() == null || board.getBoard()[fileTo][rankTo].getPiece().getColor() == p.getColor())
+            if (board.getBoard()[fileTo][rankTo].getPiece() == null) {
+                return enPassant(p, fileFrom, rankFrom, fileTo, rankTo);
+            }
+            if (board.getBoard()[fileTo][rankTo].getPiece().getColor() == p.getColor()) {
                 return false;
+            }
             board.getBoard()[fileFrom][rankFrom].setPiece(null);
             board.getBoard()[fileTo][rankTo].setPiece(p);
             return true;
@@ -102,32 +118,139 @@ public class Logic {
         return false;
     }
 
-    public static boolean checkEnPassant(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo){
-        if (p.getColor() == Color.color.WHITE){
-            if (rankFrom==4 && (getLastMove()[3] == rankFrom)){
-                if (fileFrom == getLastMove()[1]-1 || fileFrom == getLastMove()[1]+1){
-                    if (getLastMove()[2] - getLastMove()[3] == 2){
-                        if (getLastMove()[4] == 1){
-                            if (fileTo == getLastMove()[1] && rankTo == getLastMove()[3] + 1){
-                                return true;
+    public static boolean enPassant(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
+        boolean moveIsValid = false;
+        if (p.getColor() == Color.color.WHITE) {
+            if (rankFrom == 4 && (getLastMove()[3] == rankFrom)) {
+                if (fileFrom == getLastMove()[1] - 1 || fileFrom == getLastMove()[1] + 1) {
+                    if (getLastMove()[2] - getLastMove()[3] == 2) {
+                        if (getLastMove()[4] == 1) {
+                            if (fileTo == getLastMove()[1] && rankTo == getLastMove()[3] + 1) {
+                                moveIsValid = true;
+                            }
+                        }
+                    }
+                }
+            }
+        } else if (p.getColor() == Color.color.BLACK) {
+            if (rankFrom == 3 && (getLastMove()[3] == rankFrom)) {
+                if (fileFrom == getLastMove()[1] - 1 || fileFrom == getLastMove()[1] + 1) {
+                    if (getLastMove()[2] - getLastMove()[3] == -2) {
+                        if (getLastMove()[4] == 1) {
+                            if (fileTo == getLastMove()[1] && rankTo == getLastMove()[3] - 1) {
+                                moveIsValid = true;
                             }
                         }
                     }
                 }
             }
         }
-        else if (p.getColor() == Color.color.BLACK){
-            if (rankFrom==3 && (getLastMove()[3] == rankFrom)){
-                if (fileFrom == getLastMove()[1]-1 || fileFrom == getLastMove()[1]+1){
-                    if (getLastMove()[2] - getLastMove()[3] == -2){
-                        if (getLastMove()[4] == 1){
-                            if (fileTo == getLastMove()[1] && rankTo == getLastMove()[3] - 1){
-                                return true;
-                            }
+        if (moveIsValid) {
+            board.getBoard()[fileFrom][rankFrom].setPiece(null);
+            board.getBoard()[lastMove[1]][lastMove[3]].setPiece(null);
+            board.getBoard()[fileTo][rankTo].setPiece(p);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean castling(boolean kingSide, Color.color col) {
+        Piece k;
+        Piece t;
+        if (kingSide) {
+            if (col == Color.color.WHITE) {
+                k = board.getBoard()[4][0].getPiece();
+                t = board.getBoard()[7][0].getPiece();
+            } else {
+                k = board.getBoard()[4][7].getPiece();
+                t = board.getBoard()[7][7].getPiece();
+            }
+            if (k.getClass() == King.class && t.getClass() == Tower.class) {
+                King king = (King) k;
+                Tower tower = (Tower) t;
+                if (!king.isFirstMove() || !tower.isFirstMove()) {
+                    return false;
+                }
+                for (int i = 5; i < 7; i++) {
+                    if (col == Color.color.WHITE) {
+                        if (board.getBoard()[i][0].getPiece() != null || checkForCheck(col)) {
+                            return false;
+                        }
+                    } else {
+                        if (board.getBoard()[i][7].getPiece() != null || checkForCheck(col)) {
+                            return false;
                         }
                     }
                 }
+                if (col == Color.color.WHITE) {
+                    board.getBoard()[4][0].setPiece(null);
+                    board.getBoard()[7][0].setPiece(null);
+                    board.getBoard()[6][0].setPiece(k);
+                    board.getBoard()[5][0].setPiece(t);
+                    return true;
+                } else {
+                    board.getBoard()[4][7].setPiece(null);
+                    board.getBoard()[7][7].setPiece(null);
+                    board.getBoard()[6][7].setPiece(k);
+                    board.getBoard()[5][7].setPiece(t);
+                    return true;
+                }
             }
+        }
+        if (!kingSide) {
+            if (col == Color.color.WHITE) {
+                k = board.getBoard()[4][0].getPiece();
+                t = board.getBoard()[0][0].getPiece();
+            } else {
+                k = board.getBoard()[4][7].getPiece();
+                t = board.getBoard()[0][7].getPiece();
+            }
+            if (k.getClass() == King.class && t.getClass() == Tower.class) {
+                King king = (King) k;
+                Tower tower = (Tower) t;
+                if (!king.isFirstMove() || !tower.isFirstMove()) {
+                    return false;
+                }
+                for (int i = 3; i > 0; i--) {
+                    if (col == Color.color.WHITE) {
+                        if (board.getBoard()[i][0].getPiece() != null || checkForCheck(col))
+                            return false;
+                    } else {
+                        if (board.getBoard()[i][7].getPiece() != null || checkForCheck(col))
+                            return false;
+                    }
+                }
+                if (col == Color.color.WHITE) {
+                    board.getBoard()[4][0].setPiece(null);
+                    board.getBoard()[0][0].setPiece(null);
+                    board.getBoard()[2][0].setPiece(k);
+                    board.getBoard()[3][0].setPiece(t);
+                    return true;
+                } else {
+                    board.getBoard()[4][7].setPiece(null);
+                    board.getBoard()[0][7].setPiece(null);
+                    board.getBoard()[2][7].setPiece(k);
+                    board.getBoard()[3][7].setPiece(t);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean promotion(Piece p, int fileFrom, int fileTo, Piece promoteTo) {
+        if (p.getColor() == Color.color.WHITE) {
+            if (move(p, fileFrom, 6, fileTo, 7)) {
+                board.getBoard()[fileTo][7].setPiece(promoteTo);
+                return true;
+            }
+            return false;
+        } else if (p.getColor() == Color.color.BLACK) {
+            if (move(p, fileFrom, 1, fileTo, 0)) {
+                board.getBoard()[fileTo][8].setPiece(promoteTo);
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -202,71 +325,80 @@ public class Logic {
         return true;
     }
 
-    public static boolean castling(boolean kingSide, Color.color col) {
-        Piece k;
-        Piece t;
-        if (kingSide) {
-            if (col == Color.color.WHITE) {
-                k = board.getBoard()[4][0].getPiece();
-                t = board.getBoard()[7][0].getPiece();
-            } else {
-                k = board.getBoard()[4][7].getPiece();
-                t = board.getBoard()[7][7].getPiece();
+    // returns true if path is free
+    public static boolean checkPathForCheckmate(int fileFrom, int rankFrom, int fileTo, int rankTo, Color.color col) {
+        //horizontal move
+        ArrayList<Pair<Integer, Integer>> coordsList = new ArrayList<>();
+        if (rankFrom == rankTo) {
+            if (fileFrom + 1 < fileTo) {
+                for (int i = fileFrom + 1; i < fileTo; i++) {
+                    Pair<Integer, Integer> coords = new Pair<>(i, rankTo);
+                    coordsList.add(coords);
+                }
+            } else if (fileFrom - 1 > fileTo) {
+                for (int i = fileFrom - 1; i > fileTo; i--) {
+                    Pair<Integer, Integer> coords = new Pair<>(i, rankTo);
+                    coordsList.add(coords);
+                }
             }
-            if (k.getClass() == King.class && t.getClass() == Tower.class) {
-                King king = (King) k;
-                Tower tower = (Tower) t;
-                if (!king.isFirstMove() || !tower.isFirstMove()) {
-                    return false;
+        } else if (fileFrom == fileTo) {
+            if (rankFrom + 1 < rankTo) {
+                for (int i = rankFrom + 1; i < rankTo; i++) {
+                    Pair<Integer, Integer> coords = new Pair<>(fileTo, i);
+                    coordsList.add(coords);
                 }
-                for (int i = 5; i < 7; i++) {
-                    if (col == Color.color.WHITE) {
-                        if (board.getBoard()[i][0].getPiece() != null || checkForCheck(col))
-                            return false;
-                        board.getBoard()[4][0].setPiece(null);
-                        board.getBoard()[7][0].setPiece(null);
-                        board.getBoard()[6][0].setPiece(k);
-                        board.getBoard()[5][0].setPiece(t);
-                    } else {
-                        if (board.getBoard()[i][7].getPiece() != null || checkForCheck(col))
-                            return false;
-                        board.getBoard()[4][7].setPiece(null);
-                        board.getBoard()[7][7].setPiece(null);
-                        board.getBoard()[6][7].setPiece(k);
-                        board.getBoard()[5][7].setPiece(t);
-                    }
+            } else if (rankFrom - 1 > rankTo) {
+                for (int i = rankFrom - 1; i > rankTo; i--) {
+                    Pair<Integer, Integer> coords = new Pair<>(fileTo, i);
+                    coordsList.add(coords);
                 }
+            }
+        } else if (rankFrom + 1 < rankTo && fileFrom - 1 > fileTo) {
+            int j = rankFrom + 1;
+            for (int i = fileFrom - 1; i > fileTo; i--) {
+                Pair<Integer, Integer> coords = new Pair<>(i, j);
+                coordsList.add(coords);
+                j++;
+            }
+        } else if (rankFrom - 1 > rankTo && fileFrom - 1 > fileTo) {
+            int j = rankFrom - 1;
+            for (int i = fileFrom + 1; i < fileTo; i++) {
+                Pair<Integer, Integer> coords = new Pair<>(i, j);
+                coordsList.add(coords);
+                j--;
+            }
+        } else if (rankFrom + 1 < rankTo && fileFrom + 1 < fileTo) {
+            int j = rankFrom + 1;
+            for (int i = fileFrom + 1; i < fileTo; i++) {
+                Pair<Integer, Integer> coords = new Pair<>(i, j);
+                coordsList.add(coords);
+                j++;
+            }
+        } else if (rankFrom - 1 > rankTo && fileFrom + 1 < fileTo) {
+            int j = rankFrom - 1;
+            for (int i = fileFrom - 1; i > fileTo; i--) {
+                Pair<Integer, Integer> coords = new Pair<>(i, j);
+                coordsList.add(coords);
+                j--;
             }
         }
-        if (!kingSide) {
-            if (col == Color.color.WHITE) {
-                k = board.getBoard()[4][0].getPiece();
-                t = board.getBoard()[0][0].getPiece();
-            } else {
-                k = board.getBoard()[4][7].getPiece();
-                t = board.getBoard()[0][7].getPiece();
-            }
-            if (k.getClass() == King.class && t.getClass() == Tower.class) {
-                King king = (King) k;
-                Tower tower = (Tower) t;
-                if (!king.isFirstMove() || !tower.isFirstMove()) {
-                    return false;
-                }
-                for (int i = 3; i > 0; i--) {
-                    if (col == Color.color.WHITE) {
-                        if (board.getBoard()[i][0].getPiece() != null || checkForCheck(col))
-                            return false;
-                        board.getBoard()[4][0].setPiece(null);
-                        board.getBoard()[0][0].setPiece(null);
-                        board.getBoard()[2][0].setPiece(k);
-                        board.getBoard()[3][0].setPiece(t);
-                    } else {
-                        if (board.getBoard()[i][7].getPiece() != null || checkForCheck(col))
-                            return false;
-                        board.getBoard()[4][7].setPiece(null);
-                        board.getBoard()[0][7].setPiece(null);
-                        board.getBoard()[2][7].setPiece(k);
-                        board.getBoard()[3][7].setPiece(t);
+        for (Pair<Integer, Integer> coords : coordsList) {
+            int file = coords.getKey();
+            int rank = coords.getValue();
+            for (int j = 0; j < 8; j++) {
+                for (int k = 0; k < 8; k++) {
+                    Piece p = board.getBoard()[j][k].getPiece();
+                    if (board.getBoard()[j][k].isOccupied() && p.getColor() == col) {
+                        if (p.moveIsValid(j, k, file, rank) && Logic.checkPath(j, k, file, rank)) {
+                            board.getBoard()[file][rank].setPiece(p);
+                            board.getBoard()[j][k].setPiece(null);
+                            if (checkForCheck(col)) {
+                                board.getBoard()[file][rank].setPiece(null);
+                                board.getBoard()[j][k].setPiece(p);
+                            } else {
+                                return true;
+                            }
+                        }
                     }
                 }
             }
@@ -275,20 +407,16 @@ public class Logic {
     }
 
     // return true if king is in check
-    public static boolean checkForCheck(Color.color color) {
+    public static boolean checkForCheck_xy(int x, int y, Color.color color) {
         // find King
-        int[] kingCoords = new int[2];
-        kingCoords = findKing(color);
-        int x = kingCoords[0];
-        int y = kingCoords[1];
         Piece king = board.getBoard()[x][y].getPiece();
-        for(int i = 0; i<8; i++){
-            for(int j = 0; j<8; j++){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
                 Piece p = board.getBoard()[i][j].getPiece();
-                if(board.getBoard()[i][j].isOccupied() && (p.getColor() != color))
-                    if(p.moveIsValid(i,j, x, y)){
+                if (board.getBoard()[i][j].isOccupied() && (p.getColor() != color))
+                    if (p.moveIsValid(i, j, x, y)) {
                         board.getBoard()[x][y].setPiece(null);
-                        if(checkPath(i,j,x,y)){
+                        if (checkPath(i, j, x, y)) {
                             board.getBoard()[x][y].setPiece(king);
                             return true;
                         }
@@ -298,28 +426,36 @@ public class Logic {
         return false;
     }
 
-    public static boolean checkForCheckmate(Color.color color){
-        // Check if king can move out of check (and does not move into next check situation)
-        // Then check if piece can move in the way (and again check for check)
-        return false;
+    // checkForCheck method if King's coordinates are unknown
+    public static boolean checkForCheck(Color.color color) {
+        int[] kingCoords;
+        kingCoords = getKingCoords(color);
+        int x = kingCoords[0];
+        int y = kingCoords[1];
+        return checkForCheck_xy(x, y, color);
     }
 
-    public static boolean promotion(Piece p, int fileFrom, int fileTo, Piece promoteTo) {
-        if (p.getColor() == Color.color.WHITE) {
-            if (move(p, fileFrom, 6, fileTo, 7)) {
-                board.getBoard()[fileTo][7].setPiece(promoteTo);
-                return true;
+    // returns true if checkmate
+    public static boolean checkForCheckmate(Color.color color) {
+        // Check if king can move out of check (and does not move into next check situation)
+        int[] kingCoords = getKingCoords(color);
+        int kingX = kingCoords[0];
+        int kingY = kingCoords[1];
+        for (int i = kingX - 1; i <= kingX + 1; i++) {
+            for (int j = kingY - 1; j <= kingY + 1; j++) {
+                if (checkPath(kingX, kingY, i, j))
+                    if (!checkForCheck_xy(i, j, color))
+                        return false;
+
             }
-            return false;
-        } else if (p.getColor() == Color.color.BLACK) {
-            if (move(p, fileFrom, 1, fileTo, 0)) {
-                board.getBoard()[fileTo][8].setPiece(promoteTo);
-                return true;
-            }
-            return false;
         }
-        return false;
+        // Check if piece can move in the way
+        int[] lastMove = getLastMove();
+        int lastX = lastMove[1];
+        int lastY = lastMove[3];
+        return !checkPathForCheckmate(lastX, lastY, kingX, kingY, color);
     }
+
 
     public static Piece checkKingOrTowerMove(Piece piece) {
         if (piece.getClass() == King.class) {
@@ -334,7 +470,7 @@ public class Logic {
         return piece;
     }
 
-    public static int[] findKing(Color.color color) {
+    public static int[] getKingCoords(Color.color color) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (board.getBoard()[i][j].isOccupied())

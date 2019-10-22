@@ -14,21 +14,11 @@ public class Game{
     private static Color.color black = Color.color.BLACK;
     private static Color.color white = Color.color.WHITE;
 
-    private static int[] lastMove;
-
     private Game(){
         playerWhite = new Player(white);
         playerBlack = new Player(black);
         board = new Board();
         logic = new Logic(board);
-    }
-
-    public static int[] getLastMove() {
-        return lastMove;
-    }
-
-    public static void setLastMove(int[] lastMove) {
-        Game.lastMove = lastMove;
     }
 
     private static void play(){
@@ -43,6 +33,7 @@ public class Game{
                 System.out.println("Check!");
                 // ToDo: Check for checkmate
                 if(Logic.checkForCheckmate(currentPlayer.getColor())){
+                    isFinished = true;
                     System.out.printf("%s wins!\n", currentPlayer.getName());
                 }
             }
