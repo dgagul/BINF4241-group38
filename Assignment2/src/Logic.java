@@ -327,9 +327,13 @@ public class Logic {
         return false;
     }
 
-    public static boolean checkForCheckmate(Color.color color){
+    public static boolean checkForCheckmate(Color.color color, Player currentPlayer){
         // Check if king can move out of check (and does not move into next check situation)
         // Then check if piece can move in the way (and again check for check)
+        if (true) {
+            System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+            return true;
+        }
         return false;
     }
 

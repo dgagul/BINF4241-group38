@@ -32,15 +32,17 @@ public class Game{
             readInput(currentPlayer);
             board.printBoard();
 
+            Color.color otherPlayersColor;
             if (currentPlayer.getColor() == Color.color.WHITE){
-                if(Logic.checkForCheck(Color.color.BLACK)){
-                    System.out.println("Black is in Check!");
-                }
+                otherPlayersColor = Color.color.BLACK;
+            } else {otherPlayersColor = Color.color.WHITE;}
+
+            if (Logic.checkForCheckmate(otherPlayersColor, currentPlayer)) {
+                isFinished = true;
             }
-            else {
-                if(Logic.checkForCheck(Color.color.WHITE)){
-                    System.out.println("White is in Check!");
-                }
+
+            if(Logic.checkForCheck(otherPlayersColor)){
+                System.out.println(otherPlayersColor + " is in Check!");
             }
             playerQueue.add(currentPlayer);
         }
