@@ -88,7 +88,7 @@ public class Game{
                     rankTo = Integer.parseInt(userInput.substring(2,3));
                     validInput = true;
                 }
-                else if(userInput.matches("^[a-h][0|8][Q|N|T]$")){
+                else if(userInput.matches("^[a-h][0|8][Q|N|T|B]$")){
                     validInput = true;
                     isPromotion = true;
                     fileTo = StrToInt(userInput.substring(0,1));
@@ -103,7 +103,7 @@ public class Game{
                 }
             }
             else if(userInput.length()==4){
-                if(userInput.matches("^[Q|T][a-h][a-h][1-8]$")){
+                if(userInput.matches("^[Q|T|P|N|B][a-h][a-h][1-8]$")){
                     validInput = true;
                     isMove = true;
                     piece = userInput.substring(0,1);
@@ -111,7 +111,7 @@ public class Game{
                     fileTo = StrToInt(userInput.substring(2,3));
                     rankTo = Integer.parseInt((userInput.substring(3,4)));
                 }
-                if(userInput.matches("^[B|K|N|Q|T][1-8][a-h][1-8]$")){
+                if(userInput.matches("^[Q|T|N|B][1-8][a-h][1-8]$")){
                     validInput = true;
                     isMove = true;
                     piece = userInput.substring(0,1);
@@ -141,6 +141,33 @@ public class Game{
                     validInput = true;
                     isCastling = true;
                     isKingside = false;
+                }
+                else if(userInput.matches("^[Q][a-h][1-8][a-h][1-8]$")) {
+                    validInput = true;
+                    isMove = true;
+                    validInput = true;
+                    piece = userInput.substring(0, 1);
+                    fileFrom = StrToInt(userInput.substring(1, 2));
+                    rankFrom = Integer.parseInt(userInput.substring(2, 3));
+                    fileTo = StrToInt(userInput.substring(3, 4));
+                    rankTo = Integer.parseInt(userInput.substring(4, 5));
+                }
+                else if(userInput.contains("x")) {
+                    isCapture = true;
+                    if (userInput.matches("^[B|N|Q|T][a-h]x[a-h][1-8]$")) {
+                        validInput = true;
+                        piece = userInput.substring(0, 1);
+                        fileFrom = StrToInt(userInput.substring(1, 2));
+                        fileTo = StrToInt(userInput.substring(3, 4));
+                        rankTo = Integer.parseInt(userInput.substring(4, 5));
+                    }
+                    else if (userInput.matches("^[B|N|Q|T][1-8]x[a-h][1-8]$")) {
+                        validInput = true;
+                        piece = userInput.substring(0, 1);
+                        rankFrom = StrToInt(userInput.substring(1, 2));
+                        fileTo = StrToInt(userInput.substring(3, 4));
+                        rankTo = Integer.parseInt(userInput.substring(4, 5));
+                    }
                 }
             }
             if(!validInput){
