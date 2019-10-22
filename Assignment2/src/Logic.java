@@ -73,7 +73,7 @@ public class Logic {
                                         return false;
                                     }
                                     else{
-                                        setLastMove(new int[]{i, fileTo, j, rankTo}, p);
+                                        setLastMove(new int[]{i, fileTo, j, rankTo, 3}, p);
                                         return true;
                                     }
                                 }
