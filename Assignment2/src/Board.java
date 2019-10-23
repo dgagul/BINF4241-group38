@@ -1,13 +1,13 @@
-public class Board {
+class Board {
     private Square[][] board = new Square[8][8];
 
-    public Board() {
+    Board() {
         initializeBoard();
         setPieces();
         printBoard(); //helping function
     }
 
-    public Square[][] getBoard(){
+    Square[][] getBoard(){
         return board;
     }
 
@@ -56,39 +56,8 @@ public class Board {
     }
 
 
-    //public void movePiece(Piece piece, String fromLetter,int fromNumber, String toLetter,int toNumber) {
-    /*    // letter coordinate to int
-        int fromTrans = StrToInt(fromLetter);
-        int toTrans = StrToInt(toLetter);
-
-        if (boxes[fromNumber-1][fromTrans].aPiece == piece) {
-            // set FROM box/square to empty
-            boxes[fromNumber - 1][fromTrans].aPiece = null;
-            if (boxes[toNumber - 1][toTrans].aPiece == null) {
-                // place piece at TO box/square
-                boxes[toNumber - 1][toTrans].aPiece = piece;
-            }
-            // check for check
-            else if(boxes[toNumber - 1][toTrans].aPiece = piece instanceof King) {
-                // Todo: set check
-            }
-            else { // Todo: eat piece}
-        }
-    }*/
-
-    //private static Piece removePiece(Piece piece, String fromLetter, int fromNumber) {
-    /*    int fromTrans = StrToInt(fromLetter);
-
-        return piece;
-    }*/
-
-    //public List<Piece> getRemovedPieces() {
-    /*    return removedPieces;
-    }*/
-
-
     // helping function
-    public void printBoard(){
+    void printBoard(){
         for (int i = 7; i >=0; i--) {
             for (int k = 0; k <=7; k++) {
                 Piece currPiece = board[k][i].getPiece();

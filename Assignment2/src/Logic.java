@@ -9,7 +9,7 @@ public class Logic {
     private static int[] lastMove;
 
     Logic(Board board) {
-        this.board = board;
+        Logic.board = board;
     }
 
     // CheckForCheck
@@ -17,11 +17,11 @@ public class Logic {
     // CheckCoordinates
     // CheckPiece
 
-    public static int[] getLastMove() {
+    private static int[] getLastMove() {
         return lastMove;
     }
 
-    public static void setLastMove(int[] move, Piece piece) {
+    private static void setLastMove(int[] move, Piece piece) {
         lastMove = move;
         if (piece instanceof Pawn) {
             lastMove[4] = 1;
@@ -31,15 +31,14 @@ public class Logic {
     }
 
     public Board getBoard() {
-        Board aBoard = this.board;
-        return aBoard;
+        return board;
     }
 
     public void setBoard(Board board) {
-        this.board = board;
+        Logic.board = board;
     }
 
-    public static boolean move(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
+    static boolean move(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
         Square[][] aBoard = board.getBoard();
         int iter = 0;
         for (int i = 0; i < 8; i++) {
@@ -71,8 +70,7 @@ public class Logic {
                                         board.getBoard()[fileTo][rankTo].setPiece(null);
                                         System.out.println("This is a suicide move! This is not allowed.");
                                         return false;
-                                    }
-                                    else{
+                                    } else {
                                         setLastMove(new int[]{i, fileTo, j, rankTo, 3}, p);
                                         return true;
                                     }
@@ -86,7 +84,7 @@ public class Logic {
         return false;
     }
 
-    public static boolean capture(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
+    static boolean capture(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
         // ToDo: add piece to captured_pieces
         // Pawn captures
         if (p.getClass() == Pawn.class) {
@@ -108,6 +106,9 @@ public class Logic {
             board.getBoard()[fileTo][rankTo].setPiece(p);
             return true;
         }
+        if (board.getBoard()[fileTo][rankTo].getPiece().getColor() == p.getColor()) {
+            return false;
+        }
         Piece captured = board.getBoard()[fileTo][rankTo].getPiece();
         if (captured != null) {
             board.getBoard()[fileTo][rankTo].setPiece(null);
@@ -120,7 +121,7 @@ public class Logic {
         return false;
     }
 
-    public static boolean enPassant(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
+    private static boolean enPassant(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
         boolean moveIsValid = false;
         if (p.getColor() == Color.color.WHITE) {
             if (rankFrom == 4 && (getLastMove()[3] == rankFrom)) {
@@ -156,7 +157,7 @@ public class Logic {
         return false;
     }
 
-    public static boolean castling(boolean kingSide, Color.color col) {
+    static boolean castling(boolean kingSide, Color.color col) {
         Piece k;
         Piece t;
         if (kingSide) {
@@ -240,7 +241,7 @@ public class Logic {
         return false;
     }
 
-    public static boolean promotion(Piece p, int fileFrom, int fileTo, Piece promoteTo) {
+    static boolean promotion(Piece p, int fileFrom, int fileTo, Piece promoteTo) {
         if (p.getColor() == Color.color.WHITE) {
             if (move(p, fileFrom, 6, fileTo, 7)) {
                 board.getBoard()[fileTo][7].setPiece(promoteTo);
@@ -257,7 +258,7 @@ public class Logic {
         return false;
     }
 
-    public static boolean checkPath(int fileFrom, int rankFrom, int fileTo, int rankTo) {
+    private static boolean checkPath(int fileFrom, int rankFrom, int fileTo, int rankTo) {
         // horizontal move
         Piece p = board.getBoard()[fileFrom][rankFrom].getPiece();
         if (p.getClass() == Knight.class) {
@@ -328,7 +329,7 @@ public class Logic {
     }
 
     // returns true if path is free
-    public static boolean checkPathForCheckmate(int fileFrom, int rankFrom, int fileTo, int rankTo, Color.color col) {
+    private static boolean checkPathForCheckmate(int fileFrom, int rankFrom, int fileTo, int rankTo, Color.color col) {
         //horizontal move
         ArrayList<Pair<Integer, Integer>> coordsList = new ArrayList<>();
         if (rankFrom == rankTo) {
@@ -409,7 +410,7 @@ public class Logic {
     }
 
     // return true if king is in check
-    public static boolean checkForCheck_xy(int x, int y, Color.color color) {
+    private static boolean checkForCheck_xy(int x, int y, Color.color color) {
         // find King
         Piece king = board.getBoard()[x][y].getPiece();
         for (int i = 0; i < 8; i++) {
@@ -429,7 +430,7 @@ public class Logic {
     }
 
     // checkForCheck method if King's coordinates are unknown
-    public static boolean checkForCheck(Color.color color) {
+    static boolean checkForCheck(Color.color color) {
         int[] kingCoords;
         kingCoords = getKingCoords(color);
         int x = kingCoords[0];
@@ -438,13 +439,14 @@ public class Logic {
     }
 
     // returns true if checkmate
-    public static boolean checkForCheckmate(Color.color color) {
+    static boolean checkForCheckmate(Color.color color) {
         // Check if king can move out of check (and does not move into next check situation)
         int[] kingCoords = getKingCoords(color);
         int kingX = kingCoords[0];
         int kingY = kingCoords[1];
         for (int i = kingX - 1; i <= kingX + 1; i++) {
             for (int j = kingY - 1; j <= kingY + 1; j++) {
+                if(i > 0 && i < 8 && j > 0 && j < 8)
                 if (checkPath(kingX, kingY, i, j))
                     if (!checkForCheck_xy(i, j, color))
                         return false;
@@ -459,7 +461,7 @@ public class Logic {
     }
 
 
-    public static Piece checkKingOrTowerMove(Piece piece) {
+    private static Piece checkKingOrTowerMove(Piece piece) {
         if (piece.getClass() == King.class) {
             King king = (King) piece;
             king.setFirstMove(false);
@@ -472,7 +474,7 @@ public class Logic {
         return piece;
     }
 
-    public static int[] getKingCoords(Color.color color) {
+    private static int[] getKingCoords(Color.color color) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (board.getBoard()[i][j].isOccupied())

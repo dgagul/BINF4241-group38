@@ -30,6 +30,7 @@ public class Game {
             readInput(currentPlayer);
             board.printBoard();
             Color.color otherPlayersColor;
+            assert currentPlayer != null;
             if (currentPlayer.getColor() == Color.color.WHITE) {
                 otherPlayersColor = Color.color.BLACK;
             } else {
@@ -40,7 +41,7 @@ public class Game {
                 System.out.println("Check!");
                 if (Logic.checkForCheckmate(currentPlayer.getColor())) {
                     isFinished = true;
-                    System.out.printf("%s wins!\n", currentPlayer.getName());
+                    System.out.printf("Checkmate! %s wins!\n", currentPlayer.getName());
                 }
             }
             playerQueue.add(currentPlayer);
