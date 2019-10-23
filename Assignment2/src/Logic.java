@@ -1,3 +1,6 @@
+import javafx.util.Pair;
+import java.util.ArrayList;
+
 public class Logic {
 
     private static Board board;
@@ -6,12 +9,6 @@ public class Logic {
     Logic(Board board) {
         this.board = board;
     }
-
-    // CheckForCheck
-    // CheckForCheckMate
-    // CheckCoordinates
-    // CheckPiece
-
 
     public static int[] getLastMove() {
         return lastMove;
@@ -24,15 +21,6 @@ public class Logic {
         } else {
             lastMove[4] = 0;
         }
-    }
-
-    public Board getBoard() {
-        Board aBoard = this.board;
-        return aBoard;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
     }
 
     public static boolean move(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
@@ -61,6 +49,7 @@ public class Logic {
                                         piece = checkKingOrTowerMove(piece);
                                         board.getBoard()[i][j].setPiece(null);
                                         board.getBoard()[fileTo][rankTo].setPiece(piece);
+                                        // did not remove check
                                         if (checkForCheck(p.getColor())) {
                                             board.getBoard()[i][j].setPiece(piece);
                                             board.getBoard()[fileTo][rankTo].setPiece(null);
@@ -74,6 +63,7 @@ public class Logic {
                                         piece = checkKingOrTowerMove(piece);
                                         board.getBoard()[i][j].setPiece(null);
                                         board.getBoard()[fileTo][rankTo].setPiece(piece);
+                                        // suicide move
                                         if (checkForCheck(p.getColor())) {
                                             board.getBoard()[i][j].setPiece(piece);
                                             board.getBoard()[fileTo][rankTo].setPiece(null);
@@ -93,6 +83,7 @@ public class Logic {
         return false;
     }
 
+    // Todo:checkForCheck()
     public static boolean capture(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
         // ToDo: add piece to captured_pieces
         // GEHT NICHT!!! Pawn can not capture
@@ -134,6 +125,7 @@ public class Logic {
         return false;
     }
 
+    // Todo:checkForCheck()
     public static boolean checkEnPassant(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
         if (p.getColor() == Color.color.WHITE) {
             if (rankFrom == 4 && (getLastMove()[3] == rankFrom)) {
@@ -233,6 +225,151 @@ public class Logic {
         return true;
     }
 
+    public static boolean checkPathMovableTo(int fileFrom, int rankFrom, int fileTo, int rankTo, Color.color color) {
+        // horizontal move
+        if (rankFrom == rankTo) {
+            if (fileFrom < fileTo) {
+                for (int i = fileFrom + 1; i < fileTo; i++) {
+                    for (int u = 0; u < 8; u++) {
+                        for (int v = 0; v < 8; v++) {
+                            Piece piece = board.getBoard()[u][v].getPiece();
+                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                                if (piece.moveIsValid(u, v, i, v)) {
+                                    if (checkPath(u, v, i, v)) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                for (int i = fileFrom - 1; i > fileTo; i--) {
+                    for (int u = 0; u < 8; u++) {
+                        for (int v = 0; v < 8; v++) {
+                            Piece piece = board.getBoard()[u][v].getPiece();
+                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                                if (piece.moveIsValid(u, v, i, v)) {
+                                    if (checkPath(u, v, i, v)) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // vertical move
+        else if (fileFrom == fileTo) {
+            if (rankFrom < rankTo) {
+                for (int i = rankFrom + 1; i < rankTo; i++) {
+                    for (int u = 0; u < 8; u++) {
+                        for (int v = 0; v < 8; v++) {
+                            Piece piece = board.getBoard()[u][v].getPiece();
+                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                                if (piece.moveIsValid(u, v, u, i)) {
+                                    if (checkPath(u, v, u, i)) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                for (int i = rankFrom - 1; i > rankTo; i--) {
+                    for (int u = 0; u < 8; u++) {
+                        for (int v = 0; v < 8; v++) {
+                            Piece piece = board.getBoard()[u][v].getPiece();
+                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                                if (piece.moveIsValid(u, v, u, i)) {
+                                    if (checkPath(u, v, u, i)) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // diagonal move
+        else if (rankFrom < rankTo && fileFrom > fileTo) {
+            int j = rankFrom + 1;
+            for (int i = fileFrom - 1; i > fileTo; i--) {
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
+                        Piece piece = board.getBoard()[u][v].getPiece();
+                        if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                            if (piece.moveIsValid(u, v, i, j)) {
+                                if (checkPath(u, v, i, j)) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+                j++;
+            }
+        } else if (rankFrom > rankTo && fileFrom < fileTo) {
+            int j = rankFrom - 1;
+            for (int i = fileFrom + 1; i < fileTo; i++) {
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
+                        Piece piece = board.getBoard()[u][v].getPiece();
+                        if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                            if (piece.moveIsValid(u, v, i, j)) {
+                                if (checkPath(u, v, i, j)) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+                j--;
+            }
+        } else {
+            if (rankFrom < rankTo) {
+                int j = rankFrom + 1;
+                for (int i = fileFrom + 1; i < fileTo; i++) {
+                    for (int u = 0; u < 8; u++) {
+                        for (int v = 0; v < 8; v++) {
+                            Piece piece = board.getBoard()[u][v].getPiece();
+                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                                if (piece.moveIsValid(u, v, i, j)) {
+                                    if (checkPath(u, v, i, j)) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    j++;
+                }
+            } else {
+                int j = rankFrom - 1;
+                for (int i = fileFrom - 1; i > fileTo; i--) {
+                    for (int u = 0; u < 8; u++) {
+                        for (int v = 0; v < 8; v++) {
+                            Piece piece = board.getBoard()[u][v].getPiece();
+                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                                if (piece.moveIsValid(u, v, i, j)) {
+                                    if (checkPath(u, v, i, j)) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    j--;
+                }
+            }
+        }
+        return false;
+    }
+
+    // Todo:checkForCheck()
     public static boolean castling(boolean kingSide, Color.color col) {
         Piece k;
         Piece t;
@@ -330,27 +467,164 @@ public class Logic {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Piece p = board.getBoard()[i][j].getPiece();
-                if (board.getBoard()[i][j].isOccupied() && (p.getColor() != color))
+                if (board.getBoard()[i][j].isOccupied() && (p.getColor() != color)) {
                     if (p.moveIsValid(i, j, x, y)) {
                         if (checkPath(i, j, x, y)) {
                             return true;
                         }
                     }
+                }
             }
         }
         return false;
     }
 
     public static boolean checkForCheckmate(Color.color color, Player currentPlayer){
-        // Check if king can move out of check (and does not move into next check situation)
-        // Then check if piece can move in the way (and again check for check)
-        if (false) {
+        if (checkForCheck(color)){
+            // find King
+            int[] kingCoords = new int[2];
+            kingCoords = findKing(color);
+            int x = kingCoords[0];
+            int y = kingCoords[1];
+            Piece king = board.getBoard()[x][y].getPiece();
+
+            // Check if king can move out of check (and does not move into next check situation)
+            // find free spots
+            ArrayList<Pair<Integer, Integer>> freeSpots = new ArrayList<>();
+            for (int i=0;i<8;i++){
+                for (int j=0;j<8;j++){
+                    if (!(board.getBoard()[i][j].isOccupied())){
+                        if (king.moveIsValid(x,y,i,j)){
+                            Pair<Integer, Integer> spot = new Pair<>(i,j);
+                            freeSpots.add(spot);
+                        }
+                    }
+                }
+            }
+            // king has no free spots, can my piece eat the attacking piece
+            freeSpots.add(new Pair<>(404,404));
+            if (freeSpots.size() == 1){
+                int[] lastMove = getLastMove();
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        Piece p = board.getBoard()[i][j].getPiece();
+                        if (board.getBoard()[i][j].isOccupied() && (p.getColor() != color)) {
+                            if (p.moveIsValid(i, j, lastMove[1], lastMove[3])) {
+
+                                if (checkPath(i, j, lastMove[1], lastMove[3])) {
+                                    if (p.getClass() == Pawn.class){
+                                        continue;
+                                    }
+                                    return false;
+                                }
+                            }
+                            if (p.getClass() == Pawn.class) {
+                                Piece pawn = board.getBoard()[i][j].getPiece();
+                                if (pawn == null || pawn.getClass() != Pawn.class)
+                                    continue;
+                                if (board.getBoard()[lastMove[1]][lastMove[3]].getPiece().getColor() == p.getColor()) {
+                                    continue;
+                                }
+                                if (pawn.getColor() == Color.color.BLACK){
+                                    if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]+1){
+                                        return false;
+                                    }
+                                }
+                                else {
+                                    if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]-1){
+                                        return false;
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+                System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                return true;
+            }
+
+            // is free spot attacked
+            for (Pair<Integer,Integer> spot : freeSpots) {
+                int toX = spot.getKey();
+                int toY = spot.getValue();
+                int itter = 0;
+                boolean canAttack = false;
+                if(toX == 404){
+                    break;
+                }
+                for (int i=0;i<8;i++) {
+                    if (canAttack) {
+                        break;
+                    }
+                    for (int j = 0; j < 8; j++) {
+                        itter++;
+                        Piece p = board.getBoard()[i][j].getPiece();
+                        if (board.getBoard()[i][j].isOccupied() && (p.getColor() != color)) {
+                            if (p.moveIsValid(i, j, toX, toY)) {
+                                if (checkPath(i, j, toX, toY)) {
+                                    canAttack = true;
+                                    freeSpots.remove(spot);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // free and not attacked spots available?
+            if (freeSpots.size() != 1){
+                return false;
+            }
+
+            // can my figure eat the last moves figure and remove chess
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    Piece p = board.getBoard()[i][j].getPiece();
+                    if (board.getBoard()[i][j].isOccupied() && (p.getColor() == color)) {
+                        if (p.moveIsValid(i, j, lastMove[1], lastMove[3])) {
+                            if (checkPath(i, j, lastMove[1], lastMove[3])) {
+                                if (p.getClass() == Pawn.class){
+                                    continue;
+                                }
+                                return false;
+                            }
+                        }
+                        if (p.getClass() == Pawn.class) {
+                            Piece pawn = board.getBoard()[i][j].getPiece();
+                            if (pawn == null || pawn.getClass() != Pawn.class)
+                                continue;
+                            if (board.getBoard()[lastMove[1]][lastMove[3]].getPiece().getColor() == p.getColor()) {
+                                continue;
+                            }
+                            if (pawn.getColor() == Color.color.BLACK){
+                                if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]+1){
+                                    return false;
+                                }
+                            }
+                            else {
+                                if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]-1){
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // Todo: Then check if piece can move in the way (and again check for check)
+
+            if (checkPathMovableTo(lastMove[1],lastMove[3],x,y,color)){
+                return false;
+            }
+
             System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
             return true;
+
         }
         return false;
     }
 
+    // Todo:checkForCheck()
     public static boolean promotion(Piece p, int fileFrom, int fileTo, Piece promoteTo) {
         if (p.getColor() == Color.color.WHITE) {
             if (move(p, fileFrom, 6, fileTo, 7)) {

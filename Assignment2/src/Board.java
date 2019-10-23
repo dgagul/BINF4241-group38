@@ -4,7 +4,7 @@ public class Board {
     public Board() {
         initializeBoard();
         setPieces();
-        printBoard(); //helping function
+        printBoard();
     }
 
     public Square[][] getBoard(){
@@ -17,13 +17,13 @@ public class Board {
             // columns
             for (int k = 0; k < 7; k += 2) {
                 // First row First column
-                board[i][k] = new Square(Square.Color.BLACK);
+                board[i][k] = new Square(Color.color.BLACK);
                 // First row Second column
-                board[i][k + 1] = new Square(Square.Color.WHITE);
+                board[i][k + 1] = new Square(Color.color.WHITE);
                 // Second row First column
-                board[i + 1][k] = new Square(Square.Color.WHITE);
+                board[i + 1][k] = new Square(Color.color.WHITE);
                 // Second row Second column
-                board[i + 1][k + 1] = new Square(Square.Color.BLACK);
+                board[i + 1][k + 1] = new Square(Color.color.BLACK);
             }
         }
     }
@@ -55,39 +55,6 @@ public class Board {
         board[4][7].setPiece(new King(true, Color.color.BLACK));
     }
 
-
-    //public void movePiece(Piece piece, String fromLetter,int fromNumber, String toLetter,int toNumber) {
-    /*    // letter coordinate to int
-        int fromTrans = StrToInt(fromLetter);
-        int toTrans = StrToInt(toLetter);
-
-        if (boxes[fromNumber-1][fromTrans].aPiece == piece) {
-            // set FROM box/square to empty
-            boxes[fromNumber - 1][fromTrans].aPiece = null;
-            if (boxes[toNumber - 1][toTrans].aPiece == null) {
-                // place piece at TO box/square
-                boxes[toNumber - 1][toTrans].aPiece = piece;
-            }
-            // check for check
-            else if(boxes[toNumber - 1][toTrans].aPiece = piece instanceof King) {
-                // Todo: set check
-            }
-            else { // Todo: eat piece}
-        }
-    }*/
-
-    //private static Piece removePiece(Piece piece, String fromLetter, int fromNumber) {
-    /*    int fromTrans = StrToInt(fromLetter);
-
-        return piece;
-    }*/
-
-    //public List<Piece> getRemovedPieces() {
-    /*    return removedPieces;
-    }*/
-
-
-    // helping function
     public void printBoard(){
         for (int i = 7; i >=0; i--) {
             for (int k = 0; k <=7; k++) {
@@ -102,5 +69,4 @@ public class Board {
             System.out.println(" ");
         }
     }
-
 }

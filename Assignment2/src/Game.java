@@ -39,6 +39,7 @@ public class Game{
 
             if (Logic.checkForCheckmate(otherPlayersColor, currentPlayer)) {
                 isFinished = true;
+                break;
             }
 
             if(Logic.checkForCheck(otherPlayersColor)){
