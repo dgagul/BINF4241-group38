@@ -43,34 +43,35 @@ public class Logic {
                         if (aBoard[i][j].getPiece().getColor() == p.getColor()) {
                             if (aBoard[i][j].getPiece().moveIsValid(i, j, fileTo, rankTo)) {
                                 if (checkPath(i, j, fileTo, rankTo)) {
-                                    if (checkForCheck(p.getColor())) {
-
-                                        Piece piece = board.getBoard()[i][j].getPiece();
-                                        piece = checkKingOrTowerMove(piece);
-                                        board.getBoard()[i][j].setPiece(null);
-                                        board.getBoard()[fileTo][rankTo].setPiece(piece);
-                                        // did not remove check
+                                    if (!board.getBoard()[fileTo][rankTo].isOccupied()){
                                         if (checkForCheck(p.getColor())) {
-                                            board.getBoard()[i][j].setPiece(piece);
-                                            board.getBoard()[fileTo][rankTo].setPiece(null);
-                                            return false;
+                                            Piece piece = board.getBoard()[i][j].getPiece();
+                                            piece = checkKingOrTowerMove(piece);
+                                            board.getBoard()[i][j].setPiece(null);
+                                            board.getBoard()[fileTo][rankTo].setPiece(piece);
+                                            // did not remove check
+                                            if (checkForCheck(p.getColor())) {
+                                                board.getBoard()[i][j].setPiece(piece);
+                                                board.getBoard()[fileTo][rankTo].setPiece(null);
+                                                return false;
+                                            } else {
+                                                setLastMove(new int[]{i, fileTo, j, rankTo, 3}, p);
+                                                return true;
+                                            }
                                         } else {
-                                            setLastMove(new int[]{i, fileTo, j, rankTo, 3}, p);
-                                            return true;
-                                        }
-                                    } else {
-                                        Piece piece = board.getBoard()[i][j].getPiece();
-                                        piece = checkKingOrTowerMove(piece);
-                                        board.getBoard()[i][j].setPiece(null);
-                                        board.getBoard()[fileTo][rankTo].setPiece(piece);
-                                        // suicide move
-                                        if (checkForCheck(p.getColor())) {
-                                            board.getBoard()[i][j].setPiece(piece);
-                                            board.getBoard()[fileTo][rankTo].setPiece(null);
-                                            return false;
-                                        } else {
-                                            setLastMove(new int[]{i, fileTo, j, rankTo, 3}, p);
-                                            return true;
+                                            Piece piece = board.getBoard()[i][j].getPiece();
+                                            piece = checkKingOrTowerMove(piece);
+                                            board.getBoard()[i][j].setPiece(null);
+                                            board.getBoard()[fileTo][rankTo].setPiece(piece);
+                                            // suicide move
+                                            if (checkForCheck(p.getColor())) {
+                                                board.getBoard()[i][j].setPiece(piece);
+                                                board.getBoard()[fileTo][rankTo].setPiece(null);
+                                                return false;
+                                            } else {
+                                                setLastMove(new int[]{i, fileTo, j, rankTo, 3}, p);
+                                                return true;
+                                            }
                                         }
                                     }
                                 }
@@ -236,28 +237,30 @@ public class Logic {
         // horizontal move
         if (rankFrom == rankTo) {
             if (fileFrom < fileTo) {
-                for (int i = fileFrom + 1; i < fileTo; i++) {
                     for (int u = 0; u < 8; u++) {
                         for (int v = 0; v < 8; v++) {
                             Piece piece = board.getBoard()[u][v].getPiece();
                             if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
-                                if (piece.moveIsValid(u, v, i, v)) {
-                                    if (checkPath(u, v, i, v)) {
-                                        return true;
+                                for (int i = fileFrom + 1; i < fileTo; i++) {
+                                    if (piece.moveIsValid(u, v, i, rankTo)) {
+                                        if (piece.getClass() == King.class){continue;}
+                                        if (checkPath(u, v, i, rankTo)) {
+                                            return true;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
             } else {
-                for (int i = fileFrom - 1; i > fileTo; i--) {
-                    for (int u = 0; u < 8; u++) {
-                        for (int v = 0; v < 8; v++) {
-                            Piece piece = board.getBoard()[u][v].getPiece();
-                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
-                                if (piece.moveIsValid(u, v, i, v)) {
-                                    if (checkPath(u, v, i, v)) {
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
+                        Piece piece = board.getBoard()[u][v].getPiece();
+                        if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                            for (int i = fileFrom - 1; i > fileTo; i--) {
+                                if (piece.moveIsValid(u, v, i, rankTo)) {
+                                    if (piece.getClass() == King.class){continue;}
+                                    if (checkPath(u, v, i, rankTo)) {
                                         return true;
                                     }
                                 }
@@ -265,18 +268,20 @@ public class Logic {
                         }
                     }
                 }
+
             }
         }
         // vertical move
         else if (fileFrom == fileTo) {
             if (rankFrom < rankTo) {
-                for (int i = rankFrom + 1; i < rankTo; i++) {
-                    for (int u = 0; u < 8; u++) {
-                        for (int v = 0; v < 8; v++) {
-                            Piece piece = board.getBoard()[u][v].getPiece();
-                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
-                                if (piece.moveIsValid(u, v, u, i)) {
-                                    if (checkPath(u, v, u, i)) {
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
+                        Piece piece = board.getBoard()[u][v].getPiece();
+                        if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                            for (int i = rankFrom + 1; i < rankTo; i++) {
+                                if (piece.moveIsValid(u, v, fileTo, i)) {
+                                    if (piece.getClass() == King.class){continue;}
+                                    if (checkPath(u, v, fileTo, i)) {
                                         return true;
                                     }
                                 }
@@ -284,14 +289,16 @@ public class Logic {
                         }
                     }
                 }
+
             } else {
-                for (int i = rankFrom - 1; i > rankTo; i--) {
-                    for (int u = 0; u < 8; u++) {
-                        for (int v = 0; v < 8; v++) {
-                            Piece piece = board.getBoard()[u][v].getPiece();
-                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
-                                if (piece.moveIsValid(u, v, u, i)) {
-                                    if (checkPath(u, v, u, i)) {
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
+                        Piece piece = board.getBoard()[u][v].getPiece();
+                        if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                            for (int i = rankFrom - 1; i > rankTo; i--) {
+                                if (piece.moveIsValid(u, v, fileTo, i)) {
+                                    if (piece.getClass() == King.class){continue;}
+                                    if (checkPath(u, v, fileTo, i)) {
                                         return true;
                                     }
                                 }
@@ -303,73 +310,77 @@ public class Logic {
         }
         // diagonal move
         else if (rankFrom < rankTo && fileFrom > fileTo) {
-            int j = rankFrom + 1;
-            for (int i = fileFrom - 1; i > fileTo; i--) {
-                for (int u = 0; u < 8; u++) {
-                    for (int v = 0; v < 8; v++) {
-                        Piece piece = board.getBoard()[u][v].getPiece();
-                        if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+            for (int u = 0; u < 8; u++) {
+                for (int v = 0; v < 8; v++) {
+                    Piece piece = board.getBoard()[u][v].getPiece();
+                    if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                        int j = rankFrom + 1;
+                        for (int i = fileFrom - 1; i > fileTo; i--) {
                             if (piece.moveIsValid(u, v, i, j)) {
+                                if (piece.getClass() == King.class){continue;}
                                 if (checkPath(u, v, i, j)) {
                                     return true;
                                 }
                             }
+                            j++;
                         }
                     }
                 }
-                j++;
             }
         } else if (rankFrom > rankTo && fileFrom < fileTo) {
-            int j = rankFrom - 1;
-            for (int i = fileFrom + 1; i < fileTo; i++) {
                 for (int u = 0; u < 8; u++) {
                     for (int v = 0; v < 8; v++) {
                         Piece piece = board.getBoard()[u][v].getPiece();
                         if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
-                            if (piece.moveIsValid(u, v, i, j)) {
-                                if (checkPath(u, v, i, j)) {
-                                    return true;
+                            int j = rankFrom - 1;
+                            for (int i = fileFrom + 1; i < fileTo; i++) {
+                                if (piece.moveIsValid(u, v, i, j)) {
+                                    if (piece.getClass() == King.class){continue;}
+                                    if (checkPath(u, v, i, j)) {
+                                        return true;
+                                    }
                                 }
+                                j--;
                             }
                         }
                     }
                 }
-                j--;
-            }
         } else {
             if (rankFrom < rankTo) {
-                int j = rankFrom + 1;
-                for (int i = fileFrom + 1; i < fileTo; i++) {
-                    for (int u = 0; u < 8; u++) {
-                        for (int v = 0; v < 8; v++) {
-                            Piece piece = board.getBoard()[u][v].getPiece();
-                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
+                        Piece piece = board.getBoard()[u][v].getPiece();
+                        if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                            int j = rankFrom + 1;
+                            for (int i = fileFrom + 1; i < fileTo; i++) {
                                 if (piece.moveIsValid(u, v, i, j)) {
+                                    if (piece.getClass() == King.class){continue;}
                                     if (checkPath(u, v, i, j)) {
                                         return true;
                                     }
                                 }
+                                j++;
                             }
                         }
                     }
-                    j++;
                 }
             } else {
-                int j = rankFrom - 1;
-                for (int i = fileFrom - 1; i > fileTo; i--) {
-                    for (int u = 0; u < 8; u++) {
-                        for (int v = 0; v < 8; v++) {
-                            Piece piece = board.getBoard()[u][v].getPiece();
-                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                for (int u = 0; u < 8; u++) {
+                    for (int v = 0; v < 8; v++) {
+                        Piece piece = board.getBoard()[u][v].getPiece();
+                        if (board.getBoard()[u][v].isOccupied() && (piece.getColor() == color)) {
+                            int j = rankFrom - 1;
+                            for (int i = fileFrom - 1; i > fileTo; i--) {
                                 if (piece.moveIsValid(u, v, i, j)) {
+                                    if (piece.getClass() == King.class){continue;}
                                     if (checkPath(u, v, i, j)) {
                                         return true;
                                     }
                                 }
+                                j--;
                             }
                         }
                     }
-                    j--;
                 }
             }
         }
@@ -510,36 +521,14 @@ public class Logic {
                     }
                 }
             }
-            // king has no free spots, can my piece eat the attacking piece
-            freeSpots.add(new Pair<>(404,404));
-            if (freeSpots.size() == 1){
+            // king has no free spots, can capture the attacking piece and remove chess?
+            if (freeSpots.isEmpty()){
                 int[] lastMove = getLastMove();
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 8; j++) {
                         Piece p = board.getBoard()[i][j].getPiece();
                         if (board.getBoard()[i][j].isOccupied() && (p.getColor() != color)) {
-                            if (p.moveIsValid(i, j, lastMove[1], lastMove[3])) {
-
-                                if (checkPath(i, j, lastMove[1], lastMove[3])) {
-                                    if (p.getClass() == Pawn.class){
-                                        continue;
-                                    }
-                                    for (int u = 0; u < 8; u++) {
-                                        for (int v = 0; v < 8; v++) {
-                                            Piece piece = board.getBoard()[u][v].getPiece();
-                                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() != color)) {
-                                                if (piece.moveIsValid(u, v, lastMove[1], lastMove[3])) {
-                                                    if (checkPath(u, v, lastMove[1], lastMove[3])) {
-                                                        System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
-                                                        return true;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    return false;
-                                }
-                            }
+                            // is pawn attacking
                             if (p.getClass() == Pawn.class) {
                                 Piece pawn = board.getBoard()[i][j].getPiece();
                                 if (pawn == null || pawn.getClass() != Pawn.class)
@@ -549,32 +538,86 @@ public class Logic {
                                 }
                                 if (pawn.getColor() == Color.color.BLACK){
                                     if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]+1){
+                                        // can eat piece, therefore no chess mate
                                         return false;
                                     }
                                 }
                                 else {
                                     if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]-1){
+                                        // can eat piece, therefore no chess mate
                                         return false;
                                     }
                                 }
                             }
-
+                            // other pieces
+                            if (p.moveIsValid(i, j, lastMove[1], lastMove[3])) {
+                                if (checkPath(i, j, lastMove[1], lastMove[3])) {
+                                    // pawn valid move is not capture
+                                    if (p.getClass() == Pawn.class){
+                                        continue;
+                                    }
+                                    // if attacking piece is covered, cannot eat piece
+                                    for (int u = 0; u < 8; u++) {
+                                        for (int v = 0; v < 8; v++) {
+                                            Piece piece = board.getBoard()[u][v].getPiece();
+                                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() != color)) {
+                                                // is pawn protecting
+                                                if (p.getClass() == Pawn.class) {
+                                                    Piece pawn = board.getBoard()[i][j].getPiece();
+                                                    if (pawn == null || pawn.getClass() != Pawn.class)
+                                                        continue;
+                                                    if (board.getBoard()[lastMove[1]][lastMove[3]].getPiece().getColor() == p.getColor()) {
+                                                        continue;
+                                                    }
+                                                    if (pawn.getColor() == Color.color.BLACK){
+                                                        if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]+1){
+                                                            // pawn protects attacking piece
+                                                            System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                            return true;
+                                                        }
+                                                    }
+                                                    else {
+                                                        if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]-1){
+                                                            // pawn protects attacking piece
+                                                            System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                            return true;
+                                                        }
+                                                    }
+                                                }
+                                                // other piece protecting
+                                                if (piece.moveIsValid(u, v, lastMove[1], lastMove[3])) {
+                                                    if (checkPath(u, v, lastMove[1], lastMove[3])) {
+                                                        // is pawn move not protecting
+                                                        if (p.getClass() == Pawn.class){
+                                                            continue;
+                                                        }
+                                                        System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                        return true;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    // attacking piece is not covered
+                                    return false;
+                                }
+                            }
                         }
                     }
                 }
+                // cannot capture, therefore mate
                 System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
                 return true;
             }
 
-            // is free spot attacked
-            for (Pair<Integer,Integer> spot : freeSpots) {
+
+            ArrayList<Pair<Integer, Integer>> movableSpot = new ArrayList<>();
+            // is free spot not attacked
+            for (Pair<Integer, Integer> spot : freeSpots) {
                 int toX = spot.getKey();
                 int toY = spot.getValue();
                 int itter = 0;
                 boolean canAttack = false;
-                if(toX == 404){
-                    break;
-                }
                 for (int i=0;i<8;i++) {
                     if (canAttack) {
                         break;
@@ -585,60 +628,74 @@ public class Logic {
                         if (board.getBoard()[i][j].isOccupied() && (p.getColor() != color)) {
                             if (p.moveIsValid(i, j, toX, toY)) {
                                 if (checkPath(i, j, toX, toY)) {
+                                    // pawn valid move is not capture
+                                    if (p.getClass() == Pawn.class){
+                                        continue;
+                                    }
                                     canAttack = true;
-                                    freeSpots.remove(spot);
                                     break;
                                 }
                             }
                         }
                     }
                 }
+                if (!canAttack) {
+                    movableSpot.add(spot);
+                }
             }
             // free and not attacked spots available?
-            if (freeSpots.size() != 1){
+            if (!movableSpot.isEmpty()){
                 return false;
             }
 
-            // can my figure eat the last moves figure and remove chess
+
+            // can my figure eat the last moved figure and remove chess
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     Piece p = board.getBoard()[i][j].getPiece();
                     if (board.getBoard()[i][j].isOccupied() && (p.getColor() == color)) {
                         if (p.moveIsValid(i, j, lastMove[1], lastMove[3])) {
+                            // can pawn capture
+                            if (p.getClass() == Pawn.class) {
+                                Piece pawn = board.getBoard()[i][j].getPiece();
+                                if (pawn == null || pawn.getClass() != Pawn.class)
+                                    continue;
+                                if (board.getBoard()[lastMove[1]][lastMove[3]].getPiece().getColor() == p.getColor()) {
+                                    continue;
+                                }
+                                if (pawn.getColor() == Color.color.BLACK){
+                                    if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]+1){
+                                        // can eat piece, therefore no chess mate
+                                        return false;
+                                    }
+                                }
+                                else {
+                                    if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]-1){
+                                        // can eat piece, therefore no chess mate
+                                        return false;
+                                    }
+                                }
+                            }
+                            // other piece can capture
                             if (checkPath(i, j, lastMove[1], lastMove[3])) {
                                 if (p.getClass() == Pawn.class){
                                     continue;
                                 }
+                                // can eat piece, therefore no chess mate
                                 return false;
-                            }
-                        }
-                        if (p.getClass() == Pawn.class) {
-                            Piece pawn = board.getBoard()[i][j].getPiece();
-                            if (pawn == null || pawn.getClass() != Pawn.class)
-                                continue;
-                            if (board.getBoard()[lastMove[1]][lastMove[3]].getPiece().getColor() == p.getColor()) {
-                                continue;
-                            }
-                            if (pawn.getColor() == Color.color.BLACK){
-                                if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]+1){
-                                    return false;
-                                }
-                            }
-                            else {
-                                if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]-1){
-                                    return false;
-                                }
                             }
                         }
                     }
                 }
             }
-            // Todo: Then check if piece can move in the way (and again check for check)
 
+
+            // can a piece block the chess
             if (checkPathMovableTo(lastMove[1],lastMove[3],x,y,color)){
                 return false;
             }
 
+            // can not do anything
             System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
             return true;
 
