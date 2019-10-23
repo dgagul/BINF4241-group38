@@ -114,6 +114,9 @@ public class Logic {
             return true;
         }
         Piece captured = board.getBoard()[fileTo][rankTo].getPiece();
+        if (captured.getColor() == p.getColor()){
+            return false;
+        }
         if (captured != null) {
             board.getBoard()[fileTo][rankTo].setPiece(null);
             if (!move(p, fileFrom, rankFrom, fileTo, rankTo)) {
