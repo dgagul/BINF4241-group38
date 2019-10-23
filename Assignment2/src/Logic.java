@@ -524,6 +524,19 @@ public class Logic {
                                     if (p.getClass() == Pawn.class){
                                         continue;
                                     }
+                                    for (int u = 0; u < 8; u++) {
+                                        for (int v = 0; v < 8; v++) {
+                                            Piece piece = board.getBoard()[u][v].getPiece();
+                                            if (board.getBoard()[u][v].isOccupied() && (piece.getColor() != color)) {
+                                                if (piece.moveIsValid(u, v, lastMove[1], lastMove[3])) {
+                                                    if (checkPath(u, v, lastMove[1], lastMove[3])) {
+                                                        System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                        return true;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                     return false;
                                 }
                             }
