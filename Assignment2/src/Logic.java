@@ -83,8 +83,10 @@ public class Logic {
         return false;
     }
 
-    // Todo:checkForCheck()
     public static boolean capture(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
+        if (checkForCheck(p.getColor())) {
+            return false;
+        }
         // ToDo: add piece to captured_pieces
         // GEHT NICHT!!! Pawn can not capture
         if (p.getClass() == Pawn.class) {
@@ -128,8 +130,10 @@ public class Logic {
         return false;
     }
 
-    // Todo:checkForCheck()
     public static boolean checkEnPassant(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
+        if (checkForCheck(p.getColor())) {
+            return false;
+        }
         if (p.getColor() == Color.color.WHITE) {
             if (rankFrom == 4 && (getLastMove()[3] == rankFrom)) {
                 if (fileFrom == getLastMove()[1] - 1 || fileFrom == getLastMove()[1] + 1) {
@@ -372,8 +376,10 @@ public class Logic {
         return false;
     }
 
-    // Todo:checkForCheck()
     public static boolean castling(boolean kingSide, Color.color col) {
+        if (checkForCheck(col)) {
+            return false;
+        }
         Piece k;
         Piece t;
         if (kingSide) {
@@ -627,8 +633,10 @@ public class Logic {
         return false;
     }
 
-    // Todo:checkForCheck()
     public static boolean promotion(Piece p, int fileFrom, int fileTo, Piece promoteTo) {
+        if (checkForCheck(p.getColor())) {
+            return false;
+        }
         if (p.getColor() == Color.color.WHITE) {
             if (move(p, fileFrom, 6, fileTo, 7)) {
                 board.getBoard()[fileTo][7].setPiece(promoteTo);
