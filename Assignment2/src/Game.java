@@ -39,7 +39,7 @@ public class Game {
 
             if (Logic.checkForCheck(otherPlayersColor)) {
                 System.out.println("Check!");
-                if (Logic.checkForCheckmate(currentPlayer.getColor())) {
+                if (Logic.checkForCheckmate(otherPlayersColor)) {
                     isFinished = true;
                     System.out.printf("Checkmate! %s wins!\n", currentPlayer.getName());
                 }

@@ -446,7 +446,7 @@ public class Logic {
         int kingY = kingCoords[1];
         for (int i = kingX - 1; i <= kingX + 1; i++) {
             for (int j = kingY - 1; j <= kingY + 1; j++) {
-                if(i > 0 && i < 8 && j > 0 && j < 8)
+                if(i >= 0 && i < 8 && j >= 0 && j < 8)
                 if (checkPath(kingX, kingY, i, j))
                     if (!checkForCheck_xy(i, j, color))
                         return false;
