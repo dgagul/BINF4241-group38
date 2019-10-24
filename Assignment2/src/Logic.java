@@ -489,6 +489,9 @@ public class Logic {
                 Piece p = board.getBoard()[i][j].getPiece();
                 if (board.getBoard()[i][j].isOccupied() && (p.getColor() != color)) {
                     if (p.moveIsValid(i, j, x, y)) {
+                        if (p.getClass() == Knight.class){
+                            return true;
+                        }
                         if (checkPath(i, j, x, y)) {
                             return true;
                         }
@@ -538,13 +541,97 @@ public class Logic {
                                 }
                                 if (pawn.getColor() == Color.color.BLACK){
                                     if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]+1){
-                                        // can eat piece, therefore no chess mate
+                                        // if attacking piece is covered, cannot eat piece
+                                        for (int u = 0; u < 8; u++) {
+                                            for (int v = 0; v < 8; v++) {
+                                                Piece piece = board.getBoard()[u][v].getPiece();
+                                                if (board.getBoard()[u][v].isOccupied() && (piece.getColor() != color)) {
+                                                    // is pawn protecting
+                                                    if (p.getClass() == Pawn.class) {
+                                                        Piece pawn2 = board.getBoard()[i][j].getPiece();
+                                                        if (pawn2 == null || pawn2.getClass() != Pawn.class)
+                                                            continue;
+                                                        if (board.getBoard()[lastMove[1]][lastMove[3]].getPiece().getColor() == p.getColor()) {
+                                                            continue;
+                                                        }
+                                                        if (pawn2.getColor() == Color.color.BLACK){
+                                                            if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]+1){
+                                                                // pawn protects attacking piece
+                                                                System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                                return true;
+                                                            }
+                                                        }
+                                                        else {
+                                                            if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]-1){
+                                                                // pawn protects attacking piece
+                                                                System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                                return true;
+                                                            }
+                                                        }
+                                                    }
+                                                    // other piece protecting
+                                                    if (piece.moveIsValid(u, v, lastMove[1], lastMove[3])) {
+                                                        if (checkPath(u, v, lastMove[1], lastMove[3])) {
+                                                            // is pawn move not protecting
+                                                            if (p.getClass() == Pawn.class){
+                                                                continue;
+                                                            }
+                                                            System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                            return true;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        // attacking piece is not covered
                                         return false;
                                     }
                                 }
                                 else {
                                     if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]-1){
-                                        // can eat piece, therefore no chess mate
+                                        // if attacking piece is covered, cannot eat piece
+                                        for (int u = 0; u < 8; u++) {
+                                            for (int v = 0; v < 8; v++) {
+                                                Piece piece = board.getBoard()[u][v].getPiece();
+                                                if (board.getBoard()[u][v].isOccupied() && (piece.getColor() != color)) {
+                                                    // is pawn protecting
+                                                    if (p.getClass() == Pawn.class) {
+                                                        Piece pawn2 = board.getBoard()[i][j].getPiece();
+                                                        if (pawn2 == null || pawn2.getClass() != Pawn.class)
+                                                            continue;
+                                                        if (board.getBoard()[lastMove[1]][lastMove[3]].getPiece().getColor() == p.getColor()) {
+                                                            continue;
+                                                        }
+                                                        if (pawn2.getColor() == Color.color.BLACK){
+                                                            if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]+1){
+                                                                // pawn protects attacking piece
+                                                                System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                                return true;
+                                                            }
+                                                        }
+                                                        else {
+                                                            if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]-1){
+                                                                // pawn protects attacking piece
+                                                                System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                                return true;
+                                                            }
+                                                        }
+                                                    }
+                                                    // other piece protecting
+                                                    if (piece.moveIsValid(u, v, lastMove[1], lastMove[3])) {
+                                                        if (checkPath(u, v, lastMove[1], lastMove[3])) {
+                                                            // is pawn move not protecting
+                                                            if (p.getClass() == Pawn.class){
+                                                                continue;
+                                                            }
+                                                            System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                            return true;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        // attacking piece is not covered
                                         return false;
                                     }
                                 }
@@ -665,13 +752,97 @@ public class Logic {
                                 }
                                 if (pawn.getColor() == Color.color.BLACK){
                                     if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]+1){
-                                        // can eat piece, therefore no chess mate
+                                        // if attacking piece is covered, cannot eat piece
+                                        for (int u = 0; u < 8; u++) {
+                                            for (int v = 0; v < 8; v++) {
+                                                Piece piece = board.getBoard()[u][v].getPiece();
+                                                if (board.getBoard()[u][v].isOccupied() && (piece.getColor() != color)) {
+                                                    // is pawn protecting
+                                                    if (p.getClass() == Pawn.class) {
+                                                        Piece pawn2 = board.getBoard()[i][j].getPiece();
+                                                        if (pawn2 == null || pawn2.getClass() != Pawn.class)
+                                                            continue;
+                                                        if (board.getBoard()[lastMove[1]][lastMove[3]].getPiece().getColor() == p.getColor()) {
+                                                            continue;
+                                                        }
+                                                        if (pawn2.getColor() == Color.color.BLACK){
+                                                            if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]+1){
+                                                                // pawn protects attacking piece
+                                                                System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                                return true;
+                                                            }
+                                                        }
+                                                        else {
+                                                            if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]-1){
+                                                                // pawn protects attacking piece
+                                                                System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                                return true;
+                                                            }
+                                                        }
+                                                    }
+                                                    // other piece protecting
+                                                    if (piece.moveIsValid(u, v, lastMove[1], lastMove[3])) {
+                                                        if (checkPath(u, v, lastMove[1], lastMove[3])) {
+                                                            // is pawn move not protecting
+                                                            if (p.getClass() == Pawn.class){
+                                                                continue;
+                                                            }
+                                                            System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                            return true;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        // attacking piece is not covered
                                         return false;
                                     }
                                 }
                                 else {
                                     if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]-1){
-                                        // can eat piece, therefore no chess mate
+                                        // if attacking piece is covered, cannot eat piece
+                                        for (int u = 0; u < 8; u++) {
+                                            for (int v = 0; v < 8; v++) {
+                                                Piece piece = board.getBoard()[u][v].getPiece();
+                                                if (board.getBoard()[u][v].isOccupied() && (piece.getColor() != color)) {
+                                                    // is pawn protecting
+                                                    if (p.getClass() == Pawn.class) {
+                                                        Piece pawn2 = board.getBoard()[i][j].getPiece();
+                                                        if (pawn2 == null || pawn2.getClass() != Pawn.class)
+                                                            continue;
+                                                        if (board.getBoard()[lastMove[1]][lastMove[3]].getPiece().getColor() == p.getColor()) {
+                                                            continue;
+                                                        }
+                                                        if (pawn2.getColor() == Color.color.BLACK){
+                                                            if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]+1){
+                                                                // pawn protects attacking piece
+                                                                System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                                return true;
+                                                            }
+                                                        }
+                                                        else {
+                                                            if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]-1){
+                                                                // pawn protects attacking piece
+                                                                System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                                return true;
+                                                            }
+                                                        }
+                                                    }
+                                                    // other piece protecting
+                                                    if (piece.moveIsValid(u, v, lastMove[1], lastMove[3])) {
+                                                        if (checkPath(u, v, lastMove[1], lastMove[3])) {
+                                                            // is pawn move not protecting
+                                                            if (p.getClass() == Pawn.class){
+                                                                continue;
+                                                            }
+                                                            System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                            return true;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        // attacking piece is not covered
                                         return false;
                                     }
                                 }
@@ -681,7 +852,49 @@ public class Logic {
                                 if (p.getClass() == Pawn.class){
                                     continue;
                                 }
-                                // can eat piece, therefore no chess mate
+                                // if attacking piece is covered, cannot eat piece
+                                for (int u = 0; u < 8; u++) {
+                                    for (int v = 0; v < 8; v++) {
+                                        Piece piece = board.getBoard()[u][v].getPiece();
+                                        if (board.getBoard()[u][v].isOccupied() && (piece.getColor() != color)) {
+                                            // is pawn protecting
+                                            if (p.getClass() == Pawn.class) {
+                                                Piece pawn = board.getBoard()[i][j].getPiece();
+                                                if (pawn == null || pawn.getClass() != Pawn.class)
+                                                    continue;
+                                                if (board.getBoard()[lastMove[1]][lastMove[3]].getPiece().getColor() == p.getColor()) {
+                                                    continue;
+                                                }
+                                                if (pawn.getColor() == Color.color.BLACK){
+                                                    if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]+1){
+                                                        // pawn protects attacking piece
+                                                        System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                        return true;
+                                                    }
+                                                }
+                                                else {
+                                                    if ((i == lastMove[1]-1 || i == lastMove[1]+1) &&  j == lastMove[3]-1){
+                                                        // pawn protects attacking piece
+                                                        System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                        return true;
+                                                    }
+                                                }
+                                            }
+                                            // other piece protecting
+                                            if (piece.moveIsValid(u, v, lastMove[1], lastMove[3])) {
+                                                if (checkPath(u, v, lastMove[1], lastMove[3])) {
+                                                    // is pawn move not protecting
+                                                    if (p.getClass() == Pawn.class){
+                                                        continue;
+                                                    }
+                                                    System.out.println("Checkmate, " + currentPlayer.getName() + " wins!");
+                                                    return true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                // attacking piece is not covered
                                 return false;
                             }
                         }
