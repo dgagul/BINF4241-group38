@@ -12,10 +12,6 @@ public class Logic {
         Logic.board = board;
     }
 
-    // CheckForCheck
-    // CheckForCheckMate
-    // CheckCoordinates
-    // CheckPiece
 
     private static int[] getLastMove() {
         return lastMove;
@@ -110,19 +106,12 @@ public class Logic {
             return true;
         }
         Piece captured = board.getBoard()[fileTo][rankTo].getPiece();
-        Piece piece = board.getBoard()[fileFrom][rankFrom].getPiece();
         if (board.getBoard()[fileTo][rankTo].getPiece().getColor() == p.getColor()) {
             return false;
         }
         if (captured != null) {
             board.getBoard()[fileTo][rankTo].setPiece(null);
             if (!move(p, fileFrom, rankFrom, fileTo, rankTo)) {
-                board.getBoard()[fileTo][rankTo].setPiece(captured);
-                return false;
-            }
-            if (checkForCheck(p.getColor())) {
-                System.out.println("This is a suicide move! This is not allowed.");
-                undoMove(fileFrom, rankFrom, fileTo, rankTo, piece);
                 board.getBoard()[fileTo][rankTo].setPiece(captured);
                 return false;
             }
@@ -437,8 +426,20 @@ public class Logic {
         int[] lastMove = getLastMove();
         int lastX = lastMove[1];
         int lastY = lastMove[3];
+        Piece menacing = board.getBoard()[lastX][lastY].getPiece();
         // Check if a piece can capture the menacing piece
-
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                if(board.getBoard()[i][j].isOccupied()){
+                    Piece p = board.getBoard()[i][j].getPiece();
+                    if(p.getColor() == color && p.moveIsValid(i, j, lastX, lastY) && checkPath(i,j,lastX,lastY)){
+                        if(capture(p, i, j, lastX, lastY)){
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
         // Check if a piece can move in the way
         return !checkPathForCheckmate(lastX, lastY, kingX, kingY, color);
     }
