@@ -93,6 +93,7 @@ public class Game {
                     rankTo = Integer.parseInt(userInput.substring(1, 2));
                     promoteTo = userInput.substring(2, 3);
                 } else if (userInput.matches("^0-0$")) {
+                    validInput = true;
                     isCastling = true;
                     isKingside = true;
                 }
@@ -127,6 +128,7 @@ public class Game {
                 }
             } else if (userInput.length() == 5) {
                 if (userInput.matches("^0-0-0$")) {
+                    validInput = true;
                     isCastling = true;
                     isKingside = false;
                 }

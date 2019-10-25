@@ -96,7 +96,7 @@ public class Logic {
                 return false;
             }
             board.getBoard()[fileFrom][rankFrom].setPiece(null);
-            board.getBoard()[fileTo][rankTo].setPiece(p);
+            board.getBoard()[fileTo][rankTo].setPiece(piece);
             if (checkForCheck(p.getColor())) {
                 System.out.println("This is a suicide move! This is not allowed.");
                 undoMove(fileFrom, rankFrom, fileTo, rankTo, piece);
@@ -443,7 +443,6 @@ public class Logic {
                     Piece p = board.getBoard()[i][j].getPiece();
                     if (p.getColor() == color) {
                         if (checkCapture(p, i, j, lastX, lastY)) {
-
                             return false;
                         }
                     }
