@@ -4,7 +4,7 @@ public class Square {
     private Color color;
     private Piece piece = null;
 
-    public Square(Color pColor) {
+    Square(Color pColor) {
         // color Box
         color = pColor;
     }
@@ -17,7 +17,7 @@ public class Square {
         return piece;
     }
 
-    public boolean isOccupied(){
+    boolean isOccupied(){
         return !(piece==null);
     }
 
