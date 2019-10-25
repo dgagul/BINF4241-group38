@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94fea9ba-f8a3-49b3-9583-c1725e241b81" name="Default Changelist" comment="" />
+    <list default="true" id="94fea9ba-f8a3-49b3-9583-c1725e241b81" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +64,7 @@
       <workItem from="1571659566029" duration="8646000" />
       <workItem from="1571683553507" duration="14230000" />
       <workItem from="1571816058738" duration="2064000" />
+      <workItem from="1572009167259" duration="634000" />
     </task>
     <task id="LOCAL-00001" summary="Merge remote-tracking branch 'origin/Marion' into lynn&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;Assignment2/out/production/Assignment2/Game.class&#10;#&#9;Assignment2/src/Player.java">
       <created>1571571669545</created>
