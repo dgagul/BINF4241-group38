@@ -381,6 +381,9 @@ public class Logic {
     private static boolean checkForCheck_xy(int x, int y, Color.color color) {
         // find King
         Piece king = board.getBoard()[x][y].getPiece();
+        if (checkForPawnCheck(x, y, color)) {
+            return true;
+        }
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Piece p = board.getBoard()[i][j].getPiece();
@@ -402,7 +405,7 @@ public class Logic {
     static boolean checkForCheck(Color.color color) {
         int[] kingCoords;
         kingCoords = getKingCoords(color);
-        if(kingCoords[0]  == -1 && kingCoords[1] == -1){
+        if (kingCoords[0] == -1 && kingCoords[1] == -1) {
             return true;
         }
         int x = kingCoords[0];
@@ -414,7 +417,7 @@ public class Logic {
     static boolean checkForCheckmate(Color.color color) {
         // Check if king can move out of check (and does not move into next check situation)
         int[] kingCoords = getKingCoords(color);
-        if(kingCoords[0]  == -1 && kingCoords[1] == -1){
+        if (kingCoords[0] == -1 && kingCoords[1] == -1) {
             return true;
         }
         int kingX = kingCoords[0];
@@ -488,6 +491,18 @@ public class Logic {
             board.getBoard()[fileTo][rankTo].setPiece(piece);
             board.getBoard()[fileTo][rankTo].setPiece(captured);
             return true;
+        }
+        return false;
+    }
+
+    private static boolean checkForPawnCheck(int x, int y, Color.color color) {
+        int pRank = (color == Color.color.WHITE) ? y + 1 : y - 1;
+        for (int i = x - 1; i <= x + 1; i++) {
+            if (board.getBoard()[i][pRank].isOccupied()) {
+                if ((board.getBoard()[i][pRank].getPiece().getClass() == Pawn.class) && (board.getBoard()[i][pRank].getPiece().getColor() != color)) {
+                    return true;
+                }
+            }
         }
         return false;
     }
