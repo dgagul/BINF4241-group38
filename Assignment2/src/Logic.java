@@ -92,14 +92,8 @@ public class Logic {
             if (piece == null || piece.getClass() != Pawn.class)
                 return false;
             if (captured == null) {
-                captured = board.getBoard()[lastMove[1]][lastMove[3]].getPiece();
                 if (enPassant(p, fileFrom, rankFrom, fileTo, rankTo)) {
-                    if (checkForCheck(p.getColor())) {
-                        System.out.println("This is a suicide move! This is not allowed.");
-                        undoMove(fileFrom, rankFrom, fileTo, rankTo, piece);
-                        board.getBoard()[fileTo][rankTo].setPiece(captured);
-                        return false;
-                    }
+                    return true;
                 }
             }
             if (board.getBoard()[fileTo][rankTo].getPiece().getColor() == p.getColor()) {
@@ -136,6 +130,9 @@ public class Logic {
     }
 
     private static boolean enPassant(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
+        if(checkForCheck(p.getColor())){
+            return false;
+        }
         boolean moveIsValid = false;
         if (p.getColor() == Color.color.WHITE) {
             if (rankFrom == 4 && (getLastMove()[3] == rankFrom)) {
@@ -175,6 +172,9 @@ public class Logic {
         Piece k;
         Piece t;
         int rank = (col == Color.color.WHITE) ? 0 : 7;
+        if (checkForCheck(col)) {
+            return false;
+        }
         if (kingSide) {
             k = board.getBoard()[4][rank].getPiece();
             t = board.getBoard()[7][rank].getPiece();
@@ -193,14 +193,6 @@ public class Logic {
                 board.getBoard()[7][rank].setPiece(null);
                 board.getBoard()[6][rank].setPiece(k);
                 board.getBoard()[5][rank].setPiece(t);
-                if (checkForCheck(col)) {
-                    System.out.println("This is a suicide move! This is not allowed.");
-                    board.getBoard()[4][rank].setPiece(k);
-                    board.getBoard()[7][rank].setPiece(t);
-                    board.getBoard()[6][rank].setPiece(null);
-                    board.getBoard()[5][rank].setPiece(null);
-                    return false;
-                }
                 return true;
             }
         }
@@ -221,14 +213,6 @@ public class Logic {
                 board.getBoard()[0][rank].setPiece(null);
                 board.getBoard()[2][rank].setPiece(k);
                 board.getBoard()[3][rank].setPiece(t);
-                if (checkForCheck(col)) {
-                    System.out.println("This is a suicide move! This is not allowed.");
-                    board.getBoard()[4][rank].setPiece(k);
-                    board.getBoard()[0][rank].setPiece(t);
-                    board.getBoard()[2][rank].setPiece(null);
-                    board.getBoard()[3][rank].setPiece(null);
-                    return false;
-                }
                 return true;
             }
         }
