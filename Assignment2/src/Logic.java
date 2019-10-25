@@ -57,8 +57,8 @@ public class Logic {
                     if (aBoard[i][j].getPiece().getClass() == p.getClass() && aBoard[i][j].getPiece().getColor() == p.getColor()) {
                         if (aBoard[i][j].getPiece().moveIsValid(i, j, fileTo, rankTo) && checkPath(i, j, fileTo, rankTo)) {
                             Piece piece = board.getBoard()[i][j].getPiece();
-                            board.getBoard()[i][j].setPiece(null);
                             board.getBoard()[fileTo][rankTo].setPiece(piece);
+                            board.getBoard()[i][j].setPiece(null);
                             // If player was already in check and didn't resolve it or moves into check
                             if (checkForCheck(piece.getColor())) {
                                 undoMove(i, j, fileTo, rankTo, piece);
@@ -402,6 +402,7 @@ public class Logic {
                             board.getBoard()[x][y].setPiece(king);
                             return true;
                         }
+                        board.getBoard()[x][y].setPiece(king);
                     }
             }
         }
@@ -425,17 +426,20 @@ public class Logic {
         int kingY = kingCoords[1];
         for (int i = kingX - 1; i <= kingX + 1; i++) {
             for (int j = kingY - 1; j <= kingY + 1; j++) {
-                if (i >= 0 && i < 8 && j >= 0 && j < 8)
+                if (i >= 0 && i <= 7 && j >= 0 && j <= 7)
                     if (checkPath(kingX, kingY, i, j))
                         if (!checkForCheck_xy(i, j, color))
                             return false;
 
             }
         }
-        // Check if piece can move in the way
+
         int[] lastMove = getLastMove();
         int lastX = lastMove[1];
         int lastY = lastMove[3];
+        // Check if a piece can capture the menacing piece
+
+        // Check if a piece can move in the way
         return !checkPathForCheckmate(lastX, lastY, kingX, kingY, color);
     }
 

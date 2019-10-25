@@ -2,7 +2,7 @@ import javafx.util.Pair;
 
 public class Tower extends Piece {
 
-    private boolean firstMove;
+    private boolean firstMove = true;
 
     public Tower(boolean available, Color.color col){
         super(available, col);
