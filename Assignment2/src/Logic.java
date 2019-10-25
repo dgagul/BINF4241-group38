@@ -80,8 +80,6 @@ public class Logic {
     static boolean capture(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
         // ToDo: add piece to captured_pieces
         boolean isValid = false;
-        Piece captured = board.getBoard()[fileTo][rankTo].getPiece();
-        Piece piece = board.getBoard()[fileFrom][rankFrom].getPiece();
         // Pawn capture
         if (p.getClass() == Pawn.class) {
             if (p.getColor() == Color.color.WHITE) {
@@ -89,6 +87,8 @@ public class Logic {
             } else {
                 rankFrom = rankTo + 1;
             }
+            Piece captured = board.getBoard()[fileTo][rankTo].getPiece();
+            Piece piece = board.getBoard()[fileFrom][rankFrom].getPiece();
             if (piece == null || piece.getClass() != Pawn.class)
                 return false;
             if (captured == null) {
@@ -109,6 +109,8 @@ public class Logic {
             }
             return true;
         }
+        Piece captured = board.getBoard()[fileTo][rankTo].getPiece();
+        Piece piece = board.getBoard()[fileFrom][rankFrom].getPiece();
         if (board.getBoard()[fileTo][rankTo].getPiece().getColor() == p.getColor()) {
             return false;
         }
@@ -120,7 +122,7 @@ public class Logic {
             }
             if (checkForCheck(p.getColor())) {
                 System.out.println("This is a suicide move! This is not allowed.");
-                undoMove(fileFrom, rankFrom, fileTo, rankTo, p);
+                undoMove(fileFrom, rankFrom, fileTo, rankTo, piece);
                 board.getBoard()[fileTo][rankTo].setPiece(captured);
                 return false;
             }
