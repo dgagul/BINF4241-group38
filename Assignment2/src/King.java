@@ -29,3 +29,4 @@ public class King extends Piece {
         return super.toString() + "K";
     }
 }
+

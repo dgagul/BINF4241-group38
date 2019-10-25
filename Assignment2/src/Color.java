@@ -3,4 +3,5 @@ abstract class Color {
         BLACK,
         WHITE;
     }
+
 }

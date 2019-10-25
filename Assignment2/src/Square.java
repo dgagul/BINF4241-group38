@@ -23,3 +23,4 @@ public class Square {
 
     //public void setPiece(Piece pPiece) {aPiece = pPiece}
 }
+
