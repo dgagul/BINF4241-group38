@@ -121,7 +121,7 @@ public class Logic {
     }
 
     private static boolean enPassant(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
-        if(checkForCheck(p.getColor())){
+        if (checkForCheck(p.getColor())) {
             return false;
         }
         boolean moveIsValid = false;
@@ -402,6 +402,9 @@ public class Logic {
     static boolean checkForCheck(Color.color color) {
         int[] kingCoords;
         kingCoords = getKingCoords(color);
+        if(kingCoords[0]  == -1 && kingCoords[1] == -1){
+            return true;
+        }
         int x = kingCoords[0];
         int y = kingCoords[1];
         return checkForCheck_xy(x, y, color);
@@ -411,6 +414,9 @@ public class Logic {
     static boolean checkForCheckmate(Color.color color) {
         // Check if king can move out of check (and does not move into next check situation)
         int[] kingCoords = getKingCoords(color);
+        if(kingCoords[0]  == -1 && kingCoords[1] == -1){
+            return true;
+        }
         int kingX = kingCoords[0];
         int kingY = kingCoords[1];
         for (int i = kingX - 1; i <= kingX + 1; i++) {
@@ -428,12 +434,13 @@ public class Logic {
         int lastY = lastMove[3];
         Piece menacing = board.getBoard()[lastX][lastY].getPiece();
         // Check if a piece can capture the menacing piece
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
-                if(board.getBoard()[i][j].isOccupied()){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board.getBoard()[i][j].isOccupied()) {
                     Piece p = board.getBoard()[i][j].getPiece();
-                    if(p.getColor() == color && p.moveIsValid(i, j, lastX, lastY) && checkPath(i,j,lastX,lastY)){
-                        if(capture(p, i, j, lastX, lastY)){
+                    if (p.getColor() == color) {
+                        if (checkCapture(p, i, j, lastX, lastY)) {
+
                             return false;
                         }
                     }
@@ -442,6 +449,47 @@ public class Logic {
         }
         // Check if a piece can move in the way
         return !checkPathForCheckmate(lastX, lastY, kingX, kingY, color);
+    }
+
+    static boolean checkCapture(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
+        boolean isValid = false;
+        // Pawn capture
+        if (p.getClass() == Pawn.class) {
+            if (p.getColor() == Color.color.WHITE) {
+                rankFrom = rankTo - 1;
+            } else {
+                rankFrom = rankTo + 1;
+            }
+            Piece captured = board.getBoard()[fileTo][rankTo].getPiece();
+            Piece piece = board.getBoard()[fileFrom][rankFrom].getPiece();
+            if (piece == null || piece.getClass() != Pawn.class || captured == null)
+                return false;
+            if (board.getBoard()[fileTo][rankTo].getPiece().getColor() == p.getColor()) {
+                return false;
+            }
+            if (checkForCheck(p.getColor())) {
+                System.out.println("This is a suicide move! This is not allowed.");
+                undoMove(fileFrom, rankFrom, fileTo, rankTo, piece);
+                return false;
+            }
+            return true;
+        }
+        Piece piece = board.getBoard()[fileFrom][rankFrom].getPiece();
+        Piece captured = board.getBoard()[fileTo][rankTo].getPiece();
+        if (board.getBoard()[fileTo][rankTo].getPiece().getColor() == p.getColor()) {
+            return false;
+        }
+        if (captured != null) {
+            board.getBoard()[fileTo][rankTo].setPiece(null);
+            if (!move(p, fileFrom, rankFrom, fileTo, rankTo)) {
+                board.getBoard()[fileTo][rankTo].setPiece(captured);
+                return false;
+            }
+            board.getBoard()[fileTo][rankTo].setPiece(piece);
+            board.getBoard()[fileTo][rankTo].setPiece(captured);
+            return true;
+        }
+        return false;
     }
 
 
