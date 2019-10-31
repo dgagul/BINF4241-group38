@@ -2,7 +2,7 @@ import javafx.util.Pair;
 
 public class King extends Piece {
 
-    private boolean firstMove;
+    private boolean firstMove = true;
 
     public King(boolean available, Color.color col){
         super(available, col);
@@ -30,3 +30,4 @@ public class King extends Piece {
         return super.toString() + "K";
     }
 }
+

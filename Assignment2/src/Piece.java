@@ -9,7 +9,6 @@ abstract class Piece {
     // Does piece need to know its position? --> not if we pass arguments fromX and fromY in isValid() method
 
     Piece(boolean available, Color.color col) {
-        // ToDo: Maybe initialize with true from the start?
         isAvailable = available;
         switch (col) {
             case BLACK:

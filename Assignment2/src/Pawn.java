@@ -32,3 +32,4 @@ public class Pawn extends Piece {
         return super.toString() + "P";
     }
 }
+

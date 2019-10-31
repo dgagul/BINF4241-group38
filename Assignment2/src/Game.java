@@ -93,11 +93,12 @@ public class Game {
                     rankTo = Integer.parseInt(userInput.substring(1, 2));
                     promoteTo = userInput.substring(2, 3);
                 } else if (userInput.matches("^0-0$")) {
+                    validInput = true;
                     isCastling = true;
                     isKingside = true;
                 }
             } else if (userInput.length() == 4) {
-                if (userInput.matches("^[Q|T][a-h][a-h][1-8]$")) {
+                if (userInput.matches("^[B|K|N|Q|T][a-h][a-h][1-8]$")) {
                     isMove = true;
                     piece = userInput.substring(0, 1);
                     fileFrom = StrToInt(userInput.substring(1, 2));
@@ -127,6 +128,7 @@ public class Game {
                 }
             } else if (userInput.length() == 5) {
                 if (userInput.matches("^0-0-0$")) {
+                    validInput = true;
                     isCastling = true;
                     isKingside = false;
                 }
@@ -142,14 +144,14 @@ public class Game {
                 }
                 else if(userInput.contains("x")) {
                     isCapture = true;
-                    if (userInput.matches("^[B|N|Q|T][a-h]x[a-h][1-8]$")) {
+                    if (userInput.matches("^[B|K|N|Q|T][a-h]x[a-h][1-8]$")) {
                         validInput = true;
                         piece = userInput.substring(0, 1);
                         fileFrom = StrToInt(userInput.substring(1, 2));
                         fileTo = StrToInt(userInput.substring(3, 4));
                         rankTo = Integer.parseInt(userInput.substring(4, 5));
                     }
-                    else if (userInput.matches("^[B|N|Q|T][1-8]x[a-h][1-8]$")) {
+                    else if (userInput.matches("^[B|N|K|Q|T][1-8]x[a-h][1-8]$")) {
                         validInput = true;
                         piece = userInput.substring(0, 1);
                         rankFrom = StrToInt(userInput.substring(1, 2));
@@ -241,3 +243,4 @@ public class Game {
     }
 
 }
+
