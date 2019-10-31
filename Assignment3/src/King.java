@@ -6,7 +6,6 @@ public class King extends Piece {
 
     public King(boolean available, Color.color col){
         super(available, col);
-        setFirstMove(true);
     }
 
     public boolean isFirstMove() {
