@@ -13,6 +13,7 @@ public class Game {
     private static Logic logic;
     private static Color.color black = Color.color.BLACK;
     private static Color.color white = Color.color.WHITE;
+    private static Game firstInstance = null;
 
     private Game() {
         playerWhite = new Player(white);
@@ -20,8 +21,7 @@ public class Game {
         board = new Board();
         logic = new Logic(board);
     }
-
-    private static void play() {
+    private void play() {
         ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<>(2);
         playerQueue.add(playerWhite);
         playerQueue.add(playerBlack);
@@ -237,8 +237,9 @@ public class Game {
     }
 
     public static void main(String[] args) {
+
         Game game = new Game();
-        play();
+        game.play();
         //currentPlayer = player1;
     }
 

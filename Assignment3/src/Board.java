@@ -1,7 +1,6 @@
 class Board {
     private Square[][] board = new Square[8][8];
 
-
     Board() {
         initializeBoard();
         setPieces();
@@ -74,3 +73,4 @@ class Board {
     }
 
 }
+
