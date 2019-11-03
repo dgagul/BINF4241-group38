@@ -1,18 +1,37 @@
-import java.util.Random;
+public class Snadder extends Square {
 
-class Snadder extends Square {
+    boolean isSnadder;
+
     int end;
 
-    Snadder(int i) {
+
+
+    Snadder(int i, boolean isLadder) {
+
         super(i);
-        Random random = new Random();
-        boolean isLadder = random.nextBoolean();
+
+        isSnadder = true;
+
         if (isLadder) {
-            end = number + 2;
+
+            end = i + 2;
+
         } else {
-            end = number - 2;
+
+            end = i - 2;
+
         }
+
+
 
     }
 
+
+
 }
+
+
+
+
+
+
