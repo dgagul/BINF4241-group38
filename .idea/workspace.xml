@@ -2,36 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94fea9ba-f8a3-49b3-9583-c1725e241b81" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assignment3/src/ANSWERS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assignment3/src/Run.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/BINF4241-group38.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BINF4241-group38.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Bishop.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Board.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Color$color.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Color.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Game.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/History.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/King.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Knight.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Logic.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/PACKAGE_NAME/Specialrules.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Pawn.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Piece$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Piece.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/PieceInt$color.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/PieceInt.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/PlayerColor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Queen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Square$Color.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Square.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/out/production/BINF4241-group38/Tower.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment2/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment2/src/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment3/src/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment3/src/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment3/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment3/src/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment3/out/production/BINF4241-group38/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment3/out/production/BINF4241-group38/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment3/out/production/BINF4241-group38/Run.class" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment3/out/production/BINF4241-group38/Run.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -102,6 +75,9 @@
       <workItem from="1571683553507" duration="14230000" />
       <workItem from="1571816058738" duration="2064000" />
       <workItem from="1572009167259" duration="634000" />
+      <workItem from="1572773556763" duration="13000" />
+      <workItem from="1572782840277" duration="2073000" />
+      <workItem from="1573043457229" duration="3480000" />
     </task>
     <task id="LOCAL-00001" summary="Merge remote-tracking branch 'origin/Marion' into lynn&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;Assignment2/out/production/Assignment2/Game.class&#10;#&#9;Assignment2/src/Player.java">
       <created>1571571669545</created>
@@ -153,6 +129,22 @@
           <url>file://$PROJECT_DIR$/Assignment2/src/Game.java</url>
           <line>44</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Assignment3/src/Game.java</url>
+          <line>18</line>
+          <properties class="Game" method="&lt;init&gt;">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Assignment3/src/Game.java</url>
+          <line>35</line>
+          <properties class="Game" method="play">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
