@@ -5,7 +5,7 @@ class Board {
     Board() {
         initializeBoard();
         setPieces();
-        printBoard(); //helping function
+        // printBoard(); //helping function
     }
 
     Square[][] getBoard(){
@@ -56,7 +56,7 @@ class Board {
         board[4][7].setPiece(new King(true, Color.color.BLACK));
     }
 
-
+    /*
     // helping function
     void printBoard(){
         for (int i = 7; i >=0; i--) {
@@ -72,5 +72,5 @@ class Board {
             System.out.println(" ");
         }
     }
-
+    */
 }
