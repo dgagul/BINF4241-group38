@@ -14,6 +14,8 @@ public class Game {
     private static Color.color black = Color.color.BLACK;
     private static Color.color white = Color.color.WHITE;
 
+    private static Game firstInstance = null;
+
     private Game() {
         playerWhite = new Player(white);
         playerBlack = new Player(black);
@@ -21,7 +23,17 @@ public class Game {
         logic = new Logic(board);
     }
 
-    private static void play() {
+    public static Game getInstance(){
+        if(firstInstance == null) {
+            synchronized (Game.class) {
+                if (firstInstance == null) {
+                    firstInstance = new Game();
+                }
+            }
+        }
+        return firstInstance; }
+
+    public static void play() {
         ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<>(2);
         playerQueue.add(playerWhite);
         playerQueue.add(playerBlack);
@@ -235,12 +247,4 @@ public class Game {
             return new Queen(true, color);
         } else return new Tower(true, color);
     }
-
-    public static void main(String[] args) {
-        Game game = new Game();
-        play();
-        //currentPlayer = player1;
-    }
-
 }
-
