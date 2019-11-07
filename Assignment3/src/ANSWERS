@@ -46,7 +46,7 @@ This sequence diagram is based on the code of assignment 2. For the sake of clar
     but also when aBoard is created by the constructor of Game class 
  - ReadInput() normally would check if input is valid and provide appropriate feedback, we simplified this and assume the input is valid 
  - We left away unnecessary things (for understanding board and it's transitions)
-    like printing the board, converting input into integers, update lastMove and so on 
+    like printing the board, converting input into integers, update lastMove and so on. 
 ![](Board_Class_SD.png)
 
 Part 3:
