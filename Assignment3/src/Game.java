@@ -13,29 +13,46 @@ public class Game {
     private static Logic logic;
     private static Color.color black = Color.color.BLACK;
     private static Color.color white = Color.color.WHITE;
+    private static Score score;
+    private Scoreboard scoreboard;
+
+    private static Game firstInstance = null;
 
     private Game() {
         playerWhite = new Player(white);
         playerBlack = new Player(black);
         board = new Board();
-        logic = new Logic(board);
+        logic = new Logic(board, playerWhite, playerBlack);
+        score = new Score();
+        scoreboard = new Scoreboard(playerWhite, playerBlack);
+        score.registerObserver(scoreboard);
     }
 
-    private static void play() {
+    static Game getInstance(){
+        if(firstInstance == null) {
+            synchronized (Game.class) {
+                if (firstInstance == null) {
+                    firstInstance = new Game();
+                }
+            }
+        }
+        return firstInstance; }
+
+    static void play() {
         ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<>(2);
         playerQueue.add(playerWhite);
         playerQueue.add(playerBlack);
         while (!isFinished) {
             Player currentPlayer = playerQueue.poll();
-            readInput(currentPlayer);
-            board.printBoard();
-            Color.color otherPlayersColor;
             assert currentPlayer != null;
+            Color.color otherPlayersColor;
             if (currentPlayer.getColor() == Color.color.WHITE) {
                 otherPlayersColor = Color.color.BLACK;
             } else {
                 otherPlayersColor = Color.color.WHITE;
             }
+            readInput(currentPlayer);
+            board.printBoard();
 
             if (Logic.checkForCheck(otherPlayersColor)) {
                 System.out.println("Check!");
@@ -44,6 +61,7 @@ public class Game {
                     System.out.printf("Checkmate! %s wins!\n", currentPlayer.getName());
                 }
             }
+            score.notifyObservers(currentPlayer.getColor());
             playerQueue.add(currentPlayer);
         }
     }
@@ -236,11 +254,4 @@ public class Game {
         } else return new Tower(true, color);
     }
 
-    public static void main(String[] args) {
-        Game game = new Game();
-        play();
-        //currentPlayer = player1;
-    }
-
 }
-
