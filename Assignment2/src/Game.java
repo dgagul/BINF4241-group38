@@ -1,5 +1,5 @@
 import javafx.util.Pair;
-import sun.rmi.runtime.Log;
+
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,7 +13,6 @@ public class Game {
     private static Logic logic;
     private static Color.color black = Color.color.BLACK;
     private static Color.color white = Color.color.WHITE;
-    private static Game firstInstance = null;
 
     private Game() {
         playerWhite = new Player(white);
@@ -21,7 +20,12 @@ public class Game {
         board = new Board();
         logic = new Logic(board);
     }
-    private void play() {
+
+<<<<<<< HEAD
+    private static void play(){
+=======
+    private static void play() {
+>>>>>>> master
         ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<>(2);
         playerQueue.add(playerWhite);
         playerQueue.add(playerBlack);
@@ -29,6 +33,21 @@ public class Game {
             Player currentPlayer = playerQueue.poll();
             readInput(currentPlayer);
             board.printBoard();
+<<<<<<< HEAD
+
+            Color.color otherPlayersColor;
+            if (currentPlayer.getColor() == Color.color.WHITE){
+                otherPlayersColor = Color.color.BLACK;
+            } else {otherPlayersColor = Color.color.WHITE;}
+
+            if (Logic.checkForCheckmate(otherPlayersColor, currentPlayer)) {
+                isFinished = true;
+                break;
+            }
+
+            if(Logic.checkForCheck(otherPlayersColor)){
+                System.out.println(otherPlayersColor + " is in Check!");
+=======
             Color.color otherPlayersColor;
             assert currentPlayer != null;
             if (currentPlayer.getColor() == Color.color.WHITE) {
@@ -43,6 +62,7 @@ public class Game {
                     isFinished = true;
                     System.out.printf("Checkmate! %s wins!\n", currentPlayer.getName());
                 }
+>>>>>>> master
             }
             playerQueue.add(currentPlayer);
         }
@@ -85,26 +105,56 @@ public class Game {
                     fileTo = StrToInt(userInput.substring(1, 2));
                     rankTo = Integer.parseInt(userInput.substring(2, 3));
                     validInput = true;
+<<<<<<< HEAD
+                }
+                else if(userInput.matches("^[a-h][0|8][Q|N|T|B]$")){
+=======
                 } else if (userInput.matches("^[a-h][0|8][Q|N|T]$")) {
+>>>>>>> master
                     validInput = true;
                     isPromotion = true;
                     fileTo = StrToInt(userInput.substring(0, 1));
                     fileFrom = fileTo;
+<<<<<<< HEAD
+                    rankTo = Integer.parseInt(userInput.substring(1,2));
+                    promoteTo = userInput.substring(2,3);
+                }
+                else if(userInput.matches("^0-0$")){
+=======
                     rankTo = Integer.parseInt(userInput.substring(1, 2));
                     promoteTo = userInput.substring(2, 3);
                 } else if (userInput.matches("^0-0$")) {
+>>>>>>> master
                     validInput = true;
                     isCastling = true;
                     isKingside = true;
                 }
+<<<<<<< HEAD
+            }
+            else if(userInput.length()==4){
+                if(userInput.matches("^[Q|T|P|N|B][a-h][a-h][1-8]$")){
+                    validInput = true;
+=======
             } else if (userInput.length() == 4) {
                 if (userInput.matches("^[B|K|N|Q|T][a-h][a-h][1-8]$")) {
+>>>>>>> master
                     isMove = true;
                     piece = userInput.substring(0, 1);
                     fileFrom = StrToInt(userInput.substring(1, 2));
                     fileTo = StrToInt(userInput.substring(2, 3));
                     rankTo = Integer.parseInt((userInput.substring(3, 4)));
                 }
+<<<<<<< HEAD
+                if(userInput.matches("^[Q|T|N|B][1-8][a-h][1-8]$")){
+                    validInput = true;
+                    isMove = true;
+                    piece = userInput.substring(0,1);
+                    rankFrom = Integer.parseInt(userInput.substring(1,2));
+                    fileTo = StrToInt(userInput.substring(2,3));
+                    rankTo = Integer.parseInt((userInput.substring(3,4)));
+                }
+                else if(userInput.contains("x")){
+=======
                 if (userInput.matches("^[B|K|N|Q|T][1-8][a-h][1-8]$")) {
                     isMove = true;
                     piece = userInput.substring(0, 1);
@@ -112,6 +162,7 @@ public class Game {
                     fileTo = StrToInt(userInput.substring(2, 3));
                     rankTo = Integer.parseInt((userInput.substring(3, 4)));
                 } else if (userInput.contains("x")) {
+>>>>>>> master
                     isCapture = true;
                     if (userInput.matches("^[B|K|N|Q|T]x[a-h][1-8]$")) {
                         validInput = true;
@@ -126,8 +177,14 @@ public class Game {
                         rankTo = Integer.parseInt(userInput.substring(3, 4));
                     }
                 }
+<<<<<<< HEAD
+            }
+            else if(userInput.length() == 5){
+                if(userInput.matches("^0-0-0$")){
+=======
             } else if (userInput.length() == 5) {
                 if (userInput.matches("^0-0-0$")) {
+>>>>>>> master
                     validInput = true;
                     isCastling = true;
                     isKingside = false;
@@ -144,14 +201,22 @@ public class Game {
                 }
                 else if(userInput.contains("x")) {
                     isCapture = true;
+<<<<<<< HEAD
+                    if (userInput.matches("^[B|N|Q|T][a-h]x[a-h][1-8]$")) {
+=======
                     if (userInput.matches("^[B|K|N|Q|T][a-h]x[a-h][1-8]$")) {
+>>>>>>> master
                         validInput = true;
                         piece = userInput.substring(0, 1);
                         fileFrom = StrToInt(userInput.substring(1, 2));
                         fileTo = StrToInt(userInput.substring(3, 4));
                         rankTo = Integer.parseInt(userInput.substring(4, 5));
                     }
+<<<<<<< HEAD
+                    else if (userInput.matches("^[B|N|Q|T][1-8]x[a-h][1-8]$")) {
+=======
                     else if (userInput.matches("^[B|N|K|Q|T][1-8]x[a-h][1-8]$")) {
+>>>>>>> master
                         validInput = true;
                         piece = userInput.substring(0, 1);
                         rankFrom = StrToInt(userInput.substring(1, 2));
@@ -159,6 +224,20 @@ public class Game {
                         rankTo = Integer.parseInt(userInput.substring(4, 5));
                     }
                 }
+<<<<<<< HEAD
+            }
+            else if(userInput.length() == 6 && userInput.contains("x")) {
+                isCapture = true;
+                if (userInput.matches("^[Q][a-h][1-8]x[a-h][1-8]$")) {
+                    validInput = true;
+                    piece = userInput.substring(0, 1);
+                    fileFrom = StrToInt(userInput.substring(1, 2));
+                    rankFrom = Integer.parseInt(userInput.substring(2, 3));
+                    fileTo = StrToInt(userInput.substring(4, 5));
+                    rankTo = Integer.parseInt(userInput.substring(5, 6));
+                }
+=======
+>>>>>>> master
             }
             else if(userInput.length() == 6 && userInput.contains("x")) {
                 isCapture = true;
@@ -237,9 +316,8 @@ public class Game {
     }
 
     public static void main(String[] args) {
-
         Game game = new Game();
-        game.play();
+        play();
         //currentPlayer = player1;
     }
 

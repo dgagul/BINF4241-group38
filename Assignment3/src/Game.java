@@ -1,6 +1,7 @@
 import javafx.util.Pair;
 import sun.rmi.runtime.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -13,6 +14,7 @@ public class Game {
     private static Logic logic;
     private static Color.color black = Color.color.BLACK;
     private static Color.color white = Color.color.WHITE;
+    private static ArrayList<Observer> observerCollection;
 
     private static Game firstInstance = null;
 
@@ -21,6 +23,26 @@ public class Game {
         playerBlack = new Player(black);
         board = new Board();
         logic = new Logic(board);
+        observerCollection = new ArrayList<>();
+    }
+
+    public static void registerObserver(Observer printer){
+        observerCollection.add(printer);
+    }
+
+    public static void unregisterObserver(Observer observer){
+        observerCollection.remove(observer);
+    }
+
+    public static void notifyObserver(){
+        for (Observer observer : observerCollection){
+            observer.update();
+        }
+    }
+
+    public Board getBoard(){
+        Board aBoard = board;
+        return aBoard;
     }
 
     public static Game getInstance(){
@@ -37,10 +59,11 @@ public class Game {
         ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<>(2);
         playerQueue.add(playerWhite);
         playerQueue.add(playerBlack);
+        notifyObserver();
         while (!isFinished) {
             Player currentPlayer = playerQueue.poll();
             readInput(currentPlayer);
-            board.printBoard();
+            notifyObserver();
             Color.color otherPlayersColor;
             assert currentPlayer != null;
             if (currentPlayer.getColor() == Color.color.WHITE) {
@@ -248,4 +271,3 @@ public class Game {
         } else return new Tower(true, color);
     }
 }
-
