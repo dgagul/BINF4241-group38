@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94fea9ba-f8a3-49b3-9583-c1725e241b81" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assignment3/src/Singleton_CD.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assignment3/src/Singleton_SD.PNG" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment3/out/production/BINF4241-group38/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment3/out/production/BINF4241-group38/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment3/out/production/BINF4241-group38/Run.class" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment3/out/production/BINF4241-group38/Run.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment3/src/ANSWERS" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment3/src/ANSWERS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment3/src/CD Singleton.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment3/src/SD Singleton.jpeg" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -127,20 +130,20 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Assignment2/src/Game.java</url>
-          <line>44</line>
+          <line>63</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Assignment3/src/Game.java</url>
-          <line>18</line>
-          <properties class="Game" method="&lt;init&gt;">
+          <line>21</line>
+          <properties class="Game">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Assignment3/src/Game.java</url>
-          <line>35</line>
+          <line>57</line>
           <properties class="Game" method="play">
             <option name="EMULATED" value="true" />
           </properties>
