@@ -1,4 +1,5 @@
 Part 1: 
+this is based on code of assignment 2
 
 a) Singleton
 
@@ -47,4 +48,7 @@ This sequence diagram is based on the code of assignment 2. For the sake of clar
  - We left away unnecessary things (for understanding board and it's transitions)
     like printing the board, converting input into integers, update lastMove and so on 
 ![](Board_Class_SD.png)
+
+Part 3:
+This is based on code of assignment 2
 

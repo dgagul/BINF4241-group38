@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94fea9ba-f8a3-49b3-9583-c1725e241b81" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assignment3/src/Singleton_CD.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assignment3/src/Singleton_SD.PNG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment3/src/ANSWERS" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment3/src/ANSWERS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment3/src/CD Singleton.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment3/src/SD Singleton.jpeg" beforeDir="false" />
-    </list>
+    <list default="true" id="94fea9ba-f8a3-49b3-9583-c1725e241b81" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
