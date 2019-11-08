@@ -17,6 +17,10 @@ public class Game {
     private static ArrayList<Observer> observerCollection;
 
     private static Game firstInstance = null;
+    private static Score score;
+    private Scoreboard scoreboard;
+
+    private static Game firstInstance = null;
 
     private Game() {
         playerWhite = new Player(white);
@@ -32,7 +36,21 @@ public class Game {
 
     public static void unregisterObserver(Observer observer){
         observerCollection.remove(observer);
+        logic = new Logic(board, playerWhite, playerBlack);
+        score = new Score();
+        scoreboard = new Scoreboard(playerWhite, playerBlack);
+        score.registerObserver(scoreboard);
     }
+
+    static Game getInstance(){
+        if(firstInstance == null) {
+            synchronized (Game.class) {
+                if (firstInstance == null) {
+                    firstInstance = new Game();
+                }
+            }
+        }
+        return firstInstance; }
 
     public static void notifyObserver(){
         for (Observer observer : observerCollection){
@@ -56,6 +74,7 @@ public class Game {
         return firstInstance; }
 
     public static void play() {
+    static void play() {
         ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<>(2);
         playerQueue.add(playerWhite);
         playerQueue.add(playerBlack);
@@ -66,11 +85,14 @@ public class Game {
             notifyObserver();
             Color.color otherPlayersColor;
             assert currentPlayer != null;
+            Color.color otherPlayersColor;
             if (currentPlayer.getColor() == Color.color.WHITE) {
                 otherPlayersColor = Color.color.BLACK;
             } else {
                 otherPlayersColor = Color.color.WHITE;
             }
+            readInput(currentPlayer);
+            board.printBoard();
 
             if (Logic.checkForCheck(otherPlayersColor)) {
                 System.out.println("Check!");
@@ -79,6 +101,7 @@ public class Game {
                     System.out.printf("Checkmate! %s wins!\n", currentPlayer.getName());
                 }
             }
+            score.notifyObservers(currentPlayer.getColor());
             playerQueue.add(currentPlayer);
         }
     }

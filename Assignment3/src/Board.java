@@ -20,7 +20,7 @@ class Board {
                 board[i][k] = new Square(Square.Color.BLACK);
                 // First row Second column
                 board[i][k + 1] = new Square(Square.Color.WHITE);
-                // Second row First column
+                // Second row First   column
                 board[i + 1][k] = new Square(Square.Color.WHITE);
                 // Second row Second column
                 board[i + 1][k + 1] = new Square(Square.Color.BLACK);

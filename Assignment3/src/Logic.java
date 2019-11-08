@@ -6,10 +6,14 @@ import java.util.List;
 public class Logic {
 
     private static Board board;
+    private static Player playerWhite;
+    private static Player playerBlack;
     private static int[] lastMove;
 
-    Logic(Board board) {
+    Logic(Board board, Player white, Player black) {
         Logic.board = board;
+        playerWhite = white;
+        playerBlack = black;
     }
 
 
@@ -75,6 +79,7 @@ public class Logic {
 
     static boolean capture(Piece p, int fileFrom, int rankFrom, int fileTo, int rankTo) {
         // ToDo: add piece to captured_pieces
+        Player otherPlayer = getOtherPlayer(p);
         boolean isValid = false;
         // Pawn capture
         if (p.getClass() == Pawn.class) {
@@ -89,6 +94,7 @@ public class Logic {
                 return false;
             if (captured == null) {
                 if (enPassant(p, fileFrom, rankFrom, fileTo, rankTo)) {
+                    otherPlayer.setCaptured_pieces(new Pawn(false, otherPlayer.getColor()));
                     return true;
                 }
             }
@@ -103,6 +109,7 @@ public class Logic {
                 board.getBoard()[fileTo][rankTo].setPiece(captured);
                 return false;
             }
+            otherPlayer.setCaptured_pieces(captured);
             return true;
         }
         Piece captured = board.getBoard()[fileTo][rankTo].getPiece();
@@ -115,6 +122,7 @@ public class Logic {
                 board.getBoard()[fileTo][rankTo].setPiece(captured);
                 return false;
             }
+            otherPlayer.setCaptured_pieces(captured);
             return true;
         }
         return false;
@@ -532,6 +540,14 @@ public class Logic {
     private static void undoMove(int fileFrom, int rankFrom, int fileTo, int rankTo, Piece p) {
         board.getBoard()[fileFrom][rankFrom].setPiece(p);
         board.getBoard()[fileTo][rankTo].setPiece(null);
+    }
+
+    private static Player getOtherPlayer(Piece p){
+        if (p.getColor() == Color.color.WHITE){
+            return playerBlack;
+        }
+        else
+            return playerWhite;
     }
 
 }
