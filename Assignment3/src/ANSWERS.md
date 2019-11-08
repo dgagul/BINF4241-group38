@@ -50,14 +50,16 @@ This sequence diagram is based on the code of assignment 2. For the sake of clar
 
 ## Part 3
 
+- We chose to implement option 3) using the Observer pattern to implement a scoreboard.
 - The notation accepted as input stays the same as in Assignment 2 (i.e. moves should follow the algebraic notation, where
 captures are denoted with a 'x')
 
 #### Implementation choices
 - There is an Observer Interface which is implemented by the Scoreboard class.
 - The Game class is the subject of the Observer.
-- The Game class calls the design pattern by calling the *notifyObservers* method.
-- This means that we have two concrete observers, consisting of the Printer from Part 1
+- The Game class calls the design pattern by calling the *notifyObservers* method after every turn. <br/>
+
+- This means that in total, we have two concrete observers, consisting of the Printer from Part 1
 and the Scoreboard from part 3.
 - You can find the class diagram for the Scoreboard observer in the class
 diagram of Part 1.
