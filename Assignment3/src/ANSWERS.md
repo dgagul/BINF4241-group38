@@ -1,4 +1,4 @@
-Part 1: 
+## Part 1: 
 this is based on code of assignment 2
 
 a) Singleton
@@ -37,7 +37,7 @@ b) Observer
 
 3) ![](Observer_SD.png)
 
-Part 2:
+## Part 2:
 This sequence diagram is based on the code of assignment 2. For the sake of clarity, we choose to make following simplifications:
  - only the actor, Game class, Board class and Logic class are present in this sequence diagram.
     Surely, other classes like Piece are involved in the process. However, to understanding which methods can transition the board to different state,
@@ -49,6 +49,18 @@ This sequence diagram is based on the code of assignment 2. For the sake of clar
     like printing the board, converting input into integers, update lastMove and so on 
 ![](Board_Class_SD.png)
 
-Part 3:
-This is based on code of assignment 2
+## Part 3
+
+- The notation accepted as input stays the same as in Assignment 2 (i.e. moves should follow the algebraic notation, where
+captures are denoted with a 'x')
+
+#### Implementation choices
+- There is an Observer Interface which is implemented by the Scoreboard class.
+- There is a Subject Interface which is implemented by the Score class.
+- I decided to create the Score class instead of implementing the Subject in the Game class in order to
+keep the design pattern comprehensible.
+- The Game class calls the design pattern by calling the *notifyObservers* method.
+
+#### Class diagram for the Observer design pattern
+![](CD Observer.jpeg)
 
