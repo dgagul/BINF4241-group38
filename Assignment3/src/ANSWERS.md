@@ -8,7 +8,7 @@ a) Singleton
    This goal is achieved by: 
    - creating a firstInstance variable of type Game in Game class which is set to null.
    - making Game constructor private (was already the case, so no changes made!)
-   - created static getInstance() method in Game class which checks if there is already an instance of Game.
+   - creating a static getInstance() method in Game class which checks if there is already an instance of Game.
     if not, it initializes a new instance of Game and returns it. Otherwise, it return the existing instance. 
    - creating a new Java class called "Run" and moved the main method from Game class to Run class. So that the main
     function has no more access to the private Game constructor. Therefore, we had to adjust the play method to 
@@ -30,11 +30,11 @@ b) Observer
     - in main() in Run class the obj (aPrinter) of type Printer is created and the method registerObserver(aPrinter) is called
     - we choose to not make an interface for the Subject because Game is the only Subject that has to notify in this case
         
-2) (On this class diagram additionally the observee Scoreboard, which we implemented in Part 3, is showed.)
+2) (In this class diagram additionally the observer Scoreboard, which we implemented in Part 3, is showed.)
 ![](Observer pattern CD.png)
 
-3) (On this sequence diagram additionally the observee aScoreboard, which we implemented in Part 3, is showed.)
- ![](Observer_SD.png)
+3) (In this sequence diagram additionally the observer aScoreboard, which we implemented in Part 3, is showed.)
+![](Observer_SD.png)
 
 ## Part 2:
 This sequence diagram is based on the code of assignment 2. For the sake of clarity, we choose to make following simplifications:
