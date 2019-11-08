@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94fea9ba-f8a3-49b3-9583-c1725e241b81" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="94fea9ba-f8a3-49b3-9583-c1725e241b81" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +74,7 @@
       <workItem from="1572773556763" duration="13000" />
       <workItem from="1572782840277" duration="2073000" />
       <workItem from="1573043457229" duration="3480000" />
+      <workItem from="1573208784120" duration="1549000" />
     </task>
     <task id="LOCAL-00001" summary="Merge remote-tracking branch 'origin/Marion' into lynn&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;Assignment2/out/production/Assignment2/Game.class&#10;#&#9;Assignment2/src/Player.java">
       <created>1571571669545</created>
@@ -138,8 +137,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Assignment3/src/Game.java</url>
-          <line>57</line>
-          <properties class="Game" method="play">
+          <line>58</line>
+          <properties class="Game">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="7" />
