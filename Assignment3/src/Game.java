@@ -14,6 +14,7 @@ public class Game {
     private static Logic logic;
     private static Color.color black = Color.color.BLACK;
     private static Color.color white = Color.color.WHITE;
+    private Scoreboard scoreboard;
     private static ArrayList<Observer> observerCollection;
 
     private static Game firstInstance = null;
@@ -22,12 +23,12 @@ public class Game {
         playerWhite = new Player(white);
         playerBlack = new Player(black);
         board = new Board();
-        logic = new Logic(board);
+        logic = new Logic(board, playerWhite, playerBlack);
         observerCollection = new ArrayList<>();
     }
 
-    public static void registerObserver(Observer printer){
-        observerCollection.add(printer);
+    public static void registerObserver(Observer observer){
+        observerCollection.add(observer);
     }
 
     public static void unregisterObserver(Observer observer){
@@ -269,5 +270,12 @@ public class Game {
         } else if (p.equals("Q")) {
             return new Queen(true, color);
         } else return new Tower(true, color);
+    }
+
+    public static Player getPlayerWhite(){
+        return playerWhite;
+    }
+    public static Player getPlayerBlack(){
+        return playerBlack;
     }
 }

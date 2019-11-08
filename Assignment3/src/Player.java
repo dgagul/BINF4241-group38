@@ -8,9 +8,9 @@ public class Player {
     private Color.color color;
     private String name;
 
-    private List<Piece> rest_pieces = new ArrayList<>();
+    private ArrayList<Piece> rest_pieces = new ArrayList<>();
 
-    private List<Piece> captured_pieces = new ArrayList<>();
+    private ArrayList<Piece> captured_pieces = new ArrayList<>();
 
     public Player(Color.color playerColor){
         color = playerColor;
@@ -35,11 +35,11 @@ public class Player {
     }
 
     // Lists are mutable
-    public List<Piece> getRest_pieces(){
+    public ArrayList<Piece> getRest_pieces(){
         return new ArrayList<Piece>(rest_pieces);
     }
 
-    public List<Piece> getCaptured_pieces() {
+    public ArrayList<Piece> getCaptured_pieces() {
         return new ArrayList<Piece>(captured_pieces);
     }
 
