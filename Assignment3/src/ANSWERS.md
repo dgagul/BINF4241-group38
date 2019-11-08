@@ -59,6 +59,7 @@ captures are denoted with a 'x')
 - The Game class is the subject of the Observer.
 - The Game class calls the design pattern by calling the *notifyObservers* method after every turn.
 \
+\
 - This means that in total, we have two concrete observers, consisting of the Printer from Part 1
 and the Scoreboard from part 3.
 - You can find the class diagram for the Scoreboard observer in the class
