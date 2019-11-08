@@ -30,10 +30,10 @@ b) Observer
     - in main() in Run class the obj (aPrinter) of type Printer is created and the method registerObserver(aPrinter) is called
     - we choose to not make an interface for the Subject because Game is the only Subject that has to notify in this case
         
-2) (In this class diagram additionally the observer Scoreboard, which we implemented in Part 3, is showed.)
+2) (In this class diagram additionally the observer Scoreboard, which we implemented in Part 3, is shown.)
 ![](Observer_pattern_CD.png)
 
-3) (In this sequence diagram additionally the observer aScoreboard, which we implemented in Part 3, is showed.)
+3) (In this sequence diagram additionally the observer aScoreboard, which we implemented in Part 3, is shown.)
 ![](Observer_SD.png)
 
 ## Part 2:
