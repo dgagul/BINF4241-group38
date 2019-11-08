@@ -31,7 +31,7 @@ b) Observer
     - we choose to not make an interface for the Subject because Game is the only Subject that has to notify in this case
         
 2) (In this class diagram additionally the observer Scoreboard, which we implemented in Part 3, is showed.)
-![](Observer pattern CD.png)
+![](Observer_pattern_CD.png)
 
 3) (In this sequence diagram additionally the observer aScoreboard, which we implemented in Part 3, is showed.)
 ![](Observer_SD.png)
