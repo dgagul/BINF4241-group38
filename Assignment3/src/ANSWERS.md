@@ -1,5 +1,5 @@
 ## Part 1: 
-this is based on code of assignment 2
+This assignment is based on the code of assignment 2
 
 a) Singleton
 
