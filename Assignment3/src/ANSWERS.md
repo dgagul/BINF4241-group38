@@ -17,25 +17,24 @@ a) Singleton
 2) ![](Singleton_CD.PNG)
 3) ![](Singleton_SD.PNG)
 
-          
-
-
 b) Observer
 
 1) We used the observer pattern to obtain that when the Game (Subject) state is changed the Printer (Observer) is
-    notified and updated automatically. At this moment, there is only one observer, other observers (e.g. a scoreboard) can be added easily in future.
+    notified and updated automatically.
     This goal is achieved by:
-    - created an interface, called Observer, with one method: update()
-    - created a class printer which implements observer and overwrites update() to print the board
-    - created an ArrayList called observerCollection in Game which keeps track of the observers, new observers can be added by registerObserver() and
+    - creating an interface, called Observer, with one method: update()
+    - creating a class Printer which implements observer and overwrites update() to print the board
+    - creating an ArrayList called observerCollection in Game which keeps track of the observers, new observers can be added by registerObserver() and
         observers can be removed by unregisterObserver(). Further, the method notifyObserver() calls the methods update() for 
         every observer in the ArrayList observerCollection
     - in main() in Run class the obj (aPrinter) of type Printer is created and the method registerObserver(aPrinter) is called
     - we choose to not make an interface for the Subject because Game is the only Subject that has to notify in this case
         
-2) ![](Observer_CD.png)
+2)
+![](Observer_CD.png)
 
-3) ![](Observer_SD.png)
+3)
+![](Observer_SD.png)
 
 ## Part 2:
 This sequence diagram is based on the code of assignment 2. For the sake of clarity, we choose to make following simplifications:
@@ -56,10 +55,9 @@ captures are denoted with a 'x')
 
 #### Implementation choices
 - There is an Observer Interface which is implemented by the Scoreboard class.
-- There is a Subject Interface which is implemented by the Score class.
-- I decided to create the Score class instead of implementing the Subject in the Game class in order to
-keep the design pattern comprehensible.
+- The Game class is the subject of the Observer.
 - The Game class calls the design pattern by calling the *notifyObservers* method.
-
-#### Class diagram for the Observer design pattern
-![](CD Observer.jpeg)
+- This means that we have two concrete observers, consisting of the Printer from Part 1
+and the Scoreboard from part 3.
+- You can find the class diagram for the Scoreboard observer in the class
+diagram of Part 1.

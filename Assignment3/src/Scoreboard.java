@@ -18,28 +18,26 @@ public class Scoreboard implements Observer {
     }
 
     @Override
-    public void update(Color.color color) {
+    public void update() {
         ArrayList<Piece> newCapturedWhite = white.getCaptured_pieces();
         ArrayList<Piece> newCapturedBlack = black.getCaptured_pieces();
+        Piece captured = null;
+        Player p=null;
 
-        if(didCapture(capturedWhite, newCapturedWhite) || didCapture(capturedBlack, newCapturedBlack)){
-            Piece captured;
-            Player p;
-            if(color == Color.color.WHITE){
-                p = white;
-                captured = newCapturedBlack.get(newCapturedBlack.size() - 1);
-                capturedBlack.add(captured);
-            }
-            else{
-                p = black;
-                captured = newCapturedWhite.get(newCapturedWhite.size() - 1);
-                capturedWhite.add(captured);
-            }
+        if (didCapture(capturedWhite, newCapturedWhite)) {
+            p = black;
+            captured = newCapturedWhite.get(newCapturedWhite.size() - 1);
+            capturedWhite.add(captured);
+        } else if (didCapture(capturedBlack, newCapturedBlack)) {
+            p = white;
+            captured = newCapturedBlack.get(newCapturedBlack.size() - 1);
+            capturedBlack.add(captured);
+        }
 
-            if(captured.getClass() == Queen.class){
+        if(captured != null){
+            if (captured.getClass() == Queen.class) {
                 scoreList.put(p, scoreList.get(p) + 5);
-            }
-            else{
+            } else {
                 scoreList.put(p, scoreList.get(p) + 1);
             }
         }
@@ -50,7 +48,7 @@ public class Scoreboard implements Observer {
         return oldList.size() != newList.size();
     }
 
-    private void printScoreboard(){
+    private void printScoreboard() {
         System.out.format("\n%s's score: %d.\n", white.getName(), scoreList.get(white));
         System.out.format("%s's score: %d.\n\n", black.getName(), scoreList.get(black));
     }
