@@ -1,0 +1,5 @@
+Important Rules added by us:
+
+- It is not possible that 2 players are on the same square (expect the first square). If a player moves to an occupied square,
+    he will be send back to the start.
+- Snakes and Ladders are placed at every 5th square (starts at square (4) and ends at square (end-4))
