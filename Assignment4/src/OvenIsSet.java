@@ -15,7 +15,7 @@ public class OvenIsSet implements OvenState {
     @Override
     public void setTimer(Integer time) {
         oven.timer = time;
-        System.out.println("Changed time to " + time + " minutes");
+        System.out.println("Changed time to " + time + " seconds");
     }
 
     @Override
@@ -38,7 +38,7 @@ public class OvenIsSet implements OvenState {
 
     @Override
     public void checkTimer() {
-        System.out.println("Timer is set to " + oven.timer + " minutes");
+        System.out.println("Timer is set to " + oven.timer + " seconds");
     }
 
     @Override

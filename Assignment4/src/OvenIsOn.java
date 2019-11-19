@@ -15,14 +15,14 @@ public class OvenIsOn implements OvenState {
     @Override
     public void setTimer(Integer time) {
         oven.timer = time;
-        System.out.println("Timer is set to " + time + " minutes");
+        System.out.println("Timer is set to " + time + " seconds.");
         if (oven.program != null && oven.temperature != 0 && oven.timer != 0){oven.state = oven.ovenIsSet;}
     }
 
     @Override
     public void setTemperature(Integer temperature) {
         oven.temperature = temperature;
-        System.out.println("Temperature is set to " + temperature + " degrees");
+        System.out.println("Temperature is set to " + temperature + " degrees.");
         if (oven.program != null && oven.temperature != 0 && oven.timer != 0){oven.state = oven.ovenIsSet;}
     }
 
