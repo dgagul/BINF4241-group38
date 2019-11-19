@@ -6,6 +6,7 @@ public class Tower extends Piece {
 
     public Tower(boolean available, Color.color col){
         super(available, col);
+        setFirstMove(true);
     }
 
     public boolean isFirstMove() {

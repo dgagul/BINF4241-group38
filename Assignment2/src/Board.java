@@ -5,7 +5,7 @@ class Board {
     Board() {
         initializeBoard();
         setPieces();
-        printBoard(); //helping function
+        printBoard();
     }
 
     Square[][] getBoard(){
@@ -18,13 +18,13 @@ class Board {
             // columns
             for (int k = 0; k < 7; k += 2) {
                 // First row First column
-                board[i][k] = new Square(Square.Color.BLACK);
+                board[i][k] = new Square(Color.color.BLACK);
                 // First row Second column
-                board[i][k + 1] = new Square(Square.Color.WHITE);
+                board[i][k + 1] = new Square(Color.color.WHITE);
                 // Second row First column
-                board[i + 1][k] = new Square(Square.Color.WHITE);
+                board[i + 1][k] = new Square(Color.color.WHITE);
                 // Second row Second column
-                board[i + 1][k + 1] = new Square(Square.Color.BLACK);
+                board[i + 1][k + 1] = new Square(Color.color.BLACK);
             }
         }
     }
@@ -56,9 +56,13 @@ class Board {
         board[4][7].setPiece(new King(true, Color.color.BLACK));
     }
 
+<<<<<<< HEAD
+    public void printBoard(){
+=======
 
     // helping function
     void printBoard(){
+>>>>>>> master
         for (int i = 7; i >=0; i--) {
             for (int k = 0; k <=7; k++) {
                 Piece currPiece = board[k][i].getPiece();
@@ -72,5 +76,4 @@ class Board {
             System.out.println(" ");
         }
     }
-
 }

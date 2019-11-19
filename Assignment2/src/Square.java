@@ -1,11 +1,14 @@
 public class Square {
-    enum Color {WHITE, BLACK;}
 
-    private Color color;
+    private Color.color color;
     private Piece piece = null;
 
+<<<<<<< HEAD
+    public Square(Color.color pColor) {
+=======
     Square(Color pColor) {
         // color Box
+>>>>>>> master
         color = pColor;
     }
 
@@ -20,7 +23,5 @@ public class Square {
     boolean isOccupied(){
         return !(piece==null);
     }
-
-    //public void setPiece(Piece pPiece) {aPiece = pPiece}
 }
 
