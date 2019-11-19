@@ -6,31 +6,31 @@ public class Smartphone {
 
     public static void main(String args[]){
         Smartphone IPhoneX = new Smartphone();
+        Microwave microwave = new Microwave("SamsungMicrowave");
         Oven oven = new Oven("Markus");
         // Todo: display devices
 
-        oven.startCooking();
+        microwave.startBaking();
 
         // Todo: make sure input is not null
         oven.setProgram(Oven.Program.GRILL);
 
         System.out.println("------------------------");
 
-        oven.switchOn();
-        oven.setProgram(Oven.Program.GRILL);
-        oven.setTemperature(150);
-        oven.startCooking();
-        oven.setTimer(40);
-        oven.startCooking();
+        microwave.switchOn();
+        microwave.setTemperature(150);
+        microwave.startBaking();
+        microwave.setTimer(40);
+        microwave.startBaking();
 
         System.out.println("------------------------");
 
-        oven.interrupt();
+        microwave.interrupt();
 
         System.out.println("------------------------");
 
-        oven.switchOn();
-        oven.switchOff();
+        microwave.switchOn();
+        microwave.switchOff();
 
     }
 }

@@ -33,7 +33,7 @@ public class OvenIsCooking implements OvenState {
 
     @Override
     public void checkTimer() {
-        System.out.println("Timer is set to " + oven.timer + " minutes");
+        System.out.println("Timer is set to " + oven.timer + " seconds");
     }
 
     @Override
