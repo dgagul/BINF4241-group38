@@ -1,6 +1,7 @@
 import javafx.util.Pair;
 import sun.rmi.runtime.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -13,8 +14,8 @@ public class Game {
     private static Logic logic;
     private static Color.color black = Color.color.BLACK;
     private static Color.color white = Color.color.WHITE;
-    private static Score score;
     private Scoreboard scoreboard;
+    private static ArrayList<Observer> observerCollection;
 
     private static Game firstInstance = null;
 
@@ -23,12 +24,29 @@ public class Game {
         playerBlack = new Player(black);
         board = new Board();
         logic = new Logic(board, playerWhite, playerBlack);
-        score = new Score();
-        scoreboard = new Scoreboard(playerWhite, playerBlack);
-        score.registerObserver(scoreboard);
+        observerCollection = new ArrayList<>();
     }
 
-    static Game getInstance(){
+    public static void registerObserver(Observer observer){
+        observerCollection.add(observer);
+    }
+
+    public static void unregisterObserver(Observer observer){
+        observerCollection.remove(observer);
+    }
+
+    public static void notifyObserver(){
+        for (Observer observer : observerCollection){
+            observer.update();
+        }
+    }
+
+    public Board getBoard(){
+        Board aBoard = board;
+        return aBoard;
+    }
+
+    public static Game getInstance(){
         if(firstInstance == null) {
             synchronized (Game.class) {
                 if (firstInstance == null) {
@@ -38,21 +56,22 @@ public class Game {
         }
         return firstInstance; }
 
-    static void play() {
+    public static void play() {
         ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<>(2);
         playerQueue.add(playerWhite);
         playerQueue.add(playerBlack);
+        notifyObserver();
         while (!isFinished) {
             Player currentPlayer = playerQueue.poll();
-            assert currentPlayer != null;
+            readInput(currentPlayer);
+            notifyObserver();
             Color.color otherPlayersColor;
+            assert currentPlayer != null;
             if (currentPlayer.getColor() == Color.color.WHITE) {
                 otherPlayersColor = Color.color.BLACK;
             } else {
                 otherPlayersColor = Color.color.WHITE;
             }
-            readInput(currentPlayer);
-            board.printBoard();
 
             if (Logic.checkForCheck(otherPlayersColor)) {
                 System.out.println("Check!");
@@ -61,7 +80,6 @@ public class Game {
                     System.out.printf("Checkmate! %s wins!\n", currentPlayer.getName());
                 }
             }
-            score.notifyObservers(currentPlayer.getColor());
             playerQueue.add(currentPlayer);
         }
     }
@@ -254,4 +272,10 @@ public class Game {
         } else return new Tower(true, color);
     }
 
+    public static Player getPlayerWhite(){
+        return playerWhite;
+    }
+    public static Player getPlayerBlack(){
+        return playerBlack;
+    }
 }

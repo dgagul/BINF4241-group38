@@ -1,7 +1,6 @@
 class Board {
     private Square[][] board = new Square[8][8];
 
-
     Board() {
         initializeBoard();
         setPieces();
@@ -56,6 +55,7 @@ class Board {
         board[4][7].setPiece(new King(true, Color.color.BLACK));
     }
 
+
     /*
     // helping function
     void printBoard(){
@@ -74,3 +74,4 @@ class Board {
     }
     */
 }
+
