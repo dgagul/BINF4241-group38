@@ -18,7 +18,7 @@ public class DishwasherIsRunning implements DishwasherState {
         System.out.println("The dishwasher is already ON!");}
 
     @Override
-    public void chooseProgram(DishwasherProgramEnum program) { System.out.println("The Dishwasher is running at the moment! You can't choose a program now");}
+    public void chooseProgram() { System.out.println("The Dishwasher is running at the moment! You can't choose a program now");}
 
     @Override
     public void startDishwasher() {
@@ -26,8 +26,8 @@ public class DishwasherIsRunning implements DishwasherState {
 
     @Override
     public void checkTimer(){
-        int actualtimer = dishwasher.timer;
-        System.out.println("The dishwasher has finished in " + actualtimer + "seconds"); }
+        int actualtimer = dishwasher.programTime;
+        System.out.println("The dishwasher has finished in " + actualtimer + "minutes"); }
 
     @Override
     public void switchOff() {
@@ -37,7 +37,8 @@ public class DishwasherIsRunning implements DishwasherState {
     @Override
     public void stopDishwasher() {
         System.out.println("You stopped the Dishwasher.");
-        dishwasher.state = dishwasher.dishwasherIsSet; }
+        dishwasher.state = dishwasher.dishwasherIsSet;
+        dishwasher.programTime = dishwasher.programEnum.getProgramTime();}
 
 }
 

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Dishwasher implements Devices{
 
     DishwasherState dishwasherIsOff;
@@ -12,17 +14,14 @@ public class Dishwasher implements Devices{
     public int programTime;
     DishwasherProgramEnum programEnum;
 
-    public String name;
 
-
-    public Dishwasher(String name){
+    public Dishwasher(){
         this.dishwasherIsOff = new DishwasherIsOff(this);
         this.dishwasherIsOn = new DishwasherIsOn(this);
         this.dishwasherIsSet = new DishwasherIsSet(this);
         this.dishwasherIsRunning = new DishwasherIsRunning(this);
         this.state = dishwasherIsOff;
 
-        this.name = name;
 
         this.timer = -1;
         this.program = -1;
@@ -36,7 +35,7 @@ public class Dishwasher implements Devices{
 
     public void checkTimer() {state.checkTimer(); }
 
-    public void chooseProgram(DishwasherProgramEnum programEnum){ state.chooseProgram(programEnum);}
+    public void chooseProgram(){ state.chooseProgram();}
 
     public void startDishwasher(){ state.startDishwasher(); }
 
@@ -48,5 +47,10 @@ public class Dishwasher implements Devices{
     public void switchOff() {
             state.switchOff();
         }
+
+    @Override
+    public ArrayList<String> possibleCommands() {
+        return null;
+    }
 
 }

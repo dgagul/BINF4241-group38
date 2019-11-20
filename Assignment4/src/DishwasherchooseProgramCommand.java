@@ -8,10 +8,6 @@ public class DishwasherchooseProgramCommand implements Command {
         this.dishwasher = dishwasher;
     }
 
-
     @Override
-    public void execute() {
-
-        dishwasher.chooseProgram(programEnum);
-    }
+    public void execute() { dishwasher.chooseProgram(); }
 }

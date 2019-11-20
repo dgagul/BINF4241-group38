@@ -19,7 +19,7 @@ public class DishwasherIsSet implements DishwasherState {
 
     DishwasherIsSet(Dishwasher newDishwasher) {
         this.dishwasher = newDishwasher;
-        washing = new DishwasherThread(dishwasher.timer, dishwasher);
+        washing = new DishwasherThread(dishwasher.programTime, dishwasher);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class DishwasherIsSet implements DishwasherState {
         System.out.println("The dishwasher is already ON!");}
 
     @Override
-    public void chooseProgram(DishwasherProgramEnum program) {
+    public void chooseProgram() {
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
         System.out.println("Please enter the program (1-5)");
@@ -53,16 +53,24 @@ public class DishwasherIsSet implements DishwasherState {
 
             dishwasher.programTime = dishwasher.programEnum.getProgramTime();
             dishwasher.program = Integer.parseInt(inputbutton);
-            System.out.println("You chose program " + dishwasher.programEnum + ". This program runs for " + dishwasher.programTime
-                    +" minutes.");
+            System.out.println("You chose program " + dishwasher.programEnum
+                    +". This program runs for " + dishwasher.programTime +" minutes.");
             dishwasher.state = dishwasher.dishwasherIsSet;}}
 
 
     // Todo: thread things with timer
     @Override
     public void startDishwasher(){
-        System.out.print("Dishwasher has started");
-        dishwasher.state = dishwasher.dishwasherIsRunning;}
+        System.out.println("Dishwasher has started");
+        if (!washing.isRunning()){
+            washing = new DishwasherThread(dishwasher.programTime, dishwasher);
+            myThreadDishwasher = new Thread(washing);
+            elapsedDishwasher = System.currentTimeMillis();
+            myThreadDishwasher.start();
+            dishwasher.state = dishwasher.dishwasherIsRunning;;}
+        }
+
+
 
     @Override
     public void checkTimer(){

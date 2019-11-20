@@ -17,20 +17,20 @@ public class DishwasherIsOff implements DishwasherState {
         dishwasher.state = dishwasher.dishwasherIsOn; }
 
     @Override
-    public void chooseProgram(DishwasherProgramEnum programEnum){
-        System.out.println("You have to switch on the Dishwasher first!"); }
+    public void chooseProgram(){
+        System.out.println("You have to switch on the dishwasher first!"); }
 
     @Override
     public void startDishwasher(){
-        System.out.println("You have to switch on the Dishwasher first!"); }
+        System.out.println("You have to switch on the dishwasher first!"); }
 
     @Override
     public void checkTimer(){
-        System.out.println("You have to switch on the Dishwasher first!"); }
+        System.out.println("You have to switch on the dishwasher first!"); }
 
     @Override
     public void stopDishwasher(){
-        System.out.println("Dishwasher is not even on!"); }
+        System.out.println("The dishwasher is not even on!"); }
 
     @Override
     public void switchOff() {

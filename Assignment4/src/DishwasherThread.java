@@ -17,18 +17,19 @@ public class DishwasherThread implements Runnable{
     public void run(){
         try {
             running = true;
+
             dishwasher.state = dishwasher.dishwasherIsRunning;
             System.out.println("Dishwasher is now washing!");
-            Thread.sleep(time);
+            Thread.sleep(dishwasher.programTime*60000);
             running = false;
             dishwasher.state = dishwasher.dishwasherIsSet;
-            System.out.println("Oven finished cooking.");
+            System.out.println("Dishwasher finished washing.");
         } catch (InterruptedException e) {
             running = false;
-            long timerun = System.currentTimeMillis() - OvenIsSet.elapsedOven;
-            time -= (int) timerun;
-            time /= 1000;
-            dishwasher.programTime = time/600000;
+            long timerun = System.currentTimeMillis() - DishwasherIsSet.elapsedDishwasher;
+            dishwasher.programTime -= (int) timerun;
+            dishwasher.programTime /= 1000;
+
         }
 
     }
