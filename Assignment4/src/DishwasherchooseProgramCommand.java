@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 
 public class DishwasherchooseProgramCommand implements Command {
     Dishwasher dishwasher;
@@ -9,6 +9,7 @@ public class DishwasherchooseProgramCommand implements Command {
     @Override
     public void execute() {
         //TODO: Input und dann input in enum übersetzen,  enum dann in chooseProgram(..)
+        Scanner scanner = new Scanner(System.in);
         dishwasher.chooseProgram();
     }
 

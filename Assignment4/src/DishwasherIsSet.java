@@ -1,6 +1,16 @@
+import java.util.ArrayList;
+
 public class DishwasherIsSet implements DishwasherState {
     Dishwasher dishwasher;
     DishwasherProgramEnum dishwasherProgram;
+    ArrayList<String> possibleCommands = new ArrayList<String>(){
+        {
+            add("Start dishwasher");
+            add("Choose program");
+            add("Check timer");
+            add("Switch off");
+        }
+    };
 
     DishwasherIsSet(Dishwasher newDishwasher) {this.dishwasher = newDishwasher;}
 

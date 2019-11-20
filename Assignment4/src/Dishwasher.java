@@ -37,7 +37,7 @@ public class Dishwasher implements Devices{
 
     public void checkTimer() {state.checkTimer(); }
 
-    public void chooseProgram(){ state.chooseProgram();}
+    public void chooseProgram(){ state.chooseProgram(DishwasherProgramEnum);}
 
     public void startDishwasher(){ state.startDishwasher(); }
 
@@ -49,4 +49,5 @@ public class Dishwasher implements Devices{
     public void switchOff() {
             state.switchOff();
         }
+
 }

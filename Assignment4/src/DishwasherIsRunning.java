@@ -1,5 +1,14 @@
+import java.util.ArrayList;
+
 public class DishwasherIsRunning implements DishwasherState {
     Dishwasher dishwasher;
+    ArrayList<String> possibleCommands = new ArrayList<>(){
+        {
+            add("Check timer");
+            add("Stop dishwasher");
+            add("Switch off");
+        }
+    };
 
     DishwasherIsRunning(Dishwasher newDishwasher){
         this.dishwasher = newDishwasher; }

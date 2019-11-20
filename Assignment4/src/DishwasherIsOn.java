@@ -1,13 +1,18 @@
+import java.util.*;
 import java.util.Scanner;
 
 public class DishwasherIsOn implements DishwasherState {
     Dishwasher dishwasher;
     DishwasherProgramEnum program;
+    ArrayList<String> possibleCommands = new ArrayList<String>(){
+        {
+            add("Choose program");
+            add("Switch off");
+        }
+    };
 
     DishwasherIsOn(Dishwasher newDishwasher) {
-        this.dishwasher = newDishwasher;
-    }
-
+        this.dishwasher = newDishwasher; }
 
     @Override
     public void switchOn() {

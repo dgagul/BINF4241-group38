@@ -1,5 +1,12 @@
+import java.util.ArrayList;
+
 public class DishwasherIsOff implements DishwasherState {
     Dishwasher dishwasher;
+    ArrayList<String> possibleCommands = new ArrayList<String>(){
+        {
+            add("Switch on");
+        }
+    };
 
     DishwasherIsOff(Dishwasher newDishwasher) {this.dishwasher = newDishwasher;}
 
