@@ -1,6 +1,4 @@
-import java.util.List;
-
-public class Oven implements Devices {
+public class Oven implements Device {
     OvenState ovenIsOff;
     OvenState ovenIsOn;
     OvenState ovenIsSet;

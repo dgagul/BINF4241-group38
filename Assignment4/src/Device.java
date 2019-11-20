@@ -1,4 +1,4 @@
-public interface Devices {
+public interface Device {
 
     public void switchOn();
     public void switchOff();

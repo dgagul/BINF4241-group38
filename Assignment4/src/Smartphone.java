@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 public class Smartphone {
 
     public static void main(String args[]){
@@ -32,5 +28,9 @@ public class Smartphone {
         microwave.switchOn();
         microwave.switchOff();
 
+        System.out.print("Please enter the program. You can choose from the following: ");
+        for (Washingmachine.Program program : Washingmachine.Program.values()) {
+            System.out.print(program + ", ");
+        }
     }
 }

@@ -1,6 +1,4 @@
-import java.util.List;
-
-public class Microwave implements Devices {
+public class Microwave implements Device {
     MicrowaveState microwaveIsOff;
     MicrowaveState microwaveIsOn;
     MicrowaveState microwaveIsSet;
