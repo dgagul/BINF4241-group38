@@ -1,5 +1,14 @@
+import java.util.ArrayList;
+
 public class OvenIsCooking implements OvenState {
     Oven oven;
+    ArrayList<String> possibleCommands = new ArrayList<String>() {
+        {
+            add("Check timer");
+            add("Interrupt");
+            add("Switch off");
+        }
+    };
 
     public OvenIsCooking(Oven oven){
         this.oven = oven;
@@ -33,7 +42,11 @@ public class OvenIsCooking implements OvenState {
 
     @Override
     public void checkTimer() {
-        System.out.println("Timer is set to " + oven.timer + " seconds");
+        long timerun = System.currentTimeMillis() - OvenIsSet.elapsedOven;
+        double time = Math.floor(timerun/1000);
+        oven.timer = oven.timer - (int) time;
+        OvenIsSet.elapsedOven = System.currentTimeMillis();
+        System.out.println(oven.timer + " seconds left.");
     }
 
     @Override
@@ -48,6 +61,11 @@ public class OvenIsCooking implements OvenState {
         OvenIsSet.killT();
         System.out.println("Switched the oven OFF.");
         oven.state = oven.ovenIsOff;
+    }
+
+    @Override
+    public ArrayList<String> possibleCommands() {
+        return possibleCommands;
     }
 
     public void updateOven(int temperature, int timer, Oven.Program program){

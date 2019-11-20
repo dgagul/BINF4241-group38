@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public interface OvenState {
     public void switchOn();
     public void setTimer(int time);
@@ -7,5 +9,6 @@ public interface OvenState {
     public void checkTimer();
     public void interrupt();
     public void switchOff();
+    public ArrayList<String> possibleCommands();
     public void updateOven(int temperature, int timer, Oven.Program program);
 }

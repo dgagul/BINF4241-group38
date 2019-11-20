@@ -1,5 +1,16 @@
+import java.util.ArrayList;
+
 public class OvenIsSet implements OvenState {
     Oven oven;
+    ArrayList<String> possibleCommands = new ArrayList<String>() {
+        {
+            add("Set timer");
+            add("Set temperature");
+            add("Set program");
+            add("Start baking");
+            add("Switch off");
+        }
+    };
 
     public static long elapsedOven = System.currentTimeMillis();
     public static OvenThread cooking;
@@ -63,6 +74,11 @@ public class OvenIsSet implements OvenState {
     public void switchOff() {
         System.out.println("Goodnight.");
         oven.state = oven.ovenIsOff;
+    }
+
+    @Override
+    public ArrayList<String> possibleCommands() {
+        return possibleCommands;
     }
 
     @Override

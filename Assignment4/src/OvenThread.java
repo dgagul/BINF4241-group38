@@ -28,9 +28,9 @@ public class OvenThread implements Runnable {
         } catch (InterruptedException e) {
             running = false;
             long timerun = System.currentTimeMillis() - OvenIsSet.elapsedOven;
-            time -= (int) timerun;
-            time /= 1000;
-            oven.update(oven.temperature, time, oven.program);
+            double time = Math.floor(timerun/1000);
+            oven.timer = oven.timer - (int) time;
+            oven.update(oven.temperature, oven.timer, oven.program);
         }
     }
 }

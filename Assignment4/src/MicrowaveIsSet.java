@@ -1,19 +1,27 @@
 import java.util.ArrayList;
 
-public class MicrowaveIsOn implements MicrowaveState{
+public class MicrowaveIsSet implements MicrowaveState {
     Microwave microwave;
     ArrayList<String> possibleCommands = new ArrayList<String>() {
         {
             add("Set timer");
             add("Set temperature");
-            add("Set program");
+            add("Start baking");
             add("Switch off");
         }
     };
 
-    public MicrowaveIsOn(Microwave newMicrowave){
-        this.microwave = newMicrowave;
+    public static long elapsedMicrowave = System.currentTimeMillis();
+    public static MicrowaveThread baking;
+    public static Thread myThreadMicrowave;
+
+
+    public MicrowaveIsSet(Microwave microwave){
+        this.microwave = microwave;
+        baking = new MicrowaveThread(microwave.timer, microwave);
     }
+
+
 
     @Override
     public void switchOn() {
@@ -23,38 +31,36 @@ public class MicrowaveIsOn implements MicrowaveState{
     @Override
     public void setTimer(int timer) {
         microwave.timer = timer;
-        microwave.update(microwave.temperature,timer);
-        System.out.println("Timer is set to " + timer + " seconds.");
-        if (microwave.temperature != 0 && microwave.timer != 0){microwave.state = microwave.microwaveIsSet;}
+        microwave.update(microwave.temperature, timer);
+        System.out.println("Changed time to " + timer + " seconds.");
     }
 
     @Override
     public void setTemperature(int temperature) {
         microwave.temperature = temperature;
-        microwave.update(temperature,microwave.timer);
-        System.out.println("Temperature is set to " + temperature + " degrees.");
-        if (microwave.temperature != 0 && microwave.timer != 0){microwave.state = microwave.microwaveIsSet;}
+        microwave.update(temperature, microwave.timer);
+        System.out.println("Changed temperature to " + temperature + " degrees.");
     }
 
     @Override
     public void startBaking() {
-        System.out.println("Not all parameters set!");
-        if (microwave.temperature == 0) {
-            System.out.println("Please set your temperature.");
-        }
-        if (microwave.timer == 0) {
-            System.out.println("Please set your timer.");
+        if (!baking.isRunning()){
+            baking = new MicrowaveThread(microwave.timer, microwave);
+            myThreadMicrowave = new Thread(baking);
+            elapsedMicrowave = System.currentTimeMillis();
+            myThreadMicrowave.start();
         }
     }
 
     @Override
     public void checkTimer() {
+        // Todo: update timer
         System.out.println("Timer is set to " + microwave.timer + " seconds.");
     }
 
     @Override
     public void interrupt() {
-        System.out.println("The microwave was not even baking!");
+        System.out.println("The microwave is not baking yet! You can start it now, if you want.");
     }
 
     @Override
@@ -73,4 +79,7 @@ public class MicrowaveIsOn implements MicrowaveState{
         microwave.timer = timer;
     }
 
+    public static void killT(){
+        myThreadMicrowave.interrupt();
+    }
 }
