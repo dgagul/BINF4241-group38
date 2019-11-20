@@ -11,8 +11,4 @@ public class OvenInterruptCommand implements Command{
         oven.interrupt();
     }
 
-    @Override
-    public void undo() {
-        oven.startCooking();
-    }
 }

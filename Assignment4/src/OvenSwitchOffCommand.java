@@ -10,9 +10,5 @@ public class OvenSwitchOffCommand implements Command {
         oven.switchOff();
     }
 
-    @Override
-    public void undo() {
-        oven.switchOn();
-    }
 }
 

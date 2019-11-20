@@ -40,6 +40,10 @@ public class MicrowaveIsOn implements MicrowaveState{
     @Override
     public void checkTimer() {
         // Todo: update time
+        long timerun = System.currentTimeMillis() - MicrowaveIsSet.elapsedMicrowave;
+        time -= (int) timerun;
+        time /= 1000;
+
         System.out.println(microwave.timer);
     }
 

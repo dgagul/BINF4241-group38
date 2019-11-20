@@ -9,8 +9,11 @@ public class OvenSetProgramCommand implements Command {
 
     @Override
     public void execute() {
+
+
+
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose your program.");
+        System.out.println("Please choose your program (grill or ventilated):");
 
         Oven.Program[] programs = Oven.Program.values();
         for (Oven.Program program : programs) {
@@ -28,12 +31,6 @@ public class OvenSetProgramCommand implements Command {
 
         // Todo: make sure input is not null
         oven.setProgram(Oven.Program.valueOf(program));
-    }
-
-    @Override
-    public void undo() {
-        // Todo: reset old program
-        //oven.setProgram();
     }
 
     public static boolean contains(String test) {

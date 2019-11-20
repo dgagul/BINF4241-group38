@@ -10,14 +10,15 @@ public class OvenSetTemperatureCommand implements Command {
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("What temperature do you want to set?");
-        String temperature = scanner.nextLine();
-        oven.setTemperature(Integer.parseInt(temperature));
+        boolean validInput = false;
+        System.out.println("Please enter the amount of degrees:");
+        while(!validInput){
+            String temperature = scanner.next();
+            if (temperature.matches("^[0-9]*$")){
+                oven.setTemperature(Integer.parseInt(temperature));
+                validInput = true;
+            }
+        }
     }
 
-    @Override
-    public void undo() {
-        // Todo: reset old temperature
-        //oven.setTemperature();
-    }
 }

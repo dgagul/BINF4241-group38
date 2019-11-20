@@ -10,9 +10,5 @@ public class MicrowaveSwitchOffCommand implements Command {
         microwave.switchOff();
     }
 
-    @Override
-    public void undo() {
-        microwave.switchOn();
-    }
 }
 

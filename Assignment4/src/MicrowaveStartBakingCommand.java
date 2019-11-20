@@ -10,8 +10,4 @@ public class MicrowaveStartBakingCommand implements Command {
         microwave.startBaking();
     }
 
-    @Override
-    public void undo() {
-        microwave.interrupt();
-    }
 }
