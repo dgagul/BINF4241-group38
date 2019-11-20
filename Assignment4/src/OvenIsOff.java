@@ -1,5 +1,12 @@
+import java.util.ArrayList;
+
 public class OvenIsOff implements OvenState {
     Oven oven;
+    ArrayList<String> possibleCommands = new ArrayList<String>() {
+        {
+            add("Switch on");
+        }
+    };
 
     public OvenIsOff(Oven oven){
         this.oven = oven;
@@ -44,6 +51,11 @@ public class OvenIsOff implements OvenState {
     @Override
     public void switchOff() {
         System.out.println("The oven was already OFF!");
+    }
+
+    @Override
+    public ArrayList<String> possibleCommands() {
+        return possibleCommands;
     }
 
     public void updateOven(int temperature, int timer, Oven.Program program){

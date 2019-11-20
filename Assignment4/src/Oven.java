@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Oven implements Devices {
@@ -58,6 +59,11 @@ public class Oven implements Devices {
     @Override
     public void switchOff() {
         state.switchOff();
+    }
+
+    @Override
+    public ArrayList<String> possibleCommands() {
+        return state.possibleCommands();
     }
 
     public void update(int temperature, int timer, Program program){
