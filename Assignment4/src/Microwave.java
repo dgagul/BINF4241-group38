@@ -10,16 +10,14 @@ public class Microwave implements Devices {
 
     public int timer;
     public int temperature;
-    public String name;
 
 
-    public Microwave(String name){
+    public Microwave(){
         this.microwaveIsOff = new MicrowaveIsOff(this);
         this.microwaveIsOn = new MicrowaveIsOn(this);
         this.microwaveIsSet = new MicrowaveIsSet(this);
         this.microwaveIsBaking = new MicrowaveIsBaking(this);
         this.state = microwaveIsOff;
-        this.name = name;
 
         this.timer = 0;
         this.temperature = 0;
@@ -53,6 +51,14 @@ public class Microwave implements Devices {
     @Override
     public void switchOff() {
         state.switchOff();
+    }
+
+
+    public void update(int temperature, int timer){
+        microwaveIsOn.updateMicrowave(temperature, timer);
+        microwaveIsOff.updateMicrowave(temperature, timer);
+        microwaveIsSet.updateMicrowave(temperature, timer);
+        microwaveIsBaking.updateMicrowave(temperature, timer);
     }
 
 }

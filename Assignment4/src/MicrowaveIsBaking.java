@@ -1,3 +1,5 @@
+import static java.lang.Math.toIntExact;
+
 public class MicrowaveIsBaking implements MicrowaveState {
     Microwave microwave;
 
@@ -11,12 +13,12 @@ public class MicrowaveIsBaking implements MicrowaveState {
     }
 
     @Override
-    public void setTimer(Integer time) {
+    public void setTimer(int timer) {
         System.out.println("Please interrupt the current baking, to change the timer.");
     }
 
     @Override
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(int temperature) {
         System.out.println("Please interrupt the current baking, to change the temperature.");
     }
 
@@ -32,6 +34,12 @@ public class MicrowaveIsBaking implements MicrowaveState {
 
     @Override
     public void interrupt() {
+        // Todo: kill all threads!!
+        MicrowaveIsSet.killT();
+        /*
+        int timeLeftint = MicrowaveIsSet.killMicrowaveThread();
+        microwave.update(microwave.temperature, timeLeftint);
+         */
         System.out.println("You stopped the baking :(");
         microwave.state = microwave.microwaveIsSet;
     }
@@ -39,5 +47,10 @@ public class MicrowaveIsBaking implements MicrowaveState {
     @Override
     public void switchOff() {
         System.out.println("Please interrupt the current baking, to switch the microwave OFF.");
+    }
+
+    public void updateMicrowave(int temperature, int timer){
+        microwave.temperature = temperature;
+        microwave.timer = timer;
     }
 }

@@ -16,13 +16,12 @@ public class Oven implements Devices {
     public String name;
 
 
-    public Oven(String name){
+    public Oven(){
         this.ovenIsOff = new OvenIsOff(this);
         this.ovenIsOn = new OvenIsOn(this);
         this.ovenIsSet = new OvenIsSet(this);
         this.ovenIsCooking = new OvenIsCooking(this);
         this.state = ovenIsOff;
-        this.name = name;
 
         this.timer = 0;
         this.temperature = 0;

@@ -26,6 +26,7 @@ public class OvenSetProgramCommand implements Command {
             program = scanner.nextLine();
         }
 
+        // Todo: make sure input is not null
         oven.setProgram(Oven.Program.valueOf(program));
     }
 

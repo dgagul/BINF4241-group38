@@ -1,8 +1,17 @@
+import static java.lang.Math.toIntExact;
+
 public class MicrowaveIsSet implements MicrowaveState {
     Microwave microwave;
 
+    public static long elapsed = System.currentTimeMillis();
+    public static MicrowaveThread baking;
+    public static Thread myThread;
+
+
     public MicrowaveIsSet(Microwave newMicrowave){
         this.microwave = newMicrowave;
+        baking = new MicrowaveThread(microwave.timer, microwave);
+
     }
 
     @Override
@@ -11,21 +20,27 @@ public class MicrowaveIsSet implements MicrowaveState {
     }
 
     @Override
-    public void setTimer(Integer time) {
-        microwave.timer = time;
-        System.out.println("Changed time to " + time + " seconds");
+    public void setTimer(int timer) {
+        microwave.timer = timer;
+        microwave.update(microwave.temperature, timer);
+        System.out.println("Changed time to " + timer + " seconds.");
     }
 
     @Override
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(int temperature) {
         microwave.temperature = temperature;
-        System.out.println("Changed temperature to " + temperature + " degrees");
+        microwave.update(temperature, microwave.timer);
+        System.out.println("Changed temperature to " + temperature + " degrees.");
     }
 
     @Override
     public void startBaking() {
-        System.out.println("The microwave is now baking!");
-        microwave.state = microwave.microwaveIsBaking;
+        if (!baking.isRunning()){
+            baking = new MicrowaveThread(microwave.timer, microwave);
+            myThread = new Thread(baking);
+            elapsed = System.currentTimeMillis();
+            myThread.start();
+        }
     }
 
     @Override
@@ -42,5 +57,28 @@ public class MicrowaveIsSet implements MicrowaveState {
     public void switchOff() {
         System.out.println("Goodnight.");
         microwave.state = microwave.microwaveIsOff;
+    }
+
+    public void updateMicrowave(int temperature, int timer){
+        microwave.temperature = temperature;
+        microwave.timer = timer;
+    }
+
+
+    public static int killMicrowaveThread() {
+        if (baking.isRunning()) {
+            myThread = null;
+            baking = null;
+            long timeLeftLong = System.currentTimeMillis() - MicrowaveIsSet.elapsed;
+            int timeLeftInt = toIntExact(timeLeftLong);
+            myThread = new Thread();
+            baking = new MicrowaveThread();
+            return timeLeftInt;
+        }
+        return 0;
+    }
+
+    public static void killT(){
+        myThread.interrupt();
     }
 }
