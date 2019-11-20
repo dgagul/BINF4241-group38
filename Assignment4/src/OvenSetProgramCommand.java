@@ -11,33 +11,22 @@ public class OvenSetProgramCommand implements Command {
     public void execute() {
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
-        System.out.println("Please choose your program (grill or ventilated):");
+        // Todo: display in menu
+        System.out.println("Please choose your program (type 1 for GRILL or 2 for VENTILATED):");
 
-        while(!validInput){
-            String temperature = scanner.next();
-            if (temperature.matches("^[0-9]*$")){
-                oven.setTemperature(Integer.parseInt(temperature));
+        while (!validInput) {
+            String program = scanner.next();
+            if (program.equals("1")) {
+                oven.setProgram(Oven.Program.GRILL);
                 validInput = true;
+            } else if (program.equals("2")) {
+                oven.setProgram(Oven.Program.VENTILATED);
+                validInput = true;
+            } else {
+                System.out.println("Wrong input!");
+                System.out.println("Please choose your program (type 1 for GRILL or 2 for VENTILATED):");
             }
         }
-
-
-        Oven.Program[] programs = Oven.Program.values();
-        for (Oven.Program program : programs) {
-            System.out.println(program);
-        }
-        String program = scanner.nextLine();
-
-        while (!contains(program)) {
-            System.out.println("Choose a valid program from the following:");
-            for (Oven.Program program1 : programs) {
-                System.out.println(program1);
-            }
-            program = scanner.nextLine();
-        }
-
-        // Todo: make sure input is not null
-        oven.setProgram(Oven.Program.valueOf(program));
     }
 
     public static boolean contains(String test) {

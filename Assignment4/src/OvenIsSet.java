@@ -61,7 +61,6 @@ public class OvenIsSet implements OvenState {
 
     @Override
     public void checkTimer() {
-        // Todo: update timer
         System.out.println("Timer is set to " + oven.timer + " seconds");
     }
 
