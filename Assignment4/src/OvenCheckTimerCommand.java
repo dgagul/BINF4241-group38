@@ -11,7 +11,4 @@ public class OvenCheckTimerCommand implements Command {
         oven.checkTimer();
     }
 
-    @Override
-    public void undo() {
-    }
 }

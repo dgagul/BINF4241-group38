@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Dishwasher implements Devices{
 
     DishwasherState dishwasherIsOff;
@@ -12,6 +10,7 @@ public class Dishwasher implements Devices{
     public int timer;
     public int program;
     public int programTime;
+    DishwasherProgramEnum programEnum;
 
     public String name;
 
@@ -37,7 +36,7 @@ public class Dishwasher implements Devices{
 
     public void checkTimer() {state.checkTimer(); }
 
-    public void chooseProgram(){ state.chooseProgram(DishwasherProgramEnum);}
+    public void chooseProgram(DishwasherProgramEnum programEnum){ state.chooseProgram(programEnum);}
 
     public void startDishwasher(){ state.startDishwasher(); }
 

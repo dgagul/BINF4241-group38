@@ -19,9 +19,35 @@ public class DishwasherIsOn implements DishwasherState {
         System.out.println("The dishwasher is already ON!");}
 
     @Override
-    public void chooseProgram(DishwasherProgramEnum program) {
-        this.program = program;
-        dishwasher.state = dishwasher.dishwasherIsSet;}
+    public void chooseProgram(DishwasherProgramEnum programEnum) {
+        Scanner scanner = new Scanner(System.in);
+        boolean validInput = false;
+        System.out.println("Please enter the program (1-5)");
+        while(!validInput){
+            String inputbutton = scanner.next();
+            if (inputbutton.matches("[1-5]")){
+                switch(Integer.parseInt(inputbutton)){
+                    case 1: dishwasher.programEnum = DishwasherProgramEnum.GLASSSES;
+                        break;
+                    case 2: dishwasher.programEnum = DishwasherProgramEnum.PLATES;
+                        break;
+                    case 3: dishwasher.programEnum = DishwasherProgramEnum.PANS;
+                        break;
+                    case 4: dishwasher.programEnum = DishwasherProgramEnum.MIXED;
+                        break;
+                    case 5: dishwasher.programEnum = DishwasherProgramEnum.ECO;
+                        break;}
+
+                validInput = true;
+
+            }
+            else{System.out.print("Please enter a program between 1-5.");}
+
+            dishwasher.programTime = dishwasher.programEnum.getProgramTime();
+            dishwasher.program = Integer.parseInt(inputbutton);
+            System.out.println("You chose program " + dishwasher.programEnum + ". This program runs for " + dishwasher.programTime
+                    +" minutes.");
+            dishwasher.state = dishwasher.dishwasherIsSet;}}
 
     @Override
     public void startDishwasher() {

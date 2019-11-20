@@ -18,7 +18,7 @@ public class DishwasherIsRunning implements DishwasherState {
         System.out.println("The dishwasher is already ON!");}
 
     @Override
-    public void chooseProgram() { System.out.println("The Dishwasher is running at the moment! You can't choose a program now");}
+    public void chooseProgram(DishwasherProgramEnum program) { System.out.println("The Dishwasher is running at the moment! You can't choose a program now");}
 
     @Override
     public void startDishwasher() {

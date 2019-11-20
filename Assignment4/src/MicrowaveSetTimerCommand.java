@@ -15,10 +15,6 @@ public class MicrowaveSetTimerCommand implements Command {
         microwave.setTimer(Integer.parseInt(time));
     }
 
-    @Override
-    public void undo() {
-        // Todo: reset old timer
-        //microwave.setTimer();
-    }
+
 }
 

@@ -1,7 +1,7 @@
 public enum DishwasherProgramEnum {
-    GLASSSES(45),
+    GLASSSES(70),
     PLATES(60),
-    PANS(90),
+    PANS(80),
     MIXED(75),
     ECO(120);
     public int programTime;
@@ -9,6 +9,6 @@ public enum DishwasherProgramEnum {
     DishwasherProgramEnum(int proTime){
         this.programTime = proTime; }
 
-        public int getProgramTime(){return this.programTime; }
+    public int getProgramTime(){return this.programTime; }
     }
 

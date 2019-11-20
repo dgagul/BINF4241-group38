@@ -14,10 +14,4 @@ public class OvenSetTemperatureCommand implements Command {
         String temperature = scanner.nextLine();
         oven.setTemperature(Integer.parseInt(temperature));
     }
-
-    @Override
-    public void undo() {
-        // Todo: reset old temperature
-        //oven.setTemperature();
-    }
 }

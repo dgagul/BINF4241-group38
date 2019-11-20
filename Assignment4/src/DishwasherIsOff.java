@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class DishwasherIsOff implements DishwasherState {
     Dishwasher dishwasher;
+    DishwasherProgramEnum programEnum;
     ArrayList<String> possibleCommands = new ArrayList<String>(){
         {
             add("Switch on");
@@ -16,7 +17,7 @@ public class DishwasherIsOff implements DishwasherState {
         dishwasher.state = dishwasher.dishwasherIsOn; }
 
     @Override
-    public void chooseProgram(DishwasherProgramEnum program){
+    public void chooseProgram(DishwasherProgramEnum programEnum){
         System.out.println("You have to switch on the Dishwasher first!"); }
 
     @Override

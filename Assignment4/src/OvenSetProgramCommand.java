@@ -30,11 +30,6 @@ public class OvenSetProgramCommand implements Command {
         oven.setProgram(Oven.Program.valueOf(program));
     }
 
-    @Override
-    public void undo() {
-        // Todo: reset old program
-        //oven.setProgram();
-    }
 
     public static boolean contains(String test) {
 

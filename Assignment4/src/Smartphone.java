@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 public class Smartphone {
 
     public static void main(String args[]) throws InterruptedException {
@@ -10,27 +6,15 @@ public class Smartphone {
         Oven oven = new Oven();
         // Todo: display devices
 
+        Dishwasher dishwasher = new Dishwasher("Test123");
 
-        microwave.switchOn();
-        microwave.setTemperature(150);
-        microwave.setTimer(2);
-        microwave.startBaking();
-        Thread.sleep(5000);
-        microwave.startBaking();
-        Thread.sleep(5000);
+        dishwasher.switchOn();
+        dishwasher.chooseProgram(dishwasher.programEnum);
+        System.out.println(dishwasher.programEnum);
+        System.out.println(dishwasher.state);
+        System.out.println(dishwasher.programTime);
 
-        System.out.println("------------------------");
 
-        microwave.setTimer(10);
-        microwave.startBaking();
-        Thread.sleep(7000);
-        microwave.interrupt();
-        Thread.sleep(1000);
-        microwave.startBaking();
-        Thread.sleep(4000);
-
-        System.out.println("------------------------");
-        microwave.switchOff();
 
     }
 }

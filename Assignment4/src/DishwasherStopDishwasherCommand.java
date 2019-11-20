@@ -6,9 +6,4 @@ public class DishwasherStopDishwasherCommand implements Command {
     @Override
     public void execute(){ dishwasher.stopDishwasher();}
 
-    @Override
-    public void undo(){
-        dishwasher.state = dishwasher.dishwasherIsSet;
-        dishwasher.startDishwasher();
-    }
 }

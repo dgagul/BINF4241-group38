@@ -15,9 +15,4 @@ public class OvenSetTimerCommand implements Command {
         oven.setTimer(Integer.parseInt(time));
     }
 
-    @Override
-    public void undo() {
-        // Todo: reset old timer
-        //oven.setTimer();
-    }
 }

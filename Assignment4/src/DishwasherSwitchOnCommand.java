@@ -10,10 +10,5 @@ public class DishwasherSwitchOnCommand implements Command {
         dishwasher.switchOn();
     }
 
-    @Override
-    public void undo() {
-        dishwasher.switchOff();
-    }
-
 
 }

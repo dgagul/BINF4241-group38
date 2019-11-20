@@ -11,7 +11,4 @@ public class MicrowaveCheckTimerCommand implements Command {
         microwave.checkTimer();
     }
 
-    @Override
-    public void undo() {
-    }
 }

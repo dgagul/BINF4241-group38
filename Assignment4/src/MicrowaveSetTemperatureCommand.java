@@ -15,9 +15,5 @@ public class MicrowaveSetTemperatureCommand implements Command {
         microwave.setTemperature(Integer.parseInt(temperature));
     }
 
-    @Override
-    public void undo() {
-        // Todo: reset old temperature
-        //microwave.setTemperature();
-    }
+
 }
