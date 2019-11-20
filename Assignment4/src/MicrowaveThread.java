@@ -28,9 +28,9 @@ public class MicrowaveThread implements Runnable {
         } catch (InterruptedException e) {
             running = false;
             long timerun = System.currentTimeMillis() - MicrowaveIsSet.elapsedMicrowave;
-            time -= (int) timerun;
-            time /= 1000;
-            microwave.update(microwave.temperature, time);
+            double time = Math.floor(timerun/1000);
+            microwave.timer = microwave.timer - (int) time;
+            microwave.update(microwave.temperature, microwave.timer);
         }
     }
 }

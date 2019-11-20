@@ -42,7 +42,11 @@ public class OvenIsCooking implements OvenState {
 
     @Override
     public void checkTimer() {
-        System.out.println("Timer is set to " + oven.timer + " seconds");
+        long timerun = System.currentTimeMillis() - OvenIsSet.elapsedOven;
+        double time = Math.floor(timerun/1000);
+        oven.timer = oven.timer - (int) time;
+        OvenIsSet.elapsedOven = System.currentTimeMillis();
+        System.out.println(oven.timer + " seconds left.");
     }
 
     @Override

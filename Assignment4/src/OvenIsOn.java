@@ -59,7 +59,7 @@ public class OvenIsOn implements OvenState {
 
     @Override
     public void checkTimer() {
-        System.out.println(oven.timer);
+        System.out.println("Timer is set to " + oven.timer + " seconds.");
     }
 
     @Override

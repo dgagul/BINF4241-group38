@@ -36,7 +36,11 @@ public class MicrowaveIsBaking implements MicrowaveState {
 
     @Override
     public void checkTimer() {
-        System.out.println("Timer is set to " + microwave.timer + " seconds");
+        long timerun = System.currentTimeMillis() - MicrowaveIsSet.elapsedMicrowave;
+        double time = Math.floor(timerun/1000);
+        microwave.timer = microwave.timer - (int) time;
+        MicrowaveIsSet.elapsedMicrowave = System.currentTimeMillis();
+        System.out.println(microwave.timer + " seconds left.");
     }
 
     @Override

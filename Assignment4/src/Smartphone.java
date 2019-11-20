@@ -13,21 +13,35 @@ public class Smartphone {
 
         microwave.switchOn();
         microwave.setTemperature(150);
-        microwave.setTimer(2);
+        microwave.setTimer(100);
         microwave.startBaking();
-        Thread.sleep(5000);
-        microwave.startBaking();
-        Thread.sleep(5000);
+
+        Thread.sleep(2000);
+        microwave.checkTimer();
+        Thread.sleep(2000);
+        microwave.checkTimer();
+        Thread.sleep(2000);
+        microwave.checkTimer();
+        Thread.sleep(2000);
+
+        microwave.interrupt();
+        microwave.checkTimer();
 
         System.out.println("------------------------");
-
+        Thread.sleep(2000);
         microwave.setTimer(10);
+        Thread.sleep(2000);
         microwave.startBaking();
-        Thread.sleep(7000);
-        microwave.interrupt();
-        Thread.sleep(1000);
-        microwave.startBaking();
-        Thread.sleep(4000);
+
+        Thread.sleep(2000);
+        microwave.checkTimer();
+        Thread.sleep(2000);
+        microwave.checkTimer();
+        Thread.sleep(2000);
+        microwave.checkTimer();
+        Thread.sleep(6000);
+
+
 
         System.out.println("------------------------");
         microwave.switchOff();
