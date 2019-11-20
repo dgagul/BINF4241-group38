@@ -1,7 +1,3 @@
-import javax.management.StandardEmitterMBean;
-
-import static java.lang.Math.toIntExact;
-
 public class MicrowaveThread implements Runnable {
 
     private boolean running;
@@ -13,10 +9,6 @@ public class MicrowaveThread implements Runnable {
         this.time = timeInMillis;
         this.running = false;
         this.microwave = microwave;
-    }
-
-    public MicrowaveThread(){
-        this.time = 1000;
     }
 
     public boolean isRunning() {
@@ -35,7 +27,7 @@ public class MicrowaveThread implements Runnable {
             System.out.println("Microwave finished baking, your meal is ready.");
         } catch (InterruptedException e) {
             running = false;
-            long timerun = System.currentTimeMillis() - MicrowaveIsSet.elapsed;
+            long timerun = System.currentTimeMillis() - MicrowaveIsSet.elapsedMicrowave;
             time -= (int) timerun;
             time /= 1000;
             microwave.update(microwave.temperature, time);

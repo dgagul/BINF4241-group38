@@ -12,12 +12,12 @@ public class OvenIsCooking implements OvenState {
     }
 
     @Override
-    public void setTimer(Integer time) {
+    public void setTimer(int timer) {
         System.out.println("Please interrupt the current cooking, to change the timer.");
     }
 
     @Override
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(int temperature) {
         System.out.println("Please interrupt the current cooking, to change the temperature.");
     }
 
@@ -38,12 +38,21 @@ public class OvenIsCooking implements OvenState {
 
     @Override
     public void interrupt() {
+        OvenIsSet.killT();
         System.out.println("You stopped the cooking :(");
         oven.state = oven.ovenIsSet;
     }
 
     @Override
     public void switchOff() {
-        System.out.println("Please interrupt the current cooking, to switch the oven OFF.");
+        OvenIsSet.killT();
+        System.out.println("Switched the oven OFF.");
+        oven.state = oven.ovenIsOff;
+    }
+
+    public void updateOven(int temperature, int timer, Oven.Program program){
+        oven.temperature = temperature;
+        oven.timer = timer;
+        oven.program = program;
     }
 }

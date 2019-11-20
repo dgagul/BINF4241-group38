@@ -29,16 +29,17 @@ public class MicrowaveIsOn implements MicrowaveState{
     @Override
     public void startBaking() {
         System.out.println("Not all parameters set!");
-        if (microwave.temperature != 0) {
+        if (microwave.temperature == 0) {
             System.out.println("Please set your temperature.");
         }
-        if (microwave.timer != 0) {
+        if (microwave.timer == 0) {
             System.out.println("Please set your timer.");
         }
     }
 
     @Override
     public void checkTimer() {
+        // Todo: update time
         System.out.println(microwave.timer);
     }
 

@@ -13,7 +13,6 @@ public class Oven implements Devices {
     public int timer;
     public int temperature;
     public Program program;
-    public String name;
 
 
     public Oven(){
@@ -59,6 +58,13 @@ public class Oven implements Devices {
     @Override
     public void switchOff() {
         state.switchOff();
+    }
+
+    public void update(int temperature, int timer, Program program){
+        ovenIsOn.updateOven(temperature, timer, program);
+        ovenIsOff.updateOven(temperature, timer, program);
+        ovenIsSet.updateOven(temperature, timer, program);
+        ovenIsCooking.updateOven(temperature, timer, program);
     }
 
 }

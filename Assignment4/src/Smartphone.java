@@ -21,11 +21,13 @@ public class Smartphone {
 
         System.out.println("------------------------");
 
-        microwave.setTimer(20);
+        microwave.setTimer(10);
         microwave.startBaking();
         Thread.sleep(7000);
         microwave.interrupt();
         Thread.sleep(1000);
+        microwave.startBaking();
+        Thread.sleep(4000);
 
         System.out.println("------------------------");
         microwave.switchOff();

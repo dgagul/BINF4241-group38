@@ -53,7 +53,6 @@ public class Microwave implements Devices {
         state.switchOff();
     }
 
-
     public void update(int temperature, int timer){
         microwaveIsOn.updateMicrowave(temperature, timer);
         microwaveIsOff.updateMicrowave(temperature, timer);
