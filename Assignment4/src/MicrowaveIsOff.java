@@ -12,12 +12,12 @@ public class MicrowaveIsOff implements MicrowaveState {
     }
 
     @Override
-    public void setTimer(Integer time) {
+    public void setTimer(int timer) {
         System.out.println("You have to switch the microwave ON first!");
     }
 
     @Override
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(int temperature) {
         System.out.println("You have to switch the microwave ON first!");
     }
 
@@ -39,5 +39,10 @@ public class MicrowaveIsOff implements MicrowaveState {
     @Override
     public void switchOff() {
         System.out.println("The microwave was already OFF!");
+    }
+
+    public void updateMicrowave(int temperature, int timer){
+        microwave.temperature = temperature;
+        microwave.timer = timer;
     }
 }

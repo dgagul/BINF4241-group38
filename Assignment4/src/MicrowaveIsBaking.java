@@ -11,12 +11,12 @@ public class MicrowaveIsBaking implements MicrowaveState {
     }
 
     @Override
-    public void setTimer(Integer time) {
+    public void setTimer(int timer) {
         System.out.println("Please interrupt the current baking, to change the timer.");
     }
 
     @Override
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(int temperature) {
         System.out.println("Please interrupt the current baking, to change the temperature.");
     }
 
@@ -32,12 +32,22 @@ public class MicrowaveIsBaking implements MicrowaveState {
 
     @Override
     public void interrupt() {
+        MicrowaveIsSet.killT();
         System.out.println("You stopped the baking :(");
         microwave.state = microwave.microwaveIsSet;
     }
 
     @Override
     public void switchOff() {
-        System.out.println("Please interrupt the current baking, to switch the microwave OFF.");
+        MicrowaveIsSet.killT();
+        System.out.println("Switched the microwave OFF.");
+        microwave.state = microwave.microwaveIsOff;
+    }
+
+    public void updateMicrowave(int temperature, int timer){
+        microwave.temperature = temperature;
+        microwave.timer = timer;
     }
 }
+
+

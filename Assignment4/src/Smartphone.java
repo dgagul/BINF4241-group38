@@ -4,32 +4,32 @@ import java.util.Scanner;
 
 public class Smartphone {
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws InterruptedException {
         Smartphone IPhoneX = new Smartphone();
-        Microwave microwave = new Microwave("SamsungMicrowave");
-        Oven oven = new Oven("Markus");
+        Microwave microwave = new Microwave();
+        Oven oven = new Oven();
         // Todo: display devices
 
-        microwave.startBaking();
-
-        // Todo: make sure input is not null
-        oven.setProgram(Oven.Program.GRILL);
-
-        System.out.println("------------------------");
 
         microwave.switchOn();
         microwave.setTemperature(150);
+        microwave.setTimer(2);
         microwave.startBaking();
-        microwave.setTimer(40);
+        Thread.sleep(5000);
         microwave.startBaking();
+        Thread.sleep(5000);
 
         System.out.println("------------------------");
 
+        microwave.setTimer(10);
+        microwave.startBaking();
+        Thread.sleep(7000);
         microwave.interrupt();
+        Thread.sleep(1000);
+        microwave.startBaking();
+        Thread.sleep(4000);
 
         System.out.println("------------------------");
-
-        microwave.switchOn();
         microwave.switchOff();
 
     }
