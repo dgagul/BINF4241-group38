@@ -19,7 +19,7 @@ public class DishwasherThread implements Runnable{
             running = true;
 
             dishwasher.state = dishwasher.dishwasherIsRunning;
-            System.out.println("Dishwasher is now washing!");
+
             Thread.sleep(dishwasher.programTime*60000);
             running = false;
             dishwasher.state = dishwasher.dishwasherIsSet;

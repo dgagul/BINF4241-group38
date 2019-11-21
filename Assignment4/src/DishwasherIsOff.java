@@ -11,7 +11,7 @@ public class DishwasherIsOff implements DishwasherState {
 
     @Override
     public void switchOn() {
-        System.out.println("Hello! Dishwasher is now ON.");
+        System.out.println("Dishwasher is now ON.");
         dishwasher.state = dishwasher.dishwasherIsOn; }
 
     @Override

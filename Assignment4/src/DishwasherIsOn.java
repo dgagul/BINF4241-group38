@@ -6,6 +6,8 @@ public class DishwasherIsOn implements DishwasherState {
     DishwasherProgramEnum program;
     private ArrayList<Command> possibleCommands = new ArrayList<Command>();
 
+
+
     // getName() which returns
     // 0 button go back
     DishwasherIsOn(Dishwasher newDishwasher) {
@@ -29,7 +31,15 @@ public class DishwasherIsOn implements DishwasherState {
     public void chooseProgram() {
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
-        System.out.println("Please enter the program (1-5)");
+
+        System.out.println("Which program do you want to chose? \n");
+        System.out.println("1) " + DishwasherProgramEnum.GLASSSES + " - " + DishwasherProgramEnum.GLASSSES.getProgramTime() + " mins.");
+        System.out.println("2) " + DishwasherProgramEnum.PLATES + " - " + DishwasherProgramEnum.PLATES.getProgramTime() + " mins.");
+        System.out.println("3) " + DishwasherProgramEnum.PANS + " - " + DishwasherProgramEnum.PANS.getProgramTime() + " mins.");
+        System.out.println("4) " + DishwasherProgramEnum.MIXED + " - " + DishwasherProgramEnum.MIXED.getProgramTime() + " mins.");
+        System.out.println("5) " + DishwasherProgramEnum.ECO + " - " + DishwasherProgramEnum.ECO.getProgramTime() + " mins. \n");
+
+        System.out.println("Please enter the program of your choice.");
         while (!validInput) {
             String inputbutton = scanner.next();
             if (inputbutton.matches("[1-5]")) {
@@ -42,7 +52,7 @@ public class DishwasherIsOn implements DishwasherState {
 
                 dishwasher.programTime = dishwasher.programEnum.getProgramTime()*60;
                 dishwasher.program = Integer.parseInt(inputbutton);
-                System.out.println("You chose program " + dishwasher.programEnum + ". This program runs for " +
+                System.out.println("You chose program " + dishwasher.programEnum + ". \nThis program runs for " +
                         dishwasher.programTime/60 + " minutes.");
                 dishwasher.state = dishwasher.dishwasherIsSet;
                 validInput = true; }

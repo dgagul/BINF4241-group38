@@ -30,10 +30,13 @@ public class Dishwasher implements Devices{
     public String getName() {
         return "Dishwasher";}
 
+
+
     @Override
     public ArrayList<Command> possibleCommands() {
         return state.possibleCommands();
     }
+
     @Override
     public void switchOn() {
             state.switchOn();
@@ -41,7 +44,8 @@ public class Dishwasher implements Devices{
 
     public void checkTimer() {state.checkTimer(); }
 
-    public void chooseProgram(){ state.chooseProgram();}
+    public void chooseProgram(){
+        state.chooseProgram();}
 
     public void startDishwasher(){ state.startDishwasher(); }
 

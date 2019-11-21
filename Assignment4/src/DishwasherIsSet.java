@@ -51,7 +51,7 @@ public class DishwasherIsSet implements DishwasherState {
 
     @Override
     public void startDishwasher(){
-        System.out.println("Dishwasher has started");
+        System.out.println("Dishwasher has started!");
         if (!washing.isRunning()){
             washing = new DishwasherThread(dishwasher.programTime, dishwasher);
             myThreadDishwasher = new Thread(washing);
