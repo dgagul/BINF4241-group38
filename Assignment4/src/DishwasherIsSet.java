@@ -8,12 +8,12 @@ public class DishwasherIsSet implements DishwasherState {
     public static DishwasherThread washing;
     public static Thread myThreadDishwasher;
 
-    ArrayList<String> possibleCommands = new ArrayList<String>(){
+    ArrayList<Command> possibleCommands = new ArrayList<Command>(){
         {
-            add("Start dishwasher");
-            add("Choose program");
-            add("Check timer");
-            add("Switch off");
+            add(new DishwasherStartDishwasherCommand(dishwasher));
+            add(new DishwasherchooseProgramCommand(dishwasher));
+            add(new DishwasherCheckTimerCommand(dishwasher));
+            add(new DishwasherSwitchOffCommand(dishwasher));
         }
     };
 
@@ -31,34 +31,27 @@ public class DishwasherIsSet implements DishwasherState {
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
         System.out.println("Please enter the program (1-5)");
-        while(!validInput){
+        while (!validInput) {
             String inputbutton = scanner.next();
-            if (inputbutton.matches("[1-5]")){
-                switch(Integer.parseInt(inputbutton)){
-                    case 1: dishwasher.programEnum = DishwasherProgramEnum.GLASSSES;
-                        break;
-                    case 2: dishwasher.programEnum = DishwasherProgramEnum.PLATES;
-                        break;
-                    case 3: dishwasher.programEnum = DishwasherProgramEnum.PANS;
-                        break;
-                    case 4: dishwasher.programEnum = DishwasherProgramEnum.MIXED;
-                        break;
-                    case 5: dishwasher.programEnum = DishwasherProgramEnum.ECO;
-                        break;}
+            if (inputbutton.matches("[1-5]")) {
+                int inputInt =  (Integer.parseInt(inputbutton));
+                if (inputInt == 1){ dishwasher.programEnum = DishwasherProgramEnum.GLASSSES;}
+                else if(inputInt == 2){ dishwasher.programEnum = DishwasherProgramEnum.PLATES;}
+                else if(inputInt == 3){ dishwasher.programEnum = DishwasherProgramEnum.PANS; }
+                else if (inputInt == 4) { dishwasher.programEnum = DishwasherProgramEnum.MIXED; }
+                else if(inputInt == 5) {dishwasher.programEnum = DishwasherProgramEnum.ECO;}
 
-                validInput = true;
+                dishwasher.programTime = dishwasher.programEnum.getProgramTime();
+                dishwasher.program = Integer.parseInt(inputbutton);
+                System.out.println("You chose program " + dishwasher.programEnum + ". This program runs for " +
+                        dishwasher.programTime + " minutes.");
+                dishwasher.state = dishwasher.dishwasherIsSet;
+                validInput = true; }
 
-            }
-            else{System.out.print("Please enter a program between 1-5.");}
+            else { System.out.print("Please enter a program between 1-5."); }
+        }
+    }
 
-            dishwasher.programTime = dishwasher.programEnum.getProgramTime();
-            dishwasher.program = Integer.parseInt(inputbutton);
-            System.out.println("You chose program " + dishwasher.programEnum
-                    +". This program runs for " + dishwasher.programTime +" minutes.");
-            dishwasher.state = dishwasher.dishwasherIsSet;}}
-
-
-    // Todo: thread things with timer
     @Override
     public void startDishwasher(){
         System.out.println("Dishwasher has started");
@@ -67,10 +60,7 @@ public class DishwasherIsSet implements DishwasherState {
             myThreadDishwasher = new Thread(washing);
             elapsedDishwasher = System.currentTimeMillis();
             myThreadDishwasher.start();
-            dishwasher.state = dishwasher.dishwasherIsRunning;;}
-        }
-
-
+            dishwasher.state = dishwasher.dishwasherIsRunning;;} }
 
     @Override
     public void checkTimer(){
@@ -84,5 +74,6 @@ public class DishwasherIsSet implements DishwasherState {
         System.out.println("Dishwasher is off. Goodnight.");
         dishwasher.state = dishwasher.dishwasherIsOff;}
 
+    public static void killThread() {myThreadDishwasher.interrupt();}
 
 }

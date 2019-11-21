@@ -14,28 +14,6 @@ public class Smartphone {
 
         // Todo: display devices
 
-        Scanner scanner = new Scanner(System.in);
-
-        boolean validInput = false;
-        System.out.println("#########  Menu  #########");
-        System.out.println("--------------------------");
-        System.out.println("   Hello! Your devices:   ");
-        System.out.println("--------------------------");
-        System.out.println("  1) Cleaning robot       ");
-        System.out.println("  2) Dishwasher           ");
-        System.out.println("  3) Microwave            ");
-        System.out.println("  4) Oven                 ");
-        System.out.println("  5) Washing machine      ");
-        System.out.println("--------------------------");
-        while (!validInput) {
-            System.out.println("Which device do you want?");
-            String inputbutton = scanner.next();
-            if (inputbutton.matches("[1-5]")) {
-            }
-
-
-            else { System.out.print("Please enter a program between 1-5."); }
-        }
 
         dishwasher.switchOn();
         dishwasher.chooseProgram();

@@ -4,13 +4,15 @@ import java.util.Scanner;
 public class DishwasherIsOn implements DishwasherState {
     private Dishwasher dishwasher;
     DishwasherProgramEnum program;
-    ArrayList<String> possibleCommands = new ArrayList<String>(){
+    ArrayList<Command> possibleCommands = new ArrayList<Command>(){
         {
-            add("Choose program");
-            add("Switch off");
+            add(new DishwasherchooseProgramCommand(dishwasher));
+            add(new DishwasherSwitchOffCommand(dishwasher));
         }
     };
 
+    // getName() which returns
+    // 0 button go back
     DishwasherIsOn(Dishwasher newDishwasher) {
         this.dishwasher = newDishwasher; }
 
@@ -26,22 +28,13 @@ public class DishwasherIsOn implements DishwasherState {
         while (!validInput) {
             String inputbutton = scanner.next();
             if (inputbutton.matches("[1-5]")) {
-                switch (Integer.parseInt(inputbutton)) {
-                    case 1:
-                        dishwasher.programEnum = DishwasherProgramEnum.GLASSSES;
-                        break;
-                    case 2:
-                        dishwasher.programEnum = DishwasherProgramEnum.PLATES;
-                        break;
-                    case 3:
-                        dishwasher.programEnum = DishwasherProgramEnum.PANS;
-                        break;
-                    case 4:
-                        dishwasher.programEnum = DishwasherProgramEnum.MIXED;
-                        break;
-                    case 5:
-                        dishwasher.programEnum = DishwasherProgramEnum.ECO;
-                        break;}
+                int inputInt =  (Integer.parseInt(inputbutton));
+                if (inputInt == 1){ dishwasher.programEnum = DishwasherProgramEnum.GLASSSES;}
+                else if(inputInt == 2){ dishwasher.programEnum = DishwasherProgramEnum.PLATES;}
+                else if(inputInt == 3){ dishwasher.programEnum = DishwasherProgramEnum.PANS; }
+                else if (inputInt == 4) { dishwasher.programEnum = DishwasherProgramEnum.MIXED; }
+                else if(inputInt == 5) {dishwasher.programEnum = DishwasherProgramEnum.ECO;}
+
                 dishwasher.programTime = dishwasher.programEnum.getProgramTime();
                 dishwasher.program = Integer.parseInt(inputbutton);
                 System.out.println("You chose program " + dishwasher.programEnum + ". This program runs for " +
@@ -74,6 +67,7 @@ public class DishwasherIsOn implements DishwasherState {
     public void switchOff() {
         System.out.println("Goodnight.");
         dishwasher.state = dishwasher.dishwasherIsOff;}
+
 }
 
 

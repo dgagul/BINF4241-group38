@@ -3,9 +3,9 @@ import java.util.ArrayList;
 public class DishwasherIsOff implements DishwasherState {
     Dishwasher dishwasher;
     DishwasherProgramEnum programEnum;
-    ArrayList<String> possibleCommands = new ArrayList<String>(){
+    ArrayList<Command> possibleCommands = new ArrayList<Command>(){
         {
-            add("Switch on");
+            add(new DishwasherSwitchOnCommand(dishwasher));
         }
     };
 
@@ -17,23 +17,18 @@ public class DishwasherIsOff implements DishwasherState {
         dishwasher.state = dishwasher.dishwasherIsOn; }
 
     @Override
-    public void chooseProgram(){
-        System.out.println("You have to switch on the dishwasher first!"); }
+    public void chooseProgram(){ System.out.println("You have to switch on the dishwasher first!"); }
 
     @Override
-    public void startDishwasher(){
-        System.out.println("You have to switch on the dishwasher first!"); }
+    public void startDishwasher(){ System.out.println("You have to switch on the dishwasher first!"); }
 
     @Override
-    public void checkTimer(){
-        System.out.println("You have to switch on the dishwasher first!"); }
+    public void checkTimer(){ System.out.println("You have to switch on the dishwasher first!"); }
 
     @Override
-    public void stopDishwasher(){
-        System.out.println("The dishwasher is not even on!"); }
+    public void stopDishwasher(){ System.out.println("The dishwasher is not even on!"); }
 
     @Override
-    public void switchOff() {
-        System.out.println("Dishwasher is already off!"); }
+    public void switchOff() {System.out.println("Dishwasher is already off!"); }
 
 }

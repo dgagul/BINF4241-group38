@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
 public class DishwasherIsRunning implements DishwasherState {
-    Dishwasher dishwasher;
-    ArrayList<String> possibleCommands = new ArrayList<>(){
+    private Dishwasher dishwasher;
+    ArrayList<Command> possibleCommands = new ArrayList<Command>(){
         {
-            add("Check timer");
-            add("Stop dishwasher");
-            add("Switch off");
+            add(new DishwasherCheckTimerCommand(dishwasher));
+            add(new DishwasherStopDishwasherCommand(dishwasher));
+            add(new DishwasherSwitchOffCommand(dishwasher));
         }
     };
 
@@ -24,6 +24,7 @@ public class DishwasherIsRunning implements DishwasherState {
     public void startDishwasher() {
         System.out.print("The dishwasher is already running!");}
 
+        //TODO Checktimer does not work!
     @Override
     public void checkTimer(){
         int actualtimer = dishwasher.programTime;
@@ -37,8 +38,9 @@ public class DishwasherIsRunning implements DishwasherState {
     @Override
     public void stopDishwasher() {
         System.out.println("You stopped the Dishwasher.");
+        DishwasherIsSet.killThread();
         dishwasher.state = dishwasher.dishwasherIsSet;
-        dishwasher.programTime = dishwasher.programEnum.getProgramTime();}
+        // in kill thread dishwasher.programTime = dishwasher.programEnum.getProgramTime();}
 
-}
+}}
 

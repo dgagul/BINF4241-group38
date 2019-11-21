@@ -28,6 +28,9 @@ public class Dishwasher implements Devices{
         this.programTime = -1;
         }
 
+    public String getName() {
+        return "Dishwasher";}
+
     @Override
     public void switchOn() {
             state.switchOn();
