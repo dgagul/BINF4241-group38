@@ -11,7 +11,6 @@ public class OvenSetProgramCommand implements Command {
     public void execute() {
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
-        // Todo: display in menu
         System.out.print("Please choose your program (type 1 for GRILL or 2 for VENTILATED): ");
 
         while (!validInput) {
