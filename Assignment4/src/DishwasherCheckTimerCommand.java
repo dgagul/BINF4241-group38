@@ -8,4 +8,11 @@ public class DishwasherCheckTimerCommand implements Command {
     public void execute() {
         dishwasher.checkTimer();
     }
+
+    @Override
+    public String getName() {
+        return "Check timer";
+    }
+
+
 }

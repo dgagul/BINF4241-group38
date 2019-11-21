@@ -10,5 +10,11 @@ public class DishwasherSwitchOnCommand implements Command {
         dishwasher.switchOn();
     }
 
+    @Override
+    public String getName() {
+        return "Switch on";
+    }
+
+
 
 }

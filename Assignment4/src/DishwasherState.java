@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public interface DishwasherState {
 
     public void switchOn();
@@ -7,4 +9,6 @@ public interface DishwasherState {
     public void stopDishwasher();
     public void switchOff();
     public void killThread();
+
+    ArrayList<Command> possibleCommands();
 }

@@ -26,9 +26,14 @@ public class Dishwasher implements Devices{
         this.programTime = -1;
         }
 
+    @Override
     public String getName() {
         return "Dishwasher";}
 
+    @Override
+    public ArrayList<Command> possibleCommands() {
+        return state.possibleCommands();
+    }
     @Override
     public void switchOn() {
             state.switchOn();
@@ -48,10 +53,4 @@ public class Dishwasher implements Devices{
     public void switchOff() {
             state.switchOff();
         }
-
-    @Override
-    public ArrayList<String> possibleCommands() {
-        return null;
-    }
-
 }

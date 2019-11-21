@@ -4,20 +4,22 @@ import java.util.Scanner;
 public class DishwasherIsOn implements DishwasherState {
     private Dishwasher dishwasher;
     DishwasherProgramEnum program;
-    ArrayList<Command> possibleCommands = new ArrayList<Command>(){
-        {
-            add(new DishwasherchooseProgramCommand(dishwasher));
-            add(new DishwasherSwitchOffCommand(dishwasher));
-        }
-    };
+    private ArrayList<Command> possibleCommands = new ArrayList<Command>();
 
     // getName() which returns
     // 0 button go back
     DishwasherIsOn(Dishwasher newDishwasher) {
-        this.dishwasher = newDishwasher; }
+        this.dishwasher = newDishwasher;
+        possibleCommands.add(new DishwasherchooseProgramCommand(dishwasher));
+        possibleCommands.add(new DishwasherSwitchOffCommand(dishwasher));}
 
     @Override
     public void killThread() {}
+
+    @Override
+    public ArrayList<Command> possibleCommands() {
+        return possibleCommands;
+    }
 
     @Override
     public void switchOn() {

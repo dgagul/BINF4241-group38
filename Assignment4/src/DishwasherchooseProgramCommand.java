@@ -9,4 +9,10 @@ public class DishwasherchooseProgramCommand implements Command {
 
     @Override
     public void execute() { dishwasher.chooseProgram(); }
+
+    @Override
+    public String getName() {
+        return "Choose program";
+    }
+
 }

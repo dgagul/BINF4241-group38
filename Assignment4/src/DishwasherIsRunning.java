@@ -2,16 +2,13 @@ import java.util.ArrayList;
 
 public class DishwasherIsRunning implements DishwasherState {
     private Dishwasher dishwasher;
-    ArrayList<Command> possibleCommands = new ArrayList<Command>(){
-        {
-            add(new DishwasherCheckTimerCommand(dishwasher));
-            add(new DishwasherStopDishwasherCommand(dishwasher));
-            add(new DishwasherSwitchOffCommand(dishwasher));
-        }
-    };
+    ArrayList<Command> possibleCommands = new ArrayList<Command>();
 
     DishwasherIsRunning(Dishwasher newDishwasher){
-        this.dishwasher = newDishwasher; }
+        this.dishwasher = newDishwasher;
+        possibleCommands.add(new DishwasherCheckTimerCommand(dishwasher));
+        possibleCommands.add(new DishwasherStopDishwasherCommand(dishwasher));
+        possibleCommands.add(new DishwasherSwitchOffCommand(dishwasher));}
 
     @Override
     public void switchOn(){
@@ -40,6 +37,11 @@ public class DishwasherIsRunning implements DishwasherState {
 
     @Override
     public void killThread() {}
+
+    @Override
+    public ArrayList<Command> possibleCommands() {
+        return possibleCommands;
+    }
 
 
     @Override

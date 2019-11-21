@@ -6,4 +6,10 @@ public class DishwasherStartDishwasherCommand implements Command {
     @Override
     public void execute() {dishwasher.startDishwasher();}
 
+    @Override
+    public String getName() {
+        return "Start dishwasher";
+    }
+
+
 }

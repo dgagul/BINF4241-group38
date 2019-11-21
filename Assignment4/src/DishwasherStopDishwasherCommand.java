@@ -6,4 +6,10 @@ public class DishwasherStopDishwasherCommand implements Command {
     @Override
     public void execute(){ dishwasher.stopDishwasher();}
 
+    @Override
+    public String getName() {
+        return "Stop dishwasher";
+    }
+
+
 }

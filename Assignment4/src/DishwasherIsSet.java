@@ -8,18 +8,15 @@ public class DishwasherIsSet implements DishwasherState {
     public static DishwasherThread washing;
     public static Thread myThreadDishwasher;
 
-    ArrayList<Command> possibleCommands = new ArrayList<Command>(){
-        {
-            add(new DishwasherStartDishwasherCommand(dishwasher));
-            add(new DishwasherchooseProgramCommand(dishwasher));
-            add(new DishwasherCheckTimerCommand(dishwasher));
-            add(new DishwasherSwitchOffCommand(dishwasher));
-        }
-    };
+    ArrayList<Command> possibleCommands = new ArrayList<Command>();
 
     DishwasherIsSet(Dishwasher newDishwasher) {
         this.dishwasher = newDishwasher;
         washing = new DishwasherThread(dishwasher.programTime, dishwasher);
+        possibleCommands.add(new DishwasherStartDishwasherCommand(dishwasher));
+        possibleCommands.add(new DishwasherchooseProgramCommand(dishwasher));
+        possibleCommands.add(new DishwasherCheckTimerCommand(dishwasher));
+        possibleCommands.add(new DishwasherSwitchOffCommand(dishwasher));
     }
 
     @Override
@@ -77,5 +74,10 @@ public class DishwasherIsSet implements DishwasherState {
     @Override
     public void killThread() {myThreadDishwasher.interrupt();
         dishwasher.programTime = dishwasher.programEnum.getProgramTime();}
+
+    @Override
+    public ArrayList<Command> possibleCommands() {
+        return possibleCommands;
+    }
 
 }

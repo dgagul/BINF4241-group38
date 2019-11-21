@@ -3,13 +3,11 @@ import java.util.ArrayList;
 public class DishwasherIsOff implements DishwasherState {
     Dishwasher dishwasher;
     DishwasherProgramEnum programEnum;
-    ArrayList<Command> possibleCommands = new ArrayList<Command>(){
-        {
-            add(new DishwasherSwitchOnCommand(dishwasher));
-        }
-    };
+    private ArrayList<Command> possibleCommands = new ArrayList<Command>();
 
-    DishwasherIsOff(Dishwasher newDishwasher) {this.dishwasher = newDishwasher;}
+    DishwasherIsOff(Dishwasher newDishwasher) {
+        this.dishwasher = newDishwasher;
+    possibleCommands.add(new DishwasherSwitchOnCommand(dishwasher));}
 
     @Override
     public void switchOn() {
@@ -34,4 +32,11 @@ public class DishwasherIsOff implements DishwasherState {
     @Override
     public void killThread() {}
 
+    @Override
+    public ArrayList<Command> possibleCommands() {
+        return possibleCommands;
+    }
+
 }
+
+
