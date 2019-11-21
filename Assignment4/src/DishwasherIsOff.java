@@ -31,4 +31,7 @@ public class DishwasherIsOff implements DishwasherState {
     @Override
     public void switchOff() {System.out.println("Dishwasher is already off!"); }
 
+    @Override
+    public void killThread() {}
+
 }

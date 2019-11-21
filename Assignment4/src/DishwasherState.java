@@ -6,5 +6,5 @@ public interface DishwasherState {
     public void checkTimer();
     public void stopDishwasher();
     public void switchOff();
-
+    public void killThread();
 }

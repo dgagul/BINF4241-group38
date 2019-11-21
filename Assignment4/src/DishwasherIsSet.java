@@ -19,7 +19,7 @@ public class DishwasherIsSet implements DishwasherState {
 
     DishwasherIsSet(Dishwasher newDishwasher) {
         this.dishwasher = newDishwasher;
-        washing = new DishwasherThread(dishwasher.programTime, dishwasher);
+        washing = new DishwasherThread(dishwasher.timer, dishwasher);
     }
 
     @Override
@@ -46,6 +46,7 @@ public class DishwasherIsSet implements DishwasherState {
                 System.out.println("You chose program " + dishwasher.programEnum + ". This program runs for " +
                         dishwasher.programTime + " minutes.");
                 dishwasher.state = dishwasher.dishwasherIsSet;
+                dishwasher.timer = dishwasher.programTime;
                 validInput = true; }
 
             else { System.out.print("Please enter a program between 1-5."); }
@@ -56,15 +57,15 @@ public class DishwasherIsSet implements DishwasherState {
     public void startDishwasher(){
         System.out.println("Dishwasher has started");
         if (!washing.isRunning()){
-            washing = new DishwasherThread(dishwasher.programTime, dishwasher);
+            washing = new DishwasherThread(dishwasher.timer, dishwasher);
             myThreadDishwasher = new Thread(washing);
             elapsedDishwasher = System.currentTimeMillis();
             myThreadDishwasher.start();
-            dishwasher.state = dishwasher.dishwasherIsRunning;;} }
+            dishwasher.state = dishwasher.dishwasherIsRunning;} }
 
     @Override
     public void checkTimer(){
-        System.out.println("You chose program " + dishwasher.program + ") " + dishwasher.programEnum + "and it runs" + dishwasher.programTime);}
+        System.out.println("You chose program " + dishwasher.program + ") " + dishwasher.programEnum + " and it runs  " + dishwasher.programTime + " minutes");}
 
     @Override
     public void stopDishwasher() {System.out.println("The dishwasher is not even washing!");}
@@ -74,6 +75,8 @@ public class DishwasherIsSet implements DishwasherState {
         System.out.println("Dishwasher is off. Goodnight.");
         dishwasher.state = dishwasher.dishwasherIsOff;}
 
-    public static void killThread() {myThreadDishwasher.interrupt();}
+    @Override
+    public void killThread() {myThreadDishwasher.interrupt();
+        dishwasher.programTime = dishwasher.programEnum.getProgramTime();}
 
 }

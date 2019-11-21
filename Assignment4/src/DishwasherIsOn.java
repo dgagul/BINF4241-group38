@@ -17,6 +17,9 @@ public class DishwasherIsOn implements DishwasherState {
         this.dishwasher = newDishwasher; }
 
     @Override
+    public void killThread() {}
+
+    @Override
     public void switchOn() {
         System.out.println("The dishwasher is already ON!");}
 
@@ -55,7 +58,7 @@ public class DishwasherIsOn implements DishwasherState {
     @Override
     public void checkTimer() {
         if(dishwasher.programTime == -1){
-            System.out.println("Choose a pogram first!");}
+            System.out.println("Choose a program first!");}
         else{
             System.out.println("Dishwasher's timer is set to " + dishwasher.programTime);}
     }
@@ -65,7 +68,7 @@ public class DishwasherIsOn implements DishwasherState {
 
     @Override
     public void switchOff() {
-        System.out.println("Goodnight.");
+        System.out.println("Dishwasher is switched off.");
         dishwasher.state = dishwasher.dishwasherIsOff;}
 
 }

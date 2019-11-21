@@ -27,8 +27,9 @@ public class DishwasherThread implements Runnable{
         } catch (InterruptedException e) {
             running = false;
             long timerun = System.currentTimeMillis() - DishwasherIsSet.elapsedDishwasher;
-            double currentT = Math.floor(timerun/1000);
-            dishwasher.programTime -= (int) currentT;
+            double time = Math.floor(timerun/1000);
+            dishwasher.timer = dishwasher.timer - (int) time;
+
 
         }
 

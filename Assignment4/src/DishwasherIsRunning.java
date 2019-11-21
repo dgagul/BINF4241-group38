@@ -26,19 +26,26 @@ public class DishwasherIsRunning implements DishwasherState {
 
         //TODO Checktimer does not work!
     @Override
-    public void checkTimer(){
-        int actualtimer = dishwasher.programTime;
-        System.out.println("The dishwasher has finished in " + actualtimer + "minutes"); }
-
+    public void checkTimer() {
+        long timerun = System.currentTimeMillis() - DishwasherIsSet.elapsedDishwasher;
+        double time = Math.floor(timerun / 1000);
+        dishwasher.timer = dishwasher.timer - (int) time;
+        DishwasherIsSet.elapsedDishwasher = System.currentTimeMillis();
+        System.out.println(dishwasher.timer + " seconds left.");
+    }
     @Override
     public void switchOff() {
         System.out.println("The dishwaser is swiched off. Goodbye!");
         dishwasher.state = dishwasher.dishwasherIsOff;}
 
     @Override
+    public void killThread() {}
+
+
+    @Override
     public void stopDishwasher() {
         System.out.println("You stopped the Dishwasher.");
-        DishwasherIsSet.killThread();
+        dishwasher.dishwasherIsSet.killThread();
         dishwasher.state = dishwasher.dishwasherIsSet;
         // in kill thread dishwasher.programTime = dishwasher.programEnum.getProgramTime();}
 

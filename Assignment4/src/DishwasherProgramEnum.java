@@ -1,5 +1,5 @@
 public enum DishwasherProgramEnum {
-    GLASSSES(30),
+    GLASSSES(1),
     PLATES(60),
     PANS(80),
     MIXED(75),
