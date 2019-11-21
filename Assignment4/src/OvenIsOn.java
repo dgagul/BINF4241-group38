@@ -24,9 +24,7 @@ public class OvenIsOn implements OvenState {
         oven.timer = timer;
         oven.update(oven.temperature, timer, oven.program);
         System.out.println("Timer is set to " + timer + " seconds.");
-        if (oven.program != null && oven.temperature != 0 && oven.timer != 0){
-            oven.state = oven.ovenIsSet;
-        }
+        if (oven.program != null && oven.temperature != 0 && oven.timer != 0){oven.state = oven.ovenIsSet;}
     }
 
     @Override
@@ -34,9 +32,7 @@ public class OvenIsOn implements OvenState {
         oven.temperature = temperature;
         oven.update(temperature, oven.timer, oven.program);
         System.out.println("Temperature is set to " + temperature + " degrees.");
-        if (oven.program != null && oven.temperature != 0 && oven.timer != 0){
-            oven.state = oven.ovenIsSet;
-        }
+        if (oven.program != null && oven.temperature != 0 && oven.timer != 0){oven.state = oven.ovenIsSet;}
     }
 
     @Override
