@@ -55,6 +55,7 @@ public class OvenIsSet implements OvenState {
             myThreadOven = new Thread(cooking);
             elapsedOven = System.currentTimeMillis();
             myThreadOven.start();
+            oven.state = oven.ovenIsCooking;
         }
     }
 
