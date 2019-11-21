@@ -36,7 +36,9 @@ public class SmartphoneDevices implements SmartphoneState {
                 smartphone.smartphoneFunctions.setDevice(device);
                 smartphone.state = smartphone.smartphoneFunctions;
             }
-            System.out.println("Invalid input");
+            else {
+                System.out.println("Invalid input");
+            }
         }
 
         // Todo: clear the interpreter console
