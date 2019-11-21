@@ -10,5 +10,10 @@ public class MicrowaveSwitchOffCommand implements Command {
         microwave.switchOff();
     }
 
+    @Override
+    public String getName() {
+        return "Switch off";
+    }
+
 }
 

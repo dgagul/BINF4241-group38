@@ -11,4 +11,9 @@ public class MicrowaveInterruptCommand implements Command{
         microwave.interrupt();
     }
 
+    @Override
+    public String getName() {
+        return "Interrupt baking";
+    }
+
 }

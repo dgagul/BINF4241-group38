@@ -2,14 +2,12 @@ import java.util.ArrayList;
 
 public class MicrowaveIsOff implements MicrowaveState {
     Microwave microwave;
-    ArrayList<String> possibleCommands = new ArrayList<String>() {
-        {
-            add("Switch on");
-        }
-    };
+    ArrayList<Command> possibleCommands;
 
-    public MicrowaveIsOff(Microwave newMicrowave){
-        this.microwave = newMicrowave;
+    public MicrowaveIsOff(Microwave aMicrowave){
+        microwave = aMicrowave;
+        possibleCommands = new ArrayList<>();
+        possibleCommands.add(new MicrowaveSwitchOnCommand(microwave));
     }
 
     @Override
@@ -49,7 +47,7 @@ public class MicrowaveIsOff implements MicrowaveState {
     }
 
     @Override
-    public ArrayList<String> possibleCommands() {
+    public ArrayList<Command> possibleCommands() {
         return possibleCommands;
     }
 

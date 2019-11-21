@@ -14,10 +14,10 @@ public class Oven implements Devices {
     public int timer;
     public int temperature;
     public Program program;
-    public String name;
+    //public String name;
 
 
-    public Oven(String name){
+    public Oven(){
         this.ovenIsOff = new OvenIsOff(this);
         this.ovenIsOn = new OvenIsOn(this);
         this.ovenIsSet = new OvenIsSet(this);
@@ -65,7 +65,7 @@ public class Oven implements Devices {
 
     @Override
     public String getName() {
-        return name;
+        return "Oven";
     }
 
     @Override

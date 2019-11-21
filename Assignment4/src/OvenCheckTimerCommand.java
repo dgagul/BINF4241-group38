@@ -11,4 +11,9 @@ public class OvenCheckTimerCommand implements Command {
         oven.checkTimer();
     }
 
+    @Override
+    public String getName() {
+        return "Check timer";
+    }
+
 }

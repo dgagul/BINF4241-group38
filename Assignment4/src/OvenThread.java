@@ -18,6 +18,7 @@ public class OvenThread implements Runnable {
     @Override
     public void run() {
         try {
+            Thread.sleep(100);
             running = true;
             oven.state = oven.ovenIsCooking;
             System.out.println("Oven is now baking!");

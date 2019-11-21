@@ -11,7 +11,7 @@ public class OvenSetTimerCommand implements Command {
     public void execute() {
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
-        System.out.println("Please enter how long you want your timer:");
+        System.out.print("Please enter how long you want your timer: ");
         while(!validInput){
             String time = scanner.next();
             if (time.matches("^[0-9]*$")){
@@ -19,6 +19,11 @@ public class OvenSetTimerCommand implements Command {
                 validInput = true;
             }
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Set timer";
     }
 
 }

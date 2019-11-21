@@ -10,5 +10,10 @@ public class OvenSwitchOffCommand implements Command {
         oven.switchOff();
     }
 
+    @Override
+    public String getName() {
+        return "Switch off";
+    }
+
 }
 
