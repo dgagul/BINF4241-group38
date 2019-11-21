@@ -22,7 +22,7 @@ public class OvenSetProgramCommand implements Command {
                 oven.setProgram(Oven.Program.VENTILATED);
                 validInput = true;
             } else {
-                System.out.println("Wrong input!");
+                System.out.println("Invalid input!");
                 System.out.println("Please choose your program (type 1 for GRILL or 2 for VENTILATED):");
             }
         }

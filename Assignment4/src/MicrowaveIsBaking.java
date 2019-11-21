@@ -46,7 +46,9 @@ public class MicrowaveIsBaking implements MicrowaveState {
     public void interrupt() {
         MicrowaveIsSet.killT();
         System.out.println("You stopped the baking :(");
-        microwave.state = microwave.microwaveIsSet;
+        updateMicrowave(0,0);
+        microwave.state = microwave.microwaveIsOn;
+
     }
 
     @Override

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class DishwasherIsRunning implements DishwasherState {
     private Dishwasher dishwasher;
-    ArrayList<Command> possibleCommands = new ArrayList<Command>();
+    private ArrayList<Command> possibleCommands = new ArrayList<Command>();
 
     DishwasherIsRunning(Dishwasher newDishwasher){
         this.dishwasher = newDishwasher;
@@ -32,7 +32,7 @@ public class DishwasherIsRunning implements DishwasherState {
     }
     @Override
     public void switchOff() {
-        System.out.println("The dishwaser is swiched off. Goodbye!");
+        System.out.println("The dishwasher is switched off. Goodbye!");
         dishwasher.state = dishwasher.dishwasherIsOff;}
 
     @Override
@@ -48,8 +48,6 @@ public class DishwasherIsRunning implements DishwasherState {
     public void stopDishwasher() {
         System.out.println("You stopped the Dishwasher.");
         dishwasher.dishwasherIsSet.killThread();
-        dishwasher.state = dishwasher.dishwasherIsSet;
-        // in kill thread dishwasher.programTime = dishwasher.programEnum.getProgramTime();}
-
+        dishwasher.state = dishwasher.dishwasherIsOn;
 }}
 
