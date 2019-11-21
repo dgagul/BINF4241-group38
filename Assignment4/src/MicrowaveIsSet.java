@@ -54,7 +54,6 @@ public class MicrowaveIsSet implements MicrowaveState {
 
     @Override
     public void checkTimer() {
-        // Todo: update timer
         System.out.println("Timer is set to " + microwave.timer + " seconds.");
     }
 
