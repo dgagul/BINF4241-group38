@@ -11,10 +11,10 @@ public class Microwave implements Devices {
 
     public int timer;
     public int temperature;
-    public String name;
+    //public String name;
 
 
-    public Microwave(String name){
+    public Microwave(){
         this.microwaveIsOff = new MicrowaveIsOff(this);
         this.microwaveIsOn = new MicrowaveIsOn(this);
         this.microwaveIsSet = new MicrowaveIsSet(this);
@@ -23,7 +23,7 @@ public class Microwave implements Devices {
 
         this.timer = 0;
         this.temperature = 0;
-        this.name = name;
+        //this.name = name;
     }
 
     @Override
@@ -58,11 +58,11 @@ public class Microwave implements Devices {
 
     @Override
     public String getName() {
-        return name;
+        return "Microwave";
     }
 
     @Override
-    public ArrayList<String> possibleCommands() {
+    public ArrayList<Command> possibleCommands() {
         return state.possibleCommands();
     }
 

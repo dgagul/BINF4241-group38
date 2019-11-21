@@ -11,7 +11,7 @@ public class OvenSetTemperatureCommand implements Command {
     public void execute() {
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
-        System.out.println("Please enter the amount of degrees:");
+        System.out.print("Please enter the amount of degrees: ");
         while(!validInput){
             String temperature = scanner.next();
             if (temperature.matches("^[0-9]*$")){
@@ -19,6 +19,11 @@ public class OvenSetTemperatureCommand implements Command {
                 validInput = true;
             }
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Set temperature";
     }
 
 }

@@ -2,22 +2,21 @@ import java.util.ArrayList;
 
 public class MicrowaveIsSet implements MicrowaveState {
     Microwave microwave;
-    ArrayList<String> possibleCommands = new ArrayList<String>() {
-        {
-            add("Set timer");
-            add("Set temperature");
-            add("Start baking");
-            add("Switch off");
-        }
-    };
+    ArrayList<Command> possibleCommands;
+
 
     public static long elapsedMicrowave = System.currentTimeMillis();
     public static MicrowaveThread baking;
     public static Thread myThreadMicrowave;
 
 
-    public MicrowaveIsSet(Microwave microwave){
-        this.microwave = microwave;
+    public MicrowaveIsSet(Microwave newMicrowave){
+        microwave = newMicrowave;
+        possibleCommands = new ArrayList<>();
+        possibleCommands.add(new MicrowaveSetTimerCommand(microwave));
+        possibleCommands.add(new MicrowaveSetTemperatureCommand(microwave));
+        possibleCommands.add(new MicrowaveStartBakingCommand(microwave));
+        possibleCommands.add(new MicrowaveSwitchOffCommand(microwave));
         baking = new MicrowaveThread(microwave.timer, microwave);
     }
 
@@ -49,6 +48,7 @@ public class MicrowaveIsSet implements MicrowaveState {
             myThreadMicrowave = new Thread(baking);
             elapsedMicrowave = System.currentTimeMillis();
             myThreadMicrowave.start();
+            microwave.state = microwave.microwaveIsBaking;
         }
     }
 
@@ -69,7 +69,7 @@ public class MicrowaveIsSet implements MicrowaveState {
     }
 
     @Override
-    public ArrayList<String> possibleCommands() {
+    public ArrayList<Command> possibleCommands() {
         return possibleCommands;
     }
 

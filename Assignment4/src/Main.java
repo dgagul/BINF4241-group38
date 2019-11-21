@@ -4,20 +4,21 @@ public class Main {
 
         //create Devices
         Smartphone IPhoneX = new Smartphone();
-        Dishwasher dishwasher = new Dishwasher();
+        Microwave microwave = new Microwave();
+        Oven oven = new Oven();
 
-        dishwasher.switchOn();
-        dishwasher.chooseProgram();
-        dishwasher.startDishwasher();
-        Thread.sleep(2000);
-        dishwasher.checkTimer();
-        Thread.sleep(60000);
-        dishwasher.checkTimer();
-        Thread.sleep(60000);
-        dishwasher.checkTimer();
-        Thread.sleep(10000);
-        dishwasher.checkTimer();
+        //add Devices
+        IPhoneX.addDevice(microwave);
+        IPhoneX.addDevice(oven);
+
+        while (true){
+            IPhoneX.display();
+            IPhoneX.getInput();
+        }
 
 
 
-    }}
+
+    }
+}
+

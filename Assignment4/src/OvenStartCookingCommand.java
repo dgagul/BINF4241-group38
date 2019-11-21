@@ -10,4 +10,9 @@ public class OvenStartCookingCommand implements Command {
         oven.startCooking();
     }
 
+    @Override
+    public String getName() {
+        return "Start cooking";
+    }
+
 }
