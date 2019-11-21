@@ -2,22 +2,21 @@ import java.util.ArrayList;
 
 public class OvenIsSet implements OvenState {
     Oven oven;
-    ArrayList<Command> possibleCommands = new ArrayList<Command>() {
-        {
-            add(new OvenSetTimerCommand(oven));
-            add(new OvenSetTemperatureCommand(oven));
-            add(new OvenSetProgramCommand(oven));
-            add(new OvenStartCookingCommand(oven));
-            add(new OvenSwitchOffCommand(oven));
-        }
-    };
+    ArrayList<Command> possibleCommands;
+
 
     public static long elapsedOven = System.currentTimeMillis();
     public static OvenThread cooking;
     public static Thread myThreadOven;
 
-    public OvenIsSet(Oven oven) {
-        this.oven = oven;
+    public OvenIsSet(Oven newOven) {
+        oven = newOven;
+        possibleCommands = new ArrayList<>();
+        possibleCommands.add(new OvenSetTimerCommand(oven));
+        possibleCommands.add(new OvenSetTemperatureCommand(oven));
+        possibleCommands.add(new OvenSetProgramCommand(oven));
+        possibleCommands.add(new OvenStartCookingCommand(oven));
+        possibleCommands.add(new OvenSwitchOffCommand(oven));
         cooking = new OvenThread(oven.timer, oven);
     }
 

@@ -2,16 +2,15 @@ import java.util.ArrayList;
 
 public class OvenIsCooking implements OvenState {
     Oven oven;
-    ArrayList<Command> possibleCommands = new ArrayList<Command>() {
-        {
-            add(new OvenCheckTimerCommand(oven));
-            add(new OvenInterruptCommand(oven));
-            add(new OvenSwitchOffCommand(oven));
-        }
-    };
+    ArrayList<Command> possibleCommands;
 
-    public OvenIsCooking(Oven oven){
-        this.oven = oven;
+
+    public OvenIsCooking(Oven newOven){
+        oven = newOven;
+        possibleCommands = new ArrayList<>();
+        possibleCommands.add(new OvenCheckTimerCommand(oven));
+        possibleCommands.add(new OvenInterruptCommand(oven));
+        possibleCommands.add(new OvenSwitchOffCommand(oven));
     }
 
 

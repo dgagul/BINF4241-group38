@@ -2,14 +2,13 @@ import java.util.ArrayList;
 
 public class OvenIsOff implements OvenState {
     Oven oven;
-    ArrayList<Command> possibleCommands = new ArrayList<Command>() {
-        {
-            add(new OvenSwitchOnCommand(oven));
-        }
-    };
+    ArrayList<Command> possibleCommands;
 
-    public OvenIsOff(Oven oven){
-        this.oven = oven;
+
+    public OvenIsOff(Oven newOven){
+        oven = newOven;
+        possibleCommands = new ArrayList<>();
+        possibleCommands.add(new OvenSwitchOnCommand(oven));
     }
 
     @Override
