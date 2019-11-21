@@ -19,7 +19,7 @@ public class DishwasherIsSet implements DishwasherState {
 
     DishwasherIsSet(Dishwasher newDishwasher) {
         this.dishwasher = newDishwasher;
-        washing = new DishwasherThread(dishwasher.timer, dishwasher);
+        washing = new DishwasherThread(dishwasher.programTime, dishwasher);
     }
 
     @Override
@@ -44,9 +44,8 @@ public class DishwasherIsSet implements DishwasherState {
                 dishwasher.programTime = dishwasher.programEnum.getProgramTime();
                 dishwasher.program = Integer.parseInt(inputbutton);
                 System.out.println("You chose program " + dishwasher.programEnum + ". This program runs for " +
-                        dishwasher.programTime + " minutes.");
+                        dishwasher.programTime/60 + " minutes.");
                 dishwasher.state = dishwasher.dishwasherIsSet;
-                dishwasher.timer = dishwasher.programTime;
                 validInput = true; }
 
             else { System.out.print("Please enter a program between 1-5."); }
@@ -57,7 +56,7 @@ public class DishwasherIsSet implements DishwasherState {
     public void startDishwasher(){
         System.out.println("Dishwasher has started");
         if (!washing.isRunning()){
-            washing = new DishwasherThread(dishwasher.timer, dishwasher);
+            washing = new DishwasherThread(dishwasher.programTime, dishwasher);
             myThreadDishwasher = new Thread(washing);
             elapsedDishwasher = System.currentTimeMillis();
             myThreadDishwasher.start();
@@ -65,7 +64,7 @@ public class DishwasherIsSet implements DishwasherState {
 
     @Override
     public void checkTimer(){
-        System.out.println("You chose program " + dishwasher.program + ") " + dishwasher.programEnum + " and it runs  " + dishwasher.programTime + " minutes");}
+        System.out.println("You chose program " + dishwasher.program + ") " + dishwasher.programEnum + " and it runs  " + dishwasher.programTime/60 + " minutes");}
 
     @Override
     public void stopDishwasher() {System.out.println("The dishwasher is not even washing!");}

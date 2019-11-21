@@ -38,10 +38,10 @@ public class DishwasherIsOn implements DishwasherState {
                 else if (inputInt == 4) { dishwasher.programEnum = DishwasherProgramEnum.MIXED; }
                 else if(inputInt == 5) {dishwasher.programEnum = DishwasherProgramEnum.ECO;}
 
-                dishwasher.programTime = dishwasher.programEnum.getProgramTime();
+                dishwasher.programTime = dishwasher.programEnum.getProgramTime()*60;
                 dishwasher.program = Integer.parseInt(inputbutton);
                 System.out.println("You chose program " + dishwasher.programEnum + ". This program runs for " +
-                        dishwasher.programTime + " minutes.");
+                        dishwasher.programTime/60 + " minutes.");
                 dishwasher.state = dishwasher.dishwasherIsSet;
                 validInput = true; }
 

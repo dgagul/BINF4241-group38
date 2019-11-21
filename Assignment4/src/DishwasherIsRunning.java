@@ -29,9 +29,9 @@ public class DishwasherIsRunning implements DishwasherState {
     public void checkTimer() {
         long timerun = System.currentTimeMillis() - DishwasherIsSet.elapsedDishwasher;
         double time = Math.floor(timerun / 1000);
-        dishwasher.timer = dishwasher.timer - (int) time;
+        dishwasher.programTime = dishwasher.programTime - (int) time;
         DishwasherIsSet.elapsedDishwasher = System.currentTimeMillis();
-        System.out.println(dishwasher.timer + " seconds left.");
+        System.out.println(dishwasher.programTime/60 + " minutes left.");
     }
     @Override
     public void switchOff() {
