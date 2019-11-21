@@ -10,6 +10,7 @@ public class OvenIsOn implements OvenState {
         possibleCommands = new ArrayList<>();
         possibleCommands.add(new OvenSetTimerCommand(oven));
         possibleCommands.add(new OvenSetTemperatureCommand(oven));
+        possibleCommands.add(new OvenSetProgramCommand(oven));
         possibleCommands.add(new OvenSwitchOffCommand(oven));
     }
 
