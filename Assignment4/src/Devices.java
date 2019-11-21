@@ -6,5 +6,5 @@ public interface Devices {
     public void switchOn();
     public void switchOff();
     public String getName();
-    public ArrayList<String> possibleCommands();
+    public ArrayList<Command> possibleCommands();
 }

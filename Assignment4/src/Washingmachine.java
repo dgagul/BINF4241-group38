@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Washingmachine implements Devices {
     WashingmachineState machineIsOff;
     WashingmachineState machineIsOn;
@@ -42,5 +44,15 @@ public class Washingmachine implements Devices {
     @Override
     public void switchOff() {
         state.switchOff();
+    }
+
+    @Override
+    public String getName() {
+        return "Washing machine";
+    }
+
+    @Override
+    public ArrayList<Command> possibleCommands() {
+        return state.possibleCommands();
     }
 }

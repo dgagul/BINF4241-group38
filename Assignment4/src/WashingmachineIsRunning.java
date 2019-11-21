@@ -1,6 +1,10 @@
+import java.util.ArrayList;
+
 public class WashingmachineIsRunning implements WashingmachineState {
 
     Washingmachine machine;
+    private ArrayList<Command> possibleCommands = new ArrayList<>();
+
 
     public WashingmachineIsRunning(Washingmachine machine){
         this.machine = machine;
@@ -28,11 +32,22 @@ public class WashingmachineIsRunning implements WashingmachineState {
 
     @Override
     public void interrupt() {
-        System.out.println("Please wait for the current program to finish in order to turn off the washing machine.");
+        if(!WashingmachineIsOn.washing.running){
+            machine.state = machine.machineIsOn;
+            System.out.println("The washing machine was turned off and reset to the last setting.");
+        }
+        else System.out.println("Please wait for the current program to finish in order to turn off the washing machine.");
     }
 
     @Override
     public void switchOff() {
         System.out.println("Please wait for the current program to finish in order to switch off the washing machine.");
+    }
+
+    @Override
+    public ArrayList<Command> possibleCommands() {
+        Command interrupt = new WashingmachineInterruptCommand(this.machine);
+        possibleCommands.add(interrupt);
+        return possibleCommands;
     }
 }

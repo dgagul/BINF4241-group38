@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 
 public class WashingmachineIsOff implements WashingmachineState {
 
     Washingmachine machine;
+    private ArrayList<Command> possibleCommands = new ArrayList<>();
 
     public WashingmachineIsOff(Washingmachine machine){
         this.machine = machine;
@@ -36,5 +38,12 @@ public class WashingmachineIsOff implements WashingmachineState {
     @Override
     public void switchOff() {
         System.out.println("The washing machine is already OFF!");
+    }
+
+    @Override
+    public ArrayList<Command> possibleCommands() {
+        Command switchOn = new WashingmachineSwitchOnCommand(this.machine);
+        possibleCommands.add(switchOn);
+        return possibleCommands;
     }
 }

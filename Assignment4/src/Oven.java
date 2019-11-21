@@ -69,7 +69,7 @@ public class Oven implements Devices {
     }
 
     @Override
-    public ArrayList<String> possibleCommands() {
+    public ArrayList<Command> possibleCommands() {
         return state.possibleCommands();
     }
 

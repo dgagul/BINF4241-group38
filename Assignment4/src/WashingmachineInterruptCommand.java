@@ -10,9 +10,4 @@ public class WashingmachineInterruptCommand implements Command {
     public void execute() {
         machine.interrupt();
     }
-
-    @Override
-    public void undo() {
-
-    }
 }
