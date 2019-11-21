@@ -7,6 +7,7 @@ public class DishwasherIsSet implements DishwasherState {
     public static long elapsedDishwasher = System.currentTimeMillis();
     public static DishwasherThread washing;
     public static Thread myThreadDishwasher;
+    public int programTime1;
 
     ArrayList<Command> possibleCommands = new ArrayList<Command>();
 
@@ -39,6 +40,7 @@ public class DishwasherIsSet implements DishwasherState {
                 else if(inputInt == 5) {dishwasher.programEnum = DishwasherProgramEnum.ECO;}
 
                 dishwasher.programTime = dishwasher.programEnum.getProgramTime();
+                dishwasher.programTimer = dishwasher.programEnum.getProgramTime();
                 dishwasher.program = Integer.parseInt(inputbutton);
                 System.out.println("You chose program " + dishwasher.programEnum + ". This program runs for " +
                         dishwasher.programTime/60 + " minutes.");
@@ -53,7 +55,7 @@ public class DishwasherIsSet implements DishwasherState {
     public void startDishwasher(){
         System.out.println("Dishwasher has started!");
         if (!washing.isRunning()){
-            washing = new DishwasherThread(dishwasher.programTime, dishwasher);
+            washing = new DishwasherThread(dishwasher.programTimer, dishwasher);
             myThreadDishwasher = new Thread(washing);
             elapsedDishwasher = System.currentTimeMillis();
             myThreadDishwasher.start();
@@ -61,7 +63,7 @@ public class DishwasherIsSet implements DishwasherState {
 
     @Override
     public void checkTimer(){
-        System.out.println("You chose program " + dishwasher.program + ") " + dishwasher.programEnum + " and it runs  " + dishwasher.programTime/60 + " minutes");}
+        System.out.println("You chose program" + dishwasher.program + ") " + dishwasher.programEnum + " and it runs  " + dishwasher.programTime + " minutes");}
 
     @Override
     public void stopDishwasher() {System.out.println("The dishwasher is not even washing!");}

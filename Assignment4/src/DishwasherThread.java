@@ -22,13 +22,16 @@ public class DishwasherThread implements Runnable{
 
             Thread.sleep(dishwasher.programTime*60000);
             running = false;
+            dishwasher.programTime = dishwasher.programEnum.getProgramTime();
             dishwasher.state = dishwasher.dishwasherIsSet;
             System.out.println("Dishwasher finished washing.");
         } catch (InterruptedException e) {
             running = false;
             long timerun = System.currentTimeMillis() - DishwasherIsSet.elapsedDishwasher;
             double time = Math.floor(timerun/1000);
-            dishwasher.programTime = dishwasher.programTime - (int) time;
+            dishwasher.programTimer = dishwasher.programTimer - (int) time;
+
+
 
 
         }

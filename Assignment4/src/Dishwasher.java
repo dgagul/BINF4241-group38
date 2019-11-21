@@ -11,6 +11,7 @@ public class Dishwasher implements Devices{
 
 
     public int program;
+    public int programTimer;
     public int programTime;
     DishwasherProgramEnum programEnum;
 
@@ -23,6 +24,7 @@ public class Dishwasher implements Devices{
         this.state = dishwasherIsOff;
 
         this.program = -1;
+        this.programTimer = -1;
         this.programTime = -1;
         }
 
