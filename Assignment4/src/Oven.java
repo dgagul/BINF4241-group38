@@ -1,4 +1,4 @@
-public class Oven implements Device {
+public class Oven implements Devices {
     OvenState ovenIsOff;
     OvenState ovenIsOn;
     OvenState ovenIsSet;

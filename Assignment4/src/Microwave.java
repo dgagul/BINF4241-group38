@@ -1,4 +1,4 @@
-public class Microwave implements Device {
+public class Microwave implements Devices {
     MicrowaveState microwaveIsOff;
     MicrowaveState microwaveIsOn;
     MicrowaveState microwaveIsSet;

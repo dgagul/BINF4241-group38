@@ -1,4 +1,4 @@
-public class Washingmachine implements Device {
+public class Washingmachine implements Devices {
     WashingmachineState machineIsOff;
     WashingmachineState machineIsOn;
     WashingmachineState machineIsRunning;
