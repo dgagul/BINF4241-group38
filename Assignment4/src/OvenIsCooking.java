@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class OvenIsCooking implements OvenState {
     Oven oven;
-    ArrayList<String> possibleCommands = new ArrayList<String>() {
+    ArrayList<Command> possibleCommands = new ArrayList<Command>() {
         {
-            add("Check timer");
-            add("Interrupt");
-            add("Switch off");
+            add(new OvenCheckTimerCommand(oven));
+            add(new OvenInterruptCommand(oven));
+            add(new OvenSwitchOffCommand(oven));
         }
     };
 
@@ -64,7 +64,7 @@ public class OvenIsCooking implements OvenState {
     }
 
     @Override
-    public ArrayList<String> possibleCommands() {
+    public ArrayList<Command> possibleCommands() {
         return possibleCommands;
     }
 

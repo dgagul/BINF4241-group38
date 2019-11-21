@@ -11,4 +11,9 @@ public class MicrowaveCheckTimerCommand implements Command {
         microwave.checkTimer();
     }
 
+    @Override
+    public String getName() {
+        return "Check timer";
+    }
+
 }

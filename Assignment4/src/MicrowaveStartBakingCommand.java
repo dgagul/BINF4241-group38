@@ -10,4 +10,9 @@ public class MicrowaveStartBakingCommand implements Command {
         microwave.startBaking();
     }
 
+    @Override
+    public String getName() {
+        return "Start baking";
+    }
+
 }

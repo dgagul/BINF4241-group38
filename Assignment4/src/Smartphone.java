@@ -7,12 +7,11 @@ public class Smartphone {
     SmartphoneFunctions smartphoneFunctions;
     SmartphoneState state;
 
-    public ArrayList<Devices> devices;
+    public ArrayList<Devices> devices = new ArrayList<Devices>();
 
     public Smartphone() {
         smartphoneDevices = new SmartphoneDevices(this);
         smartphoneFunctions = new SmartphoneFunctions(this);
-        devices = new ArrayList<Devices>();
         state = smartphoneDevices;
     }
 
