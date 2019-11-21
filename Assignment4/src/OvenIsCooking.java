@@ -1,5 +1,14 @@
+import java.util.ArrayList;
+
 public class OvenIsCooking implements OvenState {
     Oven oven;
+    ArrayList<String> possibleCommands = new ArrayList<String>() {
+        {
+            add("Check timer");
+            add("Interrupt");
+            add("Switch off");
+        }
+    };
 
     public OvenIsCooking(Oven oven){
         this.oven = oven;
@@ -12,12 +21,12 @@ public class OvenIsCooking implements OvenState {
     }
 
     @Override
-    public void setTimer(Integer time) {
+    public void setTimer(int timer) {
         System.out.println("Please interrupt the current cooking, to change the timer.");
     }
 
     @Override
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(int temperature) {
         System.out.println("Please interrupt the current cooking, to change the temperature.");
     }
 
@@ -33,17 +42,35 @@ public class OvenIsCooking implements OvenState {
 
     @Override
     public void checkTimer() {
-        System.out.println("Timer is set to " + oven.timer + " seconds");
+        long timerun = System.currentTimeMillis() - OvenIsSet.elapsedOven;
+        double time = Math.floor(timerun/1000);
+        oven.timer = oven.timer - (int) time;
+        OvenIsSet.elapsedOven = System.currentTimeMillis();
+        System.out.println(oven.timer + " seconds left.");
     }
 
     @Override
     public void interrupt() {
+        OvenIsSet.killT();
         System.out.println("You stopped the cooking :(");
         oven.state = oven.ovenIsSet;
     }
 
     @Override
     public void switchOff() {
-        System.out.println("Please interrupt the current cooking, to switch the oven OFF.");
+        OvenIsSet.killT();
+        System.out.println("Switched the oven OFF.");
+        oven.state = oven.ovenIsOff;
+    }
+
+    @Override
+    public ArrayList<String> possibleCommands() {
+        return possibleCommands;
+    }
+
+    public void updateOven(int temperature, int timer, Oven.Program program){
+        oven.temperature = temperature;
+        oven.timer = timer;
+        oven.program = program;
     }
 }

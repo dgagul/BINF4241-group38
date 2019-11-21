@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Oven implements Devices {
     OvenState ovenIsOff;
     OvenState ovenIsOn;
@@ -58,6 +61,23 @@ public class Oven implements Devices {
     @Override
     public void switchOff() {
         state.switchOff();
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public ArrayList<String> possibleCommands() {
+        return state.possibleCommands();
+    }
+
+    public void update(int temperature, int timer, Program program){
+        ovenIsOn.updateOven(temperature, timer, program);
+        ovenIsOff.updateOven(temperature, timer, program);
+        ovenIsSet.updateOven(temperature, timer, program);
+        ovenIsCooking.updateOven(temperature, timer, program);
     }
 
 }

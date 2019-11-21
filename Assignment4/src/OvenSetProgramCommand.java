@@ -10,29 +10,23 @@ public class OvenSetProgramCommand implements Command {
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose your program.");
+        boolean validInput = false;
+        // Todo: display in menu
+        System.out.println("Please choose your program (type 1 for GRILL or 2 for VENTILATED):");
 
-        Oven.Program[] programs = Oven.Program.values();
-        for (Oven.Program program : programs) {
-            System.out.println(program);
-        }
-        String program = scanner.nextLine();
-
-        while (!contains(program)) {
-            System.out.println("Choose a valid program from the following:");
-            for (Oven.Program program1 : programs) {
-                System.out.println(program1);
+        while (!validInput) {
+            String program = scanner.next();
+            if (program.equals("1")) {
+                oven.setProgram(Oven.Program.GRILL);
+                validInput = true;
+            } else if (program.equals("2")) {
+                oven.setProgram(Oven.Program.VENTILATED);
+                validInput = true;
+            } else {
+                System.out.println("Wrong input!");
+                System.out.println("Please choose your program (type 1 for GRILL or 2 for VENTILATED):");
             }
-            program = scanner.nextLine();
         }
-
-        oven.setProgram(Oven.Program.valueOf(program));
-    }
-
-    @Override
-    public void undo() {
-        // Todo: reset old program
-        //oven.setProgram();
     }
 
     public static boolean contains(String test) {

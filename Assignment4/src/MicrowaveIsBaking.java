@@ -1,5 +1,14 @@
+import java.util.ArrayList;
+
 public class MicrowaveIsBaking implements MicrowaveState {
     Microwave microwave;
+    ArrayList<String> possibleCommands = new ArrayList<String>() {
+        {
+            add("Check timer");
+            add("Interrupt");
+            add("Switch off");
+        }
+    };
 
     public MicrowaveIsBaking(Microwave newMicrowave){
         this.microwave = newMicrowave;
@@ -11,12 +20,12 @@ public class MicrowaveIsBaking implements MicrowaveState {
     }
 
     @Override
-    public void setTimer(Integer time) {
+    public void setTimer(int timer) {
         System.out.println("Please interrupt the current baking, to change the timer.");
     }
 
     @Override
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(int temperature) {
         System.out.println("Please interrupt the current baking, to change the temperature.");
     }
 
@@ -27,17 +36,36 @@ public class MicrowaveIsBaking implements MicrowaveState {
 
     @Override
     public void checkTimer() {
-        System.out.println("Timer is set to " + microwave.timer + " seconds");
+        long timerun = System.currentTimeMillis() - MicrowaveIsSet.elapsedMicrowave;
+        double time = Math.floor(timerun/1000);
+        microwave.timer = microwave.timer - (int) time;
+        MicrowaveIsSet.elapsedMicrowave = System.currentTimeMillis();
+        System.out.println(microwave.timer + " seconds left.");
     }
 
     @Override
     public void interrupt() {
+        MicrowaveIsSet.killT();
         System.out.println("You stopped the baking :(");
         microwave.state = microwave.microwaveIsSet;
     }
 
     @Override
     public void switchOff() {
-        System.out.println("Please interrupt the current baking, to switch the microwave OFF.");
+        MicrowaveIsSet.killT();
+        System.out.println("Switched the microwave OFF.");
+        microwave.state = microwave.microwaveIsOff;
+    }
+
+    @Override
+    public ArrayList<String> possibleCommands() {
+        return possibleCommands;
+    }
+
+    public void updateMicrowave(int temperature, int timer){
+        microwave.temperature = temperature;
+        microwave.timer = timer;
     }
 }
+
+

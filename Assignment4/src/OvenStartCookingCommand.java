@@ -10,8 +10,4 @@ public class OvenStartCookingCommand implements Command {
         oven.startCooking();
     }
 
-    @Override
-    public void undo() {
-        oven.interrupt();
-    }
 }

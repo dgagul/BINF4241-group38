@@ -1,5 +1,12 @@
+import java.util.ArrayList;
+
 public class MicrowaveIsOff implements MicrowaveState {
     Microwave microwave;
+    ArrayList<String> possibleCommands = new ArrayList<String>() {
+        {
+            add("Switch on");
+        }
+    };
 
     public MicrowaveIsOff(Microwave newMicrowave){
         this.microwave = newMicrowave;
@@ -12,12 +19,12 @@ public class MicrowaveIsOff implements MicrowaveState {
     }
 
     @Override
-    public void setTimer(Integer time) {
+    public void setTimer(int timer) {
         System.out.println("You have to switch the microwave ON first!");
     }
 
     @Override
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(int temperature) {
         System.out.println("You have to switch the microwave ON first!");
     }
 
@@ -39,5 +46,15 @@ public class MicrowaveIsOff implements MicrowaveState {
     @Override
     public void switchOff() {
         System.out.println("The microwave was already OFF!");
+    }
+
+    @Override
+    public ArrayList<String> possibleCommands() {
+        return possibleCommands;
+    }
+
+    public void updateMicrowave(int temperature, int timer){
+        microwave.temperature = temperature;
+        microwave.timer = timer;
     }
 }

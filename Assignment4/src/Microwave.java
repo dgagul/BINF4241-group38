@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Microwave implements Devices {
     MicrowaveState microwaveIsOff;
     MicrowaveState microwaveIsOn;
@@ -53,4 +56,20 @@ public class Microwave implements Devices {
         state.switchOff();
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public ArrayList<String> possibleCommands() {
+        return state.possibleCommands();
+    }
+
+    public void update(int temperature, int timer){
+        microwaveIsOn.updateMicrowave(temperature, timer);
+        microwaveIsOff.updateMicrowave(temperature, timer);
+        microwaveIsSet.updateMicrowave(temperature, timer);
+        microwaveIsBaking.updateMicrowave(temperature, timer);
+    }
 }
