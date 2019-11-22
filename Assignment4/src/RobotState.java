@@ -4,8 +4,8 @@ public interface RobotState {
     public void setTimer(int time);
     public void start();
     public void checkCleaning();
-    public void checkBattery();
-    public void checkCharging();
+    public int checkBattery();
+    public int checkCharging();
     public void completeCleaning();
     public void interrupt();
     public ArrayList<Command> possibleCommands();
