@@ -3,11 +3,14 @@ import java.util.ArrayList;
 public class WashingmachineIsRunning implements WashingmachineState {
 
     Washingmachine machine;
-    private ArrayList<Command> possibleCommands = new ArrayList<>();
+    private ArrayList<Command> possibleCommands;
 
 
     public WashingmachineIsRunning(Washingmachine machine){
         this.machine = machine;
+        this.possibleCommands = new ArrayList<>();
+        this.possibleCommands.add(new WashingmachineInterruptCommand(this.machine));
+        this.possibleCommands.add(new WashingmachineSwitchOffCommand(this.machine));
     }
 
     @Override
@@ -46,8 +49,6 @@ public class WashingmachineIsRunning implements WashingmachineState {
 
     @Override
     public ArrayList<Command> possibleCommands() {
-        Command interrupt = new WashingmachineInterruptCommand(this.machine);
-        possibleCommands.add(interrupt);
         return possibleCommands;
     }
 }
