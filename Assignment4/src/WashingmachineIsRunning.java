@@ -44,7 +44,11 @@ public class WashingmachineIsRunning implements WashingmachineState {
 
     @Override
     public void switchOff() {
-        System.out.println("Please wait for the current program to finish in order to switch off the washing machine.");
+        System.out.println("The washing machine is now OFF.");
+        machine.state = machine.machineIsOff;
+        machine.timer = 0;
+        machine.degrees = 0;
+        machine.program = null;
     }
 
     @Override
