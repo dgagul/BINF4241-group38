@@ -21,7 +21,7 @@ public class RobotIsCleaning implements RobotState {
 
     @Override
     public void start() {
-        return;
+        System.out.println("The robot is already cleaning!");
     }
 
     @Override
@@ -31,12 +31,13 @@ public class RobotIsCleaning implements RobotState {
 
     @Override
     public void checkBattery() {
+        // Todo: print out battery status
 
     }
 
     @Override
     public void checkCharging() {
-
+        // Todo: print out smth else
     }
 
     @Override
@@ -52,5 +53,13 @@ public class RobotIsCleaning implements RobotState {
     @Override
     public ArrayList<Command> possibleCommands() {
         return possibleCommands;
+    }
+
+    @Override
+    public void updateRobot(int timer, int battery, int charge, int completion) {
+        robot.timer = timer;
+        robot.battery = battery;
+        robot.charge = charge;
+        robot.completion = completion;
     }
 }

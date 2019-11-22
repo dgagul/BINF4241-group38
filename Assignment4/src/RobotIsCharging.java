@@ -16,21 +16,26 @@ public class RobotIsCharging implements RobotState {
         possibleCommands.add(new RobotStartCommand(robot));
         possibleCommands.add(new RobotCheckBatteryCommand(robot));
         possibleCommands.add(new RobotCompleteCleaningCommand(robot));
-        cleaning = new RobotThread(robot.timer, robot);
+        cleaning = new RobotThread(robot);
     }
 
     @Override
     public void setTimer(int timer) {
         robot.timer = timer;
-        robot.update(timer, battery, charge, completition);
+        updateRobot(timer, robot.battery, robot.charge, robot.completion);
         System.out.println("Timer is set to " + timer + " seconds.");
-        if (robot.program != null && robot.temperature != 0 && robot.timer != 0){robot.state = robot.ovenIsSet;}
     }
 
     @Override
     public void start() {
         if (robot.checkBattery() == 100){
-
+            if (!cleaning.isRunning()){
+                cleaning = new RobotThread(robot);
+                myThreadRobot = new Thread(cleaning);
+                elapsedRobot = System.currentTimeMillis();
+                myThreadRobot.start();
+                robot.state = robot.robotIsCleaning;
+            }
         }
     }
 
@@ -40,14 +45,13 @@ public class RobotIsCharging implements RobotState {
     }
 
     @Override
-    public int checkBattery() {
-        // Todo: return status
-        return 0;
+    public void checkBattery() {
+        // Todo: print out status
     }
 
     @Override
-    public int checkCharging() {
-
+    public void checkCharging() {
+        // Todo: print out smth else
     }
 
     @Override
@@ -63,5 +67,13 @@ public class RobotIsCharging implements RobotState {
     @Override
     public ArrayList<Command> possibleCommands() {
         return possibleCommands;
+    }
+
+    @Override
+    public void updateRobot(int timer, int battery, int charge, int completion){
+        robot.timer = timer;
+        robot.battery = battery;
+        robot.charge = charge;
+        robot.completion = completion;
     }
 }

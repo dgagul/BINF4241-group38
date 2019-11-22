@@ -4,9 +4,9 @@ public class RobotThread implements Runnable {
     private int time;
     private Robot robot;
 
-    public RobotThread(int timeInSeconds, Robot robot){
-        int timeInMillis = timeInSeconds * 1000;
-        this.time = timeInMillis;
+    public RobotThread(Robot robot){
+        //Todo: how long does a battery hold
+        this.time = 30 * 60000;
         this.running = false;
         this.robot = robot;
     }
