@@ -2,7 +2,7 @@ Some rules:
 - We followed the rules of the assignment sheet. 
 - in the menu the user always gives input by typing an integer
 - in some special functions like set timer the user can type in the number of seconds he want.
-- unfortunately we didn't manage the cleaning robot in time.
+- unfortunately we didn't manage the cleaning robot in time. To avoid the program to crash we decided to delete it.
   
     
 The class Diagram:
