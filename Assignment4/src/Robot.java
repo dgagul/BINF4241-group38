@@ -35,12 +35,12 @@ public class Robot implements Devices {
         state.checkCleaning();
     }
 
-    public int checkBattery(){
-        return state.checkBattery();
+    public void checkBattery(){
+        state.checkBattery();
     }
 
-    public int checkCharging(){
-        return state.checkCharging();
+    public void checkCharging(){
+        state.checkCharging();
     }
 
     public void completeCleaning(){
@@ -71,5 +71,5 @@ public class Robot implements Devices {
         return state.possibleCommands();
     }
 
-    public void updateRobot(int timer, int battery, int charge, int completition) { state.updateRobot();}
+    public void updateRobot(int timer, int battery, int charge, int completion) { state.updateRobot(timer,battery,charge,completion);}
 }
