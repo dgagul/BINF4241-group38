@@ -52,7 +52,7 @@ public class WashingmachineIsSet implements WashingmachineState {
     }
 
     @Override
-    public void starWashing() {
+    public void startWashing() {
         if (!washing.isRunning()) {
             washing = new WashingmachineThread(machine.timer, machine);
             myThreadmachine = new Thread(washing);

@@ -33,7 +33,7 @@ public class SmartphoneFunctions implements SmartphoneState {
         boolean validInput = false;
         // Todo: catch wrong input
         while (!validInput) {
-            System.out.print("Enter the number of the function you want to take: ");
+            System.out.print("Enter the number of the action you want to take: ");
             String nr = scanner.next();
             if (nr.equals("0")) {
                 smartphone.state = smartphone.smartphoneDevices;
@@ -43,7 +43,7 @@ public class SmartphoneFunctions implements SmartphoneState {
                 command.execute();
                 validInput = true;
             } else {
-                System.out.println("Invalid input");
+                System.out.println("Invalid input. Try again: ");
             }
         }
 

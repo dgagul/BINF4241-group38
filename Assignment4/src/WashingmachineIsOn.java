@@ -47,7 +47,7 @@ public class WashingmachineIsOn implements WashingmachineState {
     }
 
     @Override
-    public void starWashing() {
+    public void startWashing() {
         System.out.println("Not all parameters set!");
         if (machine.timer == 0) {
             System.out.println("Please set your timer.");

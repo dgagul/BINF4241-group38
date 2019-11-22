@@ -34,7 +34,7 @@ public class WashingmachineIsRunning implements WashingmachineState {
     }
 
     @Override
-    public void starWashing() {
+    public void startWashing() {
         System.out.println("Machine is already washing!");
     }
 

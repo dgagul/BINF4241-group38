@@ -5,7 +5,7 @@ public interface WashingmachineState {
     void setDegrees(int degrees);
     void setProgram(Washingmachine.Program program);
     void setTimer(int time);
-    void starWashing();
+    void startWashing();
     void interrupt();
     void switchOff();
     ArrayList<Command> possibleCommands();

@@ -8,7 +8,6 @@ public class Main {
         Oven oven = new Oven();
         Dishwasher dishwasher = new Dishwasher();
         Washingmachine washingMachine = new Washingmachine();
-        Robot cleaningRobot = new Robot();
 
 
         //add Devices
@@ -16,7 +15,6 @@ public class Main {
         IPhoneX.addDevice(oven);
         IPhoneX.addDevice(dishwasher);
         IPhoneX.addDevice(washingMachine);
-        IPhoneX.addDevice(cleaningRobot);
 
 
         while (true){

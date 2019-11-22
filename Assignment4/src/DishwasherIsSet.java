@@ -61,7 +61,7 @@ public class DishwasherIsSet implements DishwasherState {
 
     @Override
     public void checkTimer(){
-        System.out.println("You chose program" + dishwasher.program + " ) " + dishwasher.programEnum + "and it runs  " + dishwasher.programTime + " minutes");}
+        System.out.println("You chose program " + dishwasher.program + ")" + dishwasher.programEnum + " and it runs  " + dishwasher.programTime + " minutes");}
 
     @Override
     public void stopDishwasher() {System.out.println("The dishwasher is not even washing!");}

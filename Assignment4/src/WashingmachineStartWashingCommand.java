@@ -7,7 +7,7 @@ public class WashingmachineStartWashingCommand implements Command {
 
     @Override
     public void execute() {
-        machine.state.starWashing();
+        machine.state.startWashing();
     }
 
     @Override
