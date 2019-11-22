@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DishwasherIsSet implements DishwasherState {
-    Dishwasher dishwasher;
+    private Dishwasher dishwasher;
     DishwasherProgramEnum dishwasherProgram;
-    public static long elapsedDishwasher = System.currentTimeMillis();
-    public static DishwasherThread washing;
-    public static Thread myThreadDishwasher;
+    static long elapsedDishwasher = System.currentTimeMillis();
+    private static DishwasherThread washing;
+    private static Thread myThreadDishwasher;
     public int programTime1;
 
-    ArrayList<Command> possibleCommands = new ArrayList<Command>();
+    private ArrayList<Command> possibleCommands = new ArrayList<Command>();
 
     DishwasherIsSet(Dishwasher newDishwasher) {
         this.dishwasher = newDishwasher;
@@ -47,7 +47,7 @@ public class DishwasherIsSet implements DishwasherState {
                 dishwasher.state = dishwasher.dishwasherIsSet;
                 validInput = true; }
 
-            else { System.out.print("Please enter a program between 1-5."); }
+            else { System.out.print("Invalid Input. Please enter a number between 1-5."); }
         }
     }
 

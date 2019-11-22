@@ -59,7 +59,7 @@ public class DishwasherIsOn implements DishwasherState {
                 dishwasher.state = dishwasher.dishwasherIsSet;
                 validInput = true; }
 
-            else { System.out.print("Please enter a program between 1-5."); }
+            else { System.out.print("Invalid Input. Please enter a number between 1-5 .");; }
         }
     }
 
