@@ -28,22 +28,32 @@ public class SmartphoneFunctions implements SmartphoneState {
     }
 
     @Override
-    public void getInput(){
+    public void getInput() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the number of the function you want to take: ");
+        boolean validInput = false;
         // Todo: catch wrong input
-        String nr = scanner.next();
-        if (nr.equals("0")){
-            smartphone.state = smartphone.smartphoneDevices;
+        while (!validInput) {
+            System.out.print("Enter the number of the function you want to take: ");
+            String nr = scanner.next();
+            if (nr.equals("0")) {
+                smartphone.state = smartphone.smartphoneDevices;
+                validInput = true;
+            } else if (nr.matches("^[1-" + device.possibleCommands().size() + "]")) {
+                Command command = device.possibleCommands().get(Integer.parseInt(nr) - 1);
+                command.execute();
+                validInput = true;
+            } else {
+                System.out.println("Invalid input");
+            }
         }
-        else if (nr.matches("^[1-" + device.possibleCommands().size() + "]")){
-            Command command = device.possibleCommands().get(Integer.parseInt(nr) - 1);
-            command.execute();
-        }
+
         // Todo: clear the interpreter console
         System.out.println(" ");
         System.out.println(" ");
     }
+
+
+
 
     public void setDevice(Devices device){
         this.device = device;

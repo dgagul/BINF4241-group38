@@ -21,7 +21,6 @@ public class DishwasherIsRunning implements DishwasherState {
     public void startDishwasher() {
         System.out.print("The dishwasher is already running!");}
 
-        //TODO Checktimer does not work!
     @Override
     public void checkTimer() {
         long timerun = System.currentTimeMillis() - DishwasherIsSet.elapsedDishwasher;
