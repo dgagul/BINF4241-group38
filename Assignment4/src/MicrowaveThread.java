@@ -4,7 +4,7 @@ public class MicrowaveThread implements Runnable {
     private int time;
     private Microwave microwave;
 
-    public MicrowaveThread(int timeInSeconds, Microwave microwave){
+    MicrowaveThread(int timeInSeconds, Microwave microwave){
         int timeInMillis = timeInSeconds * 1000;
         this.time = timeInMillis;
         this.running = false;
@@ -21,11 +21,12 @@ public class MicrowaveThread implements Runnable {
             Thread.sleep(100);
             running = true;
             microwave.state = microwave.microwaveIsBaking;
-            System.out.println("Microwave is now baking!");
+            System.out.println("\nMicrowave is now baking!\n");
             Thread.sleep(time);
             running = false;
             microwave.state = microwave.microwaveIsSet;
-            System.out.println("Microwave finished baking, your meal is ready.");
+            System.out.println("\nMicrowave finished baking, your meal is ready.\n");
+            //SmartphoneFunctions.display();
         } catch (InterruptedException e) {
             running = false;
             long timerun = System.currentTimeMillis() - MicrowaveIsSet.elapsedMicrowave;

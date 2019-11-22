@@ -1,7 +1,7 @@
 public class MicrowaveSwitchOnCommand implements Command {
-    Microwave microwave;
+    private Microwave microwave;
 
-    public MicrowaveSwitchOnCommand(Microwave microwave){
+    MicrowaveSwitchOnCommand(Microwave microwave){
         this.microwave = microwave;
     }
 

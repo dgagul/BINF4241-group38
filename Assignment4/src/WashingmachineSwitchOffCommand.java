@@ -1,8 +1,8 @@
 public class WashingmachineSwitchOffCommand implements Command {
 
-    Washingmachine machine;
+    private Washingmachine machine;
 
-    public WashingmachineSwitchOffCommand(Washingmachine machine){
+    WashingmachineSwitchOffCommand(Washingmachine machine){
         this.machine = machine;
     }
 
@@ -12,7 +12,9 @@ public class WashingmachineSwitchOffCommand implements Command {
     }
 
     @Override
-    public void undo() {
-
+    public String getName() {
+        return "Switch off";
     }
+
+
 }

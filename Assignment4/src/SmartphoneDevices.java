@@ -1,11 +1,12 @@
+import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SmartphoneDevices implements SmartphoneState {
-    Smartphone smartphone;
-    ArrayList<Devices> devices;
+    private Smartphone smartphone;
+    private ArrayList<Devices> devices;
 
-    public SmartphoneDevices(Smartphone smartphone){
+    SmartphoneDevices(Smartphone smartphone){
         this.smartphone = smartphone;
     }
 
@@ -25,17 +26,27 @@ public class SmartphoneDevices implements SmartphoneState {
     @Override
     public void getInput(){
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the number of the device you want to control: ");
-        // Todo: catch wrong input
-        String nr = scanner.next();
-        Devices device = devices.get(Integer.parseInt(nr) - 1);
+        boolean validInput = false;
+        while(!validInput){
+            System.out.print("Enter the number of the device you want to control: ");
+            String nr = scanner.next();
+            if (nr.matches("^[1-" + devices.size() + "]")){
+                validInput = true;
+                Devices device = devices.get(Integer.parseInt(nr) - 1);
+                smartphone.smartphoneFunctions.setDevice(device);
+                smartphone.state = smartphone.smartphoneFunctions;
+            }
+            else {
+                System.out.println("Invalid input");
+
+            }
+        }
 
         // Todo: clear the interpreter console
         System.out.println(" ");
         System.out.println(" ");
 
-        smartphone.smartphoneFunctions.setDevice(device);
-        smartphone.state = smartphone.smartphoneFunctions;
+
     }
 
     public void update(ArrayList<Devices> devices){

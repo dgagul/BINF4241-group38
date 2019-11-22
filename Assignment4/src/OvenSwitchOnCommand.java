@@ -1,7 +1,7 @@
 public class OvenSwitchOnCommand implements Command {
-    Oven oven;
+    private Oven oven;
 
-    public OvenSwitchOnCommand(Oven oven){
+    OvenSwitchOnCommand(Oven oven){
         this.oven = oven;
     }
 

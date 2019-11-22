@@ -1,7 +1,7 @@
 public class MicrowaveStartBakingCommand implements Command {
-    Microwave microwave;
+    private Microwave microwave;
 
-    public MicrowaveStartBakingCommand(Microwave microwave){
+    MicrowaveStartBakingCommand(Microwave microwave){
         this.microwave = microwave;
     }
 

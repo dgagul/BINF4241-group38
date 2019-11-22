@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class MicrowaveSetTimerCommand implements Command {
-    Microwave microwave;
+    private Microwave microwave;
 
-    public MicrowaveSetTimerCommand(Microwave microwave){
+    MicrowaveSetTimerCommand(Microwave microwave){
         this.microwave = microwave;
     }
 

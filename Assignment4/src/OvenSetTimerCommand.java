@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class OvenSetTimerCommand implements Command {
-    Oven oven;
+    private Oven oven;
 
-    public OvenSetTimerCommand(Oven oven){
+    OvenSetTimerCommand(Oven oven){
         this.oven = oven;
     }
 

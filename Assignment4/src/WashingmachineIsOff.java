@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 
 public class WashingmachineIsOff implements WashingmachineState {
+    private Washingmachine machine;
+    private ArrayList<Command> possibleCommands;
 
-    Washingmachine machine;
-    private ArrayList<Command> possibleCommands = new ArrayList<>();
-
-    public WashingmachineIsOff(Washingmachine machine){
+    WashingmachineIsOff(Washingmachine machine){
         this.machine = machine;
+        possibleCommands = new ArrayList<>();
+        possibleCommands.add(new WashingmachineSwitchOnCommand(machine));
     }
 
     @Override
@@ -31,6 +32,11 @@ public class WashingmachineIsOff implements WashingmachineState {
     }
 
     @Override
+    public void starWashing() {
+        System.out.println("Switch device on first.");
+    }
+
+    @Override
     public void interrupt() {
         System.out.println("You have to switch the washing machine ON first!");
     }
@@ -42,8 +48,6 @@ public class WashingmachineIsOff implements WashingmachineState {
 
     @Override
     public ArrayList<Command> possibleCommands() {
-        Command switchOn = new WashingmachineSwitchOnCommand(this.machine);
-        possibleCommands.add(switchOn);
         return possibleCommands;
     }
 }

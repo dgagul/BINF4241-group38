@@ -20,10 +20,10 @@ public class Microwave implements Devices {
         this.microwaveIsSet = new MicrowaveIsSet(this);
         this.microwaveIsBaking = new MicrowaveIsBaking(this);
         this.state = microwaveIsOff;
+        this.name = name;
 
         this.timer = 0;
         this.temperature = 0;
-        //this.name = name;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Microwave implements Devices {
         state.setTemperature(temperature);
     }
 
-    public void startBaking(){
+    void startBaking(){
         state.startBaking();
     }
 

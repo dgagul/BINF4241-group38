@@ -70,4 +70,6 @@ public class Robot implements Devices {
     public ArrayList<Command> possibleCommands() {
         return state.possibleCommands();
     }
+
+    public void updateRobot(int timer, int battery, int charge, int completion) { state.updateRobot(timer,battery,charge,completion);}
 }

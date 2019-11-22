@@ -2,12 +2,15 @@ import java.util.ArrayList;
 
 public class WashingmachineIsRunning implements WashingmachineState {
 
-    Washingmachine machine;
-    private ArrayList<Command> possibleCommands = new ArrayList<>();
+    private Washingmachine machine;
+    private ArrayList<Command> possibleCommands;
 
 
-    public WashingmachineIsRunning(Washingmachine machine){
+    WashingmachineIsRunning(Washingmachine machine){
         this.machine = machine;
+        this.possibleCommands = new ArrayList<>();
+        this.possibleCommands.add(new WashingmachineInterruptCommand(this.machine));
+        this.possibleCommands.add(new WashingmachineSwitchOffCommand(this.machine));
     }
 
     @Override
@@ -31,23 +34,31 @@ public class WashingmachineIsRunning implements WashingmachineState {
     }
 
     @Override
+    public void starWashing() {
+        System.out.println("Machine is already washing!");
+    }
+
+    @Override
     public void interrupt() {
-        if(!WashingmachineIsOn.washing.running){
-            machine.state = machine.machineIsOn;
+        if(!WashingmachineIsSet.washing.isRunning()){
+            MicrowaveIsSet.killT();
             System.out.println("The washing machine was turned off and reset to the last setting.");
+            machine.state = machine.machineIsOn;
         }
         else System.out.println("Please wait for the current program to finish in order to turn off the washing machine.");
     }
 
     @Override
     public void switchOff() {
-        System.out.println("Please wait for the current program to finish in order to switch off the washing machine.");
+        System.out.println("The washing machine is now OFF.");
+        machine.state = machine.machineIsOff;
+        machine.timer = 0;
+        machine.degrees = 0;
+        machine.program = null;
     }
 
     @Override
     public ArrayList<Command> possibleCommands() {
-        Command interrupt = new WashingmachineInterruptCommand(this.machine);
-        possibleCommands.add(interrupt);
         return possibleCommands;
     }
 }

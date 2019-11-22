@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 
 public interface WashingmachineState {
-    public void switchOn();
-    public void setDegrees(int degrees);
-    public void setProgram(Washingmachine.Program program);
-    public void setTimer(int time);
-    public void interrupt();
-    public void switchOff();
-    public ArrayList<Command> possibleCommands();
+    void switchOn();
+    void setDegrees(int degrees);
+    void setProgram(Washingmachine.Program program);
+    void setTimer(int time);
+    void starWashing();
+    void interrupt();
+    void switchOff();
+    ArrayList<Command> possibleCommands();
 }

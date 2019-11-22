@@ -4,9 +4,8 @@ public class OvenThread implements Runnable {
     private int time;
     private Oven oven;
 
-    public OvenThread(int timeInSeconds, Oven oven){
-        int timeInMillis = timeInSeconds * 1000;
-        this.time = timeInMillis;
+    OvenThread(int timeInSeconds, Oven oven){
+        this.time = timeInSeconds * 1000;
         this.running = false;
         this.oven = oven;
     }
@@ -21,11 +20,11 @@ public class OvenThread implements Runnable {
             Thread.sleep(100);
             running = true;
             oven.state = oven.ovenIsCooking;
-            System.out.println("Oven is now baking!");
+            System.out.println("\nOven is now baking!\n");
             Thread.sleep(time);
             running = false;
             oven.state = oven.ovenIsSet;
-            System.out.println("Oven finished cooking.");
+            System.out.println("\nOven finished cooking.\n");
         } catch (InterruptedException e) {
             running = false;
             long timerun = System.currentTimeMillis() - OvenIsSet.elapsedOven;

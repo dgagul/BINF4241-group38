@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
 public interface MicrowaveState {
-    public void switchOn();
-    public void setTimer(int timer);
-    public void setTemperature(int temperature);
-    public void startBaking();
-    public void checkTimer();
-    public void interrupt();
-    public void switchOff();
-    public ArrayList<Command> possibleCommands();
-    public void updateMicrowave(int temperature, int timer);
+    void switchOn();
+    void setTimer(int timer);
+    void setTemperature(int temperature);
+    void startBaking();
+    void checkTimer();
+    void interrupt();
+    void switchOff();
+    ArrayList<Command> possibleCommands();
+    void updateMicrowave(int temperature, int timer);
 }

@@ -1,7 +1,7 @@
 public class MicrowaveInterruptCommand implements Command{
-    Microwave microwave;
+    private Microwave microwave;
 
-    public MicrowaveInterruptCommand(Microwave microwave){
+    MicrowaveInterruptCommand(Microwave microwave){
         this.microwave = microwave;
     }
 

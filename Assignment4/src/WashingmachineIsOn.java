@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 
 public class WashingmachineIsOn implements WashingmachineState {
+    private Washingmachine machine;
+    private ArrayList<Command> possibleCommands;
 
-    Washingmachine machine;
-    ArrayList<Command> possibleCommands = new ArrayList<>();
-    public static long elapsedMachine = System.currentTimeMillis();
-    public static WashingmachineThread washing;
-    public static Thread myThreadmachine;
-
-    public WashingmachineIsOn(Washingmachine machine){
+    WashingmachineIsOn(Washingmachine machine){
         this.machine = machine;
+        this.possibleCommands = new ArrayList<>();
+        this.possibleCommands.add(new WashingmachineSetDegreesCommand(this.machine));
+        this.possibleCommands.add(new WashingmachineSetProgramCommand(this.machine));
+        this.possibleCommands.add(new WashingmachineSwitchOffCommand(this.machine));
     }
 
     @Override
@@ -47,6 +47,17 @@ public class WashingmachineIsOn implements WashingmachineState {
     }
 
     @Override
+    public void starWashing() {
+        System.out.println("Not all parameters set!");
+        if (machine.timer == 0) {
+            System.out.println("Please set your timer.");
+        }
+        if (machine.program == null) {
+            System.out.println("Please choose your program.");
+        }
+    }
+
+    @Override
     public void interrupt() {
         System.out.println("You can't turn off the washing machine if it isn't running.");
     }
@@ -62,27 +73,24 @@ public class WashingmachineIsOn implements WashingmachineState {
 
     @Override
     public ArrayList<Command> possibleCommands() {
-        Command switchOff = new WashingmachineSwitchOffCommand(this.machine);
-        Command setDegrees = new WashingmachineSetDegreesCommand(this.machine);
-        Command setProgram = new WashingmachineSetProgramCommand(this.machine);
-        possibleCommands.add(switchOff);
-        possibleCommands.add(setDegrees);
-        possibleCommands.add(setProgram);
         return this.possibleCommands;
     }
 
     private void checkState(){
-        if(machine.degrees != 0)
-            if(machine.program !=null)
-                if(machine.timer != 0)
-                    if(! washing.isRunning()){
+        if(machine.degrees != 0) {
+            if (machine.program != null) {
+                if (machine.timer != 0) {
+                    machine.state = machine.machineIsSet;
+                    /*
                     System.out.println("The washing machine is now running.");
                     machine.state = machine.machineIsRunning;
                     washing = new WashingmachineThread(machine.timer, machine);
                     myThreadmachine = new Thread(washing);
                     elapsedMachine = System.currentTimeMillis();
                     myThreadmachine.start();
+                    */
                 }
-
+            }
+        }
     }
 }
