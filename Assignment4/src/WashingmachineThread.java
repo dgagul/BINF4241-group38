@@ -1,6 +1,6 @@
 public class WashingmachineThread implements Runnable {
 
-    boolean running;
+    private boolean running;
     private int time;
     private Washingmachine machine;
 
@@ -18,18 +18,21 @@ public class WashingmachineThread implements Runnable {
     @Override
     public void run() {
         try {
+            Thread.sleep(100);
             running = true;
             machine.state = machine.machineIsRunning;
-            System.out.println("The washing machine is now running");
+            System.out.println("\nThe washing machine is now running!\n");
             Thread.sleep(time);
             running = false;
             machine.state = machine.machineIsOn;
-            System.out.println("The washing machine finished its program.");
-        } catch (InterruptedException e){
+            System.out.println("\nThe washing machine finished its program.\n");
+            //SmartphoneFunctions.display();
+        } catch (InterruptedException e) {
             running = false;
-            long timerun = System.currentTimeMillis() - WashingmachineIsOn.elapsedMachine;
-            double time = Math.floor(timerun/60000);
+            long timerun = System.currentTimeMillis() - WashingmachineIsSet.elapsedMachine;
+            double time = Math.floor(timerun/1000);
             machine.timer = machine.timer - (int) time;
+            //machine.update(machine.temperature, machine.timer);
         }
     }
 }

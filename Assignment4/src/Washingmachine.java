@@ -4,6 +4,7 @@ public class Washingmachine implements Devices {
     WashingmachineState machineIsOff;
     WashingmachineState machineIsOn;
     WashingmachineState machineIsRunning;
+    WashingmachineState machineIsSet;
 
     WashingmachineState state;
 
@@ -17,6 +18,7 @@ public class Washingmachine implements Devices {
         this.machineIsOff = new WashingmachineIsOff(this);
         this.machineIsOn = new WashingmachineIsOn(this);
         this.machineIsRunning = new WashingmachineIsRunning(this);
+        this.machineIsSet = new WashingmachineIsSet(this);
 
         this.state = machineIsOff;
         this.timer = 0;

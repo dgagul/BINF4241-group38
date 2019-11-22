@@ -66,7 +66,11 @@ public class DishwasherIsOn implements DishwasherState {
 
     @Override
     public void startDishwasher() {
-            System.out.println("You have to choose a program first in order to start the dishwasher!");}
+        System.out.println("Not all parameters set!");
+        if (dishwasher.programEnum == null) {
+            System.out.println("Please choose a program first.");
+        }
+    }
 
 
     @Override

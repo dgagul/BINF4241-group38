@@ -32,6 +32,11 @@ public class WashingmachineIsOff implements WashingmachineState {
     }
 
     @Override
+    public void starWashing() {
+        System.out.println("Switch device on first.");
+    }
+
+    @Override
     public void interrupt() {
         System.out.println("You have to switch the washing machine ON first!");
     }

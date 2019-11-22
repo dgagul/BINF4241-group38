@@ -34,10 +34,16 @@ public class WashingmachineIsRunning implements WashingmachineState {
     }
 
     @Override
+    public void starWashing() {
+        System.out.println("Machine is already washing!");
+    }
+
+    @Override
     public void interrupt() {
-        if(!WashingmachineIsOn.washing.running){
-            machine.state = machine.machineIsOn;
+        if(!WashingmachineIsSet.washing.isRunning()){
+            MicrowaveIsSet.killT();
             System.out.println("The washing machine was turned off and reset to the last setting.");
+            machine.state = machine.machineIsOn;
         }
         else System.out.println("Please wait for the current program to finish in order to turn off the washing machine.");
     }
