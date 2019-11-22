@@ -11,19 +11,24 @@ public class OvenSetProgramCommand implements Command {
     public void execute() {
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
-        System.out.print("Please choose your program (type 1 for GRILL or 2 for VENTILATED): ");
+        System.out.println("Which program do you want to chose? \n");
+        for (Oven.Program program : Oven.Program.values()) {
+            System.out.println(Oven.Program.valueOf(program.name()).ordinal() + 1 + ") "
+                    + program.toString());
+        }
+        System.out.println("\nPlease enter your program: ");
 
         while (!validInput) {
             String program = scanner.next();
-            if (program.equals("1")) {
+            if (program.equals("2")) {
                 oven.setProgram(Oven.Program.GRILL);
                 validInput = true;
-            } else if (program.equals("2")) {
+            } else if (program.equals("1")) {
                 oven.setProgram(Oven.Program.VENTILATED);
                 validInput = true;
             } else {
                 System.out.println("Invalid input!");
-                System.out.println("Please choose your program (type 1 for GRILL or 2 for VENTILATED):");
+                System.out.println("Please enter the program of your choice: ");
             }
         }
     }
