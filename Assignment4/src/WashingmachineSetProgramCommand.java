@@ -22,7 +22,7 @@ public class WashingmachineSetProgramCommand implements Command {
                 validInput = true;
                 machine.setProgram(Washingmachine.Program.valueOf(input));
             }
-            else System.out.println("Please enter a valid program name as displayed as above. Try again: ");
+            else System.out.print("Please enter a valid program name as displayed as above. Try again: ");
         }
     }
 

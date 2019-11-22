@@ -11,14 +11,14 @@ public class  WashingmachineSetDegreesCommand implements Command {
     public void execute() {
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
-        System.out.println("Please enter the amount of degrees (30, 40, 60 or 90 degrees are recommended):");
+        System.out.print("Please enter the amount of degrees (30, 40, 60 or 90 degrees are recommended): ");
         while(!validInput){
             String input = scanner.next();
             if(input.matches("^[0-9]*$")){
                 machine.setDegrees(Integer.parseInt(input));
                 validInput = true;
             }
-            else System.out.println("Please enter an integer. Try again:");
+            else System.out.print("Please enter an integer. Try again: ");
         }
     }
 
