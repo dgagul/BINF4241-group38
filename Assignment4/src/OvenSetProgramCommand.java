@@ -11,8 +11,7 @@ public class OvenSetProgramCommand implements Command {
     public void execute() {
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
-        // Todo: display in menu
-        System.out.println("Please choose your program (type 1 for GRILL or 2 for VENTILATED):");
+        System.out.print("Please choose your program (type 1 for GRILL or 2 for VENTILATED): ");
 
         while (!validInput) {
             String program = scanner.next();
@@ -23,10 +22,15 @@ public class OvenSetProgramCommand implements Command {
                 oven.setProgram(Oven.Program.VENTILATED);
                 validInput = true;
             } else {
-                System.out.println("Wrong input!");
+                System.out.println("Invalid input!");
                 System.out.println("Please choose your program (type 1 for GRILL or 2 for VENTILATED):");
             }
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Set program";
     }
 
     public static boolean contains(String test) {

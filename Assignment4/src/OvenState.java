@@ -9,6 +9,6 @@ public interface OvenState {
     public void checkTimer();
     public void interrupt();
     public void switchOff();
-    public ArrayList<String> possibleCommands();
+    public ArrayList<Command> possibleCommands();
     public void updateOven(int temperature, int timer, Oven.Program program);
 }

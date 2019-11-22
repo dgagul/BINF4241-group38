@@ -8,6 +8,6 @@ public interface MicrowaveState {
     public void checkTimer();
     public void interrupt();
     public void switchOff();
-    public ArrayList<String> possibleCommands();
+    public ArrayList<Command> possibleCommands();
     public void updateMicrowave(int temperature, int timer);
 }

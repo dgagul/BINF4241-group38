@@ -2,22 +2,21 @@ import java.util.ArrayList;
 
 public class OvenIsSet implements OvenState {
     Oven oven;
-    ArrayList<String> possibleCommands = new ArrayList<String>() {
-        {
-            add("Set timer");
-            add("Set temperature");
-            add("Set program");
-            add("Start baking");
-            add("Switch off");
-        }
-    };
+    ArrayList<Command> possibleCommands;
+
 
     public static long elapsedOven = System.currentTimeMillis();
     public static OvenThread cooking;
     public static Thread myThreadOven;
 
-    public OvenIsSet(Oven oven) {
-        this.oven = oven;
+    public OvenIsSet(Oven newOven) {
+        oven = newOven;
+        possibleCommands = new ArrayList<>();
+        possibleCommands.add(new OvenSetTimerCommand(oven));
+        possibleCommands.add(new OvenSetTemperatureCommand(oven));
+        possibleCommands.add(new OvenSetProgramCommand(oven));
+        possibleCommands.add(new OvenStartCookingCommand(oven));
+        possibleCommands.add(new OvenSwitchOffCommand(oven));
         cooking = new OvenThread(oven.timer, oven);
     }
 
@@ -56,6 +55,7 @@ public class OvenIsSet implements OvenState {
             myThreadOven = new Thread(cooking);
             elapsedOven = System.currentTimeMillis();
             myThreadOven.start();
+            oven.state = oven.ovenIsCooking;
         }
     }
 
@@ -76,7 +76,7 @@ public class OvenIsSet implements OvenState {
     }
 
     @Override
-    public ArrayList<String> possibleCommands() {
+    public ArrayList<Command> possibleCommands() {
         return possibleCommands;
     }
 

@@ -11,4 +11,9 @@ public class OvenInterruptCommand implements Command{
         oven.interrupt();
     }
 
+    @Override
+    public String getName() {
+        return "Interrupt";
+    }
+
 }

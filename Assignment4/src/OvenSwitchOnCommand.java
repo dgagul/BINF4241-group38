@@ -10,4 +10,9 @@ public class OvenSwitchOnCommand implements Command {
         oven.switchOn();
     }
 
+    @Override
+    public String getName() {
+        return "Switch on";
+    }
+
 }
