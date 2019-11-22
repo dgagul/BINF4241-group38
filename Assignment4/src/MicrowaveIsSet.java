@@ -1,16 +1,16 @@
 import java.util.ArrayList;
 
 public class MicrowaveIsSet implements MicrowaveState {
-    Microwave microwave;
-    ArrayList<Command> possibleCommands;
+    private Microwave microwave;
+    private ArrayList<Command> possibleCommands;
 
 
-    public static long elapsedMicrowave = System.currentTimeMillis();
-    public static MicrowaveThread baking;
-    public static Thread myThreadMicrowave;
+    static long elapsedMicrowave = System.currentTimeMillis();
+    private static MicrowaveThread baking;
+    private static Thread myThreadMicrowave;
 
 
-    public MicrowaveIsSet(Microwave newMicrowave){
+    MicrowaveIsSet(Microwave newMicrowave){
         microwave = newMicrowave;
         possibleCommands = new ArrayList<>();
         possibleCommands.add(new MicrowaveSetTimerCommand(microwave));
@@ -78,7 +78,7 @@ public class MicrowaveIsSet implements MicrowaveState {
         microwave.timer = timer;
     }
 
-    public static void killT(){
+    static void killT(){
         myThreadMicrowave.interrupt();
     }
 }

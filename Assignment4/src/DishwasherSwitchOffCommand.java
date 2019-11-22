@@ -1,7 +1,7 @@
 public class DishwasherSwitchOffCommand implements Command {
-    Dishwasher dishwasher;
+    private Dishwasher dishwasher;
 
-    public DishwasherSwitchOffCommand(Dishwasher dishwasher) {this.dishwasher = dishwasher;}
+    DishwasherSwitchOffCommand(Dishwasher dishwasher) {this.dishwasher = dishwasher;}
 
     @Override
     public void execute() { dishwasher.switchOff(); }

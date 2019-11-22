@@ -3,13 +3,9 @@ import java.util.Scanner;
 
 public class DishwasherIsOn implements DishwasherState {
     private Dishwasher dishwasher;
-    DishwasherProgramEnum program;
     private ArrayList<Command> possibleCommands = new ArrayList<Command>();
 
 
-
-    // getName() which returns
-    // 0 button go back
     DishwasherIsOn(Dishwasher newDishwasher) {
         this.dishwasher = newDishwasher;
         possibleCommands.add(new DishwasherchooseProgramCommand(dishwasher));

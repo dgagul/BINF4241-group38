@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class MicrowaveSetTemperatureCommand implements Command {
-    Microwave microwave;
+    private Microwave microwave;
 
-    public MicrowaveSetTemperatureCommand(Microwave microwave){
+    MicrowaveSetTemperatureCommand(Microwave microwave){
         this.microwave = microwave;
     }
 

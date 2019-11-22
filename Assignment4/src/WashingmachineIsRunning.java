@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class WashingmachineIsRunning implements WashingmachineState {
 
-    Washingmachine machine;
+    private Washingmachine machine;
     private ArrayList<Command> possibleCommands;
 
 
-    public WashingmachineIsRunning(Washingmachine machine){
+    WashingmachineIsRunning(Washingmachine machine){
         this.machine = machine;
         this.possibleCommands = new ArrayList<>();
         this.possibleCommands.add(new WashingmachineInterruptCommand(this.machine));

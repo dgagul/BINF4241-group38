@@ -1,8 +1,8 @@
 public class WashingmachineInterruptCommand implements Command {
 
-    Washingmachine machine;
+    private Washingmachine machine;
 
-    public WashingmachineInterruptCommand(Washingmachine machine){
+    WashingmachineInterruptCommand(Washingmachine machine){
         this.machine = machine;
     }
 

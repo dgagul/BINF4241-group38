@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SmartphoneDevices implements SmartphoneState {
-    Smartphone smartphone;
-    ArrayList<Devices> devices;
+    private Smartphone smartphone;
+    private ArrayList<Devices> devices;
 
-    public SmartphoneDevices(Smartphone smartphone){
+    SmartphoneDevices(Smartphone smartphone){
         this.smartphone = smartphone;
     }
 

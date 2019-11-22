@@ -1,7 +1,7 @@
 public class DishwasherSwitchOnCommand implements Command {
-    Dishwasher dishwasher;
+    private Dishwasher dishwasher;
 
-    public DishwasherSwitchOnCommand(Dishwasher dishwasher){
+    DishwasherSwitchOnCommand(Dishwasher dishwasher){
         this.dishwasher = dishwasher;
     }
 

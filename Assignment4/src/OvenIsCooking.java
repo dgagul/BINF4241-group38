@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class OvenIsCooking implements OvenState {
-    Oven oven;
-    ArrayList<Command> possibleCommands;
+    private Oven oven;
+    private ArrayList<Command> possibleCommands;
 
 
-    public OvenIsCooking(Oven newOven){
+    OvenIsCooking(Oven newOven){
         oven = newOven;
         possibleCommands = new ArrayList<>();
         possibleCommands.add(new OvenCheckTimerCommand(oven));

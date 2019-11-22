@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class  WashingmachineSetDegreesCommand implements Command {
     private Washingmachine machine;
 
-    public WashingmachineSetDegreesCommand(Washingmachine machine){
+    WashingmachineSetDegreesCommand(Washingmachine machine){
         this.machine = machine;
     }
 

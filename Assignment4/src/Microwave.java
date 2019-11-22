@@ -23,7 +23,6 @@ public class Microwave implements Devices {
 
         this.timer = 0;
         this.temperature = 0;
-        //this.name = name;
     }
 
     @Override
@@ -39,7 +38,7 @@ public class Microwave implements Devices {
         state.setTemperature(temperature);
     }
 
-    public void startBaking(){
+    void startBaking(){
         state.startBaking();
     }
 

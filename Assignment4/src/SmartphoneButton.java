@@ -1,6 +1,6 @@
 public class SmartphoneButton {
 
-    Command command;
+    private Command command;
 
     public SmartphoneButton(Command command){
         this.command = command;

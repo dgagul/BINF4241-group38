@@ -11,8 +11,8 @@ public class Dishwasher implements Devices{
 
 
     public int program;
-    public int programTimer;
-    public int programTime;
+    int programTimer;
+    int programTime;
     DishwasherProgramEnum programEnum;
 
 
@@ -46,12 +46,12 @@ public class Dishwasher implements Devices{
 
     public void checkTimer() {state.checkTimer(); }
 
-    public void chooseProgram(){
+    void chooseProgram(){
         state.chooseProgram();}
 
-    public void startDishwasher(){ state.startDishwasher(); }
+    void startDishwasher(){ state.startDishwasher(); }
 
-    public void stopDishwasher(){
+    void stopDishwasher(){
             state.stopDishwasher();
         }
 

@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class MicrowaveIsOff implements MicrowaveState {
-    Microwave microwave;
-    ArrayList<Command> possibleCommands;
+    private Microwave microwave;
+    private ArrayList<Command> possibleCommands;
 
-    public MicrowaveIsOff(Microwave aMicrowave){
+    MicrowaveIsOff(Microwave aMicrowave){
         microwave = aMicrowave;
         possibleCommands = new ArrayList<>();
         possibleCommands.add(new MicrowaveSwitchOnCommand(microwave));

@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class DishwasherchooseProgramCommand implements Command {
-    Dishwasher dishwasher;
+    private Dishwasher dishwasher;
 
-    public DishwasherchooseProgramCommand(Dishwasher dishwasher) {
+    DishwasherchooseProgramCommand(Dishwasher dishwasher) {
         this.dishwasher = dishwasher;
     }
 

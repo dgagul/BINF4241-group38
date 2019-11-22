@@ -1,5 +1,5 @@
 public class DishwasherStartDishwasherCommand implements Command {
-    Dishwasher dishwasher;
+    private Dishwasher dishwasher;
 
     DishwasherStartDishwasherCommand(Dishwasher newDishwasher) { this.dishwasher = newDishwasher;}
 

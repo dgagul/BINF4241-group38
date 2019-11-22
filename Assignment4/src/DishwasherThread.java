@@ -1,12 +1,10 @@
 public class DishwasherThread implements Runnable{
 
     private boolean running;
-    private int time;
     private Dishwasher dishwasher;
 
-    public DishwasherThread(int timeInMinutes, Dishwasher dishwasher){
+    DishwasherThread(int timeInMinutes, Dishwasher dishwasher){
         int timeInMillis = timeInMinutes * 60 * 1000;
-        this.time = timeInMillis;
         this.running = false;
         this.dishwasher = dishwasher;
     }

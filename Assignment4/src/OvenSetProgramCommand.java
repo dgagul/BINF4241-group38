@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class OvenSetProgramCommand implements Command {
-    Oven oven;
+    private Oven oven;
 
-    public OvenSetProgramCommand(Oven oven){
+    OvenSetProgramCommand(Oven oven){
         this.oven = oven;
     }
 

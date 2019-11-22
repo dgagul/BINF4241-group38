@@ -1,6 +1,6 @@
 public interface SmartphoneState {
 
-    public void display();
-    public void getInput();
+    void display();
+    void getInput();
 
     }

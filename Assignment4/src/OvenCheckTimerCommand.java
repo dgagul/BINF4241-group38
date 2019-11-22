@@ -1,7 +1,7 @@
 public class OvenCheckTimerCommand implements Command {
-    Oven oven;
+    private Oven oven;
 
-    public OvenCheckTimerCommand(Oven oven){
+    OvenCheckTimerCommand(Oven oven){
         this.oven = oven;
     }
 

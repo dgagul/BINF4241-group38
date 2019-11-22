@@ -3,11 +3,9 @@ import java.util.Scanner;
 
 public class DishwasherIsSet implements DishwasherState {
     private Dishwasher dishwasher;
-    DishwasherProgramEnum dishwasherProgram;
     static long elapsedDishwasher = System.currentTimeMillis();
     private static DishwasherThread washing;
     private static Thread myThreadDishwasher;
-    public int programTime1;
 
     private ArrayList<Command> possibleCommands = new ArrayList<Command>();
 
