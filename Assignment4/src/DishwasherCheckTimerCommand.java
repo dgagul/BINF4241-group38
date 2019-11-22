@@ -1,5 +1,5 @@
 public class DishwasherCheckTimerCommand implements Command {
-    Dishwasher dishwasher;
+    private Dishwasher dishwasher;
 
 
     DishwasherCheckTimerCommand(Dishwasher newDishwasher) { this.dishwasher = newDishwasher;}

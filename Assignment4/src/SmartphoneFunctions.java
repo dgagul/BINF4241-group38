@@ -3,9 +3,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SmartphoneFunctions implements SmartphoneState {
-    Smartphone smartphone;
-    ArrayList<Devices> devices;
-    Devices device;
+    private Smartphone smartphone;
+    private ArrayList<Devices> devices;
+    private Devices device;
 
 
     SmartphoneFunctions(Smartphone smartphone){

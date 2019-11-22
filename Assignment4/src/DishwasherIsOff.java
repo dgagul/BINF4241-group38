@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class DishwasherIsOff implements DishwasherState {
-    Dishwasher dishwasher;
+    private Dishwasher dishwasher;
     DishwasherProgramEnum programEnum;
     private ArrayList<Command> possibleCommands = new ArrayList<Command>();
 

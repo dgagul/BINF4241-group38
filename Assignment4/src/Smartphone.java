@@ -9,22 +9,22 @@ public class Smartphone {
 
     public ArrayList<Devices> devices = new ArrayList<Devices>();
 
-    public Smartphone() {
+    Smartphone() {
         smartphoneDevices = new SmartphoneDevices(this);
         smartphoneFunctions = new SmartphoneFunctions(this);
         state = smartphoneDevices;
     }
 
-    public void addDevice(Devices device) {
+    void addDevice(Devices device) {
         devices.add(device);
         this.update(devices);
     }
 
-    public void display() {
+    void display() {
         state.display();
     }
 
-    public void getInput() {
+    void getInput() {
         state.getInput();
     }
 

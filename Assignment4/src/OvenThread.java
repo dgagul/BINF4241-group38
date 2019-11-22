@@ -4,9 +4,8 @@ public class OvenThread implements Runnable {
     private int time;
     private Oven oven;
 
-    public OvenThread(int timeInSeconds, Oven oven){
-        int timeInMillis = timeInSeconds * 1000;
-        this.time = timeInMillis;
+    OvenThread(int timeInSeconds, Oven oven){
+        this.time = timeInSeconds * 1000;
         this.running = false;
         this.oven = oven;
     }

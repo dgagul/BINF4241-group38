@@ -1,16 +1,16 @@
 import java.util.ArrayList;
 
 public class WashingmachineIsSet implements WashingmachineState {
-    Washingmachine machine;
-    ArrayList<Command> possibleCommands;
+    private Washingmachine machine;
+    private ArrayList<Command> possibleCommands;
 
 
-    public static long elapsedMachine = System.currentTimeMillis();
+    static long elapsedMachine = System.currentTimeMillis();
     public static WashingmachineThread washing;
-    public static Thread myThreadmachine;
+    private static Thread myThreadmachine;
 
 
-    public WashingmachineIsSet(Washingmachine machine){
+    WashingmachineIsSet(Washingmachine machine){
         this.machine = machine;
         this.possibleCommands = new ArrayList<>();
         this.possibleCommands.add(new WashingmachineSetDegreesCommand(this.machine));

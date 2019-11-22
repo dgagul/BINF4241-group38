@@ -1,7 +1,7 @@
 public class WashingmachineSwitchOnCommand implements Command {
     private Washingmachine machine;
 
-    public WashingmachineSwitchOnCommand(Washingmachine machine){
+    WashingmachineSwitchOnCommand(Washingmachine machine){
         this.machine = machine;
     }
 

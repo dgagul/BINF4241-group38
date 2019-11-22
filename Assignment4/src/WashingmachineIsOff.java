@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class WashingmachineIsOff implements WashingmachineState {
-    Washingmachine machine;
+    private Washingmachine machine;
     private ArrayList<Command> possibleCommands;
 
-    public WashingmachineIsOff(Washingmachine machine){
+    WashingmachineIsOff(Washingmachine machine){
         this.machine = machine;
         possibleCommands = new ArrayList<>();
         possibleCommands.add(new WashingmachineSwitchOnCommand(machine));

@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 
 public class OvenIsSet implements OvenState {
-    Oven oven;
-    ArrayList<Command> possibleCommands;
+    private Oven oven;
+    private ArrayList<Command> possibleCommands;
 
 
-    public static long elapsedOven = System.currentTimeMillis();
-    public static OvenThread cooking;
-    public static Thread myThreadOven;
+    static long elapsedOven = System.currentTimeMillis();
+    private static OvenThread cooking;
+    private static Thread myThreadOven;
 
-    public OvenIsSet(Oven newOven) {
+    OvenIsSet(Oven newOven) {
         oven = newOven;
         possibleCommands = new ArrayList<>();
         possibleCommands.add(new OvenSetTimerCommand(oven));

@@ -1,7 +1,7 @@
 public class OvenInterruptCommand implements Command{
-    Oven oven;
+    private Oven oven;
 
-    public OvenInterruptCommand(Oven oven){
+    OvenInterruptCommand(Oven oven){
         this.oven = oven;
     }
 

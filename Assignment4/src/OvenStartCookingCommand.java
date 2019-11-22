@@ -1,7 +1,7 @@
 public class OvenStartCookingCommand implements Command {
-    Oven oven;
+    private Oven oven;
 
-    public OvenStartCookingCommand(Oven oven){
+    OvenStartCookingCommand(Oven oven){
         this.oven = oven;
     }
 

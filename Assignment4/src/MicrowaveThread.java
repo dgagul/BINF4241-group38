@@ -4,7 +4,7 @@ public class MicrowaveThread implements Runnable {
     private int time;
     private Microwave microwave;
 
-    public MicrowaveThread(int timeInSeconds, Microwave microwave){
+    MicrowaveThread(int timeInSeconds, Microwave microwave){
         int timeInMillis = timeInSeconds * 1000;
         this.time = timeInMillis;
         this.running = false;

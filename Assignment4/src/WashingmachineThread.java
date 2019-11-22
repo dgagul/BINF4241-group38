@@ -4,9 +4,8 @@ public class WashingmachineThread implements Runnable {
     private int time;
     private Washingmachine machine;
 
-    public WashingmachineThread(int timeInMinutes, Washingmachine machine) {
-        int timeInMillis = timeInMinutes * 60000;
-        this.time = timeInMillis;
+    WashingmachineThread(int timeInMinutes, Washingmachine machine) {
+        this.time = timeInMinutes * 60000;
         this.running = false;
         this.machine = machine;
     }

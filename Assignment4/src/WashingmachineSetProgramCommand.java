@@ -4,7 +4,7 @@ public class WashingmachineSetProgramCommand implements Command {
 
     private Washingmachine machine;
 
-    public WashingmachineSetProgramCommand(Washingmachine machine){
+    WashingmachineSetProgramCommand(Washingmachine machine){
         this.machine = machine;
     }
 

@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class OvenSetTemperatureCommand implements Command {
-    Oven oven;
+    private Oven oven;
 
-    public OvenSetTemperatureCommand(Oven oven){
+    OvenSetTemperatureCommand(Oven oven){
         this.oven = oven;
     }
 
