@@ -2,8 +2,9 @@ import java.util.ArrayList;
 
 public class Robot implements Devices {
 
-    RobotState robotisCharging;
+    RobotState robotIsCharging;
     RobotState robotIsCleaning;
+    RobotState robotIsReady;
 
     RobotState state;
 
@@ -13,14 +14,14 @@ public class Robot implements Devices {
     public int completion;
 
     public Robot(){
-        this.robotisCharging = new RobotIsCharging(this);
+        this.robotIsCharging = new RobotIsCharging(this);
         this.robotIsCleaning = new RobotIsCleaning(this);
 
         this.timer = 0;
         this.battery = 100;
-        this.charge = 100;
+        this.charge = 0;
         this.completion = 0;
-        this.state = robotisCharging;
+        this.state = robotIsCharging;
     }
 
     public void setTimer(int time){
@@ -71,5 +72,9 @@ public class Robot implements Devices {
         return state.possibleCommands();
     }
 
-    public void updateRobot(int timer, int battery, int charge, int completion) { state.updateRobot(timer,battery,charge,completion);}
+    public void updateRobot(int timer, int battery, int charge, int completion) {
+        robotIsCharging.updateRobot(timer,battery,charge,completion);
+        robotIsCleaning.updateRobot(timer,battery,charge,completion);
+        robotIsReady.updateRobot(timer,battery,charge,completion);
+    }
 }

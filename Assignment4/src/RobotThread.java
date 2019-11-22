@@ -4,9 +4,8 @@ public class RobotThread implements Runnable {
     private int time;
     private Robot robot;
 
-    public RobotThread(Robot robot){
-        //Todo: how long does a battery hold
-        this.time = 30 * 60000;
+    public RobotThread(int timeInMinutes, Robot robot){
+        this.time = timeInMinutes * 60000;
         this.running = false;
         this.robot = robot;
     }
@@ -23,16 +22,15 @@ public class RobotThread implements Runnable {
             robot.state = robot.robotIsCleaning;
             System.out.println("\nRobot started now cleaning!\n");
             Thread.sleep(time);
-            //Todo: go back to cleaning station
             running = false;
-            robot.state = robot.robotisCharging;
-            System.out.println("\nRobot finished cleaning.\n");
+            robot.state = robot.robotIsCharging;
+            System.out.println("\nTime expired. Set a new timer!\n");
         } catch (InterruptedException e) {
             running = false;
-            long timerun = System.currentTimeMillis() - RobotIsCharging.elapsedRobot;
+            long timerun = System.currentTimeMillis() - RobotIsReady.elapsedRobot;
             double time = Math.floor(timerun/1000);
             robot.timer = robot.timer - (int) time;
-            //robot.update(robot.temperature, robot.timer, robot.program);
+            robot.updateRobot(robot.timer,robot.battery,robot.charge,robot.completion);
         }
     }
 }

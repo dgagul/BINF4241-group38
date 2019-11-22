@@ -1,15 +1,24 @@
 import java.util.ArrayList;
 
-public class RobotIsCharging implements RobotState {
+public class RobotIsReady implements RobotState {
     Robot robot;
     private ArrayList<Command> possibleCommands;
 
-    public RobotIsCharging(Robot robot){
+
+    public static long elapsedRobot = System.currentTimeMillis();
+    public static RobotThread cleaning;
+    public static RobotThread charging;
+    public static Thread myThreadRobot;
+    public static Thread myThreadCharging;
+
+    public RobotIsReady(Robot robot) {
         this.robot = robot;
         possibleCommands = new ArrayList<>();
         possibleCommands.add(new RobotSetTimerCommand(robot));
+        possibleCommands.add(new RobotStartCommand(robot));
         possibleCommands.add(new RobotCheckBatteryCommand(robot));
         possibleCommands.add(new RobotCompleteCleaningCommand(robot));
+        cleaning = new RobotThread(robot.timer, robot);
     }
 
     @Override
@@ -21,7 +30,13 @@ public class RobotIsCharging implements RobotState {
 
     @Override
     public void start() {
-
+        if (!cleaning.isRunning()){
+            cleaning = new RobotThread(robot.timer, robot);
+            myThreadRobot = new Thread(cleaning);
+            elapsedRobot = System.currentTimeMillis();
+            myThreadRobot.start();
+            robot.state = robot.robotIsCleaning;
+        }
     }
 
     @Override
@@ -31,12 +46,15 @@ public class RobotIsCharging implements RobotState {
 
     @Override
     public void checkBattery() {
-        // Todo: print out status
+        System.out.println("The battery is now at " + robot.battery);
     }
 
     @Override
     public void checkCharging() {
-        // Todo: print out smth else
+        System.out.println("Has to charge for " + robot.charge + " more minutes!");
+        if (robot.charge == 0){
+            System.out.println("Robot is ready!");
+        }
     }
 
     @Override
@@ -51,7 +69,7 @@ public class RobotIsCharging implements RobotState {
 
     @Override
     public ArrayList<Command> possibleCommands() {
-        return possibleCommands;
+        return null;
     }
 
     @Override
