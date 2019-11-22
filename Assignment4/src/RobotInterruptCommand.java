@@ -10,4 +10,9 @@ public class RobotInterruptCommand implements Command {
     public void execute() {
 
     }
+
+    @Override
+    public String getName() {
+        return "Interrupt";
+    }
 }

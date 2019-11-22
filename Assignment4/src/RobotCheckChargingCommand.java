@@ -10,4 +10,9 @@ public class RobotCheckChargingCommand implements Command {
     public void execute() {
 
     }
+
+    @Override
+    public String getName() {
+        return "Check charging";
+    }
 }

@@ -10,4 +10,9 @@ public class RobotCheckCleaningCommand implements Command {
     public void execute() {
 
     }
+
+    @Override
+    public String getName() {
+        return "Check cleaning";
+    }
 }

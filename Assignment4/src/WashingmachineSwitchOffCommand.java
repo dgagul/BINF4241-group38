@@ -12,7 +12,9 @@ public class WashingmachineSwitchOffCommand implements Command {
     }
 
     @Override
-    public void undo() {
-
+    public String getName() {
+        return "Switch off";
     }
+
+
 }

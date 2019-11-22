@@ -11,7 +11,8 @@ public class WashingmachineSwitchOnCommand implements Command {
     }
 
     @Override
-    public void undo() {
-        machine.switchOff();
+    public String getName() {
+        return "Switch on";
     }
+
 }

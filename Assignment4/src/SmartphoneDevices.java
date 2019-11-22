@@ -38,6 +38,7 @@ public class SmartphoneDevices implements SmartphoneState {
             }
             else {
                 System.out.println("Invalid input");
+
             }
         }
 

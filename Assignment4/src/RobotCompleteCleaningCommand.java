@@ -10,4 +10,9 @@ public class RobotCompleteCleaningCommand implements Command {
     public void execute() {
 
     }
+
+    @Override
+    public String getName() {
+        return "Complete Cleaning";
+    }
 }

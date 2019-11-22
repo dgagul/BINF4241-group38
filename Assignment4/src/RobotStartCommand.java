@@ -9,4 +9,9 @@ public class RobotStartCommand implements Command {
     public void execute() {
 
     }
+
+    @Override
+    public String getName() {
+        return "Start";
+    }
 }

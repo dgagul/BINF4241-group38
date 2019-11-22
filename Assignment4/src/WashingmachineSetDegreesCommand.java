@@ -23,7 +23,7 @@ public class  WashingmachineSetDegreesCommand implements Command {
     }
 
     @Override
-    public void undo() {
-
+    public String getName() {
+        return "Set degrees";
     }
 }

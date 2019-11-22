@@ -21,4 +21,9 @@ public class RobotSetTimerCommand implements Command {
             else System.out.println("Please enter an integer. Try again:");
         }
     }
+
+    @Override
+    public String getName() {
+        return "Set timer";
+    }
 }

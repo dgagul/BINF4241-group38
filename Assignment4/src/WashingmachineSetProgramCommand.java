@@ -27,7 +27,7 @@ public class WashingmachineSetProgramCommand implements Command {
     }
 
     @Override
-    public void undo() {
-
+    public String getName() {
+        return "Set program";
     }
 }
