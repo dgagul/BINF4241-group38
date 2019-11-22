@@ -3,12 +3,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SmartphoneFunctions implements SmartphoneState {
-    public Smartphone smartphone;
-    public ArrayList<Devices> devices;
-    public Devices device;
+    Smartphone smartphone;
+    ArrayList<Devices> devices;
+    Devices device;
 
 
-    public SmartphoneFunctions(Smartphone smartphone){
+    SmartphoneFunctions(Smartphone smartphone){
         this.smartphone = smartphone;
     }
 
