@@ -15,8 +15,9 @@ public class RobotIsCharging implements RobotState {
     @Override
     public void setTimer(int timer) {
         robot.timer = timer;
-        updateRobot(timer, robot.battery, robot.charge, robot.completion);
+        robot.updateRobot(timer, robot.battery, robot.charge, robot.completion);
         System.out.println("Timer is set to " + timer + " minutes.");
+        robot.state = robot.robotIsReady;
     }
 
     @Override

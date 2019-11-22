@@ -7,7 +7,6 @@ public class RobotStartCommand implements Command {
 
     @Override
     public void execute() {
-
     }
 
     @Override

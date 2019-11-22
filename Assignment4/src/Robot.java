@@ -16,6 +16,7 @@ public class Robot implements Devices {
     public Robot(){
         this.robotIsCharging = new RobotIsCharging(this);
         this.robotIsCleaning = new RobotIsCleaning(this);
+        this.robotIsReady = new RobotIsCleaning(this);
 
         this.timer = 0;
         this.battery = 100;

@@ -7,9 +7,7 @@ public class RobotIsReady implements RobotState {
 
     public static long elapsedRobot = System.currentTimeMillis();
     public static RobotThread cleaning;
-    public static RobotThread charging;
     public static Thread myThreadRobot;
-    public static Thread myThreadCharging;
 
     public RobotIsReady(Robot robot) {
         this.robot = robot;

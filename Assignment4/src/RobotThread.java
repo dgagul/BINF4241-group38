@@ -4,6 +4,9 @@ public class RobotThread implements Runnable {
     private int time;
     private Robot robot;
 
+
+
+
     public RobotThread(int timeInMinutes, Robot robot){
         this.time = timeInMinutes * 60000;
         this.running = false;
@@ -25,6 +28,13 @@ public class RobotThread implements Runnable {
             running = false;
             robot.state = robot.robotIsCharging;
             System.out.println("\nTime expired. Set a new timer!\n");
+
+            RobotChargingThread charging = new RobotChargingThread(robot.timer, robot);
+            Thread myT = new Thread(charging);
+            long elapsedRobot2 = System.currentTimeMillis();
+            myT.start();
+            robot.state = robot.robotIsCleaning;
+
         } catch (InterruptedException e) {
             running = false;
             long timerun = System.currentTimeMillis() - RobotIsReady.elapsedRobot;
