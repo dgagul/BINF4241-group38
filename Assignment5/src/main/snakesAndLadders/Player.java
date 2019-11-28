@@ -1,3 +1,5 @@
+package main.snakesAndLadders;
+
 class Player {
     String name;
     private int position;

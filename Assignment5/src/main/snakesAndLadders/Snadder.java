@@ -1,3 +1,5 @@
+package main.snakesAndLadders;
+
 import java.util.Random;
 
 class Snadder extends Square {

@@ -1,3 +1,5 @@
+package main.snakesAndLadders;
+
 import java.util.Random;
 
 public class Die {

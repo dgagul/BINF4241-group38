@@ -1,3 +1,5 @@
+package main.snakesAndLadders;
+
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -190,3 +192,4 @@ public class Game {
     }
 
 }
+

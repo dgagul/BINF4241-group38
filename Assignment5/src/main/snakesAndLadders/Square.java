@@ -1,3 +1,5 @@
+package main.snakesAndLadders;
+
 import java.util.ArrayList;
 
 class Square {
