@@ -1,10 +1,10 @@
 package main.snakesAndLadders;
 
-class Player {
+public class Player {
     String name;
     private int position;
 
-    Player(String newName, int pos) {
+    public Player(String newName, int pos) {
         name = newName;
         position = pos;
     }
