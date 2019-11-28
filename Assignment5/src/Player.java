@@ -2,6 +2,12 @@ class Player {
     String name;
     private int position;
 
+    // needed to create this getter method in order to testConstructor Player
+    public int getPosition(){
+        int copy = position;
+        return copy;
+    }
+
     Player(String newName, int pos) {
         name = newName;
         position = pos;
