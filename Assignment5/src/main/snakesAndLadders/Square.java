@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Square {
     boolean isOccupied;
-    int number;
+    public int number;
     ArrayList<String >occupants;
 
     public Square(int i)

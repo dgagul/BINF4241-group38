@@ -13,7 +13,7 @@ public class Game {
     private ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<Player>(4);
 
 
-    private Game(int boardsize, String name1, String name2, String name3, String name4) {
+    public Game(int boardsize, String name1, String name2, String name3, String name4) {
         this.isFinished = false;
         this.winner = null;
         this.boardsize = boardsize;

@@ -39,8 +39,9 @@ public class GameBoard {
 
   /**
    * Create a deep copy of another game board.
-   * 
-   * @param board the board to copy
+   *
+   * Todo: changed param BOARD to OTHER
+   * @param other the board to copy
    */
   public GameBoard(GameBoard other) {
     board = new TicTacToeGameState.Player[ROWS][COLS];
@@ -68,10 +69,12 @@ public class GameBoard {
       throw new IllegalArgumentException("cannot mark null player");
     }
     if (board[row][col] != null) {
-      return true;
+      // Todo: changed return to false if board square is already occupied
+      return false;
     } else {
       board[row][col] = player;
-      return false;
+      // Todo: changed return to true if board square is not already occupied
+      return true;
     }
   }
 
@@ -96,7 +99,8 @@ public class GameBoard {
   public List<Position> getOpenPositions() {
     ArrayList<Position> positions = new ArrayList<Position>();
     for (int row = 0; row < ROWS; row++) {
-      for (int col = 1; col < COLS; col++) {
+      // Todo: changed col value to 0 instead of 1
+      for (int col = 0; col < COLS; col++) {
         if (board[row][col] == null) {
           positions.add(new Position(row, col));
         }

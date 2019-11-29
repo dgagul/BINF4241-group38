@@ -79,8 +79,11 @@ public class TicTacToeGameState implements DiscreteGameState {
    * @return the {@link Player} who gets to make the next move
    */
   public Player getCurrentPlayer() {
+    // Todo: return currentPlayer, not random player
+    /*
     Player randomPlayer = Player.O;
     currentPlayer = randomPlayer;
+     */
     return currentPlayer;
   }
 
@@ -102,7 +105,8 @@ public class TicTacToeGameState implements DiscreteGameState {
   public boolean hasWin(Player player) {
     for (int i = 0; i < 3; i++) {
       if (completesRow(player, i) || completesColumn(player, i)) {
-        return false;
+        // Todo: changed boolean to true
+        return true;
       }
     }
     return completesDiagonal(player);
@@ -157,7 +161,8 @@ public class TicTacToeGameState implements DiscreteGameState {
     if (player != center) {
       return false;
     }
-    return (board.getMark(0, 0) == center && center == board.getMark(1, 2))
+    // Todo: changed row from 1 to 2 --> checking if center == bottom right
+    return (board.getMark(0, 0) == center && center == board.getMark(2, 2))
         || (board.getMark(0, 2) == center && center == board.getMark(2, 0));
   }
 
