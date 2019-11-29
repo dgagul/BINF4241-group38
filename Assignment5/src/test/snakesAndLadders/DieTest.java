@@ -1,3 +1,5 @@
+package snakesAndLadders;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -7,6 +9,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import main.snakesAndLadders.*;
+
+
 
 public class DieTest {
     /**
@@ -14,7 +19,7 @@ public class DieTest {
      */
     @Test
     public void testDieRange(){
-        // DieTest newDie =  new DieTest();
+        // snakesAndLadders.DieTest newDie =  new snakesAndLadders.DieTest();
         Die die = new Die();
         int result = die.roll();
         assertTrue(1 <= result && result <= 6);

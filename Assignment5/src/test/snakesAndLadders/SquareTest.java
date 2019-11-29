@@ -1,6 +1,6 @@
 package snakesAndLadders;
 
-import main.snakesAndLadders.Square;
+import main.snakesAndLadders.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
