@@ -33,9 +33,6 @@ public class PlayerTest {
     public void PlayerMakeMove()  {
         Game testGame = new Game(5, "Diego", "Lara", "None", "None");
         Player testPlayer = new Player("Diego", 0);
-       // testGame.initializeBoard();
-        Square StartSquare = new Square(0);
-        Square EndSquare = new Square(2);
 
 
 
