@@ -1,11 +1,13 @@
+package main.snakesAndLadders;
+
 import java.util.ArrayList;
 
-class Square {
+public class Square {
     boolean isOccupied;
-    int number;
+    public int number;
     ArrayList<String >occupants;
 
-    Square(int i)
+    public Square(int i)
     {
         isOccupied = false;
         number = i;

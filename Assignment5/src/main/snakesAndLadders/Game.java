@@ -1,3 +1,5 @@
+package main.snakesAndLadders;
+
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -11,15 +13,6 @@ public class Game {
     private ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<Player>(4);
 
 
-    public void setBoardsize(int boardsize) {
-        this.boardsize = boardsize;
-    }
-
-    public int getBoardsize(){
-        return this.boardsize;
-    }
-
-    // made Game constructor public to test it
     public Game(int boardsize, String name1, String name2, String name3, String name4) {
         this.isFinished = false;
         this.winner = null;
@@ -52,7 +45,7 @@ public class Game {
         System.out.println(winner.name + " wins!");
     }
 
-    public void initializePlayers(String name1, String name2, String name3, String name4) {
+    private void initializePlayers(String name1, String name2, String name3, String name4) {
         if (!name1.equals("None")) {
             Player player1 = new Player(name1, 0);
             playerQueue.add(player1);
@@ -78,7 +71,7 @@ public class Game {
         }
     }
 
-    void initializeBoard() {
+    private void initializeBoard() {
         for (int i = 0; i < boardsize; i++) {
             Square square = new Square(i);
             squares[i] = square;
@@ -199,3 +192,4 @@ public class Game {
     }
 
 }
+

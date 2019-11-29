@@ -1,4 +1,6 @@
-class Player {
+package main.snakesAndLadders;
+
+public class Player {
     String name;
     private int position;
 
@@ -8,7 +10,7 @@ class Player {
         return copy;
     }
 
-    Player(String newName, int pos) {
+    public Player(String newName, int pos) {
         name = newName;
         position = pos;
     }

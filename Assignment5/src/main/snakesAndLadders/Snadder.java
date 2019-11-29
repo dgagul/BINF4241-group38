@@ -1,9 +1,11 @@
+package main.snakesAndLadders;
+
 import java.util.Random;
 
-class Snadder extends Square {
+public class Snadder extends Square {
     int end;
 
-    Snadder(int i) {
+    public Snadder(int i) {
         super(i);
         Random random = new Random();
         boolean isLadder = random.nextBoolean();
