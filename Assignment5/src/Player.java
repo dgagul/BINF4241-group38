@@ -13,7 +13,7 @@ class Player {
         position = pos;
     }
 
-    void move(int delta, Square[] squares) {
+    public void move(int delta, Square[] squares) {
         int newPos = position + delta;
         if (newPos >= squares.length) {
             squares[position].occupants.remove(0);

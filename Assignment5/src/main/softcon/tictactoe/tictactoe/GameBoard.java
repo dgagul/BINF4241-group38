@@ -40,7 +40,7 @@ public class GameBoard {
   /**
    * Create a deep copy of another game board.
    * 
-   * @param board the board to copy
+   * @param other the board to copy
    */
   public GameBoard(GameBoard other) {
     board = new TicTacToeGameState.Player[ROWS][COLS];
