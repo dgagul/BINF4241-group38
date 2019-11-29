@@ -80,10 +80,6 @@ public class TicTacToeGameState implements DiscreteGameState {
    */
   public Player getCurrentPlayer() {
     // Todo: return currentPlayer, not random player
-    /*
-    Player randomPlayer = Player.O;
-    currentPlayer = randomPlayer;
-     */
     return currentPlayer;
   }
 
