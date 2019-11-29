@@ -12,11 +12,6 @@ a)
 We had to take following changes to the source code, in order for the tests to pass:
 
 1) GameBoard.java
-following test failed:
-- markTwice(): In the mark() method, the return statement had to be changed from TRUE to FALSE, if the board square was already occupied and from FALSE to TRUE if not already occupied.
-
-
-
 
     - In the JavaDoc of the GameBoard constructor, we had to change the @param parameter from BOARD to OTHER.
     
