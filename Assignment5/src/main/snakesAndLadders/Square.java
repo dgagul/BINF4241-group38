@@ -3,7 +3,7 @@ package main.snakesAndLadders;
 import java.util.ArrayList;
 
 public class Square {
-    boolean isOccupied;
+    public boolean isOccupied;
     public int number;
     ArrayList<String >occupants;
 

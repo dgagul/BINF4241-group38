@@ -1,6 +1,7 @@
 package snakesAndLadders;
 
 import main.snakesAndLadders.*;
+import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -8,12 +9,13 @@ import static org.junit.Assert.*;
 public class SquareTest {
 
     @Test
-    public void shouldNotAllowNegativeNumbers() throws Exception{
-        Square square = new Square(-1);
-        assertTrue(0 <= square.number);
-
-
-
+    public void squareConstructor(){
+        int index = 1;
+        Square testSquare = new Square(index);
+        assertEquals(index, testSquare.number);
+        assertTrue(!testSquare.isOccupied);
     }
+
+
 
 }
