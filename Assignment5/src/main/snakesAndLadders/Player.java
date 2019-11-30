@@ -4,17 +4,23 @@ public class Player {
     String name;
     private int position;
 
-    // needed to create this getter method in order to testConstructor Player
-    public int getPosition(){
-        int copy = position;
-        return copy;
-    }
-
+    /**
+     * crate a new player object
+     *
+     * @param newName a string of the players name
+     * @param pos the index of the board where the player is located
+     */
     public Player(String newName, int pos) {
         name = newName;
         position = pos;
     }
 
+    /**
+     * moves the player from its current position delta steps ahead, and checks if the player can land or has to go home
+     *
+     * @param delta is the number of steps the player has to move, rolled by the die
+     * @param squares a array of square objects that represents the board
+     */
     public void move(int delta, Square[] squares) {
         int newPos = position + delta;
         if (newPos >= squares.length) {
@@ -34,7 +40,13 @@ public class Player {
         }
     }
 
-    // Helper method that checks whether player can land at newpos or has to go to square 1
+    /**
+     * checks whether player can land at newpos or has to go back to starting square
+     *
+     * @param newPos the new position that has to be checked
+     * @param squares a array of square objects that represents the board
+     * @return returns either 0 if newpos is already occupied or newpos if not already occupied
+     */
     private int landHereOrGoHome(int newPos, Square[] squares) {
         squares[position].isOccupied = false;
         if(!squares[position].occupants.isEmpty()){
@@ -48,5 +60,24 @@ public class Player {
             squares[newPos].occupants.add(name);
             return newPos;
         }
+    }
+
+
+
+    /**
+     * Getter function to get a not public attribute for testing
+     *
+     */
+    public int getPosition(){
+        int copy = position;
+        return copy;
+    }
+    /**
+     * Getter function to get a not public attribute for testing
+     *
+     */
+    public String getName(){
+        String copy = name;
+        return copy;
     }
 }

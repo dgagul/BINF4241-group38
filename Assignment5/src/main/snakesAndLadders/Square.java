@@ -26,16 +26,24 @@ public class Square {
      *
      */
     public boolean getIsOccupied() {
-        boolean copyIsOccupied = isOccupied;
-        return copyIsOccupied;
+        boolean copy = isOccupied;
+        return copy;
     }
     /**
      * Getter function to get a not public attribute for testing
      *
      */
     public int getNumber() {
-        int copyNumber = number;
-        return copyNumber;
+        int copy = number;
+        return copy;
+    }
+    /**
+     * Getter function to get a not public attribute for testing
+     *
+     */
+    public ArrayList<String> getOccupants() {
+        ArrayList<String> copy = occupants;
+        return copy;
     }
 
 }
