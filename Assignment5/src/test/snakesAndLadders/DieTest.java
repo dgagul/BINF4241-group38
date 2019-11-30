@@ -14,20 +14,28 @@ import main.snakesAndLadders.*;
 
 
 public class DieTest {
+
+    /**
+     * Test Die constructor
+     *
+     */
+    @Test
+    public void testDieConstructor(){
+        Die testDie = new Die();
+        assertEquals(1, testDie.getMin());
+        assertEquals(6, testDie.getMax());
+    }
+
+
     /**
      * Perform a valid die roll
      */
     @Test
     public void testDieRange(){
-        // snakesAndLadders.DieTest newDie =  new snakesAndLadders.DieTest();
         Die die = new Die();
         int result = die.roll();
         assertTrue(1 <= result && result <= 6);
     }
 
-    @Test
-    public void testConstructor(){
-
-    }
 
 }

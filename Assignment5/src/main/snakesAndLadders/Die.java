@@ -6,6 +6,13 @@ public class Die {
     private int min;
     private int max;
 
+    // creates this getters in order to test the constructor
+    public int getMin(){
+        return min; }
+
+    public int getMax(){
+        return max;
+    }
     public Die(){
         min = 1;
         max = 6;

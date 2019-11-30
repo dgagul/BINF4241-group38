@@ -23,9 +23,8 @@ public class PlayerTest {
         String name = "Diego";
         int position = 1;
         Player testPlayer = new Player(name, position);
-        // assertEquals(name, testPlayer.name);
-        assertEquals(position, testPlayer.getPosition());
-    }
+        assertEquals(name, testPlayer.getName());
+        assertEquals(position, testPlayer.getPosition()); }
 
     //@Rule
     //public ExpectedException thrown = ExpectedException.none();
@@ -34,11 +33,6 @@ public class PlayerTest {
         Game testGame = new Game(5, "Diego", "Lara", "None", "None");
         Player testPlayer = new Player("Diego", 0);
 
-
-
-        // assertEquals("Diego", player1.name);
-     //   testGame.setBoardsize(10);
-     //   testGame.initializeBoard();
 
 
     }

@@ -9,10 +9,10 @@ a)
 
 ## Part 2:
 
-2.1) GameBoard.java: 
+2.1) all changes were made in GameBoard.java: 
 In the GameBoardTest.java following tests failed:
 
-- markTwice: This test failed because the mark() method of class GameBoard returned wrong boolean values (they were switched).
+- markTwice: This test failed because the mark(int row, int col, TicTacToeGameState.Player player) method of class GameBoard returned wrong boolean values (they were switched).
 Following changes were performed in order to correct the code and let the test pass:
     
     - the return statement had to be changed from TRUE to FALSE, 
@@ -36,27 +36,28 @@ Following changes were performed in order to correct the code and let the test p
     - In the JavaDoc of the GameBoard constructor, the @param parameter had to be changed from BOARD to OTHER
 
 
-2.2) TicTacToeGameState.java:
+2.2) All changes were made in TicTacToeGameState.java:
 In the TicTacToeGameStateTest.java following tests failed:
 
 - startingPlayerIsX, getAvailableStatesLastOne and switchPlayer: these tests failed because the getCurrentPlayer() method from
 the TicTacToeGameState class returned a random player instead of the current player.
-Following changes were performed in order to correct the code and let the test pass:
+Following changes were performed in order to correct the code and let the tests pass:
                                                                                          
     - we deleted the short code which generated a random player in the getCurrentPlayer() method.
-    Like this the currentplayer is returned.
+    Like this the current player is returned.
     
-- IsOverWin, hasWinCol, and hasWinTow: these tests failed because the hasWin() method returned false if the player had a complete row or if
+- IsOverWin, hasWinCol, and hasWinTow: these tests failed because the hasWin(Player player) method returned false if the player had a complete row or if
 the player had a complete column. What obviously makes no sense.
-Following changes were performed in order to correct the code and let the test pass:
+Following changes were performed in order to correct the code and let the tests pass:
 
-    - In the hasWin() method, we have changed the return value from FALSE to TRUE if the player had a complete row
+    - In the hasWin(Player player) method, we have changed the return value from FALSE to TRUE if the player had a complete row
     or a complete column.
 
-- hasWinDiagonal: this test failed because     
+- hasWinDiagonal: this test failed because of an index mistake in the completesDiagonal(Player player) method. Instead of looking 
+at the diagonal from the top-left to the bottom-right, it considered the middle-right square.
+Following changes were performed in order to correct the code and let the tests pass:
     
+    - In the completesDiagonal(Player player) method we changed the index from board.getMark(1, 2) to board.getMark(2, 2).
     
-
-
 ## Part 3
 

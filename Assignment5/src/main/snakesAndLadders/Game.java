@@ -12,6 +12,14 @@ public class Game {
     private Square[] squares;
     private ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<Player>(4);
 
+    public ArrayBlockingQueue<Player> getPlayerQueue(){
+        return playerQueue;
+    }
+
+    public int getBoardsize(){
+        return this.boardsize;
+    }
+
 
     public Game(int boardsize, String name1, String name2, String name3, String name4) {
         this.isFinished = false;
@@ -42,7 +50,7 @@ public class Game {
             printState(currentPlayer, rolled);
         }
         printInitialAndFinalState(false);
-        System.out.println(winner.name + " wins!");
+        System.out.println(winner.getName() + " wins!");
     }
 
     private void initializePlayers(String name1, String name2, String name3, String name4) {
@@ -91,7 +99,7 @@ public class Game {
     }
 
     private void printState(Player currentPlayer, int rolled){
-        StringBuilder line = new StringBuilder(currentPlayer.name + " rolls " + rolled);
+        StringBuilder line = new StringBuilder(currentPlayer.getName() + " rolls " + rolled);
         line.append(":" + "\t [1");
         for (String name : squares[0].occupants){
             line.append("<").append(name).append(">");

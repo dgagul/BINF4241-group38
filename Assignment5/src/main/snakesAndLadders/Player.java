@@ -1,12 +1,16 @@
 package main.snakesAndLadders;
 
 public class Player {
-    String name;
+    private String name;
     private int position;
 
-    // needed to create this getter method in order to testConstructor Player
+    // needed to create this getter methods in order to testConstructor Player
     public int getPosition(){
         int copy = position;
+        return copy;}
+
+    public String getName(){
+        String copy = name;
         return copy;
     }
 
