@@ -54,7 +54,7 @@ Following changes were performed in order to correct the code and let the tests 
     or a complete column.
 
 - hasWinDiagonal: this test failed because of an index mistake in the completesDiagonal(Player player) method. Instead of looking 
-at the diagonal from the bottom-left to the top-right, it considered the middle-right square.
+at the diagonal from the top-left to the bottom-right, it considered the middle-right square.
 Following changes were performed in order to correct the code and let the tests pass:
     
     - In the completesDiagonal(Player player) method we changed the index from board.getMark(1, 2) to board.getMark(2, 2).
