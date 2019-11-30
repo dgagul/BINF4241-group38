@@ -199,5 +199,31 @@ public class Game {
 
     }
 
+
+    /**
+     * Getter function to get a not public attribute for testing
+     *
+     */
+    public Square[] getSquares(){
+        Square[] copy = squares;
+        return copy;
+    }
+    /**
+     * Getter function to get a not public attribute for testing
+     *
+     */
+    public int getBoardsize(){
+        int copy = boardsize;
+        return copy;
+    }
+    /**
+     * Getter function to get a not public attribute for testing
+     *
+     */
+    public ArrayBlockingQueue<Player> getPlayerQueue(){
+        ArrayBlockingQueue<Player> copy = playerQueue;
+        return copy;
+    }
+
 }
 
