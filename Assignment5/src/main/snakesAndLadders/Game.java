@@ -12,15 +12,6 @@ public class Game {
     private Square[] squares;
     private ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<Player>(4);
 
-    public ArrayBlockingQueue<Player> getPlayerQueue(){
-        return playerQueue;
-    }
-
-    public int getBoardsize(){
-        return this.boardsize;
-    }
-
-
     public Game(int boardsize, String name1, String name2, String name3, String name4) {
         this.isFinished = false;
         this.winner = null;
@@ -34,7 +25,7 @@ public class Game {
     }
 
     // Method to play the game
-    private void play() {
+    public void play() {
         Die die = new Die();
         while (!isFinished) {
             Player currentPlayer = playerQueue.poll();
@@ -53,7 +44,7 @@ public class Game {
         System.out.println(winner.getName() + " wins!");
     }
 
-    private void initializePlayers(String name1, String name2, String name3, String name4) {
+    public void initializePlayers(String name1, String name2, String name3, String name4) {
         if (!name1.equals("None")) {
             Player player1 = new Player(name1, 0);
             playerQueue.add(player1);
