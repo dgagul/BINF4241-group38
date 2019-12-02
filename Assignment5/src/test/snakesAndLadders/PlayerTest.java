@@ -2,9 +2,12 @@ package snakesAndLadders;
 
 import main.snakesAndLadders.*;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
+
 
 public class PlayerTest {
 
@@ -17,6 +20,11 @@ public class PlayerTest {
     private String player3name = "Player3";
     private int pos = 0;
 
+
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Before
     public void setUp(){
         game = new Game(20,player1name,player2name,player3name,"None"); //Initial State gets printed, due to Game constructor...
@@ -24,12 +32,30 @@ public class PlayerTest {
         squares = game.getSquares();
     }
 
+
+
     @Test
     public void playerConstructor(){
         player = new Player(player1name, pos);
         assertEquals(player1name, player.getName());
         assertEquals(pos, player.getPosition());
     }
+
+    @Test
+    public void createNullPlayer(){
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("cannot create null player");
+        Player player = new Player(null, pos);
+    }
+
+    @Test
+    public void createPlayerNegativePosition(){
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("cannot create player at negative position");
+        Player player = new Player(player1name, -20);
+    }
+
+
 
     @Test
     public void newPositionMove(){

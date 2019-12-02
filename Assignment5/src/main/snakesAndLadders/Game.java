@@ -46,6 +46,12 @@ public class Game {
     }
 
     private void initializePlayers(String name1, String name2, String name3, String name4) {
+        // Todo: HAD TO ADD THIS STATEMENT
+        /*
+        if (name1 == null || name2 == null || name3 == null || name4 == null) {
+            throw new IllegalArgumentException("cannot create null player");
+        }
+         */
         if (!name1.equals("None")) {
             Player player1 = new Player(name1, 0);
             playerQueue.add(player1);
