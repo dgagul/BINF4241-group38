@@ -12,6 +12,7 @@ public class Game {
     private Square[] squares;
     private ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<Player>(4);
 
+
     public Game(int boardsize, String name1, String name2, String name3, String name4) {
         this.isFinished = false;
         this.winner = null;
@@ -25,7 +26,7 @@ public class Game {
     }
 
     // Method to play the game
-    public void play() {
+    private void play() {
         Die die = new Die();
         while (!isFinished) {
             Player currentPlayer = playerQueue.poll();
@@ -41,10 +42,16 @@ public class Game {
             printState(currentPlayer, rolled);
         }
         printInitialAndFinalState(false);
-        System.out.println(winner.getName() + " wins!");
+        System.out.println(winner.name + " wins!");
     }
 
-    public void initializePlayers(String name1, String name2, String name3, String name4) {
+    private void initializePlayers(String name1, String name2, String name3, String name4) {
+        // Todo: HAD TO ADD THIS STATEMENT
+        /*
+        if (name1 == null || name2 == null || name3 == null || name4 == null) {
+            throw new IllegalArgumentException("cannot create null player");
+        }
+         */
         if (!name1.equals("None")) {
             Player player1 = new Player(name1, 0);
             playerQueue.add(player1);
@@ -90,7 +97,7 @@ public class Game {
     }
 
     private void printState(Player currentPlayer, int rolled){
-        StringBuilder line = new StringBuilder(currentPlayer.getName() + " rolls " + rolled);
+        StringBuilder line = new StringBuilder(currentPlayer.name + " rolls " + rolled);
         line.append(":" + "\t [1");
         for (String name : squares[0].occupants){
             line.append("<").append(name).append(">");

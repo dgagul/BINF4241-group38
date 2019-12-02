@@ -11,6 +11,15 @@ public class Player {
      * @param pos the index of the board where the player is located
      */
     public Player(String newName, int pos) {
+        // Todo: HAD TO ADD THIS STATEMENT
+        /*
+        if (newName == null) {
+            throw new IllegalArgumentException("cannot create null player");
+        }
+        if (pos < 0){
+            throw new IllegalArgumentException("cannot create player at negative position");
+        }
+         */
         name = newName;
         position = pos;
     }

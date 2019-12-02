@@ -1,43 +1,46 @@
-package test.snakesAndLadders;
-
-import org.junit.Before;
-import org.junit.Test;
+package snakesAndLadders;
 
 import main.snakesAndLadders.*;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
-import java.util.concurrent.ArrayBlockingQueue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import static org.junit.Assert.*;
 
 public class GameTest {
-    private Game testGame;
-    private Player winner;
-    private int boardsize;
-    private Square[] squares;
-    private ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<>(4);
 
-    @Before
-    public void setUp(){
-        Game testGame = new Game(7,"Diego", "Alena", "Emanuel", "Rachel");
-        playerQueue = testGame.getPlayerQueue();
-    }
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
-    /**
-     * Test Die constructor
-     *
-     */
     @Test
-    public void testGameConstructor(){
-        assertEquals(7, testGame.getBoardsize());
-        assertNotNull(testGame.getPlayerQueue().poll());
+    public void gameConstructor(){
+        int boardsize = 20;
+        String player1name = "Player1";
+        String player2name = "Player2";
+        String player3name = "Player3";
+        String player4name = "None";
+        Game game = new Game(20,player1name,player2name,player3name,player4name);
+        assertEquals(boardsize, game.getBoardsize());
+        assertEquals(player1name, game.getPlayerQueue().poll().getName());
+        assertEquals(player2name, game.getPlayerQueue().poll().getName());
+        assertEquals(player3name, game.getPlayerQueue().poll().getName());
+        assertTrue(game.getPlayerQueue().size() == 0);
     }
 
     @Test
-    public void testInitializePlayers() {
-        Player testplayer = testGame.getPlayerQueue().poll();
-        //assert testplayer != null;
-        assertEquals("Diego" ,testplayer.getName());
+    public void gameConstructorNullInput(){
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("cannot create null player");
+        Game game = new Game(0, null, "Player2", "Player3", "Player4");
+        Game game2 = new Game(0, "Player1", null, "Player3", "Player4");
+        Game game3 = new Game(0, "Player1", "Player2", null, "Player4");
+        Game game4 = new Game(0, "Player1", "Player2", "Player3", null);
+    }
 
+    @Test
+    public void initializePlayerNullInput(){
 
     }
 }
