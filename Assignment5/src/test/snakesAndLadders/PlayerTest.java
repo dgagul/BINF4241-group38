@@ -21,19 +21,19 @@ public class PlayerTest {
     private int pos = 0;
 
 
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Before
-    public void setUp(){
+    public void setUp() throws Exception {
         game = new Game(20,player1name,player2name,player3name,"None"); //Initial State gets printed, due to Game constructor...
         boardsize = game.getBoardsize();
         squares = game.getSquares();
     }
 
-
-
+    /**
+     * Player constructor test with valid inputs
+     */
     @Test
     public void playerConstructor(){
         player = new Player(player1name, pos);
@@ -41,6 +41,9 @@ public class PlayerTest {
         assertEquals(pos, player.getPosition());
     }
 
+    /**
+     * Test Player constructor with null as name input
+     */
     @Test
     public void createNullPlayer(){
         thrown.expect(IllegalArgumentException.class);
@@ -48,8 +51,23 @@ public class PlayerTest {
         Player player = new Player(null, pos);
     }
 
+    // this test failed and therefore had to add if statement in PlayerClass
+
+    /**
+     * Test Player constructor with empty string as name
+     */
     @Test
-    public void createPlayerNegativePosition(){
+    public void createEmptyNamePlayer(){
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("cannot create empty name player");
+        Player player = new Player("", pos);
+    }
+
+    /**
+     * Test Player constructor with player position smaller than
+     */
+    @Test
+    public void createPlayerPositionSmallerThanOne(){
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("cannot create player at negative position");
         Player player = new Player(player1name, -20);

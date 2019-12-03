@@ -12,14 +12,19 @@ public class Player {
      */
     public Player(String newName, int pos) {
         // Todo: HAD TO ADD THIS STATEMENT
-        /*
+
         if (newName == null) {
             throw new IllegalArgumentException("cannot create null player");
         }
-        if (pos < 0){
+        if (newName == "") {
+            throw new IllegalArgumentException("cannot create empty name player");
+        }
+        if (pos < 1){
             throw new IllegalArgumentException("cannot create player at negative position");
         }
-         */
+
+        //until here
+
         name = newName;
         position = pos;
     }

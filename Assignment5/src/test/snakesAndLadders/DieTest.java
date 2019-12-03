@@ -28,7 +28,7 @@ public class DieTest {
 
 
     /**
-     * Perform a valid die roll, eg. an int between 1 and 6
+     * Perform a valid die roll, eg. an int between and including 1 and 6
      */
     @Test
     public void testDieRange(){

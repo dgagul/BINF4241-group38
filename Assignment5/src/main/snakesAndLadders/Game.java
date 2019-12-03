@@ -13,11 +13,33 @@ public class Game {
     private ArrayBlockingQueue<Player> playerQueue = new ArrayBlockingQueue<Player>(4);
 
 
-    public Game(int boardsize, String name1, String name2, String name3, String name4) {
+// Todo: new: throws exception in head, and if statements at the beginning to check things
+
+    /**
+     * Game constructor
+     * @param boardsize an int with the size of the board
+     * @param name1 an String containing the name of the player1
+     * @param name2 an String containing the name of the player2
+     * @param name3 an String containing the name of the player3
+     * @param name4 an String containing the name of the player4
+     * @throws Exception if a player name is empty or null or the boardsize is smaller than two or boardsize is not of type Integer
+     */
+    public Game(int boardsize, String name1, String name2, String name3, String name4) throws Exception {
+        if(boardsize < 2){
+            throw new IllegalArgumentException("cannot create game with board size < 2"); }
+
+        if(name1.equals("") || name2.equals("") || name3.equals("") || name4.equals("")){
+            throw new IllegalArgumentException("cannot create game with no name players"); }
+
+        if(name1.equals(null) || name2.equals(null) || name3.equals(null) || name4.equals(null)){
+            throw new IllegalArgumentException("cannot create null player");
+        }
+
         this.isFinished = false;
         this.winner = null;
         this.boardsize = boardsize;
         this.squares = new Square[boardsize];
+
 
         initializeBoard();
         initializePlayers(name1, name2, name3, name4);
@@ -26,6 +48,11 @@ public class Game {
     }
 
     // Method to play the game
+
+    /**
+     * Method to play the game while no player has reached the last square
+     *
+     */
     private void play() {
         Die die = new Die();
         while (!isFinished) {
@@ -45,13 +72,23 @@ public class Game {
         System.out.println(winner.name + " wins!");
     }
 
+    /**
+     * Method to initialize players
+     *
+     * @param name1 an String containing the name of the player1
+     * @param name2 an String containing the name of the player2
+     * @param name3 an String containing the name of the player3
+     * @param name4 an String containing the name of the player4
+     * */
     private void initializePlayers(String name1, String name2, String name3, String name4) {
         // Todo: HAD TO ADD THIS STATEMENT
-        /*
+
         if (name1 == null || name2 == null || name3 == null || name4 == null) {
             throw new IllegalArgumentException("cannot create null player");
         }
-         */
+
+        // until here
+
         if (!name1.equals("None")) {
             Player player1 = new Player(name1, 0);
             playerQueue.add(player1);
@@ -77,14 +114,23 @@ public class Game {
         }
     }
 
-    private void initializeBoard() {
+    /**
+     * method to initialize the Board
+     */
+    public void initializeBoard() {
         for (int i = 0; i < boardsize; i++) {
             Square square = new Square(i);
             squares[i] = square;
         }
     }
 
-    private void setSnadders() {
+    /**
+     * method to set the snadders every 5 squares beginning by square at index 3 and ending
+     * by square at index boardsize-5
+     *
+     */
+
+    public void setSnadders() {
         if (boardsize > 9) {
             for (int j = 3; j < boardsize - 4; j += 5) {
                 Snadder snadder = new Snadder(j);
@@ -96,7 +142,13 @@ public class Game {
         }
     }
 
-    private void printState(Player currentPlayer, int rolled){
+    /**
+     * method to print the state of the game after every move
+     * @param currentPlayer Player obj for the player who is actually playing
+     * @param rolled int between and including 1 and 6 from the die roll
+     */
+
+    public void printState(Player currentPlayer, int rolled){
         StringBuilder line = new StringBuilder(currentPlayer.name + " rolls " + rolled);
         line.append(":" + "\t [1");
         for (String name : squares[0].occupants){
@@ -128,7 +180,11 @@ public class Game {
         System.out.println(line);
     }
 
-    private void printInitialAndFinalState(boolean isInitial) {
+    /**
+     * method to print special states - the initial and the final state
+     * @param isInitial boolean True when function should print initial state - False when function should print final state
+     */
+    public void printInitialAndFinalState(boolean isInitial) {
         StringBuilder line;
         if(isInitial){
             line = new StringBuilder("Initial state: ");
@@ -165,41 +221,61 @@ public class Game {
         System.out.println(line);
     }
 
-
-    public static void main(String[] args) {
+    /**
+     * main method to get user input and to create and start a game
+     * @param args
+     * @throws Exception if name input is empty string or if boardsize is not an int >1
+     */
+    public static void main(String[] args) throws Exception {
         String name1, name2, name3, name4;
 
         // get user input names and board size
         // will be placed in the main method
+        //TODO: have added some if statements to check if player names are not empty and if boardsize is an int > 1.
         Scanner name = new Scanner(System.in);
         System.out.print("Please enter the name of player 1: ");
         name1 = name.nextLine();
+        if (name1.equals("")){
+            throw new Exception("Can not create an empty name player");}
 
         System.out.print("Please enter the name of player 2: ");
         name2 = name.nextLine();
+        if (name2.equals("")){
+            throw new Exception("Can not create an empty name player");}
 
         System.out.print("Please enter the name of player 3. If you don't want any more players please type None. ");
         name3 = name.nextLine();
+        if (name3.equals("")){
+            throw new Exception("Can not create an empty name player");}
 
         if (!name3.equals("None")) {
             System.out.print("Please enter the name of player 4. If you don't want any more players please type None. ");
             name4 = name.nextLine();
-        } else {
-            name4 = "None";
-        }
+            if (name4.equals("")){
+                throw new Exception("Can not create an empty name player");}}
+        else {name4 = "None";}
 
         System.out.print("Please enter the board size: ");
-        int boardsize = name.nextInt();
+        String input = name.nextLine();
+        int boardsize1;
+
+        try {
+            boardsize1 = Integer.parseInt(input);}
+        catch(NumberFormatException e) {
+            throw new Exception("boardsize has to be an integer"); }
+
+        if (boardsize1 < 2){
+            throw new Exception("cannot create a board with size < 2");}
 
         // call Game constructor
-        Game game = new Game(boardsize, name1, name2, name3, name4);
+        Game game = new Game(boardsize1, name1, name2, name3, name4);
         game.play();
 
     }
 
 
     /**
-     * Getter function to get a not public attribute for testing
+     * Getter function to get the private list squares
      *
      */
     public Square[] getSquares(){
@@ -207,7 +283,7 @@ public class Game {
         return copy;
     }
     /**
-     * Getter function to get a not public attribute for testing
+     * Getter function to get the private int boardsze
      *
      */
     public int getBoardsize(){
@@ -215,7 +291,7 @@ public class Game {
         return copy;
     }
     /**
-     * Getter function to get a not public attribute for testing
+     * Getter function to get the private ArrayBlockingQueue playerQueue
      *
      */
     public ArrayBlockingQueue<Player> getPlayerQueue(){
