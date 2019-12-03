@@ -73,8 +73,9 @@ public class PlayerTest {
         Player player = new Player(player1name, -20);
     }
 
-
-
+    /**
+     * Test if newPosition is right after a move of a player
+     */
     @Test
     public void newPositionMove(){
         player = new Player(player1name, pos);
@@ -91,6 +92,9 @@ public class PlayerTest {
         assertEquals(newPos, player.getPosition());
     }
 
+    /**
+     * Test that moves can not go over BoardLength
+     */
     @Test
     public void movesOverBoardLength(){
         player = new Player(player1name, pos);
@@ -98,6 +102,9 @@ public class PlayerTest {
         assertTrue(squares[boardsize-1].getIsOccupied());
     }
 
+    /**
+     * Test that landing on occupied squares is not possible and therefore the player has to go home
+     */
     @Test
     public void landingOnOccupied(){
         //remove player3 from home (start square)
@@ -115,6 +122,10 @@ public class PlayerTest {
         assertEquals(0, player2.getPosition());
     }
 
+    /**
+     * Test that you can land on first Square (start position) even if this
+     * square is already occupied
+     */
     @Test
     public void landingOnHomeIfOccupied(){
         //move player1 to square #2
@@ -129,6 +140,9 @@ public class PlayerTest {
         assertEquals(0, player2.getPosition());
     }
 
+    /**
+     * Test that moves including landing on snadders work
+     */
     @Test
     public void movingToSnadder(){
         // at square 3 is a snadder
@@ -141,6 +155,9 @@ public class PlayerTest {
         assertTrue(player1.getPosition() == 1 || player1.getPosition() == 5);
     }
 
+    /**
+     *         I DONT KNOW :) todo
+     */
     @Test
     public void topOfSnadderIsOccupied(){
         // at square 3 is a snadder

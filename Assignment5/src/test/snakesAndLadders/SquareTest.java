@@ -6,7 +6,9 @@ import static org.junit.Assert.*;
 
 
 public class SquareTest {
-
+    /**
+     * Test Square constructor
+     */
     @Test
     public void squareConstructor(){
         int index = 1;

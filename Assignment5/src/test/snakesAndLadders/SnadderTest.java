@@ -7,6 +7,9 @@ import static org.junit.Assert.*;
 
 public class SnadderTest {
 
+    /**
+     * Test Snadder constructor
+     */
     @Test
     public void snadderConstructor(){
         int index = 3;
