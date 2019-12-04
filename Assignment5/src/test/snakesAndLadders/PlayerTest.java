@@ -51,8 +51,6 @@ public class PlayerTest {
         Player player = new Player(null, pos);
     }
 
-    // this test failed and therefore had to add if statement in PlayerClass
-
     /**
      * Test Player constructor with empty string as name
      */
@@ -69,9 +67,8 @@ public class PlayerTest {
     @Test
     public void createPlayerPositionSmallerThanOne(){
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("cannot create player at negative position");
-        Player player = new Player(player1name, -20);
-    }
+        thrown.expectMessage("cannot create player at position smaller than zero");
+        Player player = new Player(player1name, -20);}
 
     /**
      * Test if newPosition is right after a move of a player
@@ -89,8 +86,7 @@ public class PlayerTest {
         delta = 2;
         newPos += delta;
         player.move(delta,squares);
-        assertEquals(newPos, player.getPosition());
-    }
+        assertEquals(newPos, player.getPosition()); }
 
     /**
      * Test that moves can not go over BoardLength
@@ -99,8 +95,7 @@ public class PlayerTest {
     public void movesOverBoardLength(){
         player = new Player(player1name, pos);
         player.move(21, squares);
-        assertTrue(squares[boardsize-1].getIsOccupied());
-    }
+        assertTrue(squares[boardsize-1].getIsOccupied()); }
 
     /**
      * Test that landing on occupied squares is not possible and therefore the player has to go home

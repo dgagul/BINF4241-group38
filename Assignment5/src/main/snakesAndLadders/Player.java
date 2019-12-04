@@ -11,7 +11,7 @@ public class Player {
      * @param pos the index of the board where the player is located
      */
     public Player(String newName, int pos) {
-        // Todo: HAD TO ADD THIS STATEMENT
+        // ****
 
         if (newName == null) {
             throw new IllegalArgumentException("cannot create null player");
@@ -19,11 +19,10 @@ public class Player {
         if (newName == "") {
             throw new IllegalArgumentException("cannot create empty name player");
         }
-        if (pos < 1){
-            throw new IllegalArgumentException("cannot create player at negative position");
+        if (pos < 0){
+            throw new IllegalArgumentException("cannot create player at position smaller than zero");
         }
-
-        //until here
+        // ****
 
         name = newName;
         position = pos;
@@ -77,18 +76,17 @@ public class Player {
     }
 
 
-
     /**
-     * Getter function to get a not public attribute for testing
-     *
+     * Getter function to get the private int position which describes
+     * the position of the player on the board
      */
     public int getPosition(){
         int copy = position;
         return copy;
     }
     /**
-     * Getter function to get a not public attribute for testing
-     *
+     * Getter function to get the private String name which describes
+     * the name of the Player
      */
     public String getName(){
         String copy = name;

@@ -6,7 +6,7 @@ public class Snadder extends Square {
     int end;
 
     /**
-     * Create a snadder object.
+     * Snadder constructor to create snadder obj.
      *
      * @param i the index of the board where the snadder is located
      */
@@ -14,21 +14,14 @@ public class Snadder extends Square {
         super(i);
         Random random = new Random();
         boolean isLadder = random.nextBoolean();
-        if (isLadder) {
-            end = number + 2;
-        } else {
-            end = number - 2;
-        }
-    }
-
+        if (isLadder) { end = number + 2;}
+        else { end = number - 2; } }
 
     /**
-     * Getter function to get a not public attribute for testing
-     *
+     * Getter function to get the private int end which describes
+     * if this specific square is an endSquare - this means it's the goal square
      */
     public int getEnd() {
         int copyEnd = end;
-        return copyEnd;
-    }
-
+        return copyEnd;}
 }
