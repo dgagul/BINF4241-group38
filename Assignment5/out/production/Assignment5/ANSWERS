@@ -1,15 +1,67 @@
 ## Part 1: 
 This assignment is based on the code of assignment 1 from 09.10.2019
 
-a) 
+We created XXX 21 XXX tests with each containing many assertions and the following 6 tests failed: 
 
-1) 
-   - 
-   
+1.1) In PlayerTest.java: createNullPlayer()
+- This test failed because we did not check in the Player constructor if the player is null
+- we discovered this while checking corner cases in the Player constructor in the above described test
+- we fixed this bug by inserting an if statement which checks if a player is null in the Player
+constructor and if so, throwing an IllegalArgumentException with the message "cannot create null player"
+
+1.2) In PlayerTest.java: createEmptyNamePlayer()
+- This test failed because we did not check in the Player constructor if the player name is an empty string
+- we discovered this while checking corner cases in the Player constructor in the above described test
+- we fixed this bug by inserting an if statement which checks if a players name is an empty string in the Player
+constructor and if so, throwing an illegalArgumentException with the message "cannot create empty name player"
+     
+1.3) In PlayerTest.java: createPlayerPositionSmallerThanOne()
+- This test failed because we did not check in the Player constructor if the player position is smaller than zero
+- we discovered this while checking corner cases in the Player constructor in the above described test
+- we fixed this bug by inserting an if statement which checks if a players position is smaller than zero in the Player
+constructor and if so, throwing an illegalArgumentException with the message "cannot create player at position smaller than zero"
+
+1.4) In GameTest.java: gameConstructorNullPlayerInput()
+- This test failed because we did not check in the Game constructor if a Player name is null
+- we discovered this while checking corner cases in the Game constructor in the above described test
+- we fixed this bug by inserting an if statement which checks if a Player name is null that is passed to the Game
+constructor and if so, throwing an illegalArgumentException with the message "cannot create game with null player"
+
+1.5) In GameTest.java: gameConstructorEmptyStringInput()
+- This test failed because we did not check in the Game constructor if a Player name is empty String
+- we discovered this while checking corner cases in the Game constructor in the above described test
+    we don't want to allow empty names since with an empty name you can not see on the printed game state in the console
+    where the players is at the moment and when a game is finished, you can not see who has won. Therefore, we want to provide
+    the user to make the mistake and typing in an empty name
+- we fixed this bug by inserting an if statement which checks if a Player name is empty String that is passed to the Game
+constructor and if so, throwing an illegalArgumentException with the message "cannot create game with no name players"
+
+1.6) In GameTest.java: gameConstructorBoardSizeSmallerThan2()
+- This test failed because we did not check in the Game constructor if the boardsize is an int smaller than two
+- we discovered this while checking corner cases in the Game constructor in the above described test
+    a boardsize <= 1 makes obviously no sense. Therefore, we do not allow this. Also, a boardsize of two does not really make sense but here we want
+    to let the user decide if this makes sense for him/her.
+- we fixed this bug by inserting an if statement which checks if the boardsize is smaller than two that is passed to the Game
+constructor and if so, throwing an illegalArgumentException with the message "cannot create game with boardsize < 2"
+
+
+after testing and fixing the bugs, every test passes and the game works fine.
+Note that we had to create some getters and setters in order to access private attributes in tests.
+In addition to all above described test we let the game run and noticed that when you pass in an empty
+name string for player1 name, then the program asks for the name of the second player even if after getting
+input the program will terminate due to built in exception throwings.
+To fix that and make the program more user friendly we additionally inserted if statements which check for empty string names/ null names and 
+boardsizes smaller than two and if so throw an exception, like we also did in the player and game constructor. Therefore, it is obvoius that
+the Game constructor and the Player constructor will never receive empty string player name inputs or invalid boardsizes. 
+This makes the invalid input checking in the Game and Player constructor seem kind of unnecessary, but in fact it isn't since
+we want every part of our program to work on its own and they should not be dependent of other parts of the program and 
+therefore be encapsulated from other parts. 
+
+
 
 ## Part 2:
 
-2.1) all changes were made in GameBoard.java: 
+2.1) All changes were made in GameBoard.java: 
 In the GameBoardTest.java following tests failed:
 
 - markTwice: This test failed because the mark(int row, int col, TicTacToeGameState.Player player) method of class GameBoard returned wrong boolean values (they were switched).

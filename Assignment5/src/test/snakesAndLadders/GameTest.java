@@ -5,6 +5,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.Assert.*;
 
 
@@ -103,16 +106,61 @@ public class GameTest {
         assertFalse(testGame.getSquares()[18] instanceof Snadder);
     }
 
-    //TODO: write tests for printState, printInitialAndFinalState and play (all in Game.java)
+    /**
+     *  Tests if the Initial state and the Final state are printed properly
+     */
     @Test
-    public void printState() {
-        Game testGame = new Game(15, "Dario", "Lynn", "Diego", "None");
+    public void printInitialAndFinalState() {
+        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Game testGame = new Game(8, "Dario", "Lynn", "Diego", "None");
+
+        // INITIAL STATE
+        //snake down
+        String msg1 = "Initial state:  	 [1<Dario><Lynn><Diego>] [2] [1<-3] [4] [5] [6] [7] [8]\r\n";
+        //ladder up
+        String msg2 = "Initial state:  	 [1<Dario><Lynn><Diego>] [2] [3->5] [4] [5] [6] [7] [8]\r\n";
+        assertTrue(msg1.equals(outContent.toString()) || msg2.equals(outContent.toString()));
 
 
+        // FINAL STATE
+        testGame.getPlayerQueue().poll().move(8, testGame.getSquares());
+        testGame.printInitialAndFinalState(false);
 
+        //snake down
+        String msg3 = "Initial state:  	 [1<Dario><Lynn><Diego>] [2] [1<-3] [4] [5] [6] [7] [8]\r\n" + "Final state:  	 [1<Lynn><Diego>] [2] [1<-3] [4] [5] [6] [7] [8<Dario>]\r\n";
+        //ladder up
+        String msg4 = "Initial state:  	 [1<Dario><Lynn><Diego>] [2] [3->5] [4] [5] [6] [7] [8]\r\n" + "Final state:  	 [1<Lynn><Diego>] [2] [3->5] [4] [5] [6] [7] [8<Dario>]\r\n";
+        assertTrue(msg3.equals(outContent.toString()) || msg4.equals(outContent.toString()));
     }
 
+    /**
+     *  This test checks if the board is correctly changed and printed after a move has been made
+     */
+    @Test
+    public void printState(){
+        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
 
+        Game testGame = new Game(8, "Dario", "Lynn", "Diego", "None");
+        // move currentPlayer 4 squares ahead (to square 5)
+        Player currentPlayer = testGame.getPlayerQueue().poll();
+        testGame.printState(currentPlayer,4);
+        currentPlayer.move(4, testGame.getSquares());
+        // move currentPlayer 6 squares ahead (to square 7)
+        currentPlayer = testGame.getPlayerQueue().poll();
+        testGame.printState(currentPlayer,6);
 
+        //ladder up
+        String msg1 = "Initial state:  	 [1<Dario><Lynn><Diego>] [2] [3->5] [4] [5] [6] [7] [8]\r\n" + "Dario rolls 4:	 [1<Dario><Lynn><Diego>] [2] [3->5] [4] [5] [6] [7] [8]\r\n" + "Lynn rolls 6:	 [1<Lynn><Diego>] [2] [3->5] [4] [5<Dario>] [6] [7] [8]\r\n";
+        //snake up
+        String msg2 = "Initial state:  	 [1<Dario><Lynn><Diego>] [2] [1<-3] [4] [5] [6] [7] [8]\r\n" + "Dario rolls 4:	 [1<Dario><Lynn><Diego>] [2] [1<-3] [4] [5] [6] [7] [8]\r\n" + "Lynn rolls 6:	 [1<Lynn><Diego>] [2] [1<-3] [4] [5<Dario>] [6] [7] [8]\r\n";
 
+        assertTrue(msg1.equals(outContent.toString()) || msg2.equals(outContent.toString()));
+    }
+
+    @Test
+    public void play(){
+
+    }
 }
