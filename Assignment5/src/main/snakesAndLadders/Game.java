@@ -25,12 +25,14 @@ public class Game {
         if(boardsize < 2){
             throw new IllegalArgumentException("cannot create game with board size < 2"); }
 
+        if(name1 == null || name2 == null || name3 == null || name4 == null){
+            throw new IllegalArgumentException("cannot create game with null player");
+        }
+
         if(name1.equals("") || name2.equals("") || name3.equals("") || name4.equals("")){
             throw new IllegalArgumentException("cannot create game with no name players"); }
 
-        if(name1.equals(null) || name2.equals(null) || name3.equals(null) || name4.equals(null)){
-            throw new IllegalArgumentException("cannot create null player");
-        }
+
         // ****
         this.isFinished = false;
         this.winner = null;

@@ -151,7 +151,7 @@ public class PlayerTest {
     }
 
     /**
-     *         I DONT KNOW :) todo
+     * Tests if landing on a snadder (and the end of the snadder is already occupied), resolves in going to the start square
      */
     @Test
     public void topOfSnadderIsOccupied(){
