@@ -28,8 +28,7 @@ public class PlayerTest {
     public void setUp() throws Exception {
         game = new Game(20,player1name,player2name,player3name,"None"); //Initial State gets printed, due to Game constructor...
         boardsize = game.getBoardsize();
-        squares = game.getSquares();
-    }
+        squares = game.getSquares(); }
 
     /**
      * Player constructor test with valid inputs
@@ -38,8 +37,7 @@ public class PlayerTest {
     public void playerConstructor(){
         player = new Player(player1name, pos);
         assertEquals(player1name, player.getName());
-        assertEquals(pos, player.getPosition());
-    }
+        assertEquals(pos, player.getPosition()); }
 
     /**
      * Test Player constructor with null as name input
@@ -48,8 +46,7 @@ public class PlayerTest {
     public void createNullPlayer(){
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("cannot create null player");
-        Player player = new Player(null, pos);
-    }
+        Player player = new Player(null, pos); }
 
     /**
      * Test Player constructor with empty string as name
@@ -58,8 +55,7 @@ public class PlayerTest {
     public void createEmptyNamePlayer(){
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("cannot create empty name player");
-        Player player = new Player("", pos);
-    }
+        Player player = new Player("", pos); }
 
     /**
      * Test Player constructor with player position smaller than

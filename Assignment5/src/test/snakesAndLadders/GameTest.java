@@ -5,7 +5,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 
 import static org.junit.Assert.*;
@@ -46,6 +48,7 @@ public class GameTest {
         Game game3 = new Game(6, "Player1", "Player2", null, "Player4");
         Game game4 = new Game(6, "Player1", "Player2", "Player3", null);
     }
+
 
     /**
      * Test Game constructor with empty names
@@ -159,8 +162,28 @@ public class GameTest {
         assertTrue(msg1.equals(outContent.toString()) || msg2.equals(outContent.toString()));
     }
 
+    /**
+     * This Test checks if the logic of the play() method works - if winner and loosers are set right and
+     * if their positions are valid
+     */
     @Test
     public void play(){
+        Game testGame = new Game(2,"Dario", "Lynn", "None", "None");
+        testGame.play();
+        assertEquals("Dario",testGame.getWinner().getName());
 
+        Game testGame1 = new Game(20, "Dario", "Lynn", "None", "None");
+        testGame1.play();
+        assertEquals(19, testGame1.getWinner().getPosition());
+        if (testGame1.getWinner().getName() == "Dario"){
+            Player looser = testGame1.getPlayerQueue().poll();
+            assertTrue(looser.getName() == "Lynn");
+            assertTrue(looser.getPosition() < 19); }
+        else {
+            Player looser2 = testGame1.getPlayerQueue().poll();
+            assertTrue(looser2.getName() == "Dario");
+            assertTrue(looser2.getPosition() < 19); }
     }
 }
+
+

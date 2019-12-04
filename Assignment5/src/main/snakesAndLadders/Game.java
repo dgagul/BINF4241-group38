@@ -49,7 +49,7 @@ public class Game {
     /**
      * Method to play the game while no player has reached the last square
      */
-    private void play() {
+    public void play() {
         Die die = new Die();
         while (!isFinished) {
             Player currentPlayer = playerQueue.poll();
@@ -282,6 +282,7 @@ public class Game {
     /**
      * Getter function to get the private int boardsize describing
      * the number of squares on the board
+     * @return an int describing the boardsize
      */
     public int getBoardsize(){
         int copy = boardsize;
@@ -290,9 +291,17 @@ public class Game {
     /**
      * Getter function to get the private ArrayBlockingQueue playerQueue containing
      * all the players playing the game
+     * @return an ArrayBlockingQueue containing all players
      */
     public ArrayBlockingQueue<Player> getPlayerQueue(){
         ArrayBlockingQueue<Player> copy = playerQueue;
         return copy; }
+
+    /**
+     * Getter function to get the private Player winner
+      * @return a Player which is the winner of the game
+     */
+    public Player getWinner(){
+        return winner; }
 }
 
