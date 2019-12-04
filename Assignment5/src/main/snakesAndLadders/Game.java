@@ -46,7 +46,6 @@ public class Game {
 
     /**
      * Method to play the game while no player has reached the last square
-     *
      */
     private void play() {
         Die die = new Die();

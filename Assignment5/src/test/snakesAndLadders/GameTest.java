@@ -15,10 +15,9 @@ public class GameTest {
 
     /**
      * Test for Game constructor with valid inputs
-     *@throws Exception if input is not valid: if player is null oder playername is empty or boardsize is not an int >1.
      */
     @Test
-    public void gameConstructor() throws Exception {
+    public void gameConstructor() {
         int boardsize = 20;
         String player1name = "Player1";
         String player2name = "Player2";
@@ -34,10 +33,9 @@ public class GameTest {
 
     /**
      * Test Game constructor with null players
-     * @throws Exception if input is not valid: if player is null oder playername is empty or boardsize is not an int >1.
      */
     @Test
-    public void gameConstructorNullPlayerInput() throws Exception {
+    public void gameConstructorNullPlayerInput() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("cannot create game with null player");
         Game game = new Game(6, null, "Player2", "Player3", "Player4");
@@ -48,12 +46,11 @@ public class GameTest {
 
     /**
      * Test Game constructor with empty names
-     * @throws Exception if input is not valid: if player is null oder playername is empty or boardsize is not an int >1.
      */
     @Test
-    public void gameConstructorEmptyStringInput() throws Exception {
+    public void gameConstructorEmptyStringInput() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("cannot create players with no name");
+        thrown.expectMessage("cannot create game with no name players");
         Game game = new Game(6, "", "Player2", "Player3", "Player4");
         Game game2 = new Game(6, "Player1", "", "Player3", "Player4");
         Game game3 = new Game(6, "Player1", "Player2", "", "Player4");
@@ -62,12 +59,11 @@ public class GameTest {
 
     /**
      * Test Game constructor with invalid boardsizes: smaller than two
-     * @throws Exception if input is not valid: if player is null oder playername is empty or boardsize is not an int >1.
      */
     @Test
-    public void gameConstructorBoardSizeSmallerThan2() throws Exception {
+    public void gameConstructorBoardSizeSmallerThan2() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("cannot create game with boardsize < 2");
+        thrown.expectMessage("cannot create game with board size < 2");
         Game game = new Game(-1, "Player1", "Player2", "Player3", "Player4");
         Game game1 = new Game(-10, "Player1", "Player2", "Player3", "Player4");
         Game game2 = new Game(0, "Player1", "Player2", "Player3", "Player4");
@@ -76,10 +72,9 @@ public class GameTest {
 
     /**
      * Test initializeBoard method functionalities: length, instances and numbers
-     * @throws Exception if input is not valid: if player is null oder playername is empty or boardsize is not an int >1.
      */
     @Test
-    public void gameInitializeBoard() throws Exception {
+    public void gameInitializeBoard() {
         Game testGame = new Game(10, "P1", "P2", "P3", "None");
         testGame.initializeBoard();
 
@@ -87,17 +82,16 @@ public class GameTest {
         assertTrue(testGame.getSquares()[0] != null);
         assertTrue(testGame.getSquares()[0] instanceof Square);
         assertTrue(testGame.getSquares()[9] instanceof  Square);
-        assertEquals(10, testGame.getSquares()[9].getNumber());
-        assertEquals(1, testGame.getSquares()[0].getNumber());
+        assertEquals(9, testGame.getSquares()[9].getNumber());
+        assertEquals(0, testGame.getSquares()[0].getNumber());
     }
 
     /**
      * Test setSnadders() method: check whether Snadders are set every 5 Squares beginning by 3
      * and ending by boardsize - 5
-     * @throws Exception if input is invalid in Game constructor
      */
     @Test
-    public void setSnaddersBoardsize15() throws Exception {
+    public void setSnaddersBoardsize19(){
         Game testGame = new Game(19, "P1", "P2", "P3", "None");
         testGame.setSnadders();
 
@@ -111,7 +105,7 @@ public class GameTest {
 
     //TODO: write tests for printState, printInitialAndFinalState and play (all in Game.java)
     @Test
-    public void printState() throws Exception {
+    public void printState() {
         Game testGame = new Game(15, "Dario", "Lynn", "Diego", "None");
 
 

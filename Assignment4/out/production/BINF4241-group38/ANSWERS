@@ -16,10 +16,10 @@ constructor and if so, throwing an IllegalArgumentException with the message "ca
 constructor and if so, throwing an illegalArgumentException with the message "cannot create empty name player"
      
 1.3) In PlayerTest.java: createPlayerPositionSmallerThanOne()
-- This test failed because we did not check in the Player constructor if the player position is smaller than one
+- This test failed because we did not check in the Player constructor if the player position is smaller than zero
 - we discovered this while checking corner cases in the Player constructor in the above described test
-- we fixed this bug by inserting an if statement which checks if a players position is smaller than one in the Player
-constructor and if so, throwing an illegalArgumentException with the message "cannot create player at position smaller than one"
+- we fixed this bug by inserting an if statement which checks if a players position is smaller than zero in the Player
+constructor and if so, throwing an illegalArgumentException with the message "cannot create player at position smaller than zero"
 
 1.4) In GameTest.java: gameConstructorNullPlayerInput()
 - This test failed because we did not check in the Game constructor if a Player name is null
