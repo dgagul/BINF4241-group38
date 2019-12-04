@@ -24,8 +24,8 @@ constructor and if so, throwing an illegalArgumentException with the message "ca
 1.4) In GameTest.java: gameConstructorNullPlayerInput()
 - This test failed because we did not check in the Game constructor if a Player name is null
 - we discovered this while checking corner cases in the Game constructor in the above described test
-- we fixed this bug by inserting an if statement which checks if a Player is null that is passed to the Game
-constructor and if so, throwing an illegalArgumentException with the message ""cannot create game with board size < 2""
+- we fixed this bug by inserting an if statement which checks if a Player name is null that is passed to the Game
+constructor and if so, throwing an illegalArgumentException with the message "cannot create game with null player"
 
 1.5) In GameTest.java: gameConstructorEmptyStringInput()
 - This test failed because we did not check in the Game constructor if a Player name is empty String
