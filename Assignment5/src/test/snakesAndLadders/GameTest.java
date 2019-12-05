@@ -27,52 +27,74 @@ public class GameTest {
         String player1name = "Player1";
         String player2name = "Player2";
         String player3name = "Player3";
-        String player4name = "None";
+        String player4name = "Player4";
         Game game = new Game(20,player1name,player2name,player3name,player4name);
         assertEquals(boardsize, game.getBoardsize());
         assertEquals(player1name, game.getPlayerQueue().poll().getName());
         assertEquals(player2name, game.getPlayerQueue().poll().getName());
         assertEquals(player3name, game.getPlayerQueue().poll().getName());
+        assertEquals(player4name, game.getPlayerQueue().poll().getName());
         assertTrue(game.getPlayerQueue().size() == 0);
     }
 
     /**
-     * Test Game constructor with null players
+     * Test Game constructor with null player name at first position
      */
     @Test
     public void gameConstructorNullPlayerInput() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("cannot create game with null player");
         Game game = new Game(6, null, "Player2", "Player3", "Player4");
-        Game game2 = new Game(6, "Player1", null, "Player3", "Player4");
-        Game game3 = new Game(6, "Player1", "Player2", null, "Player4");
+    }
+
+    /**
+     * Test Game constructor with null player name at last position
+     */
+    @Test
+    public void gameConstructorNullPlayerInput1() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("cannot create game with null player");
         Game game4 = new Game(6, "Player1", "Player2", "Player3", null);
     }
 
 
     /**
-     * Test Game constructor with empty names
+     * Test Game constructor with empty name at first position
      */
     @Test
     public void gameConstructorEmptyStringInput() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("cannot create game with no name players");
         Game game = new Game(6, "", "Player2", "Player3", "Player4");
-        Game game2 = new Game(6, "Player1", "", "Player3", "Player4");
-        Game game3 = new Game(6, "Player1", "Player2", "", "Player4");
+    }
+
+    /**
+     * Test Game constructor with empty name at last position
+     */
+    @Test
+    public void gameConstructorEmptyStringInput1() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("cannot create game with no name players");
         Game game4 = new Game(6, "Player1", "Player2", "Player3","");
     }
 
     /**
-     * Test Game constructor with invalid boardsizes: smaller than two
+     * Test Game constructor with invalid boardsize: negative
      */
     @Test
     public void gameConstructorBoardSizeSmallerThan2() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("cannot create game with board size < 2");
         Game game = new Game(-1, "Player1", "Player2", "Player3", "Player4");
-        Game game1 = new Game(-10, "Player1", "Player2", "Player3", "Player4");
-        Game game2 = new Game(0, "Player1", "Player2", "Player3", "Player4");
+    }
+
+    /**
+     * Test Game constructor with invalid boardsize: smaller than two
+     */
+    @Test
+    public void gameConstructorBoardSizeSmallerThan2_1() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("cannot create game with board size < 2");
         Game game3 = new Game(1, "Player1", "Player2", "Player3", "Player4");
     }
 
