@@ -58,10 +58,10 @@ public class PlayerTest {
         Player player = new Player("", pos); }
 
     /**
-     * Test Player constructor with player position smaller than
+     * Test Player constructor with player position smaller than zero
      */
     @Test
-    public void createPlayerPositionSmallerThanOne(){
+    public void createPlayerPositionSmallerThanZero(){
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("cannot create player at position smaller than zero");
         Player player = new Player(player1name, -20);}
