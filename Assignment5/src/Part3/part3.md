@@ -82,8 +82,11 @@ output which cards these are, specifically.
 * When "calling UNO", the application shout output whether this call was valid, so that no one can "claim UNO" afterwards.
 (of course, technically, any player can "claim UNO" at any time, but it won't be valid unless someone actually forgot to "call UNO")
 
-* After a player has played the last card in his hand, the application shout output the winner. Of course, this should
+* After a player has played the last card in his hand, the application shout output the winner of the round. Of course, this should
 only happen if the turn was a legal move.
+
+* After every round the application should count and output the amount of points every player has made in this round.
+It should also output the total amount every player currently has.
 
 
 
