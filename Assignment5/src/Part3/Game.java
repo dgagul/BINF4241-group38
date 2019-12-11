@@ -17,7 +17,10 @@ public class Game {
 
     public void run(){}
 
-    public void numberCard(){}
+
+    public boolean numberCard(Card card){
+        return false;
+    }
 
     public void wild(){}
 
