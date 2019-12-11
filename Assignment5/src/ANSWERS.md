@@ -113,4 +113,97 @@ Following changes were performed in order to correct the code and let the tests 
     
 ## Part 3
 
-3.2) Class Diagram ![](ClassDiagram_UNO.png)  
+### 3.1 Behaviour of the UNO system
+
+#### 1. Accepted (and non-accepted) Inputs
+
+* At the beginning of the game, one user should input an integer in order to determine the number of players. The minimum
+of this integer is 2 and the maximum is 10, according to the UNO rules.
+
+* Second, the user can input the player's names one by one. These inputs should be of type String. Also, overly long names
+and the empty string should not be accepted. For practical reasons, two players should not have the same name.
+
+* During the game, at each turn, the user has 3 Options:
+  * The user inputs the name of the card he/she has in his/her hands and he/she wants to play. There should be clear inputs for
+  every single card ('Blue 5', 'Green 9', 'Red Skip', 'Yellow Draw 2' etc.).  
+  Since after playing a 'Wild' card, the player can choose a color, he/she should input the desired color after the 'Wild' card,
+  i.e. 'Wild Red' or 'Wild Draw 4 Red'.
+  * The user does not want to or can not play a card and thus has to draw one from the draw stack. In this case the input should
+  be 'Draw'.
+  * The user wants to announce 'UNO'. For practical reasons, he/she should announce 'UNO' before he/she plays his/her second-to last
+  card. The input when announcing 'UNO' should thus be 'UNO red 5'.
+
+* If one player forgot to announce 'UNO', any other player in this round can, at his turn, 'claim UNO'. This should be done
+before specifying the move of the player, i.e. 'claim UNO red 5'.
+
+* Of course, if the input given by a user is not recognizable by the application since it does not follow the above explained
+rules, the player can keep trying until he/she enters a valid input.
+
+* The same should happen if the input is recognizable/valid, but the move the player wants to make is not valid.
+
+***
+
+#### 2. What should (and should not) happen with the input
+
+* At the beginning of the game, after the user has input the number of players and their names, the application should
+create the player objects accordingly.
+
+* At each turn, the application should do the following with the input:
+  * First, the application should parse the input in order to determine whether the input was valid.
+  * Second, if the first condition holds, the application should check whether the move that the player wants to make is
+  valid. This means that it should check whether the player indeed holds the card he wants to play, and if so, whether it can be played
+  on top of the card which is currently on the top of the played cards stack. 
+  * In case of a 'claim UNO', the validity of this should of course be checked too.
+
+* If the validly played card is a number card, nothing other than the card being pushed onto the played cards deck
+happens and it's the next player's turn.
+
+* If a 'Wild Draw 4' or a 'Draw 2' card is validly played, the following things should happen:
+  * The application should automatically add the respective amount of cards to the hand of the next player in the list.
+  * The turn of the next player will be skipped.
+  
+* If a 'Skip' card is validly played, the application should automatically skip the next player in the list.
+  
+* If a 'Reverse' card is validly played, the application should change the direction of the game.
+
+* Also, at each turn, the application should check whether the current player only holds two cards in his hands.  
+That way, the application can handle a possible 'UNO' input or a future 'claim UNO' input correctly.
+
+* If any draw command is validly entered and if at any point in the execution the draw stack gets empty, the application
+ should automatically take the played cards stack (except for the card on top), shuffle it, and then use it as the draw stack.
+
+***
+
+#### 3. Expected outputs 
+
+* At the beginning of the game, the application should ask for the number of players and their names.
+
+* Then, after initializing the game, the application should notify the players that the game has started.
+
+* At every turn, the application should output the following information:
+   * The cards the current player has in his/her hands in order for him/her to know which options he/she has.
+   * The card that is currently on top of the played cards deck.
+   * The number of cards all the other players have left in their hand.
+
+* If an input is not recognized by the application, it should inform the user and ask for a retry.
+
+* The same happens if a move is not valid.
+
+* When announcing 'UNO', the application shout output whether this announcement was valid. This should make the game more manageable
+for the users (i.e. easier to remember if a player could 'claim UNO' at the moment).
+ 
+* After a player has validly played the last card in his hand, the application shout output the winner of the round.
+
+* Of course, during a round, the application should never output the following: 
+  * The specific cards of any other than the current player
+  * The color and value or action of any card that is in the draw deck
+  
+* After one round is finished, the application should output the following:
+  * The number of points each player has made in this round
+  * The total amount of points each player has made in each round so far
+  
+***
+
+### 3.2) Class Diagram
+
+![](uml_part3_final.png)  
