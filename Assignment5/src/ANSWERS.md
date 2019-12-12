@@ -206,4 +206,4 @@ for the users (i.e. easier to remember if a player could 'claim UNO' at the mome
 
 ### 3.2) Class Diagram
 
-![](uml_part3_final.png)  
+![](uml_part3.png)  
