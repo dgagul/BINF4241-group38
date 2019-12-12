@@ -15,20 +15,23 @@ public class Game {
         return currentPlayer;
     }
 
-    public void run(){}
+    public void addPlayer(Player p){
+        players.add(p);
+    }
 
+    public void run(){}
 
     public void numberCard(Card card){}
 
-    public void wild(){}
+    public void wild(Card card, Card.Color color){}
 
-    public void wildDrawFour(){}
+    public void wildDrawFour(Card card, Card.Color color){}
 
-    public void drawTo(){}
+    public void drawTo(Card card){}
 
-    public void skip(){}
+    public void skip(Card card){}
 
-    public void reverse(){}
+    public void reverse(Card card){}
 
     public void reshuffle(){}
 
@@ -36,15 +39,23 @@ public class Game {
         return "";
     }
 
-    public boolean validPlayCheck(Card card){
+    public boolean parseNumberOfPlayers(String number){return false;}
+
+    public boolean parseNamesOfPlayers(String name){return false;}
+
+    public boolean ParseCommands(String Command){return false;}
+
+    public void checkForUno(){}
+
+    public boolean checkValidMove(Card card){
         return false;
     }
 
-    public void printScore(){}
+    public void checkForWinner(){}
 
-    public void addPlayer(Player p){
-        players.add(p);
-    }
+    public void askForRematch(){}
+
+    public void printScore(){}
 
 
 }
