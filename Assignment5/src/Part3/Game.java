@@ -7,8 +7,8 @@ public class Game {
     private ArrayList<Player> players;
     public boolean direction;
     private boolean isOver;
-    private DrawDeck drawDeck;
-    private PlayDeck playDeck;
+    DrawDeck drawDeck;
+    PlayDeck playDeck;
     public Player currentPlayer;
 
     Player getNextPlayer(){
@@ -18,9 +18,7 @@ public class Game {
     public void run(){}
 
 
-    public boolean numberCard(Card card){
-        return false;
-    }
+    public void numberCard(Card card){}
 
     public void wild(){}
 
@@ -38,7 +36,7 @@ public class Game {
         return "";
     }
 
-    public boolean validPlayCheck(){
+    public boolean validPlayCheck(Card card){
         return false;
     }
 
