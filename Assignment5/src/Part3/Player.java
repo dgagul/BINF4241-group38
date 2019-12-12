@@ -6,7 +6,7 @@ public class Player {
 
     public ArrayList<Card> handCards;
     public String name;
-    private int score;
+    public int score;
     boolean announcedUNO;
 
 
@@ -22,11 +22,11 @@ public class Player {
 
     public void addCard(Card card){}
 
-    public Card getCard(Card.Color color, Card.Type type, int number){return null;}
+    public Card getCard(Card.Color color, Card.Type type, int points){return null;}
 
     public void removeCard(Card card){}
 
-    public void removeAllCard(){}
+    public void removeAllCards(){}
 
     public void setUno(){}
 
