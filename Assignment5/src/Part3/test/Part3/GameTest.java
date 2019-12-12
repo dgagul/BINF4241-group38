@@ -227,20 +227,20 @@ class GameTest {
         game.playDeck = new PlayDeck();
         Card yellowFive = new Card(Card.Color.YELLOW, Card.Type.NORMAL, 5);
         Card redNine = new Card(Card.Color.RED, Card.Type.NORMAL, 9);
-        Card blueReverse = new Card(Card.Color.BLUE, Card.Type.REVERSE, 20);
-        Card redReverse = new Card(Card.Color.RED, Card.Type.REVERSE, 20);
+        Card blueSkip = new Card(Card.Color.BLUE, Card.Type.SKIP, 20);
+        Card redSKip = new Card(Card.Color.RED, Card.Type.SKIP, 20);
         Card redDrawTwo = new Card(Card.Color.RED, Card.Type.DRAW_2, 20);
 
         game.playDeck.push(yellowFive);
-        assertFalse(game.checkValidMove(redReverse));
+        assertFalse(game.checkValidMove(redSKip));
         game.playDeck.push(redNine);
-        assertTrue(game.checkValidMove(redReverse));
-        game.reverse(redReverse);
-        assertEquals(redReverse, game.playDeck.pop());
-        assertFalse(game.checkValidMove(blueReverse));
+        assertTrue(game.checkValidMove(redSKip));
+        game.skip(redSKip);
+        assertEquals(redSKip, game.playDeck.pop());
+        assertFalse(game.checkValidMove(blueSkip));
 
         game.playDeck.push(redDrawTwo);
-        assertFalse(game.checkValidMove(redReverse));
+        assertFalse(game.checkValidMove(redSKip));
     }
 
     /**
@@ -261,5 +261,104 @@ class GameTest {
         assertTrue(game.checkValidMove(yellowReverse));
         assertTrue(game.direction);
 
+    }
+
+    /**
+     * Assert that after shuffling the deck of the played cards, the new draw deck has the size of the old play deck
+     * minus one (because the last played card stays on the played cards deck)
+     */
+    @Test
+    public void testReshuffle(){
+        int playDeckSize = game.playDeck.cards.size() - 1;
+        game.drawDeck = game.reshuffle();
+
+        assertEquals(game.playDeck.cards.size(), 1);
+        assertEquals(game.drawDeck.cards.size(), playDeckSize);
+    }
+
+    /**
+     * Assert that only numbers between 2 and 10 are accepted as number of players
+     */
+    @Test
+    public void testParseNumberOfPlayers(){
+        assertTrue(game.parseNumberOfPlayers("2"));
+        assertTrue(game.parseNumberOfPlayers("10"));
+        assertFalse(game.parseNumberOfPlayers("1"));
+        assertFalse(game.parseNumberOfPlayers("11"));
+        assertFalse(game.parseNumberOfPlayers("0"));
+        assertFalse(game.parseNumberOfPlayers(""));
+        assertFalse(game.parseNumberOfPlayers("a"));
+        assertFalse(game.parseNumberOfPlayers("%"));
+        assertFalse(game.parseNumberOfPlayers("3.5"));
+    }
+
+    /**
+     * Assert that the input for the name of a player is in a valid format
+     */
+    @Test
+    public void testParseNamesOfPlayers(){
+        assertTrue(game.parseNamesOfPlayers("player 1"));
+        assertFalse(game.parseNamesOfPlayers(""));
+        assertFalse(game.parseNamesOfPlayers("m@ry"));
+    }
+
+    /**
+     * Assert that the commands are parsed correctly
+     */
+    @Test
+    public void testParseCommands(){
+        assertTrue(game.parseNamesOfPlayers("Red 1"));
+        assertTrue(game.parseNamesOfPlayers("Blue Skip"));
+        assertFalse(game.parseNamesOfPlayers("Skip"));
+        assertTrue(game.parseNamesOfPlayers("Yellow Reverse"));
+        assertTrue(game.parseNamesOfPlayers("Wild Red"));
+        assertFalse(game.parseNamesOfPlayers("Wild"));
+        assertTrue(game.parseNamesOfPlayers("Green Draw 2"));
+        assertFalse(game.parseNamesOfPlayers("Draw 2"));
+        assertTrue(game.parseNamesOfPlayers("UNO Red 7"));
+        assertFalse(game.parseNamesOfPlayers("UNO"));
+    }
+
+    /**
+     * Asserts that checkForUno only returns true if player has only 1 card in hand
+     */
+    @Test
+    public void testCheckForUno(){
+        Game aGame = new Game();
+        Player p = new Player();
+        aGame.addPlayer(p);
+        Card yellowFive = new Card(Card.Color.YELLOW, Card.Type.NORMAL, 5);
+        Card redNine = new Card(Card.Color.RED, Card.Type.NORMAL, 9);
+
+        p.addCard(yellowFive);
+        p.addCard(redNine);
+
+        // Player still has two cards in hand
+        p.setUno();
+        assertFalse(aGame.checkForUno());
+
+        // Player has only one card in hand
+        p.removeCard(redNine);
+        assertTrue(aGame.checkForUno());
+
+    }
+
+    /**
+     * Assert that the bool isOver in game is only set true if a player has no cards left (i.e. a player wins)
+     */
+    @Test
+    public void testCheckForWinner(){
+        Game aGame = new Game();
+        Player p = new Player();
+        aGame.addPlayer(p);
+        Card yellowFive = new Card(Card.Color.YELLOW, Card.Type.NORMAL, 5);
+
+        p.addCard(yellowFive);
+        game.checkForWinner();
+        assertFalse(game.isOver);
+
+        p.removeCard(yellowFive);
+        game.checkForWinner();
+        assertTrue(game.isOver);
     }
 }

@@ -6,7 +6,7 @@ public class Game {
 
     private ArrayList<Player> players;
     public boolean direction;
-    private boolean isOver;
+    public boolean isOver;
     DrawDeck drawDeck;
     PlayDeck playDeck;
     public Player currentPlayer;
@@ -33,8 +33,11 @@ public class Game {
 
     public void reverse(Card card){}
 
-    public void reshuffle(){}
+    public DrawDeck reshuffle(){
+        return drawDeck;
+    }
 
+    // This method should not be tested because it simply reads the command line input into a string
     public String readInput(){
         return "";
     }
@@ -43,9 +46,9 @@ public class Game {
 
     public boolean parseNamesOfPlayers(String name){return false;}
 
-    public boolean ParseCommands(String Command){return false;}
+    public ArrayList<Object> parseCommands(String Command){return null;}
 
-    public void checkForUno(){}
+    public boolean checkForUno(){return false;}
 
     public boolean checkValidMove(Card card){
         return false;
