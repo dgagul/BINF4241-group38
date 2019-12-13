@@ -206,4 +206,12 @@ for the users (i.e. easier to remember if a player could 'claim UNO' at the mome
 
 ### 3.2) Class Diagram
 
-![](uml_part3.png)  
+![](uml_part3_final.jpg)  
+
+***
+
+### 3.3) Testing
+
+* To make the testing easier, all classes were implemented (as displayed in the class diagram) with empty methods bodies.  
+* The tests can be found in the Part3/test/Part3 folder.
+* The generated JavaDocs can be found in the Part3/test/Docs folder.
