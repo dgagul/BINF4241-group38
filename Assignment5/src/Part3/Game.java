@@ -46,8 +46,6 @@ public class Game {
 
     public boolean parseNamesOfPlayers(String name){return false;}
 
-    public ArrayList<Object> parseCommands(String Command){return null;}
-
     public boolean checkForUno(){return false;}
 
     public boolean checkValidMove(Card card){

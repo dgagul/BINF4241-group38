@@ -14,8 +14,6 @@ public abstract class Deck {
         cards.push(card);
     }
 
-    public void shuffle(){}
-
     public boolean isEmpty(){
         return false;
     }
